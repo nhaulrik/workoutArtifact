@@ -1,6 +1,6 @@
 package com.workout.workoutArtifact.endpoint.service;
 
-import com.workout.workoutArtifact.mysqldatabase.Muscle;
+import com.workout.workoutArtifact.mysqldatabase.MuscleEntity;
 import com.workout.workoutArtifact.mysqldatabase.MuscleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public class MuscleService {
 
   public void addMuscle(String muscleName) {
 
-    Muscle muscle = Muscle.builder()
+    MuscleEntity muscle = MuscleEntity.builder()
         .name(muscleName)
         .build();
 
