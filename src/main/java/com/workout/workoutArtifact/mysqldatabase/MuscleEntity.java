@@ -12,7 +12,7 @@ import lombok.NonNull;
 @Builder
 @Data
 @Entity
-public class Muscle {
+public class MuscleEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
