@@ -5,7 +5,6 @@ import static com.workout.workoutArtifact.common.Validator.validateInputString;
 import com.workout.workoutArtifact.ErrorCodes;
 import com.workout.workoutArtifact.MuscleException;
 import com.workout.workoutArtifact.endpoint.domain.Muscle;
-import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import com.workout.workoutArtifact.endpoint.service.MuscleService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,15 +21,11 @@ public class MuscleFacade {
     this.muscleService = muscleService;
   }
 
-  public void addMuscle(String muscleName) throws MuscleException {
-    if (validateInputString(muscleName)) {
-      muscleService.addMuscle(muscleName.trim());
-    } else {
-      throw new MuscleException(ErrorCodes.ILLEGAL_MUSCLE_NAME);
-    }
+  public String addMuscles(List<Muscle> muscles) throws MuscleException {
+      return muscleService.addMuscles(muscles);
   }
 
-  public List<MuscleDto> getMusclesByName(List<String> muscleNames) {
+  public List<Muscle> getMusclesByName(List<String> muscleNames) {
 
     List<String> invalidMuscleNames = muscleNames.stream()
         .filter(muscleName -> !validateInputString(muscleName))
@@ -40,10 +35,6 @@ public class MuscleFacade {
       throw new MuscleException(ErrorCodes.ILLEGAL_MUSCLE_NAME, muscleNames.toString());
     }
 
-    List<Muscle> muscles = muscleService.getMuscles(muscleNames);
-
-    return muscles.stream()
-        .map(Muscle::toDto)
-        .collect(Collectors.toList());
+    return muscleService.getMuscles(muscleNames);
   }
 }

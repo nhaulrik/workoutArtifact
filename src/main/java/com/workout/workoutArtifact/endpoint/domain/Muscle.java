@@ -1,19 +1,28 @@
 package com.workout.workoutArtifact.endpoint.domain;
 
-import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.workout.workoutArtifact.mysqldatabase.MuscleEntity;
 import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
-@Builder
+@RequiredArgsConstructor
 @Data
 public class Muscle {
 
+  @NonNull
+  @JsonProperty
   private String name;
 
-  public static MuscleDto toDto(Muscle muscle) {
-    return MuscleDto.builder()
+  public static MuscleEntity toEntity(Muscle muscle) {
+    return MuscleEntity.builder()
         .name(muscle.name)
         .build();
+  }
+
+  @Override
+  public String toString() {
+    return name;
   }
 
 }

@@ -2,7 +2,6 @@ package com.workout.workoutArtifact.endpoint.facade;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.AdditionalMatchers.eq;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -10,7 +9,6 @@ import static org.mockito.Mockito.when;
 import com.workout.workoutArtifact.ErrorCodes;
 import com.workout.workoutArtifact.MuscleException;
 import com.workout.workoutArtifact.endpoint.domain.Muscle;
-import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import com.workout.workoutArtifact.endpoint.service.MuscleService;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,61 +39,33 @@ public class MuscleFacadeTest {
   }
 
   @Test
-  public void addMuscle() {
+  public void addMuscles() {
 
     String muscleName = "rear delt";
+    Muscle muscle = new Muscle(muscleName);
 
-    muscleFacade.addMuscle(muscleName);
+    muscleFacade.addMuscles(Arrays.asList(muscle));
 
-    ArgumentCaptor<String> arg = ArgumentCaptor.forClass(String.class);
-    verify(muscleService).addMuscle(arg.capture());
+    Class<ArrayList<Muscle>> muscleListClass = (Class<ArrayList<Muscle>>) (Class) ArrayList.class;
+    ArgumentCaptor<ArrayList<Muscle>> arg = ArgumentCaptor.forClass(muscleListClass);
+    verify(muscleService).addMuscles(arg.capture());
 
-    assertThat(arg.getValue(), is(muscleName));
-  }
-
-  @Test
-  public void addTrimmedMuscle() {
-
-    String muscleName = "rear delt ";
-    String muscleNameTrimmed = "rear delt";
-
-    muscleFacade.addMuscle(muscleName);
-
-    ArgumentCaptor<String> arg = ArgumentCaptor.forClass(String.class);
-    verify(muscleService).addMuscle(arg.capture());
-
-    assertThat(arg.getValue(), is(muscleNameTrimmed));
-  }
-
-  @Test
-  public void addInvalidMuscleNameThrowsMuscleNameException() {
-
-    String muscleName = " biceps !_1337 ";
-
-    thrown.expect(MuscleException.class);
-    thrown.expectMessage(ErrorCodes.ILLEGAL_MUSCLE_NAME.getMessage());
-
-    muscleFacade.addMuscle(muscleName);
+    assertThat(arg.getValue(), is(Arrays.asList(muscle)));
   }
 
   @Test
   public void getMuscles() {
 
-    Muscle expectedMuscle1 = Muscle.builder()
-        .name("expectedMuscleName1")
-        .build();
-
-    Muscle expectedMuscle2 = Muscle.builder()
-        .name("expectedMuscleName2")
-        .build();
+    Muscle expectedMuscle1 = new Muscle("muscleOne");
+    Muscle expectedMuscle2 = new Muscle("muscleTwo");
 
     when(muscleService.getMuscles(anyList()))
         .thenReturn(Arrays.asList(expectedMuscle1, expectedMuscle2));
 
-    List<MuscleDto> muscleDtos = muscleFacade.getMusclesByName(new ArrayList<>());
+    List<Muscle> muscles = muscleFacade.getMusclesByName(new ArrayList<>());
 
-    assertThat(muscleDtos.get(0), is(Muscle.toDto(expectedMuscle1)));
-    assertThat(muscleDtos.get(1), is(Muscle.toDto(expectedMuscle2)));
+    assertThat(muscles.get(0), is(expectedMuscle1));
+    assertThat(muscles.get(1), is(expectedMuscle2));
   }
 
   @Test
