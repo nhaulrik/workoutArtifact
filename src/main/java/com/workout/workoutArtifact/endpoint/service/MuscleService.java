@@ -29,10 +29,6 @@ public class MuscleService {
 
   public List<Muscle> getMuscles(List<String> muscleNames) {
 
-
-//    org.springframework.data.jpa.domain.Specification<MuscleEntity> muscleEntitySpecification = specificationMapper
-//        .toSpecification(accountSpecification);
-
   return null;
   }
 

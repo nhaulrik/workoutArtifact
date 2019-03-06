@@ -6,4 +6,7 @@ public class MuscleException extends RuntimeException {
     super(errorCode.getMessage());
   }
 
+  public MuscleException(ErrorCodes errorCode, String s) {
+    super(errorCode.getMessage() + s);
+  }
 }

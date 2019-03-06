@@ -32,7 +32,13 @@ public class MuscleFacade {
 
   public List<MuscleDto> getMusclesByName(List<String> muscleNames) {
 
-    muscleNames.forEach(muscleName -> validateInputString(muscleName));
+    List<String> invalidMuscleNames = muscleNames.stream()
+        .filter(muscleName -> !validateInputString(muscleName))
+        .collect(Collectors.toList());
+
+    if (!invalidMuscleNames.isEmpty()) {
+      throw new MuscleException(ErrorCodes.ILLEGAL_MUSCLE_NAME, muscleNames.toString());
+    }
 
     List<Muscle> muscles = muscleService.getMuscles(muscleNames);
 
