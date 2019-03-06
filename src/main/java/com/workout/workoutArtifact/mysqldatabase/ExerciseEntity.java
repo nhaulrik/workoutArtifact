@@ -1,12 +1,17 @@
 package com.workout.workoutArtifact.mysqldatabase;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
@@ -15,8 +20,8 @@ import lombok.NonNull;
 @Builder
 @Data
 @Entity
-@Table(name = "muscle")
-public class MuscleEntity {
+@Table(name = "exercise")
+public class ExerciseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,8 +31,10 @@ public class MuscleEntity {
   @Column
   private String name;
 
-  @ManyToOne
-  @JoinColumn
-  private ExerciseEntity exerciseEntity;
+  @NonNull
+  @Column
+  private Boolean isMultiJoint;
 
+  @OneToMany(mappedBy = "exerciseEntity", cascade = CascadeType.ALL)
+  private List<MuscleEntity> muscleEntities;
 }
