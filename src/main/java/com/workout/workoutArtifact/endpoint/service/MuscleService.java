@@ -1,8 +1,13 @@
 package com.workout.workoutArtifact.endpoint.service;
 
+import com.workout.workoutArtifact.common.Mapper;
 import com.workout.workoutArtifact.common.MuscleEnum;
 import com.workout.workoutArtifact.endpoint.domain.Muscle;
+import com.workout.workoutArtifact.endpoint.specification.MuscleSpecification;
+import com.workout.workoutArtifact.endpoint.specification.MuscleSpecification.SearchCriteria;
+import com.workout.workoutArtifact.mysqldatabase.MuscleEntity;
 import com.workout.workoutArtifact.mysqldatabase.MuscleRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +38,17 @@ public class MuscleService {
 
   public List<Muscle> getMuscles(List<String> muscleNames) {
 
-    return null;
+    List<MuscleEntity> resultEntities = new ArrayList<>();
+
+    for (String muscleName : muscleNames) {
+      MuscleSpecification muscleSpecification = new MuscleSpecification(
+          new SearchCriteria("name", ":", muscleName));
+      resultEntities.addAll(muscleRepository.findAll(muscleSpecification));
+    }
+
+    return resultEntities.stream()
+        .map(Mapper::toDomainObject)
+        .collect(Collectors.toList());
   }
 
 }
