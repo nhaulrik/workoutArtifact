@@ -30,7 +30,7 @@ public class MuscleService {
         .collect(Collectors.toList());
 
     knownMuscles.stream()
-        .map(Muscle::toEntity)
+        .map(Mapper::toEntity)
         .forEach(muscleEntity -> muscleRepository.save(muscleEntity));
 
     return "Known muscles added: " + knownMuscles.size() + ". " + knownMuscles.toString();

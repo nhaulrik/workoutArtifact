@@ -26,6 +26,10 @@ public class MuscleEntity {
   @Column
   private String name;
 
+  @NonNull
+  @Column
+  private Boolean isUpperBody;
+
   @ManyToOne
   @JoinColumn
   private ExerciseEntity exerciseEntity;

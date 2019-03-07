@@ -3,7 +3,9 @@ package com.workout.workoutArtifact;
 public enum ErrorCodes {
 
   ILLEGAL_MUSCLE_NAME(0001, "Muscle name must only contain alphabetical words."),
-  UNKNOWN_MUSCLE(0002, "Unknown muscle name encountered.");
+  UNKNOWN_MUSCLE(0002, "Unknown muscle name encountered."),
+  MUSCLE_NAME_NOT_SET(0003, "Muscle name not set."),
+  IS_UPPER_BODY_NOT_SET(0004, "isUpperBody flag was null.");
 
   private int errorCode;
   private String message;

@@ -10,11 +10,8 @@ public class Muscle {
   @JsonProperty
   private String name;
 
-  public static MuscleEntity toEntity(Muscle muscle) {
-    MuscleEntity muscleEntity = new MuscleEntity();
-    muscleEntity.setName(muscle.name);
-    return muscleEntity;
-  }
+  @JsonProperty
+  private Boolean isUpperBody;
 
   @Override
   public String toString() {

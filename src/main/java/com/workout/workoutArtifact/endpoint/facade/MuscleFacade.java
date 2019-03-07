@@ -4,6 +4,7 @@ import static com.workout.workoutArtifact.common.Validator.validateInputString;
 
 import com.workout.workoutArtifact.ErrorCodes;
 import com.workout.workoutArtifact.MuscleException;
+import com.workout.workoutArtifact.common.Validator;
 import com.workout.workoutArtifact.endpoint.domain.Muscle;
 import com.workout.workoutArtifact.endpoint.service.MuscleService;
 import java.util.List;
@@ -22,7 +23,8 @@ public class MuscleFacade {
   }
 
   public String addMuscles(List<Muscle> muscles) throws MuscleException {
-      return muscleService.addMuscles(muscles);
+    muscles.forEach(muscle -> Validator.validateMuscle(muscle));
+    return muscleService.addMuscles(muscles);
   }
 
   public List<Muscle> getMusclesByName(List<String> muscleNames) {
