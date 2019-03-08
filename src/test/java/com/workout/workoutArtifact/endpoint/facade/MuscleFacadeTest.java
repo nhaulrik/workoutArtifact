@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import com.workout.workoutArtifact.ErrorCodes;
 import com.workout.workoutArtifact.MuscleException;
 import com.workout.workoutArtifact.common.BodyPartEnum;
+import com.workout.workoutArtifact.common.MuscleEnum;
 import com.workout.workoutArtifact.endpoint.domain.Muscle;
 import com.workout.workoutArtifact.endpoint.service.MuscleService;
 import java.util.ArrayList;
@@ -44,8 +45,8 @@ public class MuscleFacadeTest {
 
     String muscleName = "rear delt";
     Muscle muscle = new Muscle();
-    muscle.setName(muscleName);
-    muscle.setBodyPart(BodyPartEnum.UPPER_FRONT);
+    muscle.setMuscle(MuscleEnum.BICEPS_LONG);
+    muscle.setBodyPart(BodyPartEnum.SHOULDER);
 
     muscleFacade.addMuscles(Arrays.asList(muscle));
 
@@ -60,10 +61,10 @@ public class MuscleFacadeTest {
   public void getMuscles() {
 
     Muscle expectedMuscle1 = new Muscle();
-    expectedMuscle1.setName("muscleOne");
+    expectedMuscle1.setMuscle(MuscleEnum.BICEPS_LONG);
 
     Muscle expectedMuscle2 = new Muscle();
-    expectedMuscle2.setName("muscleTwo");
+    expectedMuscle2.setMuscle(MuscleEnum.BICEPS_SHORT);
 
     when(muscleService.getMuscles(anyList()))
         .thenReturn(Arrays.asList(expectedMuscle1, expectedMuscle2));

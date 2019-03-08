@@ -7,7 +7,7 @@ public class Mapper {
 
   public static Muscle toDomainObject(MuscleEntity muscleEntity) {
     Muscle muscle = new Muscle();
-    muscle.setName(muscleEntity.getName());
+    muscle.setMuscle(MuscleEnum.valueOf(muscleEntity.getName()));
     muscle.setBodyPart(BodyPartEnum.valueOf(muscleEntity.getBodyPart()));
     return muscle;
   }

@@ -2,24 +2,27 @@ package com.workout.workoutArtifact.endpoint.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.workout.workoutArtifact.common.BodyPartEnum;
-import lombok.AllArgsConstructor;
+import com.workout.workoutArtifact.common.MuscleEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 public class Muscle {
 
-  @JsonProperty
-  private String name;
+  public String getName() {
+    return muscle.toString();
+  }
 
+  @NonNull
+  @JsonProperty (value = "name")
+  private MuscleEnum muscle;
+
+  @NonNull
   @JsonProperty
   private BodyPartEnum bodyPart;
-
-  @Override
-  public String toString() {
-    return name;
-  }
 
 }

@@ -2,10 +2,12 @@ package com.workout.workoutArtifact.common;
 
 public enum BodyPartEnum {
 
-  UPPER_FRONT,
-  UPPER_BACK,
-  ARM,
+  LEG,
   ABDOMEN,
-  LEG;
-
+  CHEST,
+  ARM,
+  SHOULDER,
+  UPPER_BACK,
+  LOWER_BACK,
+  NECK;
 }
