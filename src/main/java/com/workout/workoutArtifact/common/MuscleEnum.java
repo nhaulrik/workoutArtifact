@@ -1,7 +1,5 @@
 package com.workout.workoutArtifact.common;
 
-import com.workout.workoutArtifact.ErrorCodes;
-import com.workout.workoutArtifact.MuscleException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,7 +29,7 @@ public enum MuscleEnum {
     }
   }
 
-  private MuscleEnum(String value) {
+  MuscleEnum(String value) {
     this.value = value;
   }
 }
