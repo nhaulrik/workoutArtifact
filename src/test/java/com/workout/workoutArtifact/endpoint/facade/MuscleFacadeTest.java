@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import com.workout.workoutArtifact.ErrorCodes;
 import com.workout.workoutArtifact.MuscleException;
+import com.workout.workoutArtifact.common.BodyPartEnum;
 import com.workout.workoutArtifact.endpoint.domain.Muscle;
 import com.workout.workoutArtifact.endpoint.service.MuscleService;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class MuscleFacadeTest {
     String muscleName = "rear delt";
     Muscle muscle = new Muscle();
     muscle.setName(muscleName);
+    muscle.setBodyPart(BodyPartEnum.UPPER_FRONT);
 
     muscleFacade.addMuscles(Arrays.asList(muscle));
 
