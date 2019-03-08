@@ -5,7 +5,7 @@ public enum ErrorCodes {
   ILLEGAL_MUSCLE_NAME(0001, "Muscle name must only contain alphabetical words."),
   UNKNOWN_MUSCLE(0002, "Unknown muscle name encountered."),
   MUSCLE_NAME_NOT_SET(0003, "Muscle name not set."),
-  IS_UPPER_BODY_NOT_SET(0004, "isUpperBody flag was null.");
+  BODY_PART_NOT_SET(0004, "BodyPart not found or set.");
 
   private int errorCode;
   private String message;

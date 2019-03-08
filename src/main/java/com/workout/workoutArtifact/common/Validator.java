@@ -12,7 +12,7 @@ public class Validator {
 
   public static boolean validateMuscle(Muscle muscle) {
     if (muscle.getName() == null || muscle.getName().isEmpty()) { throw new MuscleException(ErrorCodes.MUSCLE_NAME_NOT_SET); }
-    if (muscle.getIsUpperBody() == null) { throw new MuscleException(ErrorCodes.IS_UPPER_BODY_NOT_SET); }
+    if (muscle.getBodyPart() == null) { throw new MuscleException(ErrorCodes.BODY_PART_NOT_SET); }
     return true;
   }
 }

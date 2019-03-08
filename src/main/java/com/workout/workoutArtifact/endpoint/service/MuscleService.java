@@ -1,7 +1,6 @@
 package com.workout.workoutArtifact.endpoint.service;
 
 import com.workout.workoutArtifact.common.Mapper;
-import com.workout.workoutArtifact.common.MuscleEnum;
 import com.workout.workoutArtifact.endpoint.domain.Muscle;
 import com.workout.workoutArtifact.endpoint.specification.MuscleSpecification;
 import com.workout.workoutArtifact.endpoint.specification.MuscleSpecification.SearchCriteria;
@@ -25,15 +24,11 @@ public class MuscleService {
 
   public String addMuscles(List<Muscle> muscles) {
 
-    List<Muscle> knownMuscles = muscles.stream()
-        .filter(muscle -> MuscleEnum.contains(muscle.getName()))
-        .collect(Collectors.toList());
-
-    knownMuscles.stream()
+    muscles.stream()
         .map(Mapper::toEntity)
         .forEach(muscleEntity -> muscleRepository.save(muscleEntity));
 
-    return "Known muscles added: " + knownMuscles.size() + ". " + knownMuscles.toString();
+    return "Muscles added: " + muscles.size() + ". " + muscles.toString();
   }
 
   public List<Muscle> getMuscles(List<String> muscleNames) {

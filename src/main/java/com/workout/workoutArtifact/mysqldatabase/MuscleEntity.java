@@ -28,7 +28,7 @@ public class MuscleEntity {
 
   @NonNull
   @Column
-  private Boolean isUpperBody;
+  private String bodyPart;
 
   @ManyToOne
   @JoinColumn

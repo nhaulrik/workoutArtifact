@@ -1,6 +1,7 @@
 package com.workout.workoutArtifact.endpoint.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.workout.workoutArtifact.common.BodyPartEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ public class Muscle {
   private String name;
 
   @JsonProperty
-  private Boolean isUpperBody;
+  private BodyPartEnum bodyPart;
 
   @Override
   public String toString() {

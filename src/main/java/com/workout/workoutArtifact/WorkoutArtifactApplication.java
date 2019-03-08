@@ -1,12 +1,10 @@
 package com.workout.workoutArtifact;
 
-import com.workout.workoutArtifact.common.Mapper;
+import com.workout.workoutArtifact.common.BodyPartEnum;
 import com.workout.workoutArtifact.endpoint.domain.Muscle;
-import com.workout.workoutArtifact.mysqldatabase.MuscleEntity;
-import com.workout.workoutArtifact.mysqldatabase.MuscleRepository;
+import com.workout.workoutArtifact.endpoint.service.MuscleService;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -20,24 +18,19 @@ public class WorkoutArtifactApplication {
     SpringApplication.run(WorkoutArtifactApplication.class, args);
   }
 
-
   @Autowired
-  MuscleRepository muscleRepository;
+  MuscleService muscleService;
 
   @Bean
   InitializingBean addInitialMuscles() {
     return () -> {
       List<Muscle> muscleList = new ArrayList<>();
 
-      muscleList.add(new Muscle("BICEPS", true));
-      muscleList.add(new Muscle("CHEST", true));
-      muscleList.add(new Muscle("TRICEPS", true));
+      muscleList.add(new Muscle("BICEPS", BodyPartEnum.ARM));
+      muscleList.add(new Muscle("TRICEPS", BodyPartEnum.ARM));
+      muscleList.add(new Muscle("CHEST", BodyPartEnum.UPPER_FRONT));
 
-      muscleRepository.saveAll(
-          muscleList.stream()
-              .map(Mapper::toEntity)
-              .collect(Collectors.toList())
-      );
+      muscleService.addMuscles(muscleList);
     };
   }
 
