@@ -14,7 +14,7 @@ public class Mapper {
 
   public static MuscleEntity toEntity(Muscle muscle) {
     MuscleEntity muscleEntity = new MuscleEntity();
-    muscleEntity.setName(muscle.getName());
+    muscleEntity.setName(muscle.toString());
     muscleEntity.setBodyPart(muscle.getBodyPart().toString());
     return muscleEntity;
   }

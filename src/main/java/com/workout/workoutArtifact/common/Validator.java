@@ -11,7 +11,7 @@ public class Validator {
   }
 
   public static boolean validateMuscle(Muscle muscle) {
-    if (muscle.getName() == null || muscle.getName().isEmpty()) { throw new MuscleException(ErrorCodes.MUSCLE_NAME_NOT_SET); }
+    if (muscle.toString() == null || muscle.toString().isEmpty()) { throw new MuscleException(ErrorCodes.MUSCLE_NAME_NOT_SET); }
     if (muscle.getBodyPart() == null) { throw new MuscleException(ErrorCodes.BODY_PART_NOT_SET); }
     return true;
   }

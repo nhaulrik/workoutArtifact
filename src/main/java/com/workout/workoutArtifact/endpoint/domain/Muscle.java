@@ -13,7 +13,8 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class Muscle {
 
-  public String getName() {
+  @Override
+  public String toString() {
     return muscle.toString();
   }
 
