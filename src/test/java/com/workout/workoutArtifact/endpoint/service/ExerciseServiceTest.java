@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import com.workout.workoutArtifact.common.ExerciseEnum;
 import com.workout.workoutArtifact.common.Mapper;
 import com.workout.workoutArtifact.endpoint.domain.Exercise;
+import com.workout.workoutArtifact.mysqldatabase.ExerciseEntity;
 import com.workout.workoutArtifact.mysqldatabase.ExerciseRepository;
 import java.util.Arrays;
 import java.util.List;
@@ -41,12 +42,13 @@ public class ExerciseServiceTest {
   public void getExercises() {
 
     Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true);
+    ExerciseEntity exerciseAsEntity = Mapper.toEntity(exercise);
 
     when(exerciseRepository
         .findAll(ArgumentMatchers.any(org.springframework.data.jpa.domain.Specification.class)))
-        .thenReturn(Arrays.asList(Mapper.toEntity(exercise)));
+        .thenReturn(Arrays.asList(exerciseAsEntity));
 
-    List<Exercise> exerciseList = exerciseService.getExercises(Arrays.asList("1234"));
+    List<Exercise> exerciseList = exerciseService.getExercises(Arrays.asList(ExerciseEnum.BARBELL_CHEST_PRESS.toString()));
 
     assertThat(exerciseList.get(0), is(exercise));
   }

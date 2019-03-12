@@ -1,6 +1,7 @@
 package com.workout.workoutArtifact.endpoint.service;
 
 import com.workout.workoutArtifact.common.Mapper;
+import com.workout.workoutArtifact.endpoint.domain.Exercise;
 import com.workout.workoutArtifact.endpoint.specification.ExerciseSpecification;
 import com.workout.workoutArtifact.endpoint.specification.ExerciseSpecification.SearchCriteria;
 import com.workout.workoutArtifact.mysqldatabase.ExerciseEntity;
@@ -30,7 +31,7 @@ public class ExerciseService {
     return "Exercises added: " + exerciseList.size() + ". " + exerciseList.toString();
   }
 
-  public List<com.workout.workoutArtifact.endpoint.domain.Exercise> getExercises(List<String> exerciseNames) {
+  public List<Exercise> getExercises(List<String> exerciseNames) {
 
     List<ExerciseEntity> exerciseEntities = new ArrayList<>();
 

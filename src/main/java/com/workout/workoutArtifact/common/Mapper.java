@@ -23,8 +23,7 @@ public class Mapper {
     return muscle;
   }
 
-  public static com.workout.workoutArtifact.endpoint.domain.Exercise toDomainObject(
-      ExerciseEntity exerciseEntity) {
+  public static Exercise toDomainObject(ExerciseEntity exerciseEntity) {
 
     Exercise exercise = new Exercise(
         ExerciseEnum.valueOf(exerciseEntity.getName()),

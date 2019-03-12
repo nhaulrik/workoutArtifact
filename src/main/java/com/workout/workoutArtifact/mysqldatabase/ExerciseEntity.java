@@ -1,6 +1,7 @@
 package com.workout.workoutArtifact.mysqldatabase;
 
 import com.workout.workoutArtifact.endpoint.domain.Muscle;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ public class ExerciseEntity {
   @JoinTable(name = "exercise_muscle",
       joinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "muscle_id", referencedColumnName = "id"))
-  private Set<MuscleEntity> muscleEntities;
+  private Set<MuscleEntity> muscleEntities = new HashSet<>();
 
   public ExerciseEntity(String name, Boolean isMultiJoint, List<MuscleEntity> muscleEntities) {
     this.name = name;
