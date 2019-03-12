@@ -50,7 +50,7 @@ public class WorkoutEntityControllerTest {
 
 
   @Test
-  public void getMuscles() throws Exception {
+  public void getChestMusclesIsOk() throws Exception {
 
     List<Muscle> muscles = new ArrayList<>();
     muscles.add(new Muscle(MuscleEnum.BICEPS_LONG, BodyPartEnum.ARM));
@@ -67,5 +67,27 @@ public class WorkoutEntityControllerTest {
             content().string(containsString(new ObjectMapper().writeValueAsString(muscles))));
   }
 
+  @Test
+  public void addMusclesIsOk() throws Exception {
+    mockMvc.perform(
+        post("/workoutentity/addmuscles")
+            .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+            .content("[\n"
+                + "{\"name\":\"UPPER_CHEST\", \"bodyPart\":\"CHEST\"}\n"
+                + "]"))
+        .andExpect(status().isOk());
+  }
+
+
+  @Test
+  public void addExerciseIsOk() throws  Exception {
+    mockMvc.perform(
+        post("/workoutentity/addexercises")
+            .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+            .content("[\n"
+                + "\t{\"name\":\"BARBELL_BENCH_PRESS\", \"isMultiJoint\":\"true\"}\n"
+                + "]"))
+        .andExpect(status().isOk());
+  }
 
 }

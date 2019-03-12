@@ -5,7 +5,6 @@ import com.workout.workoutArtifact.endpoint.domain.Muscle;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -50,12 +49,19 @@ public class WorkoutEntityController {
   }
 
   @PostMapping(
-      value = "workoutentity/addexercise",
+      value = "workoutentity/addexercises",
       consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public String addExercise(@RequestBody Exercise exercise) {
-    exerciseFacade.addExercise(exercise.getName(), exercise.getIsMultiJoint());
-    return "Exercise: '" + exercise.getName() + "' added.";
+  public String addExercise(@RequestBody List<Exercise> exercises) {
+    return exerciseFacade.addExercises(exercises);
+  }
+
+  @PostMapping(
+      value = "workoutentity/getexercises",
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public List<Exercise> getExercises(@RequestBody final List<String> exerciseNames) {
+    return exerciseFacade.getExercises(exerciseNames);
   }
 
 //  @GetMapping(

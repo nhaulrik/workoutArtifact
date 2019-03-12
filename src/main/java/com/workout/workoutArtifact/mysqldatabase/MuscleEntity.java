@@ -1,25 +1,31 @@
 package com.workout.workoutArtifact.mysqldatabase;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@RequiredArgsConstructor
+@EqualsAndHashCode(exclude = "exerciseSet")
+
 @Entity
 @Table(name = "muscle")
 public class MuscleEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @NonNull
@@ -30,8 +36,7 @@ public class MuscleEntity {
   @Column
   private String bodyPart;
 
-  @ManyToOne
-  @JoinColumn
-  private ExerciseEntity exerciseEntity;
+  @ManyToMany(mappedBy = "muscleEntities")
+  private Set<ExerciseEntity> exerciseSet = new HashSet<>();
 
 }

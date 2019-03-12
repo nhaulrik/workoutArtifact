@@ -1,7 +1,13 @@
 package com.workout.workoutArtifact.endpoint.service;
 
+import com.workout.workoutArtifact.common.Mapper;
+import com.workout.workoutArtifact.endpoint.specification.ExerciseSpecification;
+import com.workout.workoutArtifact.endpoint.specification.ExerciseSpecification.SearchCriteria;
 import com.workout.workoutArtifact.mysqldatabase.ExerciseEntity;
 import com.workout.workoutArtifact.mysqldatabase.ExerciseRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,15 +21,29 @@ public class ExerciseService {
     this.exerciseRepository = exerciseRepository;
   }
 
-  public void addExercise(String exerciseName, Boolean isMultiJoint) {
+  public String addExercises(List<com.workout.workoutArtifact.endpoint.domain.Exercise> exerciseList) {
 
-    ExerciseEntity exerciseEntity = ExerciseEntity.builder()
-        .name(exerciseName)
-        .isMultiJoint(isMultiJoint)
-        .build();
+    exerciseList.stream()
+        .map(Mapper::toEntity)
+        .forEach(exerciseEntity -> exerciseRepository.save(exerciseEntity));
 
-    exerciseRepository.save(exerciseEntity);
+    return "Exercises added: " + exerciseList.size() + ". " + exerciseList.toString();
+  }
 
+  public List<com.workout.workoutArtifact.endpoint.domain.Exercise> getExercises(List<String> exerciseNames) {
+
+    List<ExerciseEntity> exerciseEntities = new ArrayList<>();
+
+    for (String exerciseName : exerciseNames) {
+      ExerciseSpecification exerciseSpecification = new ExerciseSpecification(
+          new SearchCriteria("name", ":", exerciseName));
+
+      exerciseEntities.addAll(exerciseRepository.findAll(exerciseSpecification));
+    }
+
+    return exerciseEntities.stream()
+        .map(Mapper::toDomainObject)
+        .collect(Collectors.toList());
   }
 
 

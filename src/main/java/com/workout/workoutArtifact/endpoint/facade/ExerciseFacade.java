@@ -1,6 +1,8 @@
 package com.workout.workoutArtifact.endpoint.facade;
 
+import com.workout.workoutArtifact.endpoint.domain.Exercise;
 import com.workout.workoutArtifact.endpoint.service.ExerciseService;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,11 +14,11 @@ public class ExerciseFacade {
     this.exerciseService = exerciseService;
   }
 
-  public void addExercise(String exerciseName, Boolean isMultiJoint) {
-
-    exerciseService.addExercise(exerciseName, isMultiJoint);
-
+  public String addExercises(List<Exercise> exerciseList) {
+    return exerciseService.addExercises(exerciseList);
   }
 
-
+  public List<Exercise> getExercises(List<String> exerciseNames) {
+    return exerciseService.getExercises(exerciseNames);
+  }
 }
