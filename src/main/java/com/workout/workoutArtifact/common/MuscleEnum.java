@@ -32,6 +32,6 @@ public enum MuscleEnum {
   LATS,
   INNER_BACK,
   RHOMBOID,
-  MIDDLE_TRAPS,
+  TRAPS,
   LOWER_BACK;
 }
