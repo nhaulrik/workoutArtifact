@@ -43,10 +43,7 @@ public class MuscleFacadeTest {
   @Test
   public void addMuscles() {
 
-    String muscleName = "rear delt";
-    Muscle muscle = new Muscle();
-    muscle.setMuscle(MuscleEnum.BICEPS_LONG);
-    muscle.setBodyPart(BodyPartEnum.SHOULDER);
+    Muscle muscle = new Muscle(MuscleEnum.BICEPS_LONG, BodyPartEnum.SHOULDER);
 
     muscleFacade.addMuscles(Arrays.asList(muscle));
 
@@ -60,11 +57,8 @@ public class MuscleFacadeTest {
   @Test
   public void getMuscles() {
 
-    Muscle expectedMuscle1 = new Muscle();
-    expectedMuscle1.setMuscle(MuscleEnum.BICEPS_LONG);
-
-    Muscle expectedMuscle2 = new Muscle();
-    expectedMuscle2.setMuscle(MuscleEnum.BICEPS_SHORT);
+    Muscle expectedMuscle1 = new Muscle(MuscleEnum.BICEPS_LONG, BodyPartEnum.ARM);
+    Muscle expectedMuscle2 = new Muscle(MuscleEnum.BICEPS_SHORT, BodyPartEnum.ARM);
 
     when(muscleService.getMuscles(anyList()))
         .thenReturn(Arrays.asList(expectedMuscle1, expectedMuscle2));

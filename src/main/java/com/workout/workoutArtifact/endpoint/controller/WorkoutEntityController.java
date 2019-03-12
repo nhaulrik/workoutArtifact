@@ -29,14 +29,14 @@ public class WorkoutEntityController {
 
   @RequestMapping("/")
   public String welcome() {//Welcome page, non-rest
-    return "Welcome to RestTemplate Example.";
+    return "Workout Artifact is running.";
   }
 
   @PostMapping(
       value = "workoutentity/addmuscles",
       consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public String addMuscles(@RequestBody ArrayList<Muscle> muscles) {
+  public String addMuscles(@RequestBody List<Muscle> muscles) {
     return muscleFacade.addMuscles(muscles);
   }
 
@@ -63,13 +63,4 @@ public class WorkoutEntityController {
   public List<Exercise> getExercises(@RequestBody final List<String> exerciseNames) {
     return exerciseFacade.getExercises(exerciseNames);
   }
-
-//  @GetMapping(
-//      value = "muscle/{muscleName}",
-//      produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-//  )
-//  public List<Muscle> getMusclesByName(
-//      @PathVariable("muscleName") final String muscleName) {
-//    return muscleFacade.getMuscleByName(muscleName);
-//  }
 }

@@ -78,14 +78,13 @@ public class WorkoutEntityControllerTest {
         .andExpect(status().isOk());
   }
 
-
   @Test
   public void addExerciseIsOk() throws  Exception {
     mockMvc.perform(
         post("/workoutentity/addexercises")
             .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
             .content("[\n"
-                + "\t{\"name\":\"BARBELL_BENCH_PRESS\", \"isMultiJoint\":\"true\"}\n"
+                + "\t{\"name\":\"BARBELL_CHEST_PRESS\", \"isMultiJoint\":\"true\"}\n"
                 + "]"))
         .andExpect(status().isOk());
   }

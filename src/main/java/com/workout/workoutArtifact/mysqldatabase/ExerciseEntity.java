@@ -1,7 +1,6 @@
 package com.workout.workoutArtifact.mysqldatabase;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.workout.workoutArtifact.endpoint.domain.Muscle;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -15,13 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @NoArgsConstructor
 @Data
@@ -50,10 +47,10 @@ public class ExerciseEntity {
       inverseJoinColumns = @JoinColumn(name = "muscle_id", referencedColumnName = "id"))
   private Set<MuscleEntity> muscleEntities;
 
-  public ExerciseEntity(String name, Boolean isMultiJoint, MuscleEntity... muscleEntities) {
+  public ExerciseEntity(String name, Boolean isMultiJoint, List<MuscleEntity> muscleEntities) {
     this.name = name;
     this.isMultiJoint = isMultiJoint;
-    this.muscleEntities = Stream.of(muscleEntities).collect(Collectors.toSet());
+    this.muscleEntities = muscleEntities.stream().collect(Collectors.toSet());
     this.muscleEntities.forEach(x -> x.getExerciseSet().add(this));
   }
 }

@@ -11,7 +11,6 @@ import com.workout.workoutArtifact.common.ExerciseEnum;
 import com.workout.workoutArtifact.common.Mapper;
 import com.workout.workoutArtifact.endpoint.domain.Exercise;
 import com.workout.workoutArtifact.mysqldatabase.ExerciseRepository;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Rule;
@@ -31,7 +30,7 @@ public class ExerciseServiceTest {
   @Test
   public void addExercises() {
 
-    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, new ArrayList<>());
+    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true);
 
     exerciseService.addExercises(Arrays.asList(exercise));
 
@@ -41,7 +40,7 @@ public class ExerciseServiceTest {
   @Test
   public void getExercises() {
 
-    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, new ArrayList<>());
+    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true);
 
     when(exerciseRepository
         .findAll(ArgumentMatchers.any(org.springframework.data.jpa.domain.Specification.class)))

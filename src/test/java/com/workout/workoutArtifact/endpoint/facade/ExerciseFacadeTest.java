@@ -35,7 +35,7 @@ public class ExerciseFacadeTest {
   @Test
   public void addExercises() {
 
-    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, new ArrayList<>());
+    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true);
 
     exerciseFacade.addExercises(Arrays.asList(exercise));
 
@@ -49,7 +49,7 @@ public class ExerciseFacadeTest {
   @Test
   public void getExercises() {
 
-    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, new ArrayList<>());
+    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true);
 
     when(exerciseService.getExercises(anyList()))
         .thenReturn(Arrays.asList(exercise));
