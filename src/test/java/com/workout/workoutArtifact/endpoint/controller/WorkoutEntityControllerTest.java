@@ -53,7 +53,7 @@ public class WorkoutEntityControllerTest {
   public void getChestMusclesIsOk() throws Exception {
 
     List<Muscle> muscles = new ArrayList<>();
-    muscles.add(new Muscle(MuscleEnum.BICEPS_LONG, BodyPartEnum.ARM));
+    muscles.add(new Muscle(MuscleEnum.BICEPS, BodyPartEnum.ARM));
 
     when(muscleFacade.getMusclesByName(Arrays.asList("CHEST")))
         .thenReturn(muscles);

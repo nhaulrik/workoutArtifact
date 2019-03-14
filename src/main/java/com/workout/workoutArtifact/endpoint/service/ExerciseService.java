@@ -34,12 +34,16 @@ public class ExerciseService {
   public List<Exercise> getExercises(List<String> exerciseNames) {
 
     List<ExerciseEntity> exerciseEntities = new ArrayList<>();
-
+// TODO: 13-03-2019 test this
     for (String exerciseName : exerciseNames) {
-      ExerciseSpecification exerciseSpecification = new ExerciseSpecification(
-          new SearchCriteria("name", ":", exerciseName));
+      if (exerciseName.contains("*")) {
+        exerciseEntities.addAll(exerciseRepository.findAll());
+      } else {
+        ExerciseSpecification exerciseSpecification = new ExerciseSpecification(
+            new SearchCriteria("name", ":", exerciseName));
 
-      exerciseEntities.addAll(exerciseRepository.findAll(exerciseSpecification));
+        exerciseEntities.addAll(exerciseRepository.findAll(exerciseSpecification));
+      }
     }
 
     return exerciseEntities.stream()
