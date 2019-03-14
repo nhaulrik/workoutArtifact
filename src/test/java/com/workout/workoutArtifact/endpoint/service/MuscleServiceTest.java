@@ -19,16 +19,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentMatchers;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class MuscleServiceTest {
 
-  @Autowired
-  Mapper mapper;
 
   @Rule
   public ExpectedException thrown = ExpectedException.none();
 
+  Mapper mapper = new Mapper();
+  
   MuscleRepository muscleRepository = mock(MuscleRepository.class);
 
   MuscleService muscleService = new MuscleService(muscleRepository, mapper);

@@ -18,19 +18,19 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentMatchers;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class ExerciseServiceTest {
 
-  @Autowired
-  Mapper mapper;
 
   @Rule
   public ExpectedException thrown = ExpectedException.none();
 
+  Mapper mapper = new Mapper();
+
   ExerciseRepository exerciseRepository = mock(ExerciseRepository.class);
 
   ExerciseService exerciseService = new ExerciseService(exerciseRepository, mapper);
+
 
   @Test
   public void addExercises() {
