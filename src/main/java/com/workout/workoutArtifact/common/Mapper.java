@@ -5,10 +5,12 @@ import com.workout.workoutArtifact.endpoint.domain.Muscle;
 import com.workout.workoutArtifact.mysqldatabase.ExerciseEntity;
 import com.workout.workoutArtifact.mysqldatabase.MuscleEntity;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Mapper {
 
-  public static Muscle toDomainObject(MuscleEntity muscleEntity) {
+  public Muscle toDomainObject(MuscleEntity muscleEntity) {
     Muscle muscle = new Muscle(
         MuscleEnum.valueOf(muscleEntity.getName()),
         BodyPartEnum.valueOf(muscleEntity.getBodyPart())
@@ -23,7 +25,7 @@ public class Mapper {
     return muscle;
   }
 
-  public static Exercise toDomainObject(ExerciseEntity exerciseEntity) {
+  public Exercise toDomainObject(ExerciseEntity exerciseEntity) {
 
     Exercise exercise = new Exercise(
         ExerciseEnum.valueOf(exerciseEntity.getName()),
@@ -39,14 +41,14 @@ public class Mapper {
     return exercise;
   }
 
-  public static MuscleEntity toEntity(Muscle muscle) {
+  public MuscleEntity toEntity(Muscle muscle) {
     MuscleEntity muscleEntity = new MuscleEntity();
     muscleEntity.setName(muscle.getMuscle().toString());
     muscleEntity.setBodyPart(muscle.getBodyPart().toString());
     return muscleEntity;
   }
 
-  public static ExerciseEntity toEntity(Exercise exercise) {
+  public ExerciseEntity toEntity(Exercise exercise) {
     ExerciseEntity exerciseEntity = new ExerciseEntity();
     exerciseEntity.setName(exercise.getName().toString());
     exerciseEntity.setIsMultiJoint(exercise.getIsMultiJoint());

@@ -16,16 +16,21 @@ import org.springframework.stereotype.Component;
 public class ExerciseService {
 
   private final ExerciseRepository exerciseRepository;
+  private final Mapper mapper;
 
   @Autowired
-  public ExerciseService(ExerciseRepository exerciseRepository) {
+  public ExerciseService(
+      ExerciseRepository exerciseRepository,
+      Mapper mapper) {
     this.exerciseRepository = exerciseRepository;
+    this.mapper = mapper;
   }
 
-  public String addExercises(List<com.workout.workoutArtifact.endpoint.domain.Exercise> exerciseList) {
+  public String addExercises(
+      List<Exercise> exerciseList) {
 
     exerciseList.stream()
-        .map(Mapper::toEntity)
+        .map(mapper::toEntity)
         .forEach(exerciseEntity -> exerciseRepository.save(exerciseEntity));
 
     return "Exercises added: " + exerciseList.size() + ". " + exerciseList.toString();
@@ -47,7 +52,7 @@ public class ExerciseService {
     }
 
     return exerciseEntities.stream()
-        .map(Mapper::toDomainObject)
+        .map(mapper::toDomainObject)
         .collect(Collectors.toList());
   }
 

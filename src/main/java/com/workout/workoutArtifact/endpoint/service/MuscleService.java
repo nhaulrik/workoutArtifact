@@ -16,16 +16,18 @@ import org.springframework.stereotype.Component;
 public class MuscleService {
 
   private final MuscleRepository muscleRepository;
+  private final Mapper mapper;
 
   @Autowired
-  public MuscleService(MuscleRepository muscleRepository) {
+  public MuscleService(MuscleRepository muscleRepository, Mapper mapper) {
     this.muscleRepository = muscleRepository;
+    this.mapper = mapper;
   }
 
   public String addMuscles(List<Muscle> muscles) {
 
     muscles.stream()
-        .map(Mapper::toEntity)
+        .map(mapper::toEntity)
         .forEach(muscleEntity -> muscleRepository.save(muscleEntity));
 
     return "Muscles added: " + muscles.size() + ". " + muscles.toString();
@@ -42,7 +44,7 @@ public class MuscleService {
     }
 
     return resultEntities.stream()
-        .map(Mapper::toDomainObject)
+        .map(mapper::toDomainObject)
         .collect(Collectors.toList());
   }
 

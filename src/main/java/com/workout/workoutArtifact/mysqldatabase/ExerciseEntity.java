@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +43,7 @@ public class ExerciseEntity {
   private Boolean isMultiJoint;
 
   @NonNull
-  @ManyToMany(cascade = CascadeType.ALL)
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(name = "exercise_muscle",
       joinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "muscle_id", referencedColumnName = "id"))

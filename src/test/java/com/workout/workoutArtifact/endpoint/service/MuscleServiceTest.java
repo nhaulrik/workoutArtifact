@@ -19,15 +19,19 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentMatchers;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MuscleServiceTest {
+
+  @Autowired
+  Mapper mapper;
 
   @Rule
   public ExpectedException thrown = ExpectedException.none();
 
   MuscleRepository muscleRepository = mock(MuscleRepository.class);
 
-  MuscleService muscleService = new MuscleService(muscleRepository);
+  MuscleService muscleService = new MuscleService(muscleRepository, mapper);
 
   @Test
   public void addMuscles() {
@@ -36,14 +40,14 @@ public class MuscleServiceTest {
 
     muscleService.addMuscles(Arrays.asList(muscle));
 
-    verify(muscleRepository, times(1)).save(Mapper.toEntity(muscle));
+    verify(muscleRepository, times(1)).save(mapper.toEntity(muscle));
   }
 
   @Test
   public void getMuscles() {
 
     Muscle muscle = new Muscle(MuscleEnum.CHEST, BodyPartEnum.CHEST);
-    MuscleEntity muscleAsEntity = Mapper.toEntity(muscle);
+    MuscleEntity muscleAsEntity = mapper.toEntity(muscle);
 
     when(muscleRepository
         .findAll(ArgumentMatchers.any(org.springframework.data.jpa.domain.Specification.class)))
