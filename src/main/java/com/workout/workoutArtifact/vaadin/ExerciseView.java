@@ -1,8 +1,9 @@
 package com.workout.workoutArtifact.vaadin;
 
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.Grid.SelectionMode;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.workout.workoutArtifact.endpoint.domain.Exercise;
 import com.workout.workoutArtifact.endpoint.domain.Muscle;
@@ -12,6 +13,7 @@ import com.workout.workoutArtifact.vaadin.dto.ExerciseDto;
 import com.workout.workoutArtifact.vaadin.dto.MuscleDto;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Route(value = "exercises")
@@ -31,6 +33,7 @@ public class ExerciseView extends HorizontalLayout {
 
     exerciseDtoGrid.setColumns("name", "type");
     exerciseDtoGrid.setWidth("60%");
+    exerciseDtoGrid.setSelectionMode(SelectionMode.SINGLE);
 
     muscleDtoGrid.setColumns("name");
     muscleDtoGrid.setWidth("40%");
@@ -39,6 +42,12 @@ public class ExerciseView extends HorizontalLayout {
     setSizeFull();
     listExercises();
     listMuscles();
+
+    exerciseDtoGrid.addSelectionListener(event -> {
+      Set<ExerciseDto> selectedExercise = event.getAllSelectedItems();
+      Notification.show(selectedExercise.size() + " items selected");
+    });
+
   }
 
   private void listMuscles() {

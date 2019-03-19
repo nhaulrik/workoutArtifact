@@ -27,11 +27,6 @@ public class WorkoutEntityController {
     this.exerciseFacade = exerciseFacade;
   }
 
-  @RequestMapping("/")
-  public String welcome() {//Welcome page, non-rest
-    return "Workout Artifact is running.";
-  }
-
   @PostMapping(
       value = "workoutentity/addmuscles",
       consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
