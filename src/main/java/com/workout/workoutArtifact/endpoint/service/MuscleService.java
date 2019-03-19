@@ -2,6 +2,7 @@ package com.workout.workoutArtifact.endpoint.service;
 
 import com.workout.workoutArtifact.common.Mapper;
 import com.workout.workoutArtifact.endpoint.domain.Muscle;
+import com.workout.workoutArtifact.endpoint.specification.ExerciseSpecification;
 import com.workout.workoutArtifact.endpoint.specification.MuscleSpecification;
 import com.workout.workoutArtifact.endpoint.specification.MuscleSpecification.SearchCriteria;
 import com.workout.workoutArtifact.mysqldatabase.MuscleEntity;
@@ -38,9 +39,13 @@ public class MuscleService {
     List<MuscleEntity> resultEntities = new ArrayList<>();
 
     for (String muscleName : muscleNames) {
-      MuscleSpecification muscleSpecification = new MuscleSpecification(
-          new SearchCriteria("name", ":", muscleName));
-      resultEntities.addAll(muscleRepository.findAll(muscleSpecification));
+      if (muscleName.contains("*")) {
+        resultEntities.addAll(muscleRepository.findAll());
+      } else {
+        MuscleSpecification muscleSpecification = new MuscleSpecification(
+            new SearchCriteria("name", ":", muscleName));
+        resultEntities.addAll(muscleRepository.findAll(muscleSpecification));
+      }
     }
 
     return resultEntities.stream()

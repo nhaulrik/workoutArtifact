@@ -29,13 +29,13 @@ public class MuscleFacade {
 
   public List<Muscle> getMusclesByName(List<String> muscleNames) {
 
-    List<String> invalidMuscleNames = muscleNames.stream()
-        .filter(muscleName -> !validateInputString(muscleName))
-        .collect(Collectors.toList());
-
-    if (!invalidMuscleNames.isEmpty()) {
-      throw new MuscleException(ErrorCodes.ILLEGAL_MUSCLE_NAME, muscleNames.toString());
-    }
+//    List<String> invalidMuscleNames = muscleNames.stream()
+//        .filter(muscleName -> !validateInputString(muscleName))
+//        .collect(Collectors.toList());
+//
+//    if (!invalidMuscleNames.isEmpty()) {
+//      throw new MuscleException(ErrorCodes.ILLEGAL_MUSCLE_NAME, muscleNames.toString());
+//    }
 
     return muscleService.getMuscles(muscleNames);
   }
