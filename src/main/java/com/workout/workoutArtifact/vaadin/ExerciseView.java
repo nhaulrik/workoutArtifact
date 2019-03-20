@@ -1,7 +1,10 @@
 package com.workout.workoutArtifact.vaadin;
 
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.grid.FooterRow;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
 import com.workout.workoutArtifact.common.Mapper;
@@ -37,8 +40,13 @@ public class ExerciseView extends HorizontalLayout {
 
     muscleDtoGrid.setColumns("name");
     muscleDtoGrid.setWidth("40%");
-    muscleDtoGrid.setHeight("80%");
     muscleDtoGrid.setHeightByRows(true);
+
+    Button addButton = new Button("Add Muscle", event -> {
+    });
+
+    FooterRow muscleGridFooter = muscleDtoGrid.appendFooterRow();
+    muscleGridFooter.getCell(muscleDtoGrid.getColumnByKey("name")).setComponent(addButton);
 
     add(exerciseDtoGrid, muscleDtoGrid);
     setSizeFull();
