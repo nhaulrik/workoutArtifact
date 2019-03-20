@@ -43,16 +43,21 @@ public class ExerciseEntity {
   private Boolean isMultiJoint;
 
   @NonNull
+  @Column
+  private String primaryBodyPart;
+
+  @NonNull
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(name = "exercise_muscle",
       joinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "muscle_id", referencedColumnName = "id"))
   private Set<MuscleEntity> muscleEntities = new HashSet<>();
 
-  public ExerciseEntity(String name, Boolean isMultiJoint, List<MuscleEntity> muscleEntities) {
+  public ExerciseEntity(String name, Boolean isMultiJoint, List<MuscleEntity> muscleEntities, String primaryBodyPart) {
     this.name = name;
     this.isMultiJoint = isMultiJoint;
     this.muscleEntities = muscleEntities.stream().collect(Collectors.toSet());
     this.muscleEntities.forEach(x -> x.getExerciseSet().add(this));
+    this.primaryBodyPart = primaryBodyPart;
   }
 }

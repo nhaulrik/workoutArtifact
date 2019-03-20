@@ -2,19 +2,16 @@ package com.workout.workoutArtifact.vaadin;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
-import com.workout.workoutArtifact.endpoint.domain.Exercise;
-import com.workout.workoutArtifact.endpoint.domain.Muscle;
+import com.workout.workoutArtifact.common.Mapper;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
 import com.workout.workoutArtifact.vaadin.dto.ExerciseDto;
 import com.workout.workoutArtifact.vaadin.dto.MuscleDto;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Route(value = "exercises")
 public class ExerciseView extends HorizontalLayout {
@@ -27,16 +24,21 @@ public class ExerciseView extends HorizontalLayout {
 
   public ExerciseView(
       ExerciseFacade exerciseFacade,
-      MuscleFacade muscleFacade) {
+      MuscleFacade muscleFacade, Mapper mapper) {
     this.exerciseFacade = exerciseFacade;
     this.muscleFacade = muscleFacade;
 
-    exerciseDtoGrid.setColumns("name", "type");
+    exerciseDtoGrid.setColumns("name", "type", "bodyPart");
+    exerciseDtoGrid.getColumnByKey("name").setHeader("Exercise");
+
     exerciseDtoGrid.setWidth("60%");
     exerciseDtoGrid.setSelectionMode(SelectionMode.SINGLE);
+    exerciseDtoGrid.setHeight("80%");
 
     muscleDtoGrid.setColumns("name");
     muscleDtoGrid.setWidth("40%");
+    muscleDtoGrid.setHeight("80%");
+    muscleDtoGrid.setHeightByRows(true);
 
     add(exerciseDtoGrid, muscleDtoGrid);
     setSizeFull();
@@ -44,34 +46,21 @@ public class ExerciseView extends HorizontalLayout {
     listMuscles();
 
     exerciseDtoGrid.addSelectionListener(event -> {
-      Set<ExerciseDto> selectedExercise = event.getAllSelectedItems();
-      Notification.show(selectedExercise.size() + " items selected");
+      List<ExerciseDto> selectedExercise = new ArrayList<>(event.getAllSelectedItems());
+
+      List<String> muscleNames = selectedExercise.get(0).getMuscles();
+
+      muscleDtoGrid.setItems(muscleFacade.getMusclesByName(muscleNames));
     });
 
   }
 
   private void listMuscles() {
-    List<Muscle> muscleList = muscleFacade.getMusclesByName(Arrays.asList("*"));
-
-    List<MuscleDto> muscleDtos = muscleList.stream()
-        .map(muscle -> new MuscleDto(
-            muscle.getMuscle().toString()
-        )).collect(Collectors.toList());
-
-    muscleDtoGrid.setItems(muscleDtos);
+    muscleDtoGrid.setItems(muscleFacade.getMusclesByName(Arrays.asList("*")));
   }
 
   private void listExercises() {
-
-    List<Exercise> exerciseList = exerciseFacade.getExercises(Arrays.asList("*"));
-
-    List<ExerciseDto> exerciseDtos = exerciseList.stream()
-        .map(exercise -> new ExerciseDto(
-            exercise.getName().toString(),
-            exercise.getIsMultiJoint() ? "COMPOUND" : "SINGLE", exercise.getMuscles().toString()))
-        .collect(Collectors.toList());
-
-    exerciseDtoGrid.setItems(exerciseDtos);
-}
+    exerciseDtoGrid.setItems(exerciseFacade.getExercises(Arrays.asList("*")));
+  }
 
 }

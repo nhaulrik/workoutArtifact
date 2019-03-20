@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.vaadin.dto;
 
+import java.util.List;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -13,6 +14,9 @@ public class ExerciseDto {
   String type;
 
   @NonNull
-  private String muscles;
+  private List<String> muscles;
+
+  @NonNull
+  private String bodyPart;
 
 }

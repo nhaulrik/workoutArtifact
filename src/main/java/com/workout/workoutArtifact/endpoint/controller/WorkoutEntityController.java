@@ -4,13 +4,13 @@ import com.workout.workoutArtifact.endpoint.domain.Exercise;
 import com.workout.workoutArtifact.endpoint.domain.Muscle;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
-import java.util.ArrayList;
+import com.workout.workoutArtifact.vaadin.dto.ExerciseDto;
+import com.workout.workoutArtifact.vaadin.dto.MuscleDto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -39,7 +39,7 @@ public class WorkoutEntityController {
       value = "workoutentity/getmuscles",
       consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public List<Muscle> getMuscles(@RequestBody final List<String> muscleNames) {
+  public List<MuscleDto> getMuscles(@RequestBody final List<String> muscleNames) {
     return muscleFacade.getMusclesByName(muscleNames);
   }
 
@@ -55,7 +55,7 @@ public class WorkoutEntityController {
       value = "workoutentity/getexercises",
       consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public List<Exercise> getExercises(@RequestBody final List<String> exerciseNames) {
+  public List<ExerciseDto> getExercises(@RequestBody final List<String> exerciseNames) {
     return exerciseFacade.getExercises(exerciseNames);
   }
 }

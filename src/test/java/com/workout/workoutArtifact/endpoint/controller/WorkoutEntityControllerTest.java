@@ -11,6 +11,7 @@ import com.workout.workoutArtifact.common.BodyPartEnum;
 import com.workout.workoutArtifact.common.MuscleEnum;
 import com.workout.workoutArtifact.endpoint.domain.Muscle;
 import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
+import com.workout.workoutArtifact.vaadin.dto.MuscleDto;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -52,11 +53,11 @@ public class WorkoutEntityControllerTest {
   @Test
   public void getChestMusclesIsOk() throws Exception {
 
-    List<Muscle> muscles = new ArrayList<>();
-    muscles.add(new Muscle(MuscleEnum.BICEPS, BodyPartEnum.ARM));
+    List<MuscleDto> muscleDtos = new ArrayList<>();
+    muscleDtos.add(new MuscleDto(MuscleEnum.BICEPS.toString()));
 
     when(muscleFacade.getMusclesByName(Arrays.asList("CHEST")))
-        .thenReturn(muscles);
+        .thenReturn(muscleDtos);
 
     mockMvc.perform(
         post("/workoutentity/getmuscles")
@@ -64,7 +65,7 @@ public class WorkoutEntityControllerTest {
             .content("[\"CHEST\"]"))
         .andExpect(status().isOk())
         .andExpect(
-            content().string(containsString(new ObjectMapper().writeValueAsString(muscles))));
+            content().string(containsString(new ObjectMapper().writeValueAsString(muscleDtos))));
   }
 
   @Test

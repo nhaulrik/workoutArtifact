@@ -6,9 +6,12 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.workout.workoutArtifact.common.BodyPartEnum;
 import com.workout.workoutArtifact.common.ExerciseEnum;
+import com.workout.workoutArtifact.common.Mapper;
 import com.workout.workoutArtifact.endpoint.domain.Exercise;
 import com.workout.workoutArtifact.endpoint.service.ExerciseService;
+import com.workout.workoutArtifact.vaadin.dto.ExerciseDto;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -27,15 +31,20 @@ public class ExerciseFacadeTest {
 
   private ExerciseFacade exerciseFacade;
 
+  private Mapper mapper = new Mapper();
+
   @Before
   public void before() {
-    exerciseFacade = new ExerciseFacade(exerciseService);
+    exerciseFacade = new ExerciseFacade(
+        exerciseService,
+        mapper
+    );
   }
 
   @Test
   public void addExercises() {
 
-    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true);
+    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, BodyPartEnum.CHEST);
 
     exerciseFacade.addExercises(Arrays.asList(exercise));
 
@@ -49,14 +58,14 @@ public class ExerciseFacadeTest {
   @Test
   public void getExercises() {
 
-    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true);
+    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, BodyPartEnum.CHEST);
 
     when(exerciseService.getExercises(anyList()))
         .thenReturn(Arrays.asList(exercise));
 
-    List<Exercise> resultList = exerciseFacade.getExercises(Arrays.asList("1234"));
+    List<ExerciseDto> resultList = exerciseFacade.getExercises(Arrays.asList("1234"));
 
-    assertThat(resultList.get(0), is(exercise));
+    assertThat(resultList.get(0), is(mapper.toDto(exercise)));
   }
 
 }

@@ -1,6 +1,7 @@
 package com.workout.workoutArtifact.endpoint.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.workout.workoutArtifact.common.BodyPartEnum;
 import com.workout.workoutArtifact.common.ExerciseEnum;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,5 +25,13 @@ public class Exercise {
 
   @JsonProperty
   private List<Muscle> muscles = new ArrayList<>();
+
+  @NonNull
+  @JsonProperty
+  private BodyPartEnum bodyPartEnum;
+
+  public String getBodyPartString() {
+    return bodyPartEnum.toString();
+  }
 
 }
