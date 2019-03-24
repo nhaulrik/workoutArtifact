@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.backend.mysqldatabase;
+package com.workout.workoutArtifact.backend.mysqldatabase.entity;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -50,6 +51,10 @@ public class ExerciseEntity {
       joinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "muscle_id", referencedColumnName = "id"))
   private Set<MuscleEntity> muscleEntities = new HashSet<>();
+
+//  @NonNull
+//  @OneToMany(mappedBy = "exerciseEntity", cascade = CascadeType.ALL)
+//  private Set<WorkoutSetEntity> workoutSets = new HashSet<>();
 
   public ExerciseEntity(String name, Boolean isMultiJoint, List<MuscleEntity> muscleEntities, String primaryBodyPart) {
     this.name = name;

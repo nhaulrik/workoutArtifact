@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.backend.mysqldatabase;
+package com.workout.workoutArtifact.backend.mysqldatabase.entity;
 
 import java.util.HashSet;
 import java.util.Set;

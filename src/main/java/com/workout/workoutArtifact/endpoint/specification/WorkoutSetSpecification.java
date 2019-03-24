@@ -1,6 +1,6 @@
 package com.workout.workoutArtifact.endpoint.specification;
 
-import com.workout.workoutArtifact.backend.mysqldatabase.entity.ExerciseEntity;
+import com.workout.workoutArtifact.backend.mysqldatabase.entity.WorkoutSetEntity;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -12,13 +12,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 
 @RequiredArgsConstructor
-public class ExerciseSpecification implements Specification<ExerciseEntity> {
+public class WorkoutSetSpecification implements Specification<WorkoutSetEntity> {
 
   @NonNull
-  private ExerciseSpecification.SearchCriteria criteria;
+  private WorkoutSetSpecification.SearchCriteria criteria;
 
   @Override
-  public Predicate toPredicate(Root<ExerciseEntity> root, CriteriaQuery<?> criteriaQuery,
+  public Predicate toPredicate(Root<WorkoutSetEntity> root, CriteriaQuery<?> criteriaQuery,
       CriteriaBuilder criteriaBuilder) {
     if (criteria.getOperation().equalsIgnoreCase(">")) {
       return criteriaBuilder.greaterThanOrEqualTo(
@@ -45,3 +45,4 @@ public class ExerciseSpecification implements Specification<ExerciseEntity> {
     private Object value;
   }
 }
+
