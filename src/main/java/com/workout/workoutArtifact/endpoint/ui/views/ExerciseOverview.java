@@ -2,41 +2,41 @@ package com.workout.workoutArtifact.endpoint.ui.views;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
+import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
+import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "exercises")
 @PageTitle("Exercises overview")
-public class ExerciseView extends HorizontalLayout {
+public class ExerciseOverview extends HorizontalLayout {
 
   ExerciseFacade exerciseFacade;
+  MuscleFacade muscleFacade;
 
-  @Id("grid")
   private Grid<ExerciseDto> exerciseDtoGrid = new Grid<>(ExerciseDto.class);
+  private Grid<MuscleDto> muscleDtoGrid = new Grid<>(MuscleDto.class);
 
   @Autowired
-  public ExerciseView(ExerciseFacade exerciseFacade) {
+  public ExerciseOverview(
+      ExerciseFacade exerciseFacade,
+      MuscleFacade muscleFacade) {
     this.exerciseFacade = exerciseFacade;
-    setupGrid();
-    add(exerciseDtoGrid);
-    setSizeFull();
-    populateData();
-  }
+    this.muscleFacade = muscleFacade;
 
-  private void setupGrid() {
     exerciseDtoGrid.setColumns("name", "type", "bodyPart");
-  }
+    exerciseDtoGrid.setItems(exerciseFacade.getExercises(Arrays.asList("*")));
 
-  private void populateData() {
-    List<ExerciseDto> exerciseDtoList = exerciseFacade.getExercises(Arrays.asList("*"));
-    exerciseDtoGrid.setItems(exerciseDtoList);
-  }
+    muscleDtoGrid.setColumns("name");
+    muscleDtoGrid.setItems(muscleFacade.getMusclesByName(Arrays.asList("*")));
 
+    add(exerciseDtoGrid, muscleDtoGrid);
+    setSizeFull();
+  }
 
 }
