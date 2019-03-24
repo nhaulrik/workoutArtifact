@@ -8,12 +8,12 @@ import static org.mockito.Mockito.when;
 
 import com.workout.workoutArtifact.ErrorCodes;
 import com.workout.workoutArtifact.MuscleException;
-import com.workout.workoutArtifact.common.BodyPartEnum;
-import com.workout.workoutArtifact.common.Mapper;
-import com.workout.workoutArtifact.common.MuscleEnum;
-import com.workout.workoutArtifact.endpoint.domain.Muscle;
-import com.workout.workoutArtifact.endpoint.service.MuscleService;
-import com.workout.workoutArtifact.vaadin.dto.MuscleDto;
+import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
+import com.workout.workoutArtifact.backend.common.enums.MuscleEnum;
+import com.workout.workoutArtifact.backend.common.mapper.Mapper;
+import com.workout.workoutArtifact.domain.model.Muscle;
+import com.workout.workoutArtifact.domain.service.MuscleService;
+import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +25,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)

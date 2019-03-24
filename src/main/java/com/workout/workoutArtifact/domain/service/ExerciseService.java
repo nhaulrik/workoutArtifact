@@ -1,11 +1,11 @@
-package com.workout.workoutArtifact.endpoint.service;
+package com.workout.workoutArtifact.domain.service;
 
-import com.workout.workoutArtifact.common.Mapper;
-import com.workout.workoutArtifact.endpoint.domain.Exercise;
+import com.workout.workoutArtifact.backend.common.mapper.Mapper;
+import com.workout.workoutArtifact.domain.model.Exercise;
 import com.workout.workoutArtifact.endpoint.specification.ExerciseSpecification;
 import com.workout.workoutArtifact.endpoint.specification.ExerciseSpecification.SearchCriteria;
-import com.workout.workoutArtifact.mysqldatabase.ExerciseEntity;
-import com.workout.workoutArtifact.mysqldatabase.ExerciseRepository;
+import com.workout.workoutArtifact.backend.mysqldatabase.ExerciseEntity;
+import com.workout.workoutArtifact.backend.mysqldatabase.ExerciseRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

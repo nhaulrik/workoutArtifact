@@ -1,11 +1,11 @@
 package com.workout.workoutArtifact.endpoint.facade;
 
 import com.workout.workoutArtifact.MuscleException;
-import com.workout.workoutArtifact.common.Mapper;
-import com.workout.workoutArtifact.common.Validator;
-import com.workout.workoutArtifact.endpoint.domain.Muscle;
-import com.workout.workoutArtifact.endpoint.service.MuscleService;
-import com.workout.workoutArtifact.vaadin.dto.MuscleDto;
+import com.workout.workoutArtifact.backend.common.mapper.Mapper;
+import com.workout.workoutArtifact.backend.common.Validator;
+import com.workout.workoutArtifact.domain.model.Muscle;
+import com.workout.workoutArtifact.domain.service.MuscleService;
+import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;

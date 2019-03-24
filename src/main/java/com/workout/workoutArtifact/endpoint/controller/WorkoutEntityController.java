@@ -1,11 +1,11 @@
 package com.workout.workoutArtifact.endpoint.controller;
 
-import com.workout.workoutArtifact.endpoint.domain.Exercise;
-import com.workout.workoutArtifact.endpoint.domain.Muscle;
+import com.workout.workoutArtifact.domain.model.Exercise;
+import com.workout.workoutArtifact.domain.model.Muscle;
+import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
+import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
-import com.workout.workoutArtifact.vaadin.dto.ExerciseDto;
-import com.workout.workoutArtifact.vaadin.dto.MuscleDto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

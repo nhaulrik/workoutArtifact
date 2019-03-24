@@ -1,11 +1,9 @@
-package com.workout.workoutArtifact.mysqldatabase;
+package com.workout.workoutArtifact.backend.mysqldatabase;
 
-import com.workout.workoutArtifact.endpoint.domain.Muscle;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;

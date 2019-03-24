@@ -1,8 +1,8 @@
-package com.workout.workoutArtifact.endpoint.domain;
+package com.workout.workoutArtifact.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.workout.workoutArtifact.common.BodyPartEnum;
-import com.workout.workoutArtifact.common.MuscleEnum;
+import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
+import com.workout.workoutArtifact.backend.common.enums.MuscleEnum;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;

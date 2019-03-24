@@ -1,9 +1,9 @@
 package com.workout.workoutArtifact.endpoint.facade;
 
-import com.workout.workoutArtifact.common.Mapper;
-import com.workout.workoutArtifact.endpoint.domain.Exercise;
-import com.workout.workoutArtifact.endpoint.service.ExerciseService;
-import com.workout.workoutArtifact.vaadin.dto.ExerciseDto;
+import com.workout.workoutArtifact.backend.common.mapper.Mapper;
+import com.workout.workoutArtifact.domain.model.Exercise;
+import com.workout.workoutArtifact.domain.service.ExerciseService;
+import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;

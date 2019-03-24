@@ -1,11 +1,14 @@
-package com.workout.workoutArtifact.common;
+package com.workout.workoutArtifact.backend.common.mapper;
 
-import com.workout.workoutArtifact.endpoint.domain.Exercise;
-import com.workout.workoutArtifact.endpoint.domain.Muscle;
-import com.workout.workoutArtifact.mysqldatabase.ExerciseEntity;
-import com.workout.workoutArtifact.mysqldatabase.MuscleEntity;
-import com.workout.workoutArtifact.vaadin.dto.ExerciseDto;
-import com.workout.workoutArtifact.vaadin.dto.MuscleDto;
+import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
+import com.workout.workoutArtifact.backend.common.enums.ExerciseEnum;
+import com.workout.workoutArtifact.backend.common.enums.MuscleEnum;
+import com.workout.workoutArtifact.domain.model.Exercise;
+import com.workout.workoutArtifact.domain.model.Muscle;
+import com.workout.workoutArtifact.backend.mysqldatabase.ExerciseEntity;
+import com.workout.workoutArtifact.backend.mysqldatabase.MuscleEntity;
+import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
+import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

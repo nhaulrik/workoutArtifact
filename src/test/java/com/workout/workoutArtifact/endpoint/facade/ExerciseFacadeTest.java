@@ -6,12 +6,12 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.workout.workoutArtifact.common.BodyPartEnum;
-import com.workout.workoutArtifact.common.ExerciseEnum;
-import com.workout.workoutArtifact.common.Mapper;
-import com.workout.workoutArtifact.endpoint.domain.Exercise;
-import com.workout.workoutArtifact.endpoint.service.ExerciseService;
-import com.workout.workoutArtifact.vaadin.dto.ExerciseDto;
+import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
+import com.workout.workoutArtifact.backend.common.enums.ExerciseEnum;
+import com.workout.workoutArtifact.backend.common.mapper.Mapper;
+import com.workout.workoutArtifact.domain.model.Exercise;
+import com.workout.workoutArtifact.domain.service.ExerciseService;
+import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +20,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)

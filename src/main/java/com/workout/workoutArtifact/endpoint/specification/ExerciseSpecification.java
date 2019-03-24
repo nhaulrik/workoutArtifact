@@ -1,6 +1,6 @@
 package com.workout.workoutArtifact.endpoint.specification;
 
-import com.workout.workoutArtifact.mysqldatabase.ExerciseEntity;
+import com.workout.workoutArtifact.backend.mysqldatabase.ExerciseEntity;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;

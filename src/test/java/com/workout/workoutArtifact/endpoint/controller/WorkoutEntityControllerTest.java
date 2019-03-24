@@ -7,11 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.workout.workoutArtifact.common.BodyPartEnum;
-import com.workout.workoutArtifact.common.MuscleEnum;
-import com.workout.workoutArtifact.endpoint.domain.Muscle;
+import com.workout.workoutArtifact.backend.common.enums.MuscleEnum;
+import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
-import com.workout.workoutArtifact.vaadin.dto.MuscleDto;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -80,7 +78,7 @@ public class WorkoutEntityControllerTest {
   }
 
   @Test
-  public void addExerciseIsOk() throws  Exception {
+  public void addExerciseIsOk() throws Exception {
     mockMvc.perform(
         post("/workoutentity/addexercises")
             .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)

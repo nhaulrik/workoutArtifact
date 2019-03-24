@@ -1,8 +1,8 @@
-package com.workout.workoutArtifact.common;
+package com.workout.workoutArtifact.backend.common;
 
 import com.workout.workoutArtifact.ErrorCodes;
 import com.workout.workoutArtifact.MuscleException;
-import com.workout.workoutArtifact.endpoint.domain.Muscle;
+import com.workout.workoutArtifact.domain.model.Muscle;
 
 public class Validator {
 

@@ -1,12 +1,12 @@
-//package com.workout.workoutArtifact.endpoint.dto;
-//
-//import com.fasterxml.jackson.annotation.JsonProperty;
-//import lombok.Data;
-//
-//@Data
-//public class MuscleDto {
-//
-//  @JsonProperty
-//  private String name;
-//
-//}
+package com.workout.workoutArtifact.endpoint.dto;
+
+import lombok.Data;
+import lombok.NonNull;
+
+@Data
+public class MuscleDto {
+
+  @NonNull
+  private String name;
+
+}

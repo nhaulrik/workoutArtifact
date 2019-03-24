@@ -1,12 +1,12 @@
 package com.workout.workoutArtifact;
 
-import com.workout.workoutArtifact.common.BodyPartEnum;
-import com.workout.workoutArtifact.common.ExerciseEnum;
-import com.workout.workoutArtifact.common.MuscleEnum;
-import com.workout.workoutArtifact.endpoint.service.MuscleService;
-import com.workout.workoutArtifact.mysqldatabase.ExerciseEntity;
-import com.workout.workoutArtifact.mysqldatabase.ExerciseRepository;
-import com.workout.workoutArtifact.mysqldatabase.MuscleEntity;
+import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
+import com.workout.workoutArtifact.backend.common.enums.ExerciseEnum;
+import com.workout.workoutArtifact.backend.common.enums.MuscleEnum;
+import com.workout.workoutArtifact.domain.service.MuscleService;
+import com.workout.workoutArtifact.backend.mysqldatabase.ExerciseEntity;
+import com.workout.workoutArtifact.backend.mysqldatabase.ExerciseRepository;
+import com.workout.workoutArtifact.backend.mysqldatabase.MuscleEntity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

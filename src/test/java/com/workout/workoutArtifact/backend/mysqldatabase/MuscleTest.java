@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.mysqldatabase;
+package com.workout.workoutArtifact.backend.mysqldatabase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

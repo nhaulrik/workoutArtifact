@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.common;
+package com.workout.workoutArtifact.backend.common.enums;
 
 public enum BodyPartEnum {
 

@@ -1,15 +1,22 @@
-//package com.workout.workoutArtifact.endpoint.dto;
-//
-//import com.fasterxml.jackson.annotation.JsonProperty;
-//import lombok.Data;
-//
-//@Data
-//public class ExerciseDto {
-//
-//  @JsonProperty
-//  private String name;
-//
-//  @JsonProperty
-//  private Boolean isMultiJoint;
-//
-//}
+package com.workout.workoutArtifact.endpoint.dto;
+
+import java.util.List;
+import lombok.Data;
+import lombok.NonNull;
+
+@Data
+public class ExerciseDto {
+
+  @NonNull
+  private String name;
+
+  @NonNull
+  String type;
+
+  @NonNull
+  private List<String> muscles;
+
+  @NonNull
+  private String bodyPart;
+
+}
