@@ -18,6 +18,7 @@ import lombok.NonNull;
 
 @Data
 @EqualsAndHashCode(exclude = "muscleEntities")
+@NoArgsConstructor
 
 @Entity
 @Table(name = "workoutset")
@@ -36,7 +37,7 @@ public class WorkoutSetEntity {
   private boolean single;
 
   @NonNull
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn
   private ExerciseEntity exerciseEntity;
 

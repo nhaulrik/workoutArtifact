@@ -4,8 +4,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 import com.workout.workoutArtifact.backend.mysqldatabase.entity.ExerciseEntity;
-import com.workout.workoutArtifact.backend.mysqldatabase.repository.ExerciseRepository;
-import com.workout.workoutArtifact.backend.mysqldatabase.repository.WorkoutSetRepository;
 import com.workout.workoutArtifact.endpoint.specification.ExerciseSpecification;
 import com.workout.workoutArtifact.endpoint.specification.ExerciseSpecification.SearchCriteria;
 import java.util.List;
@@ -27,7 +25,7 @@ public class ExerciseEntityTest {
 
     ExerciseEntity exerciseEntity = new ExerciseEntity();
     exerciseEntity.setIsMultiJoint(true);
-    exerciseEntity.setName("BENCH_TEST");
+    exerciseEntity.setName("TEST_EXERCISE");
 
     exerciseRepository.save(exerciseEntity);
 
