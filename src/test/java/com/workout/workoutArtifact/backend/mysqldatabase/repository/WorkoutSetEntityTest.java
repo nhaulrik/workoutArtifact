@@ -3,38 +3,55 @@ package com.workout.workoutArtifact.backend.mysqldatabase.repository;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import com.workout.workoutArtifact.backend.mysqldatabase.configuration.JpaConfig;
 import com.workout.workoutArtifact.backend.mysqldatabase.entity.ExerciseEntity;
 import com.workout.workoutArtifact.backend.mysqldatabase.entity.WorkoutSetEntity;
 import com.workout.workoutArtifact.endpoint.specification.WorkoutSetSpecification;
 import com.workout.workoutArtifact.endpoint.specification.WorkoutSetSpecification.SearchCriteria;
 import java.util.List;
+import javax.annotation.Resource;
+import javax.transaction.Transactional;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {JpaConfig.class}, loader = AnnotationConfigContextLoader.class)
+@TestPropertySource("classpath:application.properties")
+@Transactional
 public class WorkoutSetEntityTest {
 
   @Autowired
   WorkoutSetRepository workoutSetRepository;
 
-  @Autowired
+  @Resource
   ExerciseRepository exerciseRepository;
 
-  @Test
-  public void saveAndWorkoutSetEntity() {
-    ExerciseEntity exerciseEntity = new ExerciseEntity();
-    exerciseEntity.setIsMultiJoint(true);
-    exerciseEntity.setName("TEST_EXERCISE");
-    exerciseRepository.save(exerciseEntity);
+  ExerciseEntity mockedExerciseEntity;
 
-    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity();
-    workoutSetEntity.setRepetitions(1337);
-    workoutSetEntity.setSingle(true);
-    workoutSetEntity.setExerciseEntity(exerciseEntity);
+  @Before
+  public void before() {
+    mockedExerciseEntity = new ExerciseEntity();
+    mockedExerciseEntity.setIsMultiJoint(true);
+    mockedExerciseEntity.setName("TEST_EXERCISE");
+    exerciseRepository.save(mockedExerciseEntity);
+  }
+
+  @Test
+  public void emptyRepositoryShouldReturnEmptyList() {
+
+    List<WorkoutSetEntity> resultList = workoutSetRepository.findAll();
+    assertThat(resultList.isEmpty(), is(true));
+  }
+
+  @Test
+  public void saveAndFindWorkoutSetEntity() {
+    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(1337, true, mockedExerciseEntity);
 
     workoutSetRepository.save(workoutSetEntity);
 

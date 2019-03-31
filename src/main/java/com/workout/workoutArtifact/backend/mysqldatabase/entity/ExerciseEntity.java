@@ -52,9 +52,9 @@ public class ExerciseEntity {
       inverseJoinColumns = @JoinColumn(name = "muscle_id", referencedColumnName = "id"))
   private Set<MuscleEntity> muscleEntities = new HashSet<>();
 
-//  @NonNull
-//  @OneToMany(mappedBy = "exerciseEntity", cascade = CascadeType.ALL)
-//  private Set<WorkoutSetEntity> workoutSets = new HashSet<>();
+  @NonNull
+  @OneToMany(mappedBy = "exerciseEntity", fetch = FetchType.EAGER)
+  private Set<WorkoutSetEntity> workoutSets = new HashSet<>();
 
   public ExerciseEntity(String name, Boolean isMultiJoint, List<MuscleEntity> muscleEntities, String primaryBodyPart) {
     this.name = name;

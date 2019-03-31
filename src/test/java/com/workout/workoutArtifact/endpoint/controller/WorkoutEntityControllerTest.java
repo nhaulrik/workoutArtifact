@@ -21,15 +21,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(SpringRunner.class)
-@WebAppConfiguration
-@AutoConfigureMockMvc
 @SpringBootTest
+@TestPropertySource(locations = "classpath:application.properties")
+@AutoConfigureMockMvc
 public class WorkoutEntityControllerTest {
 
   @Autowired
@@ -41,7 +42,6 @@ public class WorkoutEntityControllerTest {
   @Autowired
   WorkoutEntityController workoutEntityController;
 
-
   @Before
   public void setUp() {
     ReflectionTestUtils.setField(workoutEntityController, "muscleFacade", muscleFacade);
@@ -49,18 +49,19 @@ public class WorkoutEntityControllerTest {
 
 
   @Test
-  public void getChestMusclesIsOk() throws Exception {
+  public void getShoulderMusclesIsOk() throws Exception {
 
+    String muscle = MuscleEnum.FRONT_DELTS.toString();
     List<MuscleDto> muscleDtos = new ArrayList<>();
-    muscleDtos.add(new MuscleDto(MuscleEnum.BICEPS.toString()));
+    muscleDtos.add(new MuscleDto(muscle));
 
-    when(muscleFacade.getMusclesByName(Arrays.asList("CHEST")))
-        .thenReturn(muscleDtos);
+    when(muscleFacade.getMusclesByName(Arrays.asList(muscle)))
+       .thenReturn(muscleDtos);
 
     mockMvc.perform(
         post("/workoutentity/getmuscles")
             .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-            .content("[\"CHEST\"]"))
+            .content("[\"FRONT_DELTS\"]"))
         .andExpect(status().isOk())
         .andExpect(
             content().string(containsString(new ObjectMapper().writeValueAsString(muscleDtos))));
@@ -72,7 +73,7 @@ public class WorkoutEntityControllerTest {
         post("/workoutentity/addmuscles")
             .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
             .content("[\n"
-                + "{\"name\":\"UPPER_CHEST\", \"bodyPart\":\"CHEST\"}\n"
+                + "{\"muscle\":\"TRICEPS\", \"bodyPart\":\"ARM\"}\n"
                 + "]"))
         .andExpect(status().isOk());
   }

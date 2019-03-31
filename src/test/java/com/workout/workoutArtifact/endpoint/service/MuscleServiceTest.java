@@ -28,7 +28,7 @@ public class MuscleServiceTest {
   public ExpectedException thrown = ExpectedException.none();
 
   Mapper mapper = new Mapper();
-  
+
   MuscleRepository muscleRepository = mock(MuscleRepository.class);
 
   MuscleService muscleService = new MuscleService(muscleRepository, mapper);
