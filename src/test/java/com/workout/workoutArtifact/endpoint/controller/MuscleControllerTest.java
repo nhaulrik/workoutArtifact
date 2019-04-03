@@ -22,7 +22,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,7 +30,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application.properties")
 @AutoConfigureMockMvc
-public class WorkoutEntityControllerTest {
+public class MuscleControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
@@ -40,13 +39,12 @@ public class WorkoutEntityControllerTest {
   MuscleFacade muscleFacade;
 
   @Autowired
-  WorkoutEntityController workoutEntityController;
+  MuscleController muscleController;
 
   @Before
   public void setUp() {
-    ReflectionTestUtils.setField(workoutEntityController, "muscleFacade", muscleFacade);
+    ReflectionTestUtils.setField(muscleController, "muscleFacade", muscleFacade);
   }
-
 
   @Test
   public void getShoulderMusclesIsOk() throws Exception {
@@ -56,7 +54,7 @@ public class WorkoutEntityControllerTest {
     muscleDtos.add(new MuscleDto(muscle));
 
     when(muscleFacade.getMusclesByName(Arrays.asList(muscle)))
-       .thenReturn(muscleDtos);
+        .thenReturn(muscleDtos);
 
     mockMvc.perform(
         post("/workoutentity/getmuscles")
@@ -74,17 +72,6 @@ public class WorkoutEntityControllerTest {
             .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
             .content("[\n"
                 + "{\"muscle\":\"TRICEPS\", \"bodyPart\":\"ARM\"}\n"
-                + "]"))
-        .andExpect(status().isOk());
-  }
-
-  @Test
-  public void addExerciseIsOk() throws Exception {
-    mockMvc.perform(
-        post("/workoutentity/addexercises")
-            .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-            .content("[\n"
-                + "\t{\"name\":\"BARBELL_CHEST_PRESS\", \"isMultiJoint\":\"true\"}\n"
                 + "]"))
         .andExpect(status().isOk());
   }
