@@ -84,6 +84,7 @@ public class Mapper {
     ExerciseEntity exerciseEntity = new ExerciseEntity();
     exerciseEntity.setName(exercise.getName().toString());
     exerciseEntity.setIsMultiJoint(exercise.getIsMultiJoint());
+    consider how mapping between entities and domain objects should work. what values are relavant?
     return exerciseEntity;
   }
 

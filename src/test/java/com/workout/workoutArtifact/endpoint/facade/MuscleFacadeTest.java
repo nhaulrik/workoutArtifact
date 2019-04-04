@@ -10,7 +10,7 @@ import com.workout.workoutArtifact.ErrorCodes;
 import com.workout.workoutArtifact.MuscleException;
 import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.backend.common.enums.MuscleEnum;
-import com.workout.workoutArtifact.backend.common.mapper.Mapper;
+import com.workout.workoutArtifact.backend.common.mapper.MuscleMapper;
 import com.workout.workoutArtifact.domain.model.Muscle;
 import com.workout.workoutArtifact.domain.service.MuscleService;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
@@ -38,11 +38,11 @@ public class MuscleFacadeTest {
   @Mock
   private MuscleService muscleService;
 
-  private Mapper mapper = new Mapper();
+  private MuscleMapper muscleMapper = new MuscleMapper();
 
   @Before
   public void before() {
-    muscleFacade = new MuscleFacade(muscleService, mapper);
+    muscleFacade = new MuscleFacade(muscleService, muscleMapper);
   }
 
   @Test
@@ -70,8 +70,8 @@ public class MuscleFacadeTest {
 
     List<MuscleDto> muscles = muscleFacade.getMusclesByName(new ArrayList<>());
 
-    assertThat(muscles.get(0), is(mapper.toDto(expectedMuscle1)));
-    assertThat(muscles.get(1), is(mapper.toDto(expectedMuscle2)));
+    assertThat(muscles.get(0), is(muscleMapper.toDto(expectedMuscle1)));
+    assertThat(muscles.get(1), is(muscleMapper.toDto(expectedMuscle2)));
   }
 
   @Ignore

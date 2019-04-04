@@ -9,10 +9,10 @@ import static org.mockito.Mockito.when;
 
 import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.backend.common.enums.ExerciseEnum;
-import com.workout.workoutArtifact.backend.common.mapper.Mapper;
-import com.workout.workoutArtifact.domain.model.Exercise;
+import com.workout.workoutArtifact.backend.common.mapper.ExerciseMapper;
 import com.workout.workoutArtifact.backend.mysqldatabase.entity.ExerciseEntity;
 import com.workout.workoutArtifact.backend.mysqldatabase.repository.ExerciseRepository;
+import com.workout.workoutArtifact.domain.model.Exercise;
 import com.workout.workoutArtifact.domain.service.ExerciseService;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +28,7 @@ public class ExerciseServiceTest {
   @Rule
   public ExpectedException thrown = ExpectedException.none();
 
-  Mapper mapper = new Mapper();
+  ExerciseMapper mapper = new ExerciseMapper();
 
   ExerciseRepository exerciseRepository = mock(ExerciseRepository.class);
 
@@ -51,14 +51,17 @@ public class ExerciseServiceTest {
     ExerciseEnum barbellChestPress = ExerciseEnum.BARBELL_CHEST_PRESS;
     BodyPartEnum chest = BodyPartEnum.CHEST;
 
+    // TODO: 04-04-2019 is this right?
     Exercise exercise = new Exercise(barbellChestPress, true, chest);
-    ExerciseEntity exerciseEntity = new ExerciseEntity(barbellChestPress.toString(), true, new ArrayList<>(), chest.toString());
+    ExerciseEntity exerciseEntity = new ExerciseEntity(barbellChestPress.toString(), true,
+        new ArrayList<>(), chest.toString());
 
     when(exerciseRepository
         .findAll(ArgumentMatchers.any(org.springframework.data.jpa.domain.Specification.class)))
         .thenReturn(Arrays.asList(exerciseEntity));
 
-    List<Exercise> exerciseList = exerciseService.getExercises(Arrays.asList(ExerciseEnum.BARBELL_CHEST_PRESS.toString()));
+    List<Exercise> exerciseList = exerciseService
+        .getExercises(Arrays.asList(ExerciseEnum.BARBELL_CHEST_PRESS.toString()));
 
     assertThat(exerciseList.get(0), is(mapper.toDomainObject(exerciseEntity)));
   }

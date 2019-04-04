@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 
 import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.backend.common.enums.ExerciseEnum;
-import com.workout.workoutArtifact.backend.common.mapper.Mapper;
+import com.workout.workoutArtifact.backend.common.mapper.ExerciseMapper;
 import com.workout.workoutArtifact.domain.model.Exercise;
 import com.workout.workoutArtifact.domain.service.ExerciseService;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
@@ -30,13 +30,13 @@ public class ExerciseFacadeTest {
 
   private ExerciseFacade exerciseFacade;
 
-  private Mapper mapper = new Mapper();
+  private ExerciseMapper exerciseMapper = new ExerciseMapper();
 
   @Before
   public void before() {
     exerciseFacade = new ExerciseFacade(
         exerciseService,
-        mapper
+        exerciseMapper
     );
   }
 
@@ -64,7 +64,7 @@ public class ExerciseFacadeTest {
 
     List<ExerciseDto> resultList = exerciseFacade.getExercises(Arrays.asList("1234"));
 
-    assertThat(resultList.get(0), is(mapper.toDto(exercise)));
+    assertThat(resultList.get(0), is(exerciseMapper.toDto(exercise)));
   }
 
 }

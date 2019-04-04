@@ -1,8 +1,8 @@
 package com.workout.workoutArtifact.endpoint.facade;
 
 import com.workout.workoutArtifact.MuscleException;
-import com.workout.workoutArtifact.backend.common.mapper.Mapper;
 import com.workout.workoutArtifact.backend.common.Validator;
+import com.workout.workoutArtifact.backend.common.mapper.MuscleMapper;
 import com.workout.workoutArtifact.domain.model.Muscle;
 import com.workout.workoutArtifact.domain.service.MuscleService;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
@@ -15,14 +15,15 @@ import org.springframework.stereotype.Component;
 public class MuscleFacade {
 
   private final MuscleService muscleService;
-  private final Mapper mapper;
+  private final MuscleMapper muscleMapper;
+
 
   @Autowired
   public MuscleFacade(
       MuscleService muscleService,
-      Mapper mapper) {
+      MuscleMapper muscleMapper) {
     this.muscleService = muscleService;
-    this.mapper = mapper;
+    this.muscleMapper = muscleMapper;
   }
 
   public String addMuscles(List<Muscle> muscles) throws MuscleException {
@@ -32,7 +33,7 @@ public class MuscleFacade {
 
   public List<MuscleDto> getMusclesByName(List<String> muscleNames) {
     return muscleService.getMuscles(muscleNames).stream()
-        .map(mapper::toDto)
+        .map(muscleMapper::toDto)
         .collect(Collectors.toList());
   }
 }

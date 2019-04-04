@@ -1,6 +1,6 @@
 package com.workout.workoutArtifact.endpoint.facade;
 
-import com.workout.workoutArtifact.backend.common.mapper.Mapper;
+import com.workout.workoutArtifact.backend.common.mapper.ExerciseMapper;
 import com.workout.workoutArtifact.domain.model.Exercise;
 import com.workout.workoutArtifact.domain.service.ExerciseService;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 public class ExerciseFacade {
 
   private final ExerciseService exerciseService;
-  private final Mapper mapper;
+  private final ExerciseMapper mapper;
 
   public ExerciseFacade(
       ExerciseService exerciseService,
-      Mapper mapper) {
+      ExerciseMapper mapper) {
     this.exerciseService = exerciseService;
     this.mapper = mapper;
   }

@@ -8,11 +8,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
-import com.workout.workoutArtifact.backend.common.mapper.Mapper;
 import com.workout.workoutArtifact.backend.common.enums.MuscleEnum;
-import com.workout.workoutArtifact.domain.model.Muscle;
+import com.workout.workoutArtifact.backend.common.mapper.MuscleMapper;
 import com.workout.workoutArtifact.backend.mysqldatabase.entity.MuscleEntity;
 import com.workout.workoutArtifact.backend.mysqldatabase.repository.MuscleRepository;
+import com.workout.workoutArtifact.domain.model.Muscle;
 import com.workout.workoutArtifact.domain.service.MuscleService;
 import java.util.Arrays;
 import java.util.List;
@@ -27,11 +27,11 @@ public class MuscleServiceTest {
   @Rule
   public ExpectedException thrown = ExpectedException.none();
 
-  Mapper mapper = new Mapper();
+  MuscleMapper muscleMapper = new MuscleMapper();
 
   MuscleRepository muscleRepository = mock(MuscleRepository.class);
 
-  MuscleService muscleService = new MuscleService(muscleRepository, mapper);
+  MuscleService muscleService = new MuscleService(muscleRepository, muscleMapper);
 
   @Test
   public void addMuscles() {
@@ -40,14 +40,14 @@ public class MuscleServiceTest {
 
     muscleService.addMuscles(Arrays.asList(muscle));
 
-    verify(muscleRepository, times(1)).save(mapper.toEntity(muscle));
+    verify(muscleRepository, times(1)).save(muscleMapper.toEntity(muscle));
   }
 
   @Test
   public void getMuscles() {
 
     Muscle muscle = new Muscle(MuscleEnum.CHEST, BodyPartEnum.CHEST);
-    MuscleEntity muscleAsEntity = mapper.toEntity(muscle);
+    MuscleEntity muscleAsEntity = muscleMapper.toEntity(muscle);
 
     when(muscleRepository
         .findAll(ArgumentMatchers.any(org.springframework.data.jpa.domain.Specification.class)))
