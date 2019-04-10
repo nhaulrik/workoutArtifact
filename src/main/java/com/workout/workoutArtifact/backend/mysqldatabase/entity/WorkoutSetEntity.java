@@ -1,6 +1,5 @@
 package com.workout.workoutArtifact.backend.mysqldatabase.entity;
 
-import com.workout.workoutArtifact.endpoint.specification.WorkoutSetSpecification;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

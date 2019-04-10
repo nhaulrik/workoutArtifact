@@ -7,6 +7,7 @@ import com.workout.workoutArtifact.backend.mysqldatabase.entity.MuscleEntity;
 import com.workout.workoutArtifact.domain.model.Exercise;
 import com.workout.workoutArtifact.domain.model.Muscle;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +30,8 @@ public class MuscleMapper {
         .map(entity -> new Exercise(
                 ExerciseEnum.valueOf(entity.getName()),
                 entity.getIsMultiJoint(),
-                BodyPartEnum.valueOf(entity.getPrimaryBodyPart())
+                BodyPartEnum.valueOf(entity.getPrimaryBodyPart()),
+                new ArrayList<>() // TODO: 04-04-2019 check this
             )
         ).collect(Collectors.toList()));
     return muscle;

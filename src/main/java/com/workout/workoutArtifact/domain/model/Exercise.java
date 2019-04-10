@@ -23,12 +23,13 @@ public class Exercise {
   @JsonProperty
   private Boolean isMultiJoint;
 
-  @JsonProperty
-  private List<Muscle> muscles = new ArrayList<>();
-
   @NonNull
   @JsonProperty
   private BodyPartEnum bodyPartEnum;
+
+  @NonNull
+  @JsonProperty
+  private List<Muscle> muscles;
 
   public String getBodyPartString() {
     return bodyPartEnum.toString();

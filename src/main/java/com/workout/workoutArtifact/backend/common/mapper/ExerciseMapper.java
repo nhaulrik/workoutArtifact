@@ -12,16 +12,14 @@ import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Mapper {
+public class ExerciseMapper {
 
-  public MuscleDto toDto(Muscle muscle) {
-    return new MuscleDto(
-        muscle.getMuscle().toString()
-    );
-  }
+  @Autowired
+  MuscleMapper muscleMapper;
 
   public ExerciseDto toDto(Exercise exercise) {
     ExerciseDto exerciseDto = new ExerciseDto(
@@ -40,28 +38,13 @@ public class Mapper {
     return exerciseDto;
   }
 
-  public Muscle toDomainObject(MuscleEntity muscleEntity) {
-    Muscle muscle = new Muscle(
-        MuscleEnum.valueOf(muscleEntity.getName()),
-        BodyPartEnum.valueOf(muscleEntity.getBodyPart())
-    );
-
-    muscle.setExerciseList(muscleEntity.getExerciseSet().stream()
-        .map(entity -> new Exercise(
-                ExerciseEnum.valueOf(entity.getName()),
-                entity.getIsMultiJoint(),
-                BodyPartEnum.valueOf(entity.getPrimaryBodyPart())
-            )
-        ).collect(Collectors.toList()));
-    return muscle;
-  }
-
-  public Exercise toDomainObject(ExerciseEntity exerciseEntity) {
+ public Exercise toDomainObject(ExerciseEntity exerciseEntity) {
 
     Exercise exercise = new Exercise(
         ExerciseEnum.valueOf(exerciseEntity.getName()),
         exerciseEntity.getIsMultiJoint(),
-        BodyPartEnum.valueOf(exerciseEntity.getPrimaryBodyPart())
+        BodyPartEnum.valueOf(exerciseEntity.getPrimaryBodyPart()),
+        exerciseEntity.getMuscleEntities().stream().map(muscleMapper::toDomainObject).collect(Collectors.toList())
     );
 
     exercise.setMuscles(exerciseEntity.getMuscleEntities().stream()
@@ -73,18 +56,11 @@ public class Mapper {
     return exercise;
   }
 
-  public MuscleEntity toEntity(Muscle muscle) {
-    MuscleEntity muscleEntity = new MuscleEntity();
-    muscleEntity.setName(muscle.getMuscle().toString());
-    muscleEntity.setBodyPart(muscle.getBodyPart().toString());
-    return muscleEntity;
-  }
-
   public ExerciseEntity toEntity(Exercise exercise) {
     ExerciseEntity exerciseEntity = new ExerciseEntity();
     exerciseEntity.setName(exercise.getName().toString());
     exerciseEntity.setIsMultiJoint(exercise.getIsMultiJoint());
-    consider how mapping between entities and domain objects should work. what values are relavant?
+    exerciseEntity.setMuscleEntities(exercise.getMuscles().stream().map(muscleMapper::toEntity).collect(Collectors.toSet()));
     return exerciseEntity;
   }
 

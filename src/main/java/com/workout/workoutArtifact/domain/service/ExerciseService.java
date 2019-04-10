@@ -26,8 +26,7 @@ public class ExerciseService {
     this.mapper = exerciseMapper;
   }
 
-  public String addExercises(
-      List<Exercise> exerciseList) {
+  public String addExercises(List<Exercise> exerciseList) {
 
     exerciseList.stream()
         .map(mapper::toEntity)

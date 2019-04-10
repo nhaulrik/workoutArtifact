@@ -28,42 +28,38 @@ public class ExerciseServiceTest {
   @Rule
   public ExpectedException thrown = ExpectedException.none();
 
-  ExerciseMapper mapper = new ExerciseMapper();
+  ExerciseMapper exerciseMapper = mock(ExerciseMapper.class);
 
   ExerciseRepository exerciseRepository = mock(ExerciseRepository.class);
 
-  ExerciseService exerciseService = new ExerciseService(exerciseRepository, mapper);
+  ExerciseService exerciseService = new ExerciseService(exerciseRepository, exerciseMapper);
 
 
   @Test
   public void addExercises() {
 
-    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, BodyPartEnum.CHEST);
+    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, BodyPartEnum.CHEST, new ArrayList<>());
 
     exerciseService.addExercises(Arrays.asList(exercise));
 
-    verify(exerciseRepository, times(1)).save(mapper.toEntity(exercise));
+    verify(exerciseRepository, times(1)).save(exerciseMapper.toEntity(exercise));
   }
 
   @Test
   public void getExercises() {
 
-    ExerciseEnum barbellChestPress = ExerciseEnum.BARBELL_CHEST_PRESS;
-    BodyPartEnum chest = BodyPartEnum.CHEST;
+    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, BodyPartEnum.CHEST, new ArrayList<>());
+    ExerciseEntity exerciseEntity = new ExerciseEntity(exercise.getName().toString(), exercise.getIsMultiJoint(), new ArrayList<>(), exercise.getBodyPartString());
 
-    // TODO: 04-04-2019 is this right?
-    Exercise exercise = new Exercise(barbellChestPress, true, chest);
-    ExerciseEntity exerciseEntity = new ExerciseEntity(barbellChestPress.toString(), true,
-        new ArrayList<>(), chest.toString());
-
-    when(exerciseRepository
-        .findAll(ArgumentMatchers.any(org.springframework.data.jpa.domain.Specification.class)))
+    when(exerciseRepository.findAll(ArgumentMatchers.any(org.springframework.data.jpa.domain.Specification.class)))
         .thenReturn(Arrays.asList(exerciseEntity));
 
-    List<Exercise> exerciseList = exerciseService
-        .getExercises(Arrays.asList(ExerciseEnum.BARBELL_CHEST_PRESS.toString()));
+    when(exerciseMapper.toDomainObject(exerciseEntity))
+        .thenReturn(exercise);
 
-    assertThat(exerciseList.get(0), is(mapper.toDomainObject(exerciseEntity)));
+    List<Exercise> exerciseList = exerciseService.getExercises(Arrays.asList(ExerciseEnum.BARBELL_CHEST_PRESS.toString()));
+
+    assertThat(exerciseList.get(0), is(exerciseMapper.toDomainObject(exerciseEntity)));
   }
 
 
