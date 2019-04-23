@@ -35,7 +35,7 @@ public class WorkoutSetServiceTest {
     WorkoutSet workoutSet = new WorkoutSet(exercise, 99, false);
 
     ExerciseEntity exerciseEntity = new ExerciseEntity(exercise.getName().toString(), exercise.getIsMultiJoint(), new ArrayList<>(), exercise.getBodyPartString());
-    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(workoutSet.getRepetitions(), workoutSet.getSingle(), exerciseEntity);
+    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(workoutSet.getRepetitions(), workoutSet.getSingle(), 8, exerciseEntity);
 
     when(workoutSetRepository.findAll())
        .thenReturn(Arrays.asList(workoutSetEntity));

@@ -35,6 +35,10 @@ public class WorkoutSetEntity {
   private boolean single;
 
   @NonNull
+  @Column
+  private int repetitionMaximum;
+
+  @NonNull
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn
   private ExerciseEntity exerciseEntity;

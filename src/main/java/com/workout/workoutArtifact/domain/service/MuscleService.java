@@ -29,7 +29,7 @@ public class MuscleService {
 
     muscles.stream()
         .map(muscleMapper::toEntity)
-        .forEach(muscleEntity -> muscleRepository.save(muscleEntity));
+        .forEach(muscleRepository::save);
 
     return "Muscles added: " + muscles.size() + ". " + muscles.toString();
   }

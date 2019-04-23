@@ -33,4 +33,8 @@ public class WorkoutSet {
   @NonNull
   private Exercise exercise;
 
+  @JsonProperty
+  @NonNull
+  private int repetitionMaximum;
+
 }

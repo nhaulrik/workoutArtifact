@@ -33,4 +33,9 @@ public class WorkoutSetService {
         .collect(Collectors.toList());
   }
 
+  public void addWorkoutSets(List<WorkoutSet> workoutSets) {
+    workoutSets.stream()
+        .map(workoutSetMapper::toEntity)
+        .forEach(workoutSetRepository::save);
+  }
 }
