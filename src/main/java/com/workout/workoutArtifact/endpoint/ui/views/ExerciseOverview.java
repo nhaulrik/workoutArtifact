@@ -16,8 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 @PageTitle("Exercises overview")
 public class ExerciseOverview extends HorizontalLayout {
 
-  ExerciseFacade exerciseFacade;
-  MuscleFacade muscleFacade;
+  private final ExerciseFacade exerciseFacade;
+  private final MuscleFacade muscleFacade;
 
   private Grid<ExerciseDto> exerciseDtoGrid = new Grid<>(ExerciseDto.class);
   private Grid<MuscleDto> muscleDtoGrid = new Grid<>(MuscleDto.class);

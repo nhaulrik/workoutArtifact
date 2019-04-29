@@ -38,7 +38,6 @@ public class ExerciseEntity {
   @Setter(AccessLevel.NONE)
   private Long id;
 
-  @NonNull
   @Column
   private String name;
 

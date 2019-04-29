@@ -4,8 +4,6 @@ import com.workout.workoutArtifact.backend.common.mapper.ExerciseMapper;
 import com.workout.workoutArtifact.backend.mysqldatabase.entity.ExerciseEntity;
 import com.workout.workoutArtifact.backend.mysqldatabase.repository.ExerciseRepository;
 import com.workout.workoutArtifact.domain.model.Exercise;
-import com.workout.workoutArtifact.endpoint.specification.ExerciseSpecification;
-import com.workout.workoutArtifact.endpoint.specification.ExerciseSpecification.SearchCriteria;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,15 +36,12 @@ public class ExerciseService {
   public List<Exercise> getExercises(List<String> exerciseNames) {
 
     List<ExerciseEntity> exerciseEntities = new ArrayList<>();
-// TODO: 13-03-2019 test this
     for (String exerciseName : exerciseNames) {
       if (exerciseName.contains("*")) {
         exerciseEntities.addAll(exerciseRepository.findAll());
       } else {
-        ExerciseSpecification exerciseSpecification = new ExerciseSpecification(
-            new SearchCriteria("name", ":", exerciseName));
-
-        exerciseEntities.addAll(exerciseRepository.findAll(exerciseSpecification));
+        ExerciseEntity exerciseEntity = exerciseRepository.findFirstByName(exerciseName);
+        exerciseEntities.add(exerciseEntity);
       }
     }
 

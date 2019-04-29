@@ -1,10 +1,14 @@
 package com.workout.workoutArtifact.domain.service;
 
+import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
+import com.workout.workoutArtifact.backend.common.enums.ExerciseEnum;
 import com.workout.workoutArtifact.backend.common.mapper.WorkoutSetMapper;
 import com.workout.workoutArtifact.backend.mysqldatabase.entity.WorkoutSetEntity;
 import com.workout.workoutArtifact.backend.mysqldatabase.repository.WorkoutSetRepository;
+import com.workout.workoutArtifact.domain.model.Exercise;
 import com.workout.workoutArtifact.domain.model.WorkoutSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
