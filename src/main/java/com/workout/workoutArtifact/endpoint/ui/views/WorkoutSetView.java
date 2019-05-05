@@ -9,7 +9,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.workout.workoutArtifact.domain.model.WorkoutSet;
+import com.vaadin.flow.spring.annotation.UIScope;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
 import java.util.List;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Route(value = "workoutsetcontroller")
 @PageTitle("Workout Set Controller")
 @Component
+@UIScope
 public class WorkoutSetView extends VerticalLayout {
 
   private final WorkoutSetFacade workoutSetFacade;

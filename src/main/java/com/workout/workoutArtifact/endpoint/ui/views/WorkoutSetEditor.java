@@ -11,6 +11,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.converter.StringToBooleanConverter;
 import com.vaadin.flow.data.converter.StringToDoubleConverter;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
+import com.vaadin.flow.spring.annotation.UIScope;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@UIScope
 public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
 
   private final WorkoutSetFacade workoutSetFacade;
@@ -46,7 +48,8 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
       WorkoutSetFacade workoutSetFacade) {
     this.workoutSetFacade = workoutSetFacade;
 
-    add(exerciseName, exerciseWeight, repetitions, repetitionMaximum, single, actions);
+    HorizontalLayout workoutSetEditorFields = new HorizontalLayout(exerciseName, exerciseWeight, repetitions, repetitionMaximum, single);
+    add(workoutSetEditorFields, actions);
 
     //bind using naming convention
     binder.forField(repetitions)
@@ -79,7 +82,7 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
     save.addClickListener(e -> saveWorkoutSetDto());
 //    delete.addClickListener(e -> delete());
     cancel.addClickListener(e -> editWorkoutSet(workoutSetDto));
-    setVisible(false);
+    setVisible(true);
   }
 
   void saveWorkoutSetDto() {
