@@ -1,7 +1,6 @@
 package com.workout.workoutArtifact.endpoint.facade;
 
 import com.workout.workoutArtifact.backend.common.mapper.WorkoutSetMapper;
-import com.workout.workoutArtifact.domain.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.service.WorkoutSetService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import java.util.List;
@@ -27,8 +26,8 @@ public class WorkoutSetFacade {
         .collect(Collectors.toList());
   }
 
-  public void addWorkoutSet(List<WorkoutSet> workoutSets) {
-    workoutSetService.addWorkoutSets(workoutSets);
+  public void addWorkoutSet(WorkoutSetDto workoutSetDto) {
+    workoutSetService.addWorkoutSet(workoutSetMapper.toDomain(workoutSetDto));
   }
 
 }

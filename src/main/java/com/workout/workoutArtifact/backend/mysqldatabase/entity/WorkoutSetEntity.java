@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
@@ -34,15 +35,20 @@ public class WorkoutSetEntity {
 
   @NonNull
   @Column
+  private double weight;
+
+  @NonNull
+  @Column
   private boolean single;
 
   @NonNull
   @Column
   private int repetitionMaximum;
 
-  @NonNull
-  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @JoinColumn
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinTable(name = "workoutset_exercise",
+  joinColumns = @JoinColumn(name = "workoutset_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"))
   private ExerciseEntity exerciseEntity;
 
 }

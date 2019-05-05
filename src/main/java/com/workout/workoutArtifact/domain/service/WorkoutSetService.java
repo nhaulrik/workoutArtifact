@@ -1,32 +1,23 @@
 package com.workout.workoutArtifact.domain.service;
 
-import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
-import com.workout.workoutArtifact.backend.common.enums.ExerciseEnum;
 import com.workout.workoutArtifact.backend.common.mapper.WorkoutSetMapper;
 import com.workout.workoutArtifact.backend.mysqldatabase.entity.WorkoutSetEntity;
+import com.workout.workoutArtifact.backend.mysqldatabase.repository.ExerciseRepository;
 import com.workout.workoutArtifact.backend.mysqldatabase.repository.WorkoutSetRepository;
-import com.workout.workoutArtifact.domain.model.Exercise;
 import com.workout.workoutArtifact.domain.model.WorkoutSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class WorkoutSetService {
 
   private final WorkoutSetRepository workoutSetRepository;
   private final WorkoutSetMapper workoutSetMapper;
-
-  @Autowired
-  public WorkoutSetService(
-      WorkoutSetRepository workoutSetRepository,
-      WorkoutSetMapper workoutSetMapper) {
-    this.workoutSetRepository = workoutSetRepository;
-    this.workoutSetMapper = workoutSetMapper;
-  }
+  private final ExerciseRepository exerciseRepository;
 
   public List<WorkoutSet> getWorkoutSet() {
     List<WorkoutSetEntity> workoutSetEntities = new ArrayList<>();
@@ -37,9 +28,14 @@ public class WorkoutSetService {
         .collect(Collectors.toList());
   }
 
-  public void addWorkoutSets(List<WorkoutSet> workoutSets) {
-    workoutSets.stream()
-        .map(workoutSetMapper::toEntity)
-        .forEach(workoutSetRepository::save);
+  public void addWorkoutSet(WorkoutSet workoutSet) {
+
+   WorkoutSetEntity workoutSetEntity = workoutSetMapper.toEntity(workoutSet);
+   workoutSetEntity.setExerciseEntity(exerciseRepository.findFirstByName(workoutSet.getExerciseName()));
+   workoutSetRepository.save(workoutSetEntity);
+  }
+
+  private Boolean exerciseExists(String name) {
+    return exerciseRepository.findFirstByName(name) != null;
   }
 }

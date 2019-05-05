@@ -51,7 +51,7 @@ public class WorkoutSetEntityTest {
 
   @Test
   public void saveAndFindWorkoutSetEntity() {
-    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(1337, true, 8, mockedExerciseEntity);
+    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(1337, 10, true, 8);
 
     workoutSetRepository.save(workoutSetEntity);
 

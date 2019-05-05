@@ -41,7 +41,7 @@ public class ExerciseMapper {
  public Exercise toDomainObject(ExerciseEntity exerciseEntity) {
 
     Exercise exercise = new Exercise(
-        ExerciseEnum.valueOf(exerciseEntity.getName()),
+        exerciseEntity.getName(),
         exerciseEntity.getIsMultiJoint(),
         BodyPartEnum.valueOf(exerciseEntity.getPrimaryBodyPart()),
         exerciseEntity.getMuscleEntities().stream().map(muscleMapper::toDomainObject).collect(Collectors.toList())

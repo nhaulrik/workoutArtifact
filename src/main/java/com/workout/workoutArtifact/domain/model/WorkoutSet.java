@@ -19,11 +19,15 @@ public class WorkoutSet {
 
   @JsonProperty
   @NonNull
-  private ExerciseEnum exerciseName;
+  private String exerciseName;
 
   @JsonProperty
   @NonNull
   private int repetitions;
+
+  @JsonProperty
+  @NonNull
+  private double weight;
 
   @JsonProperty
   @NonNull

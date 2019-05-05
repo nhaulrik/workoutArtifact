@@ -1,7 +1,10 @@
 package com.workout.workoutArtifact.endpoint.service;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -38,7 +41,7 @@ public class ExerciseServiceTest {
   @Test
   public void addExercises() {
 
-    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, BodyPartEnum.CHEST, new ArrayList<>());
+    Exercise exercise = mock(Exercise.class);
 
     exerciseService.addExercises(Arrays.asList(exercise));
 
@@ -48,16 +51,16 @@ public class ExerciseServiceTest {
   @Test
   public void getExercises() {
 
-    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, BodyPartEnum.CHEST, new ArrayList<>());
-    ExerciseEntity exerciseEntity = new ExerciseEntity(exercise.getName().toString(), exercise.getIsMultiJoint(), new ArrayList<>(), exercise.getBodyPartString());
+    Exercise exercise = mock(Exercise.class);
+    ExerciseEntity exerciseEntity = mock(ExerciseEntity.class);
 
-    when(exerciseRepository.findAll(ArgumentMatchers.any(org.springframework.data.jpa.domain.Specification.class)))
-        .thenReturn(Arrays.asList(exerciseEntity));
+    doReturn(exerciseEntity)
+        .when(exerciseRepository).findFirstByName(anyString());
 
     when(exerciseMapper.toDomainObject(exerciseEntity))
         .thenReturn(exercise);
 
-    List<Exercise> exerciseList = exerciseService.getExercises(Arrays.asList(ExerciseEnum.BARBELL_CHEST_PRESS.toString()));
+    List<Exercise> exerciseList = exerciseService.getExercises(Arrays.asList("mock_bla"));
 
     assertThat(exerciseList.get(0), is(exerciseMapper.toDomainObject(exerciseEntity)));
   }

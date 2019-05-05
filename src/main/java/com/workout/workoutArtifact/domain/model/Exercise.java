@@ -17,7 +17,7 @@ public class Exercise {
 
   @NonNull
   @JsonProperty
-  private ExerciseEnum name;
+  private String name;
 
   @NonNull
   @JsonProperty

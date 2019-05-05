@@ -28,7 +28,7 @@ public class MuscleMapper {
 
     muscle.setExerciseList(muscleEntity.getExerciseSet().stream()
         .map(entity -> new Exercise(
-                ExerciseEnum.valueOf(entity.getName()),
+                entity.getName(),
                 entity.getIsMultiJoint(),
                 BodyPartEnum.valueOf(entity.getPrimaryBodyPart()),
                 new ArrayList<>() // TODO: 04-04-2019 check this

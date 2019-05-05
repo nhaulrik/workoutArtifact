@@ -25,8 +25,9 @@ public class WorkoutSetMapper {
 
   public WorkoutSetDto toDto(WorkoutSet workoutSet) {
     return new WorkoutSetDto(
-        workoutSet.getExerciseName().name(),
+        workoutSet.getExerciseName(),
         workoutSet.getRepetitions(),
+        workoutSet.getWeight(),
         workoutSet.getSingle(),
         workoutSet.getRepetitionMaximum());
   }
@@ -51,9 +52,10 @@ public class WorkoutSetMapper {
   public WorkoutSetEntity toEntity(WorkoutSet workoutSet) {
     return new WorkoutSetEntity(
         workoutSet.getRepetitions(),
+        workoutSet.getWeight(),
         workoutSet.getSingle(),
-        workoutSet.getRepetitionMaximum(),
-        exerciseMapper.toEntity(workoutSet.getExercise())); // TODO: 29-04-2019  This part is making trouble. Need some join table stuff on workutsetEntity (like exerciseEntity)
+        workoutSet.getRepetitionMaximum()
+        ); // TODO: 29-04-2019  This part is making trouble. Need some join table stuff on workutsetEntity (like exerciseEntity)
   }
 
 }

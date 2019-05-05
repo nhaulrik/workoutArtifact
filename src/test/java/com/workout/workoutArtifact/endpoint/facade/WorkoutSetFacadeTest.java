@@ -9,10 +9,9 @@ import static org.mockito.Mockito.verify;
 import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.backend.common.enums.ExerciseEnum;
 import com.workout.workoutArtifact.backend.common.mapper.WorkoutSetMapper;
-import com.workout.workoutArtifact.backend.mysqldatabase.entity.ExerciseEntity;
 import com.workout.workoutArtifact.domain.model.Exercise;
-import com.workout.workoutArtifact.domain.model.Muscle;
 import com.workout.workoutArtifact.domain.model.WorkoutSet;
+import com.workout.workoutArtifact.domain.service.ExerciseService;
 import com.workout.workoutArtifact.domain.service.WorkoutSetService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import java.util.ArrayList;
@@ -30,10 +29,12 @@ public class WorkoutSetFacadeTest {
 
   WorkoutSetFacade workoutSetFacade;
 
+  ExerciseService exerciseService = mock(ExerciseService.class);
+
   @Mock
   private WorkoutSetService workoutSetService;
 
-  private WorkoutSetMapper workoutSetMapper = new WorkoutSetMapper();
+  private WorkoutSetMapper workoutSetMapper = mock(WorkoutSetMapper.class);
 
   @Before
   public void before() {
@@ -41,25 +42,25 @@ public class WorkoutSetFacadeTest {
   }
 
   @Test
-  public void addWorkoutSets() {
+  public void addWorkoutSet() {
 
-    Exercise exercise = mock(Exercise.class);
+    WorkoutSetDto workoutSetDto = mock(WorkoutSetDto.class);
+    WorkoutSet mockedWorkoutSet = mock(WorkoutSet.class);
+    doReturn(mockedWorkoutSet)
+        .when(workoutSetMapper).toDomain(workoutSetDto);
 
-    WorkoutSet workoutSet = new WorkoutSet(exercise, 12, true);
-    workoutSetFacade.addWorkoutSet(Arrays.asList(workoutSet));
+    workoutSetFacade.addWorkoutSet(workoutSetDto);
 
-    Class<ArrayList<WorkoutSet>> workoutSetListClass = (Class<ArrayList<WorkoutSet>>) (Class) ArrayList.class;
-    ArgumentCaptor<ArrayList<WorkoutSet>> arg = ArgumentCaptor.forClass(workoutSetListClass);
-    verify(workoutSetService).addWorkoutSets(arg.capture());
+    ArgumentCaptor<WorkoutSet> arg = ArgumentCaptor.forClass(WorkoutSet.class);
+    verify(workoutSetService).addWorkoutSet(arg.capture());
 
-    assertThat(arg.getValue(), is(Arrays.asList(workoutSet)));
+    assertThat(arg.getValue(), is(mockedWorkoutSet));
   }
 
   @Test
   public void getWorkoutSets() {
 
-    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, BodyPartEnum.CHEST, new ArrayList<>());
-    WorkoutSet expectedWorkoutSet = new WorkoutSet(exercise, 12, true);
+    WorkoutSet expectedWorkoutSet = mock(WorkoutSet.class);
 
     doReturn(Arrays.asList(expectedWorkoutSet))
         .when(workoutSetService).getWorkoutSet();

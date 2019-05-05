@@ -3,6 +3,8 @@ package com.workout.workoutArtifact.endpoint.facade;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -30,7 +32,7 @@ public class ExerciseFacadeTest {
 
   private ExerciseFacade exerciseFacade;
 
-  private ExerciseMapper exerciseMapper = new ExerciseMapper();
+  private ExerciseMapper exerciseMapper = mock(ExerciseMapper.class);
 
   @Before
   public void before() {
@@ -43,7 +45,7 @@ public class ExerciseFacadeTest {
   @Test
   public void addExercises() {
 
-    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, BodyPartEnum.CHEST, new ArrayList<>());
+    Exercise exercise = mock(Exercise.class);
 
     exerciseFacade.addExercises(Arrays.asList(exercise));
 
@@ -57,10 +59,10 @@ public class ExerciseFacadeTest {
   @Test
   public void getExercises() {
 
-    Exercise exercise = new Exercise(ExerciseEnum.BARBELL_CHEST_PRESS, true, BodyPartEnum.CHEST, new ArrayList<>());
+    Exercise exercise = mock(Exercise.class);
 
-    when(exerciseService.getExercises(anyList()))
-        .thenReturn(Arrays.asList(exercise));
+    doReturn(Arrays.asList(exercise))
+        .when(exerciseService).getExercises(anyList());
 
     List<ExerciseDto> resultList = exerciseFacade.getExercises(Arrays.asList("1234"));
 
