@@ -9,14 +9,6 @@ import lombok.NonNull;
 @Data
 public class WorkoutSet {
 
-
-  public WorkoutSet(Exercise exercise, int repetitions, Boolean single) {
-    this.exercise = exercise;
-    this.exerciseName = exercise.getName();
-    this.repetitions = repetitions;
-    this.single = single;
-  }
-
   @JsonProperty
   @NonNull
   private String exerciseName;
@@ -35,10 +27,10 @@ public class WorkoutSet {
 
   @JsonProperty
   @NonNull
-  private Exercise exercise;
+  private int repetitionMaximum;
 
   @JsonProperty
   @NonNull
-  private int repetitionMaximum;
+  private Exercise exercise;
 
 }

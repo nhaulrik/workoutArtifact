@@ -9,6 +9,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.converter.StringToBooleanConverter;
+import com.vaadin.flow.data.converter.StringToDoubleConverter;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
@@ -51,6 +52,10 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
     binder.forField(repetitions)
         .withConverter(new StringToIntegerConverter("must be integer"))
         .bind(WorkoutSetDto::getRepetitions, WorkoutSetDto::setRepetitions);
+
+    binder.forField(exerciseWeight)
+        .withConverter(new StringToDoubleConverter("must be double"))
+        .bind(WorkoutSetDto::getWeight, WorkoutSetDto::setWeight);
 
     binder.forField(repetitionMaximum)
         .withConverter(new StringToIntegerConverter("must be integer"))

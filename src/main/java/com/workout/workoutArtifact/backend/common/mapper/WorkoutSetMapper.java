@@ -6,22 +6,17 @@ import com.workout.workoutArtifact.domain.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.service.ExerciseService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import java.util.Arrays;
+import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.pl.REGON.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class WorkoutSetMapper {
 
-  @Autowired
-  ExerciseMapper exerciseMapper;
-
-  @Autowired
+  private final ExerciseMapper exerciseMapper;
   private final ExerciseService exerciseService;
-
-  public WorkoutSetMapper(
-      ExerciseService exerciseService) {
-    this.exerciseService = exerciseService;
-  }
 
   public WorkoutSetDto toDto(WorkoutSet workoutSet) {
     return new WorkoutSetDto(
@@ -33,20 +28,26 @@ public class WorkoutSetMapper {
   }
 
   public WorkoutSet toDomain(WorkoutSetDto workoutSetDto) {
-// TODO: 23-04-2019 needs test
     Exercise exercise = exerciseService.getExercises(Arrays.asList(workoutSetDto.getExerciseName()))
         .get(0);
     return new WorkoutSet(
-        exercise,
+        exercise.getName(),
         workoutSetDto.getRepetitions(),
-        workoutSetDto.getSingle());
+        workoutSetDto.getWeight(),
+        workoutSetDto.getSingle(),
+        workoutSetDto.getRepetitionMaximum(),
+        exercise);
   }
 
   public WorkoutSet toDomain(WorkoutSetEntity workoutSetEntity) {
     return new WorkoutSet(
-        exerciseMapper.toDomainObject(workoutSetEntity.getExerciseEntity()),
+        workoutSetEntity.getExerciseEntity().getName(),
         workoutSetEntity.getRepetitions(),
-        workoutSetEntity.isSingle());
+        workoutSetEntity.getWeight(),
+        workoutSetEntity.isSingle(),
+        workoutSetEntity.getRepetitionMaximum(),
+        exerciseMapper.toDomainObject(workoutSetEntity.getExerciseEntity())
+    );
   }
 
   public WorkoutSetEntity toEntity(WorkoutSet workoutSet) {
@@ -55,7 +56,7 @@ public class WorkoutSetMapper {
         workoutSet.getWeight(),
         workoutSet.getSingle(),
         workoutSet.getRepetitionMaximum()
-        ); // TODO: 29-04-2019  This part is making trouble. Need some join table stuff on workutsetEntity (like exerciseEntity)
+    );
   }
 
 }
