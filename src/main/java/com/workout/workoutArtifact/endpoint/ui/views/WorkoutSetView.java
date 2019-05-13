@@ -60,12 +60,10 @@ public class WorkoutSetView extends VerticalLayout {
 
     // Instantiate and edit new WorkoutSetDto the new button is clicked
     addNewButton.addClickListener(e -> workoutSetEditor.editWorkoutSet(new WorkoutSetDto("Type Exercise Here", 0, 0, false, 0)));
+    workoutSetEditor.editWorkoutSet(new WorkoutSetDto("Type Exercise Here", 0, 0, false, 0));
 
     // Listen changes made by the editor, refresh data from backend
-    workoutSetEditor.setChangeHandler(() -> {
-      workoutSetEditor.setVisible(false);
-      listWorkoutSets();
-    });
+    workoutSetEditor.setChangeHandler(() -> { listWorkoutSets(); });
 
     listWorkoutSets();
   }
