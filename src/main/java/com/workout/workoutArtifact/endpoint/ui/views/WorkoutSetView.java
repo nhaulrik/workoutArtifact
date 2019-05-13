@@ -23,27 +23,22 @@ import org.springframework.stereotype.Component;
 public class WorkoutSetView extends VerticalLayout {
 
   private final WorkoutSetFacade workoutSetFacade;
-  private final WorkoutSetEditor workoutSetEditor;
 
   final Grid<WorkoutSetDto> workoutSetDtoGrid;
   final TextField filter;
-  private final Button addNewButton;
 
   @Autowired
   public WorkoutSetView(WorkoutSetFacade workoutSetFacade,
       WorkoutSetEditor workoutSetEditor) {
     this.workoutSetFacade = workoutSetFacade;
-    this.workoutSetEditor = workoutSetEditor;
     this.workoutSetDtoGrid = new Grid<>(WorkoutSetDto.class);
     this.filter = new TextField();
-    this.addNewButton = new Button("New WorkoutSet", VaadinIcon.PLUS.create());
 
     // build layout
-    HorizontalLayout actions = new HorizontalLayout(filter, addNewButton);
+    HorizontalLayout actions = new HorizontalLayout(filter);
     add(actions, workoutSetDtoGrid, workoutSetEditor);
     workoutSetDtoGrid.setHeight("300px");
     workoutSetDtoGrid.setColumns("exerciseName", "weight", "repetitions", "single", "repetitionMaximum");
-//    workoutSetDtoGrid.getColumnByKey("exerciseName").setWidth("50px").setFlexGrow(0);
 
     filter.setPlaceholder("Filter by something");
 
@@ -58,8 +53,7 @@ public class WorkoutSetView extends VerticalLayout {
       workoutSetEditor.editWorkoutSet(e.getValue());
     });
 
-    // Instantiate and edit new WorkoutSetDto the new button is clicked
-    addNewButton.addClickListener(e -> workoutSetEditor.editWorkoutSet(new WorkoutSetDto("Type Exercise Here", 0, 0, false, 0)));
+    // Instantiate and edit new WorkoutSetDto
     workoutSetEditor.editWorkoutSet(new WorkoutSetDto("Type Exercise Here", 0, 0, false, 0));
 
     // Listen changes made by the editor, refresh data from backend
