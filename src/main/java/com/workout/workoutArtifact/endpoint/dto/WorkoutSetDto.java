@@ -6,6 +6,8 @@ import lombok.NonNull;
 @Data
 public class WorkoutSetDto {
 
+  private Long id;
+
   @NonNull
   private String exerciseName;
 

@@ -2,12 +2,16 @@ package com.workout.workoutArtifact.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.workout.workoutArtifact.backend.common.enums.ExerciseEnum;
+import javax.annotation.Nonnull;
 import lombok.Data;
 import lombok.NonNull;
 
 
 @Data
 public class WorkoutSet {
+
+  @JsonProperty
+  private Long id;
 
   @JsonProperty
   @NonNull

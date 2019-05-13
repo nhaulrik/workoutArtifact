@@ -6,6 +6,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -39,6 +40,8 @@ public class WorkoutSetView extends VerticalLayout {
     add(actions, workoutSetDtoGrid, workoutSetEditor);
     workoutSetDtoGrid.setHeight("300px");
     workoutSetDtoGrid.setColumns("exerciseName", "weight", "repetitions", "single", "repetitionMaximum");
+    workoutSetDtoGrid.addComponentColumn(item -> createRemoveButton(workoutSetDtoGrid, item))
+        .setHeader("Actions");
 
     filter.setPlaceholder("Filter by something");
 
@@ -65,5 +68,16 @@ public class WorkoutSetView extends VerticalLayout {
   private void listWorkoutSets() {
     List<WorkoutSetDto> workoutSets = workoutSetFacade.getWorkoutSets();
     workoutSetDtoGrid.setItems(workoutSets);
+  }
+
+  private Button createRemoveButton(Grid<WorkoutSetDto> grid, WorkoutSetDto workoutSetDto) {
+    Button button = new Button("Remove", clickEvent -> {
+      ListDataProvider<WorkoutSetDto> dataProvider = (ListDataProvider<WorkoutSetDto>) grid
+          .getDataProvider();
+      dataProvider.getItems().remove(workoutSetDto);
+      dataProvider.refreshAll();
+      workoutSetFacade.removeWorkoutSet(workoutSetDto);
+    });
+    return button;
   }
 }

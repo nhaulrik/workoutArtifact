@@ -35,7 +35,7 @@ public class WorkoutSetService {
    workoutSetRepository.save(workoutSetEntity);
   }
 
-  private Boolean exerciseExists(String name) {
-    return exerciseRepository.findFirstByName(name) != null;
+  public void removeWorkoutSet(WorkoutSet workoutSet) {
+    workoutSetRepository.deleteById(workoutSet.getId());
   }
 }

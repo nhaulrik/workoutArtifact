@@ -19,28 +19,34 @@ public class WorkoutSetMapper {
   private final ExerciseService exerciseService;
 
   public WorkoutSetDto toDto(WorkoutSet workoutSet) {
-    return new WorkoutSetDto(
+    WorkoutSetDto workoutSetDto = new WorkoutSetDto(
         workoutSet.getExerciseName(),
         workoutSet.getRepetitions(),
         workoutSet.getWeight(),
         workoutSet.getSingle(),
         workoutSet.getRepetitionMaximum());
+
+    workoutSetDto.setId(workoutSet.getId());
+    return workoutSetDto;
   }
 
   public WorkoutSet toDomain(WorkoutSetDto workoutSetDto) {
     Exercise exercise = exerciseService.getExercises(Arrays.asList(workoutSetDto.getExerciseName()))
         .get(0);
-    return new WorkoutSet(
+    WorkoutSet workoutSet = new WorkoutSet(
         exercise.getName(),
         workoutSetDto.getRepetitions(),
         workoutSetDto.getWeight(),
         workoutSetDto.getSingle(),
         workoutSetDto.getRepetitionMaximum(),
         exercise);
+
+    workoutSet.setId(workoutSetDto.getId());
+    return workoutSet;
   }
 
   public WorkoutSet toDomain(WorkoutSetEntity workoutSetEntity) {
-    return new WorkoutSet(
+    WorkoutSet workoutSet = new WorkoutSet(
         workoutSetEntity.getExerciseEntity().getName(),
         workoutSetEntity.getRepetitions(),
         workoutSetEntity.getWeight(),
@@ -48,6 +54,9 @@ public class WorkoutSetMapper {
         workoutSetEntity.getRepetitionMaximum(),
         exerciseMapper.toDomainObject(workoutSetEntity.getExerciseEntity())
     );
+
+    workoutSet.setId(workoutSetEntity.getId());
+    return workoutSet;
   }
 
   public WorkoutSetEntity toEntity(WorkoutSet workoutSet) {
