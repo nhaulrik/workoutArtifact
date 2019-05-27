@@ -38,19 +38,31 @@ public class WorkoutSetView extends VerticalLayout {
     workoutSetDtoGrid.addComponentColumn(item -> createRemoveButton(workoutSetDtoGrid, item))
         .setHeader("Actions");
 
+    initializeEditors(workoutSetEditor);
+
+    // Instantiate and edit new WorkoutSetDto
+    workoutSetEditor.editWorkoutSet(new WorkoutSetDto("Type Exercise Here", 0, 0, false, 0));
+
+    // Listen changes made by the editor, refresh data from backend
+    workoutSetEditor.setChangeHandler(() -> { listWorkoutSets(); });
+
+    listWorkoutSets();
+  }
+
+  private void initializeEditors(WorkoutSetEditor workoutSetEditor) {
 
     Binder<WorkoutSetDto> binder = new Binder<>(WorkoutSetDto.class);
 
     workoutSetDtoGrid.getEditor().setBinder(binder);
 
-    TextField field = new TextField();
+    TextField exerciseNameTextfield = new TextField();
 
-    binder.bind(field, "exerciseName");
-    workoutSetDtoGrid.getColumnByKey("exerciseName").setEditorComponent(field);
+    binder.bind(exerciseNameTextfield, "exerciseName");
+    workoutSetDtoGrid.getColumnByKey("exerciseName").setEditorComponent(exerciseNameTextfield);
 
     workoutSetDtoGrid.addItemDoubleClickListener(event -> {
-    workoutSetDtoGrid.getEditor().editItem(event.getItem());
-    field.focus();
+      workoutSetDtoGrid.getEditor().editItem(event.getItem());
+      exerciseNameTextfield.focus();
     });
 
     workoutSetDtoGrid.getEditor().addCloseListener(e -> {
@@ -62,14 +74,6 @@ public class WorkoutSetView extends VerticalLayout {
     workoutSetDtoGrid.asSingleSelect().addValueChangeListener(e -> {
       workoutSetEditor.editWorkoutSet(e.getValue());
     });
-
-    // Instantiate and edit new WorkoutSetDto
-    workoutSetEditor.editWorkoutSet(new WorkoutSetDto("Type Exercise Here", 0, 0, false, 0));
-
-    // Listen changes made by the editor, refresh data from backend
-    workoutSetEditor.setChangeHandler(() -> { listWorkoutSets(); });
-
-    listWorkoutSets();
   }
 
   private void listWorkoutSets() {
