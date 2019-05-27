@@ -87,7 +87,6 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
 
     // wire action buttons to save, delete and reset
     save.addClickListener(e -> saveWorkoutSetDto());
-//    delete.addClickListener(e -> delete());
     cancel.addClickListener(e -> editWorkoutSet(workoutSetDto));
     setVisible(true);
   }
@@ -120,19 +119,10 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
   }
 
   public final void editWorkoutSet(WorkoutSetDto ws) {
-    if (ws == null) {
-      setVisible(false);
-      return;
-    } else {
-      setVisible(true);
+
+    if (ws != null) {
       workoutSetDto = ws;
     }
-
-    cancel.setVisible(true);
-
-    // Bind WorkoutSetDto properties to similarly named fields
-    // Could also use annotation or "manual binding" or programmatically
-    // moving values from fields to entities before saving
     binder.setBean(workoutSetDto);
   }
 

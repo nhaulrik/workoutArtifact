@@ -60,12 +60,14 @@ public class WorkoutSetMapper {
   }
 
   public WorkoutSetEntity toEntity(WorkoutSet workoutSet) {
-    return new WorkoutSetEntity(
+    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(
         workoutSet.getRepetitions(),
         workoutSet.getWeight(),
         workoutSet.getSingle(),
         workoutSet.getRepetitionMaximum()
     );
+    workoutSetEntity.setId(workoutSet.getId());
+    return workoutSetEntity;
   }
 
 }

@@ -2,12 +2,10 @@ package com.workout.workoutArtifact.endpoint.ui.views;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.provider.ListDataProvider;
-import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -26,30 +24,39 @@ public class WorkoutSetView extends VerticalLayout {
   private final WorkoutSetFacade workoutSetFacade;
 
   final Grid<WorkoutSetDto> workoutSetDtoGrid;
-  final TextField filter;
 
   @Autowired
   public WorkoutSetView(WorkoutSetFacade workoutSetFacade,
       WorkoutSetEditor workoutSetEditor) {
     this.workoutSetFacade = workoutSetFacade;
     this.workoutSetDtoGrid = new Grid<>(WorkoutSetDto.class);
-    this.filter = new TextField();
 
     // build layout
-    HorizontalLayout actions = new HorizontalLayout(filter);
-    add(actions, workoutSetDtoGrid, workoutSetEditor);
+    add(workoutSetDtoGrid, workoutSetEditor);
     workoutSetDtoGrid.setHeight("300px");
     workoutSetDtoGrid.setColumns("exerciseName", "weight", "repetitions", "single", "repetitionMaximum");
     workoutSetDtoGrid.addComponentColumn(item -> createRemoveButton(workoutSetDtoGrid, item))
         .setHeader("Actions");
 
-    filter.setPlaceholder("Filter by something");
 
-    // Hook logic to components
+    Binder<WorkoutSetDto> binder = new Binder<>(WorkoutSetDto.class);
 
-    // Replace listing with filtered content when user changes filter
-    filter.setValueChangeMode(ValueChangeMode.EAGER);
-    filter.addValueChangeListener(e -> workoutSetFacade.getWorkoutSets()); //use e.getValue() as param.
+    workoutSetDtoGrid.getEditor().setBinder(binder);
+
+    TextField field = new TextField();
+
+    binder.bind(field, "exerciseName");
+    workoutSetDtoGrid.getColumnByKey("exerciseName").setEditorComponent(field);
+
+    workoutSetDtoGrid.addItemDoubleClickListener(event -> {
+    workoutSetDtoGrid.getEditor().editItem(event.getItem());
+    field.focus();
+    });
+
+    workoutSetDtoGrid.getEditor().addCloseListener(e -> {
+      workoutSetFacade.addWorkoutSet(e.getItem());
+      listWorkoutSets();
+    });
 
     // Connect selected WorkoutSet to editor or hide if none is selected
     workoutSetDtoGrid.asSingleSelect().addValueChangeListener(e -> {
