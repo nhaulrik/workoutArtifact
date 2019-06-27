@@ -15,7 +15,7 @@ public class WorkoutSetDto {
   private int repetitions;
 
   @NonNull
-  private double weight;
+  private String weight;
 
   @NonNull
   private Boolean single;

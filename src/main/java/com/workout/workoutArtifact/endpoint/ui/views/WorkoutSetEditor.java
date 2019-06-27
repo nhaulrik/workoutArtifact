@@ -65,7 +65,6 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
         .bind(WorkoutSetDto::getRepetitions, WorkoutSetDto::setRepetitions);
 
     binder.forField(exerciseWeight)
-        .withConverter(new StringToDoubleConverter("must be double"))
         .bind(WorkoutSetDto::getWeight, WorkoutSetDto::setWeight);
 
     binder.forField(repetitionMaximum)
@@ -85,11 +84,9 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
 
     addKeyPressListener(Key.ENTER, e -> saveWorkoutSetDto());
 
-    // wire action buttons to save, delete and reset
-    save.addClickListener(e -> saveWorkoutSetDto());
     cancel.addClickListener(e -> editWorkoutSet(workoutSetDto));
     setVisible(true);
-  }
+  };
 
   private ComboBox<String> getExerciseNamesComboBox() {
     List<String> exerciseNames = getExerciseName();

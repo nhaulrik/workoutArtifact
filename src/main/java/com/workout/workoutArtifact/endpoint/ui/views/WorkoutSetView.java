@@ -1,5 +1,7 @@
 package com.workout.workoutArtifact.endpoint.ui.views;
 
+import com.vaadin.event.ShortcutAction;
+import com.vaadin.event.ShortcutListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -9,6 +11,7 @@ import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
+import com.workout.workoutArtifact.domain.model.WorkoutSet;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
 import java.util.List;
@@ -41,7 +44,7 @@ public class WorkoutSetView extends VerticalLayout {
     initializeEditors(workoutSetEditor);
 
     // Instantiate and edit new WorkoutSetDto
-    workoutSetEditor.editWorkoutSet(new WorkoutSetDto("Type Exercise Here", 0, 0, false, 0));
+    workoutSetEditor.editWorkoutSet(new WorkoutSetDto("Type Exercise Here", 0, "0", false, 0));
 
     // Listen changes made by the editor, refresh data from backend
     workoutSetEditor.setChangeHandler(() -> { listWorkoutSets(); });
@@ -56,24 +59,26 @@ public class WorkoutSetView extends VerticalLayout {
     workoutSetDtoGrid.getEditor().setBinder(binder);
 
     TextField exerciseNameTextfield = new TextField();
+    TextField weightTextField = new TextField();
 
     binder.bind(exerciseNameTextfield, "exerciseName");
+    binder.bind(weightTextField, "weight");
     workoutSetDtoGrid.getColumnByKey("exerciseName").setEditorComponent(exerciseNameTextfield);
+    workoutSetDtoGrid.getColumnByKey("weight").setEditorComponent(weightTextField);
 
-    workoutSetDtoGrid.addItemDoubleClickListener(event -> {
+    workoutSetDtoGrid.addItemClickListener(event -> {
       workoutSetDtoGrid.getEditor().editItem(event.getItem());
       exerciseNameTextfield.focus();
     });
 
-    workoutSetDtoGrid.getEditor().addCloseListener(e -> {
-      workoutSetFacade.addWorkoutSet(e.getItem());
-      listWorkoutSets();
+    workoutSetDtoGrid.addFocusListener(event -> {
+      if (workoutSetDtoGrid.getEditor().isOpen()) {
+        WorkoutSetDto workoutSetDto = workoutSetDtoGrid.getEditor().getItem();
+        workoutSetFacade.addWorkoutSet(workoutSetDto);
+        listWorkoutSets();
+      }
     });
 
-    // Connect selected WorkoutSet to editor or hide if none is selected
-    workoutSetDtoGrid.asSingleSelect().addValueChangeListener(e -> {
-      workoutSetEditor.editWorkoutSet(e.getValue());
-    });
   }
 
   private void listWorkoutSets() {
