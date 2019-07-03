@@ -10,12 +10,12 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.converter.StringToBooleanConverter;
 import com.vaadin.flow.data.converter.StringToDoubleConverter;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
 import com.vaadin.flow.spring.annotation.UIScope;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
+import com.workout.workoutArtifact.endpoint.dto.validator.WorkoutSetDtoValidator;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
 import java.util.Arrays;
@@ -30,6 +30,7 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
 
   private final WorkoutSetFacade workoutSetFacade;
   private final ExerciseFacade exerciseFacade;
+  private final WorkoutSetDtoValidator workoutSetDtoValidator;
 
   //WorkoutSetDto to edit
   private WorkoutSetDto workoutSetDto;
@@ -52,9 +53,11 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
   @Autowired
   public WorkoutSetEditor(
       WorkoutSetFacade workoutSetFacade,
-      ExerciseFacade exerciseFacade) {
+      ExerciseFacade exerciseFacade,
+      WorkoutSetDtoValidator workoutSetDtoValidator) {
     this.workoutSetFacade = workoutSetFacade;
     this.exerciseFacade = exerciseFacade;
+    this.workoutSetDtoValidator = workoutSetDtoValidator;
 
     HorizontalLayout workoutSetEditorFields = new HorizontalLayout(getExerciseNamesComboBox(), exerciseWeight, repetitions, repetitionMaximum, singleCheckbox);
     add(workoutSetEditorFields, actions);
@@ -65,6 +68,7 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
         .bind(WorkoutSetDto::getRepetitions, WorkoutSetDto::setRepetitions);
 
     binder.forField(exerciseWeight)
+        .withConverter(new StringToDoubleConverter("must be a number"))
         .bind(WorkoutSetDto::getWeight, WorkoutSetDto::setWeight);
 
     binder.forField(repetitionMaximum)
@@ -72,7 +76,7 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
         .bind(WorkoutSetDto::getRepetitionMaximum, WorkoutSetDto::setRepetitionMaximum);
 
     binder.forField(singleCheckbox)
-        .bind(WorkoutSetDto::getSingle, WorkoutSetDto::setSingle);
+        .bind(WorkoutSetDto::isSingle, WorkoutSetDto::setSingle);
 
     binder.bindInstanceFields(this);
 
@@ -84,7 +88,8 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
 
     addKeyPressListener(Key.ENTER, e -> saveWorkoutSetDto());
 
-    cancel.addClickListener(e -> editWorkoutSet(workoutSetDto));
+    save.addClickListener(e -> saveWorkoutSetDto());
+    cancel.addClickListener(e -> editWorkoutSet(new WorkoutSetDto("", 0, 0, false, 0)));
     setVisible(true);
   };
 
@@ -111,8 +116,11 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
   }
 
   void saveWorkoutSetDto() {
-    workoutSetFacade.addWorkoutSet(workoutSetDto);
-    changeHandler.onChange();
+    if (workoutSetDtoValidator.validateWorkoutSetDto(workoutSetDto)) {
+      workoutSetFacade.addWorkoutSet(workoutSetDto);
+      editWorkoutSet(new WorkoutSetDto("Type Exercise Here", 0, 0, false, 0));
+      changeHandler.onChange();
+    }
   }
 
   public final void editWorkoutSet(WorkoutSetDto ws) {

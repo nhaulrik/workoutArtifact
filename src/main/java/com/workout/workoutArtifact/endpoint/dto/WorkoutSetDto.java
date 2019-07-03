@@ -15,10 +15,10 @@ public class WorkoutSetDto {
   private int repetitions;
 
   @NonNull
-  private String weight;
+  private double weight;
 
   @NonNull
-  private Boolean single;
+  private boolean single;
 
   @NonNull
   private int repetitionMaximum;

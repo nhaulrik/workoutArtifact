@@ -22,7 +22,7 @@ public class WorkoutSetMapper {
     WorkoutSetDto workoutSetDto = new WorkoutSetDto(
         workoutSet.getExerciseName(),
         workoutSet.getRepetitions(),
-        String.valueOf(workoutSet.getWeight()),
+        workoutSet.getWeight(),
         workoutSet.getSingle(),
         workoutSet.getRepetitionMaximum());
 
@@ -36,8 +36,8 @@ public class WorkoutSetMapper {
     WorkoutSet workoutSet = new WorkoutSet(
         exercise.getName(),
         workoutSetDto.getRepetitions(),
-        Double.valueOf(workoutSetDto.getWeight()),
-        workoutSetDto.getSingle(),
+        workoutSetDto.getWeight(),
+        workoutSetDto.isSingle(),
         workoutSetDto.getRepetitionMaximum(),
         exercise);
 
