@@ -7,8 +7,6 @@ import com.workout.workoutArtifact.domain.service.ExerciseService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.constraints.pl.REGON.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,43 +17,47 @@ public class WorkoutSetMapper {
   private final ExerciseService exerciseService;
 
   public WorkoutSetDto toDto(WorkoutSet workoutSet) {
-    WorkoutSetDto workoutSetDto = new WorkoutSetDto(
-        workoutSet.getExerciseName(),
-        workoutSet.getRepetitions(),
-        workoutSet.getWeight(),
-        workoutSet.getSingle(),
-        workoutSet.getRepetitionMaximum());
+    WorkoutSetDto workoutSetDto = WorkoutSetDto.builder()
+    .exerciseName(workoutSet.getExerciseName())
+        .repetitions(workoutSet.getRepetitions())
+        .weight(workoutSet.getWeight())
+        .single(workoutSet.getSingle())
+        .repetitionMaximum(workoutSet.getRepetitionMaximum())
+        .id(workoutSet.getId())
+        .set(workoutSet.getSet())
+        .build();
 
-    workoutSetDto.setId(workoutSet.getId());
     return workoutSetDto;
   }
 
   public WorkoutSet toDomain(WorkoutSetDto workoutSetDto) {
     Exercise exercise = exerciseService.getExercises(Arrays.asList(workoutSetDto.getExerciseName()))
         .get(0);
-    WorkoutSet workoutSet = new WorkoutSet(
-        exercise.getName(),
-        workoutSetDto.getRepetitions(),
-        workoutSetDto.getWeight(),
-        workoutSetDto.isSingle(),
-        workoutSetDto.getRepetitionMaximum(),
-        exercise);
+    WorkoutSet workoutSet = WorkoutSet.builder()
+    .exerciseName(exercise.getName())
+        .repetitions(workoutSetDto.getRepetitions())
+        .weight(workoutSetDto.getWeight())
+        .single(workoutSetDto.isSingle())
+        .repetitionMaximum(workoutSetDto.getRepetitionMaximum())
+        .set(workoutSetDto.getSet())
+        .exercise(exercise)
+        .id(workoutSetDto.getId())
+        .build();
 
-    workoutSet.setId(workoutSetDto.getId());
     return workoutSet;
   }
 
   public WorkoutSet toDomain(WorkoutSetEntity workoutSetEntity) {
-    WorkoutSet workoutSet = new WorkoutSet(
-        workoutSetEntity.getExerciseEntity().getName(),
-        workoutSetEntity.getRepetitions(),
-        workoutSetEntity.getWeight(),
-        workoutSetEntity.isSingle(),
-        workoutSetEntity.getRepetitionMaximum(),
-        exerciseMapper.toDomainObject(workoutSetEntity.getExerciseEntity())
-    );
+    WorkoutSet workoutSet = WorkoutSet.builder()
+    .exerciseName(workoutSetEntity.getExerciseEntity().getName())
+        .repetitions(workoutSetEntity.getRepetitions())
+        .weight(workoutSetEntity.getWeight())
+        .single(workoutSetEntity.isSingle())
+        .repetitionMaximum(workoutSetEntity.getRepetitionMaximum())
+        .exercise(exerciseMapper.toDomainObject(workoutSetEntity.getExerciseEntity()))
+        .id(workoutSetEntity.getId())
+        .build();
 
-    workoutSet.setId(workoutSetEntity.getId());
     return workoutSet;
   }
 

@@ -1,9 +1,12 @@
 package com.workout.workoutArtifact.endpoint.dto;
 
+import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NonNull;
 
 @Data
+@Builder
 public class WorkoutSetDto {
 
   private Long id;
@@ -22,5 +25,8 @@ public class WorkoutSetDto {
 
   @NonNull
   private int repetitionMaximum;
+
+  @NonNull
+  private int set;
 
 }

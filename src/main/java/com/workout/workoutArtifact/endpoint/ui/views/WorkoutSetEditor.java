@@ -89,9 +89,12 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
     addKeyPressListener(Key.ENTER, e -> saveWorkoutSetDto());
 
     save.addClickListener(e -> saveWorkoutSetDto());
-    cancel.addClickListener(e -> editWorkoutSet(new WorkoutSetDto("", 0, 0, false, 0)));
+    cancel.addClickListener(e -> editWorkoutSet(
+        WorkoutSetDto.builder()
+            .exerciseName("")
+            .build()));
     setVisible(true);
-  };
+  }
 
   private ComboBox<String> getExerciseNamesComboBox() {
     List<String> exerciseNames = getExerciseName();
@@ -118,7 +121,14 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
   void saveWorkoutSetDto() {
     if (workoutSetDtoValidator.validateWorkoutSetDto(workoutSetDto)) {
       workoutSetFacade.addWorkoutSet(workoutSetDto);
-      editWorkoutSet(new WorkoutSetDto("Type Exercise Here", 0, 0, false, 0));
+
+      editWorkoutSet(WorkoutSetDto.builder()
+          .exerciseName(workoutSetDto.getExerciseName())
+          .repetitionMaximum(workoutSetDto.getRepetitionMaximum())
+          .single(workoutSetDto.isSingle())
+          .build());
+
+      exerciseWeight.focus();
       changeHandler.onChange();
     }
   }

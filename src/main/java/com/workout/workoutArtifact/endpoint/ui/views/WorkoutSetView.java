@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
 public class WorkoutSetView extends VerticalLayout {
 
   private final WorkoutSetFacade workoutSetFacade;
-  private final WorkoutSetDtoValidator workoutSetDtoValidator;
 
   final Grid<WorkoutSetDto> workoutSetDtoGrid;
 
@@ -30,7 +29,6 @@ public class WorkoutSetView extends VerticalLayout {
       WorkoutSetEditor workoutSetEditor,
       WorkoutSetDtoValidator workoutSetDtoValidator) {
     this.workoutSetFacade = workoutSetFacade;
-    this.workoutSetDtoValidator = workoutSetDtoValidator;
     this.workoutSetDtoGrid = new Grid<>(WorkoutSetDto.class);
 
     // build layout
@@ -43,7 +41,9 @@ public class WorkoutSetView extends VerticalLayout {
     initializeEditors(workoutSetEditor);
 
     // Instantiate and edit new WorkoutSetDto
-    workoutSetEditor.editWorkoutSet(new WorkoutSetDto("Type Exercise Here", 0, 0, false, 0));
+    workoutSetEditor.editWorkoutSet(WorkoutSetDto.builder()
+    .exerciseName("Type Exercise Here")
+        .build());
 
     // Listen changes made by the editor, refresh data from backend
     workoutSetEditor.setChangeHandler(() -> { listWorkoutSets(); });
