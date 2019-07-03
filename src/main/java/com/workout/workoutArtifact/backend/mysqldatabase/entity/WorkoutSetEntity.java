@@ -44,6 +44,10 @@ public class WorkoutSetEntity {
   @Column
   private int repetitionMaximum;
 
+  @NonNull
+  @Column
+  private int setNumber;
+
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinTable(name = "workoutset_exercise",
   joinColumns = @JoinColumn(name = "workoutset_id", referencedColumnName = "id"),

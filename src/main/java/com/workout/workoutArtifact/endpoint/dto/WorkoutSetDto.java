@@ -27,6 +27,6 @@ public class WorkoutSetDto {
   private int repetitionMaximum;
 
   @NonNull
-  private int set;
+  private int setNumber;
 
 }

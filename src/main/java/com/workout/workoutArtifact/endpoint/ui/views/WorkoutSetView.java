@@ -8,7 +8,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
-import com.workout.workoutArtifact.endpoint.dto.validator.WorkoutSetDtoValidator;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +25,14 @@ public class WorkoutSetView extends VerticalLayout {
 
   @Autowired
   public WorkoutSetView(WorkoutSetFacade workoutSetFacade,
-      WorkoutSetEditor workoutSetEditor,
-      WorkoutSetDtoValidator workoutSetDtoValidator) {
+      WorkoutSetEditor workoutSetEditor) {
     this.workoutSetFacade = workoutSetFacade;
     this.workoutSetDtoGrid = new Grid<>(WorkoutSetDto.class);
 
     // build layout
     add(workoutSetDtoGrid, workoutSetEditor);
     workoutSetDtoGrid.setHeight("300px");
-    workoutSetDtoGrid.setColumns("exerciseName", "weight", "repetitions", "single", "repetitionMaximum");
+    workoutSetDtoGrid.setColumns("setNumber", "exerciseName", "weight", "repetitions", "single", "repetitionMaximum");
     workoutSetDtoGrid.addComponentColumn(item -> createRemoveButton(workoutSetDtoGrid, item))
         .setHeader("Actions");
 

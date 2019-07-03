@@ -24,7 +24,7 @@ public class WorkoutSetMapper {
         .single(workoutSet.getSingle())
         .repetitionMaximum(workoutSet.getRepetitionMaximum())
         .id(workoutSet.getId())
-        .set(workoutSet.getSet())
+        .setNumber(workoutSet.getSetNumber())
         .build();
 
     return workoutSetDto;
@@ -39,7 +39,7 @@ public class WorkoutSetMapper {
         .weight(workoutSetDto.getWeight())
         .single(workoutSetDto.isSingle())
         .repetitionMaximum(workoutSetDto.getRepetitionMaximum())
-        .set(workoutSetDto.getSet())
+        .setNumber(workoutSetDto.getSetNumber())
         .exercise(exercise)
         .id(workoutSetDto.getId())
         .build();
@@ -56,6 +56,7 @@ public class WorkoutSetMapper {
         .repetitionMaximum(workoutSetEntity.getRepetitionMaximum())
         .exercise(exerciseMapper.toDomainObject(workoutSetEntity.getExerciseEntity()))
         .id(workoutSetEntity.getId())
+        .setNumber(workoutSetEntity.getSetNumber())
         .build();
 
     return workoutSet;
@@ -66,7 +67,8 @@ public class WorkoutSetMapper {
         workoutSet.getRepetitions(),
         workoutSet.getWeight(),
         workoutSet.getSingle(),
-        workoutSet.getRepetitionMaximum()
+        workoutSet.getRepetitionMaximum(),
+        workoutSet.getSetNumber()
     );
     workoutSetEntity.setId(workoutSet.getId());
     return workoutSetEntity;

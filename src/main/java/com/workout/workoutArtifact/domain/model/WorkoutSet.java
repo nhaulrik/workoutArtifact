@@ -42,5 +42,5 @@ public class WorkoutSet {
 
   @JsonProperty
   @NonNull
-  private int set;
+  private int setNumber;
 }
