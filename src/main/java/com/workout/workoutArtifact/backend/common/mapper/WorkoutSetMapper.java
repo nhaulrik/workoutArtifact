@@ -6,6 +6,8 @@ import com.workout.workoutArtifact.domain.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.service.ExerciseService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +33,7 @@ public class WorkoutSetMapper {
   }
 
   public WorkoutSet toDomain(WorkoutSetDto workoutSetDto) {
+    // TODO: 07-07-2019 this is fishy'
     Exercise exercise = exerciseService.getExercises(Arrays.asList(workoutSetDto.getExerciseName()))
         .get(0);
     WorkoutSet workoutSet = WorkoutSet.builder()
@@ -72,6 +75,12 @@ public class WorkoutSetMapper {
     );
     workoutSetEntity.setId(workoutSet.getId());
     return workoutSetEntity;
+  }
+
+  public List<WorkoutSetEntity> toEntity(List<WorkoutSet> workoutSetList) {
+    return workoutSetList.stream()
+        .map(this::toEntity)
+        .collect(Collectors.toList());
   }
 
 }
