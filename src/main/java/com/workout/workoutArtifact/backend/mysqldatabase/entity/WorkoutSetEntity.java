@@ -54,4 +54,8 @@ public class WorkoutSetEntity {
       inverseJoinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"))
   private ExerciseEntity exerciseEntity;
 
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "session_id")
+  private SessionEntity sessionEntity;
+
 }
