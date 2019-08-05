@@ -5,20 +5,15 @@ import com.workout.workoutArtifact.domain.service.WorkoutSetService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class WorkoutSetFacade {
 
   private final WorkoutSetService workoutSetService;
   private final WorkoutSetMapper workoutSetMapper;
-
-  public WorkoutSetFacade(
-      WorkoutSetService workoutSetService,
-      WorkoutSetMapper workoutSetMapper) {
-    this.workoutSetService = workoutSetService;
-    this.workoutSetMapper = workoutSetMapper;
-  }
 
   public List<WorkoutSetDto> getWorkoutSets() {
     return workoutSetService.getWorkoutSet().stream()

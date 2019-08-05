@@ -6,20 +6,15 @@ import com.workout.workoutArtifact.domain.service.ExerciseService;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ExerciseFacade {
 
   private final ExerciseService exerciseService;
   private final ExerciseMapper mapper;
-
-  public ExerciseFacade(
-      ExerciseService exerciseService,
-      ExerciseMapper mapper) {
-    this.exerciseService = exerciseService;
-    this.mapper = mapper;
-  }
 
   public String addExercises(List<Exercise> exerciseList) {
     return exerciseService.addExercises(exerciseList);

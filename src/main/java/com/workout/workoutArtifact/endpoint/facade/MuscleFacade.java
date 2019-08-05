@@ -8,23 +8,16 @@ import com.workout.workoutArtifact.domain.service.MuscleService;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class MuscleFacade {
 
   private final MuscleService muscleService;
   private final MuscleMapper muscleMapper;
-
-
-  @Autowired
-  public MuscleFacade(
-      MuscleService muscleService,
-      MuscleMapper muscleMapper) {
-    this.muscleService = muscleService;
-    this.muscleMapper = muscleMapper;
-  }
 
   public String addMuscles(List<Muscle> muscles) throws MuscleException {
     muscles.forEach(muscle -> Validator.validateMuscle(muscle));

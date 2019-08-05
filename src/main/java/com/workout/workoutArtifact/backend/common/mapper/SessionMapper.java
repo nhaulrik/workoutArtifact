@@ -5,7 +5,9 @@ import com.workout.workoutArtifact.domain.model.Session;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @RequiredArgsConstructor
 public class SessionMapper {
 
