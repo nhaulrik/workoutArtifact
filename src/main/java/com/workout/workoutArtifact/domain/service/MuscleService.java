@@ -9,21 +9,16 @@ import com.workout.workoutArtifact.endpoint.specification.MuscleSpecification.Se
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class MuscleService {
 
   private final MuscleRepository muscleRepository;
   private final MuscleMapper muscleMapper;
-
-  @Autowired
-  public MuscleService(MuscleRepository muscleRepository,
-      MuscleMapper muscleMapper) {
-    this.muscleRepository = muscleRepository;
-    this.muscleMapper = muscleMapper;
-  }
 
   public String addMuscles(List<Muscle> muscles) {
 
