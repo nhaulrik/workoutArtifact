@@ -48,9 +48,10 @@ public class ExerciseMapper {
     );
 
     exercise.setMuscles(exerciseEntity.getMuscleEntities().stream()
-        .map(entity -> new Muscle(
-            MuscleEnum.valueOf(entity.getName()),
-            BodyPartEnum.valueOf(entity.getBodyPart()))
+        .map(entity -> Muscle.builder()
+            .muscle(MuscleEnum.valueOf(entity.getName()))
+            .bodyPart(BodyPartEnum.valueOf(entity.getBodyPart()))
+            .build()
         )
         .collect(Collectors.toList()));
     return exercise;

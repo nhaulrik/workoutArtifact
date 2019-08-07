@@ -36,7 +36,10 @@ public class MuscleServiceTest {
   @Test
   public void addMuscles() {
 
-    Muscle muscle = new Muscle(MuscleEnum.CHEST, BodyPartEnum.CHEST);
+    Muscle muscle = Muscle.builder()
+        .muscle(MuscleEnum.CHEST)
+        .bodyPart(BodyPartEnum.CHEST)
+        .build();
 
     muscleService.addMuscles(Arrays.asList(muscle));
 
@@ -46,7 +49,11 @@ public class MuscleServiceTest {
   @Test
   public void getMuscles() {
 
-    Muscle muscle = new Muscle(MuscleEnum.CHEST, BodyPartEnum.CHEST);
+    Muscle muscle = Muscle.builder()
+        .muscle(MuscleEnum.CHEST)
+        .bodyPart(BodyPartEnum.CHEST)
+        .build();
+
     MuscleEntity muscleAsEntity = muscleMapper.toEntity(muscle);
 
     when(muscleRepository

@@ -21,10 +21,10 @@ public class MuscleMapper {
   }
 
   public Muscle toDomainObject(MuscleEntity muscleEntity) {
-    Muscle muscle = new Muscle(
-        MuscleEnum.valueOf(muscleEntity.getName()),
-        BodyPartEnum.valueOf(muscleEntity.getBodyPart())
-    );
+    Muscle muscle = Muscle.builder()
+        .muscle(MuscleEnum.valueOf(muscleEntity.getName()))
+        .bodyPart(BodyPartEnum.valueOf(muscleEntity.getBodyPart()))
+        .build();
 
     muscle.setExerciseList(muscleEntity.getExerciseSet().stream()
         .map(entity -> new Exercise(
