@@ -6,9 +6,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-import com.workout.workoutArtifact.backend.common.mapper.SessionMapper;
-import com.workout.workoutArtifact.backend.mysqldatabase.entity.SessionEntity;
-import com.workout.workoutArtifact.backend.mysqldatabase.repository.SessionRepository;
+import com.workout.workoutArtifact.infrastructure.common.mapper.SessionMapper;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.SessionJpaRepository;
 import com.workout.workoutArtifact.domain.model.Session;
 import com.workout.workoutArtifact.domain.service.SessionService;
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ import org.junit.Test;
 
 public class SessionServiceTest {
 
-  private SessionRepository sessionRepository = mock(SessionRepository.class);
+  private SessionJpaRepository sessionRepository = mock(SessionJpaRepository.class);
   private SessionMapper sessionMapper = mock(SessionMapper.class);
 
   private SessionService sessionService = new SessionService(sessionRepository, sessionMapper);

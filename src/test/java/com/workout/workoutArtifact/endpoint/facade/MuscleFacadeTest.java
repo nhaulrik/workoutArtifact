@@ -2,32 +2,30 @@ package com.workout.workoutArtifact.endpoint.facade;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import com.workout.workoutArtifact.ErrorCodes;
-import com.workout.workoutArtifact.MuscleException;
-import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
-import com.workout.workoutArtifact.backend.common.enums.MuscleEnum;
-import com.workout.workoutArtifact.backend.common.mapper.MuscleMapper;
-import com.workout.workoutArtifact.domain.model.Muscle;
-import com.workout.workoutArtifact.domain.service.MuscleService;
+import com.workout.workoutArtifact.domain.muscle.model.Muscle;
+import com.workout.workoutArtifact.domain.muscle.model.Muscle.NameSpecification;
+import com.workout.workoutArtifact.domain.muscle.service.MuscleService;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
+import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
+import com.workout.workoutArtifact.infrastructure.common.enums.MuscleEnum;
+import com.workout.workoutArtifact.infrastructure.common.mapper.MuscleMapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class MuscleFacadeTest {
 
   private MuscleFacade muscleFacade;
@@ -38,7 +36,7 @@ public class MuscleFacadeTest {
   @Mock
   private MuscleService muscleService;
 
-  private MuscleMapper muscleMapper = new MuscleMapper();
+  private MuscleMapper muscleMapper = mock(MuscleMapper.class);
 
   @Before
   public void before() {
@@ -46,9 +44,38 @@ public class MuscleFacadeTest {
   }
 
   @Test
+  public void getMusclesBySpecification() {
+
+    String someName = "name1";
+
+    Muscle muscle = Muscle.builder()
+        .name(someName)
+        .bodyPart(BodyPartEnum.SHOULDER)
+        .build();
+
+    MuscleDto muscleDto = mock(MuscleDto.class);
+
+    doReturn(muscleDto)
+        .when(muscleMapper).toDto(muscle);
+
+    Muscle.NameSpecification nameSpecification = new NameSpecification(Arrays.asList(someName));
+
+    doReturn(Arrays.asList(muscle))
+        .when(muscleService).getMuscles(nameSpecification);
+
+    List<MuscleDto> muscleDtos = muscleFacade.getMuscles(nameSpecification);
+
+    assertThat(muscleDtos.size(), is(1));
+    assertThat(muscleDtos.get(0), is(muscleDto));
+  }
+
+  @Test
   public void addMuscles() {
 
-    Muscle muscle = new Muscle(MuscleEnum.BICEPS, BodyPartEnum.SHOULDER);
+    Muscle muscle = Muscle.builder()
+        .name(MuscleEnum.BICEPS.toString())
+        .bodyPart(BodyPartEnum.SHOULDER)
+        .build();
 
     muscleFacade.addMuscles(Arrays.asList(muscle));
 
@@ -58,34 +85,5 @@ public class MuscleFacadeTest {
 
     assertThat(arg.getValue(), is(Arrays.asList(muscle)));
   }
-
-  @Test
-  public void getMuscles() {
-
-    Muscle expectedMuscle1 = new Muscle(MuscleEnum.BICEPS, BodyPartEnum.ARM);
-    Muscle expectedMuscle2 = new Muscle(MuscleEnum.TRAPS, BodyPartEnum.ARM);
-
-    when(muscleService.getMuscles(anyList()))
-        .thenReturn(Arrays.asList(expectedMuscle1, expectedMuscle2));
-
-    List<MuscleDto> muscles = muscleFacade.getMusclesByName(new ArrayList<>());
-
-    assertThat(muscles.get(0), is(muscleMapper.toDto(expectedMuscle1)));
-    assertThat(muscles.get(1), is(muscleMapper.toDto(expectedMuscle2)));
-  }
-
-  @Ignore
-  @Test
-  public void invalidMuscleNamesThrowsException() {
-
-    String invalidMuscleName = "!_INVALID Name";
-    String validMuscleName = "Valid Name";
-
-    thrown.expect(MuscleException.class);
-    thrown.expectMessage(ErrorCodes.ILLEGAL_MUSCLE_NAME.getMessage());
-
-    muscleFacade.getMusclesByName(Arrays.asList(validMuscleName, invalidMuscleName));
-  }
-
 
 }

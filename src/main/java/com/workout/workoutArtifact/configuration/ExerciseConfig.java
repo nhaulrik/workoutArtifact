@@ -1,12 +1,12 @@
 package com.workout.workoutArtifact.configuration;
 
-import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
-import com.workout.workoutArtifact.backend.common.enums.ExerciseEnum;
-import com.workout.workoutArtifact.backend.common.enums.MuscleEnum;
-import com.workout.workoutArtifact.backend.mysqldatabase.entity.ExerciseEntity;
-import com.workout.workoutArtifact.backend.mysqldatabase.entity.MuscleEntity;
-import com.workout.workoutArtifact.backend.mysqldatabase.repository.ExerciseRepository;
-import com.workout.workoutArtifact.domain.service.MuscleService;
+import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
+import com.workout.workoutArtifact.infrastructure.common.enums.ExerciseEnum;
+import com.workout.workoutArtifact.infrastructure.common.enums.MuscleEnum;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.MuscleEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.ExerciseJpaRepository;
+import com.workout.workoutArtifact.domain.muscle.service.MuscleService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +21,7 @@ public class ExerciseConfig {
   MuscleService muscleService;
 
   @Autowired
-  ExerciseRepository exerciseRepository;
+  ExerciseJpaRepository exerciseRepository;
 
   @Bean
   public void muscleConfig() {

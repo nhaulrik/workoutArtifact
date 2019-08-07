@@ -3,10 +3,11 @@ package com.workout.workoutArtifact.domain.model;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
-import com.workout.workoutArtifact.backend.common.enums.MuscleEnum;
-import com.workout.workoutArtifact.domain.model.Muscle.BodyPartSpecification;
-import com.workout.workoutArtifact.domain.model.Muscle.NameSpecification;
+import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
+import com.workout.workoutArtifact.infrastructure.common.enums.MuscleEnum;
+import com.workout.workoutArtifact.domain.muscle.model.Muscle;
+import com.workout.workoutArtifact.domain.muscle.model.Muscle.BodyPartSpecification;
+import com.workout.workoutArtifact.domain.muscle.model.Muscle.NameSpecification;
 import java.util.Arrays;
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ public class MuscleTest {
     Muscle.NameSpecification nameSpecification = new NameSpecification(Arrays.asList(someName));
 
     Muscle muscle = Muscle.builder()
-        .muscle(MuscleEnum.CHEST)
+        .name(MuscleEnum.CHEST.toString())
         .bodyPart(BodyPartEnum.CHEST)
         .build();
 
@@ -33,7 +34,7 @@ public class MuscleTest {
     Muscle.NameSpecification nameSpecification = new NameSpecification(Arrays.asList(chest.name()));
 
     Muscle muscle = Muscle.builder()
-        .muscle(chest)
+        .name(chest.toString())
         .bodyPart(BodyPartEnum.CHEST)
         .build();
 
@@ -47,7 +48,7 @@ public class MuscleTest {
     Muscle.BodyPartSpecification bodyPartSpecification = new BodyPartSpecification(Arrays.asList(someName));
 
     Muscle muscle = Muscle.builder()
-        .muscle(MuscleEnum.CHEST)
+        .name(MuscleEnum.CHEST.toString())
         .bodyPart(BodyPartEnum.CHEST)
         .build();
 
@@ -61,7 +62,7 @@ public class MuscleTest {
     Muscle.BodyPartSpecification bodyPartSpecification = new BodyPartSpecification(Arrays.asList(chest.name()));
 
     Muscle muscle = Muscle.builder()
-        .muscle(MuscleEnum.CHEST)
+        .name(MuscleEnum.CHEST.toString())
         .bodyPart(BodyPartEnum.CHEST)
         .build();
 

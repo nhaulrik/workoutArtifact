@@ -1,8 +1,8 @@
 package com.workout.workoutArtifact.domain.service;
 
-import com.workout.workoutArtifact.backend.common.mapper.ExerciseMapper;
-import com.workout.workoutArtifact.backend.mysqldatabase.entity.ExerciseEntity;
-import com.workout.workoutArtifact.backend.mysqldatabase.repository.ExerciseRepository;
+import com.workout.workoutArtifact.infrastructure.common.mapper.ExerciseMapper;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.ExerciseJpaRepository;
 import com.workout.workoutArtifact.domain.model.Exercise;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExerciseService {
 
-  private final ExerciseRepository exerciseRepository;
+  private final ExerciseJpaRepository exerciseRepository;
   private final ExerciseMapper mapper;
 
   @Autowired
   public ExerciseService(
-      ExerciseRepository exerciseRepository,
+      ExerciseJpaRepository exerciseRepository,
       ExerciseMapper exerciseMapper) {
     this.exerciseRepository = exerciseRepository;
     this.mapper = exerciseMapper;

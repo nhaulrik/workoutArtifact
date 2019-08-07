@@ -5,10 +5,10 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-import com.workout.workoutArtifact.backend.common.mapper.WorkoutSetMapper;
-import com.workout.workoutArtifact.backend.mysqldatabase.entity.WorkoutSetEntity;
-import com.workout.workoutArtifact.backend.mysqldatabase.repository.ExerciseRepository;
-import com.workout.workoutArtifact.backend.mysqldatabase.repository.WorkoutSetRepository;
+import com.workout.workoutArtifact.infrastructure.common.mapper.WorkoutSetMapper;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.ExerciseJpaRepository;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.WorkoutSetJpaRepository;
 import com.workout.workoutArtifact.domain.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.service.WorkoutSetService;
 import java.util.Arrays;
@@ -16,8 +16,8 @@ import org.junit.Test;
 
 public class WorkoutSetServiceTest {
 
-  WorkoutSetRepository workoutSetRepository = mock(WorkoutSetRepository.class);
-  ExerciseRepository exerciseRepository = mock(ExerciseRepository.class);
+  WorkoutSetJpaRepository workoutSetRepository = mock(WorkoutSetJpaRepository.class);
+  ExerciseJpaRepository exerciseRepository = mock(ExerciseJpaRepository.class);
   WorkoutSetMapper workoutSetMapper = mock(WorkoutSetMapper.class);
 
   WorkoutSetService workoutSetService = new WorkoutSetService(workoutSetRepository,

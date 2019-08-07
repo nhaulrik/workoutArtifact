@@ -1,6 +1,6 @@
 package com.workout.workoutArtifact.endpoint.specification;
 
-import com.workout.workoutArtifact.backend.mysqldatabase.entity.MuscleEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.MuscleEntity;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 
 @RequiredArgsConstructor
-public class MuscleSpecification implements Specification<MuscleEntity> {
+public class MuscleEntitySpecification implements Specification<MuscleEntity> {
 
   @NonNull
   private SearchCriteria criteria;

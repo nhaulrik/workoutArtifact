@@ -8,6 +8,7 @@ import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
+import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class ExerciseOverview extends HorizontalLayout {
     exerciseDtoGrid.setItems(exerciseFacade.getExercises(Arrays.asList("*")));
 
     muscleDtoGrid.setColumns("name");
-    muscleDtoGrid.setItems(muscleFacade.getMusclesByName(Arrays.asList("*")));
+    muscleDtoGrid.setItems(muscleFacade.getMuscles(new MatchAllSpecification()));
 
     add(exerciseDtoGrid, muscleDtoGrid);
     setSizeFull();

@@ -1,15 +1,15 @@
 package com.workout.workoutArtifact.endpoint.facade;
 
 import com.workout.workoutArtifact.MuscleException;
-import com.workout.workoutArtifact.backend.common.Validator;
-import com.workout.workoutArtifact.backend.common.mapper.MuscleMapper;
-import com.workout.workoutArtifact.domain.model.Muscle;
-import com.workout.workoutArtifact.domain.service.MuscleService;
+import com.workout.workoutArtifact.infrastructure.common.Validator;
+import com.workout.workoutArtifact.infrastructure.common.mapper.MuscleMapper;
+import com.workout.workoutArtifact.domain.muscle.model.Muscle;
+import com.workout.workoutArtifact.domain.muscle.service.MuscleService;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
+import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,9 +24,11 @@ public class MuscleFacade {
     return muscleService.addMuscles(muscles);
   }
 
-  public List<MuscleDto> getMusclesByName(List<String> muscleNames) {
-    return muscleService.getMuscles(muscleNames).stream()
+  public List<MuscleDto> getMuscles(AbstractSpecification<Muscle> specification) {
+    return muscleService.getMuscles(specification).stream()
+        .filter(specification::isSatisfiedBy)
         .map(muscleMapper::toDto)
         .collect(Collectors.toList());
   }
+
 }

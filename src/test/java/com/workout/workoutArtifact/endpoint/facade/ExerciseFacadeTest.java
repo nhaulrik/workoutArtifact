@@ -6,41 +6,25 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
-import com.workout.workoutArtifact.backend.common.enums.ExerciseEnum;
-import com.workout.workoutArtifact.backend.common.mapper.ExerciseMapper;
 import com.workout.workoutArtifact.domain.model.Exercise;
 import com.workout.workoutArtifact.domain.service.ExerciseService;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
+import com.workout.workoutArtifact.infrastructure.common.mapper.ExerciseMapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ExerciseFacadeTest {
 
-  @Mock
-  ExerciseService exerciseService;
-
-  private ExerciseFacade exerciseFacade;
-
+  private ExerciseService exerciseService = mock(ExerciseService.class);
   private ExerciseMapper exerciseMapper = mock(ExerciseMapper.class);
-
-  @Before
-  public void before() {
-    exerciseFacade = new ExerciseFacade(
-        exerciseService,
-        exerciseMapper
-    );
-  }
+  private ExerciseFacade exerciseFacade = new ExerciseFacade(exerciseService, exerciseMapper);
 
   @Test
   public void addExercises() {

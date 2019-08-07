@@ -1,9 +1,9 @@
 package com.workout.workoutArtifact.domain.service;
 
-import com.workout.workoutArtifact.backend.common.mapper.WorkoutSetMapper;
-import com.workout.workoutArtifact.backend.mysqldatabase.entity.WorkoutSetEntity;
-import com.workout.workoutArtifact.backend.mysqldatabase.repository.ExerciseRepository;
-import com.workout.workoutArtifact.backend.mysqldatabase.repository.WorkoutSetRepository;
+import com.workout.workoutArtifact.infrastructure.common.mapper.WorkoutSetMapper;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.ExerciseJpaRepository;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.WorkoutSetJpaRepository;
 import com.workout.workoutArtifact.domain.model.WorkoutSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class WorkoutSetService {
 
-  private final WorkoutSetRepository workoutSetRepository;
+  private final WorkoutSetJpaRepository workoutSetRepository;
   private final WorkoutSetMapper workoutSetMapper;
-  private final ExerciseRepository exerciseRepository;
+  private final ExerciseJpaRepository exerciseRepository;
 
   public List<WorkoutSet> getWorkoutSet() {
     List<WorkoutSetEntity> workoutSetEntities = new ArrayList<>();

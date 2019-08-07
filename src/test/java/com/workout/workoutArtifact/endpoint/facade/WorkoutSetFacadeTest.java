@@ -6,15 +6,10 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import com.workout.workoutArtifact.backend.common.enums.BodyPartEnum;
-import com.workout.workoutArtifact.backend.common.enums.ExerciseEnum;
-import com.workout.workoutArtifact.backend.common.mapper.WorkoutSetMapper;
-import com.workout.workoutArtifact.domain.model.Exercise;
 import com.workout.workoutArtifact.domain.model.WorkoutSet;
-import com.workout.workoutArtifact.domain.service.ExerciseService;
 import com.workout.workoutArtifact.domain.service.WorkoutSetService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
-import java.util.ArrayList;
+import com.workout.workoutArtifact.infrastructure.common.mapper.WorkoutSetMapper;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
@@ -22,14 +17,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class WorkoutSetFacadeTest {
 
   WorkoutSetFacade workoutSetFacade;
-
-  ExerciseService exerciseService = mock(ExerciseService.class);
 
   @Mock
   private WorkoutSetService workoutSetService;
