@@ -1,6 +1,6 @@
 package com.workout.workoutArtifact.endpoint.controller;
 
-import com.workout.workoutArtifact.domain.model.Exercise;
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import java.util.List;

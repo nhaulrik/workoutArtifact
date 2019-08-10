@@ -1,6 +1,7 @@
 package com.workout.workoutArtifact.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;

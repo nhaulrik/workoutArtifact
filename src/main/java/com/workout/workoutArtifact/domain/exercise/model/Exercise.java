@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.domain.model;
+package com.workout.workoutArtifact.domain.exercise.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;

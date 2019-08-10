@@ -1,9 +1,9 @@
 package com.workout.workoutArtifact.infrastructure.common.mapper;
 
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
-import com.workout.workoutArtifact.domain.model.Exercise;
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.model.WorkoutSet;
-import com.workout.workoutArtifact.domain.service.ExerciseService;
+import com.workout.workoutArtifact.domain.exercise.service.ExerciseService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import java.util.Arrays;
 import java.util.List;

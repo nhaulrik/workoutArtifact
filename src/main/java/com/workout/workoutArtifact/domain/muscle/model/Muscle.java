@@ -1,7 +1,7 @@
 package com.workout.workoutArtifact.domain.muscle.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.workout.workoutArtifact.domain.model.Exercise;
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.ArrayList;

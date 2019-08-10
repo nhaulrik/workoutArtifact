@@ -1,8 +1,7 @@
 package com.workout.workoutArtifact.infrastructure.common.mapper;
 
 import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
-import com.workout.workoutArtifact.infrastructure.common.enums.MuscleEnum;
-import com.workout.workoutArtifact.domain.model.Exercise;
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.muscle.model.Muscle;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
