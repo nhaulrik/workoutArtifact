@@ -2,7 +2,7 @@ package com.workout.workoutArtifact.domain.muscle.service;
 
 import com.workout.workoutArtifact.domain.muscle.model.Muscle;
 import com.workout.workoutArtifact.domain.muscle.model.MuscleRepository;
-import com.workout.workoutArtifact.specification.AbstractSpecification;
+import com.workout.workoutArtifact.specification.Specification;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class MuscleService {
     return muscleRepository.addMuscles(muscles);
   }
 
-  public List<Muscle> getMuscles(AbstractSpecification<Muscle> specification) {
+  public List<Muscle> getMuscles(Specification<Muscle> specification) {
     return muscleRepository.getMuscles(specification);
   }
 }

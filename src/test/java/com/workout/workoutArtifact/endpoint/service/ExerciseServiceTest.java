@@ -9,11 +9,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.workout.workoutArtifact.domain.exercise.model.ExerciseRepository;
 import com.workout.workoutArtifact.infrastructure.common.mapper.ExerciseMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.ExerciseJpaRepository;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.exercise.service.ExerciseService;
+import com.workout.workoutArtifact.specification.Specification;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Rule;
@@ -28,9 +30,9 @@ public class ExerciseServiceTest {
 
   ExerciseMapper exerciseMapper = mock(ExerciseMapper.class);
 
-  ExerciseJpaRepository exerciseRepository = mock(ExerciseJpaRepository.class);
+  ExerciseRepository exerciseRepository = mock(ExerciseRepository.class);
 
-  ExerciseService exerciseService = new ExerciseService(exerciseRepository, exerciseMapper);
+  ExerciseService exerciseService = new ExerciseService(exerciseRepository);
 
 
   @Test
@@ -40,24 +42,22 @@ public class ExerciseServiceTest {
 
     exerciseService.addExercises(Arrays.asList(exercise));
 
-    verify(exerciseRepository, times(1)).save(exerciseMapper.toEntity(exercise));
+    verify(exerciseRepository, times(1)).addExercises(Arrays.asList(exercise));
   }
 
   @Test
   public void getExercises() {
 
+    Specification<Exercise> exerciseSpecification = mock(Specification.class);
+
     Exercise exercise = mock(Exercise.class);
-    ExerciseEntity exerciseEntity = mock(ExerciseEntity.class);
 
-    doReturn(exerciseEntity)
-        .when(exerciseRepository).findFirstByName(anyString());
+    doReturn(Arrays.asList(exercise))
+        .when(exerciseRepository).getExercises(exerciseSpecification);
 
-    when(exerciseMapper.toDomainObject(exerciseEntity))
-        .thenReturn(exercise);
+    List<Exercise> exerciseList = exerciseService.getExercises(exerciseSpecification);
 
-    List<Exercise> exerciseList = exerciseService.getExercises(Arrays.asList("mock_bla"));
-
-    assertThat(exerciseList.get(0), is(exerciseMapper.toDomainObject(exerciseEntity)));
+    assertThat(exerciseList.get(0), is(exercise));
   }
 
 

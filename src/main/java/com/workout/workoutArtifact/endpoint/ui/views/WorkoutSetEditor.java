@@ -13,11 +13,14 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.converter.StringToDoubleConverter;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
 import com.vaadin.flow.spring.annotation.UIScope;
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
+import com.workout.workoutArtifact.domain.exercise.model.Exercise.NameSpecification;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.dto.validator.WorkoutSetDtoValidator;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
+import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -112,9 +115,10 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
   }
 
   private List<String> getExerciseName() {
-    return exerciseFacade.getExercises(Arrays.asList("*"))
-        .stream()
-        .map(ExerciseDto::getName)
+    List<Exercise> exerciseList = exerciseFacade.getExercises(new MatchAllSpecification());
+
+    return exerciseList.stream()
+        .map(e -> e.getName())
         .collect(Collectors.toList());
   }
 

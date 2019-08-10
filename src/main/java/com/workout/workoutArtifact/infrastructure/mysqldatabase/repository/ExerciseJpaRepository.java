@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ExerciseJpaRepository extends JpaRepository<ExerciseEntity, Long>,
     JpaSpecificationExecutor<ExerciseEntity> {
-  ExerciseEntity findFirstByName(String exerciseName);
 
 }

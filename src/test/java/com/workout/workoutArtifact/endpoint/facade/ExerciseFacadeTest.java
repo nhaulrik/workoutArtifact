@@ -5,12 +5,16 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockingDetails;
 import static org.mockito.Mockito.verify;
 
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
+import com.workout.workoutArtifact.domain.exercise.model.Exercise.NameSpecification;
 import com.workout.workoutArtifact.domain.exercise.service.ExerciseService;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
+import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.infrastructure.common.mapper.ExerciseMapper;
+import com.workout.workoutArtifact.specification.Specification;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,12 +47,19 @@ public class ExerciseFacadeTest {
   @Test
   public void getExercises() {
 
-    Exercise exercise = mock(Exercise.class);
+    String someExerciseName = "some_name";
+
+    Exercise.NameSpecification nameSpecification = new NameSpecification(Arrays.asList(someExerciseName));
+    Exercise exercise = new Exercise(someExerciseName, false, BodyPartEnum.CHEST, new ArrayList<>());
+    ExerciseDto exerciseDto = mock(ExerciseDto.class);
 
     doReturn(Arrays.asList(exercise))
-        .when(exerciseService).getExercises(anyList());
+        .when(exerciseService).getExercises(nameSpecification);
 
-    List<ExerciseDto> resultList = exerciseFacade.getExercises(Arrays.asList("1234"));
+    doReturn(exerciseDto)
+        .when(exerciseMapper).toDto(exercise);
+
+    List<ExerciseDto> resultList = exerciseFacade.getExercises(nameSpecification);
 
     assertThat(resultList.get(0), is(exerciseMapper.toDto(exercise)));
   }

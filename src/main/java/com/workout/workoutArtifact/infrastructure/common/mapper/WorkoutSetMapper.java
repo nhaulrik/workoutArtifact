@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.infrastructure.common.mapper;
 
+import com.workout.workoutArtifact.domain.exercise.model.Exercise.NameSpecification;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.model.WorkoutSet;
@@ -34,7 +35,7 @@ public class WorkoutSetMapper {
 
   public WorkoutSet toDomain(WorkoutSetDto workoutSetDto) {
     // TODO: 07-07-2019 this is fishy'
-    Exercise exercise = exerciseService.getExercises(Arrays.asList(workoutSetDto.getExerciseName()))
+    Exercise exercise = exerciseService.getExercises(new NameSpecification(Arrays.asList(workoutSetDto.getExerciseName())))
         .get(0);
     WorkoutSet workoutSet = WorkoutSet.builder()
     .exerciseName(exercise.getName())

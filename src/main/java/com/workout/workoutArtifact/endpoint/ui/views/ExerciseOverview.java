@@ -9,8 +9,6 @@ import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
-import java.util.Arrays;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "exercises")
@@ -31,7 +29,7 @@ public class ExerciseOverview extends HorizontalLayout {
     this.muscleFacade = muscleFacade;
 
     exerciseDtoGrid.setColumns("name", "type", "bodyPart");
-    exerciseDtoGrid.setItems(exerciseFacade.getExercises(Arrays.asList("*")));
+    exerciseDtoGrid.setItems(exerciseFacade.getExercises(new MatchAllSpecification()));
 
     muscleDtoGrid.setColumns("name");
     muscleDtoGrid.setItems(muscleFacade.getMuscles(new MatchAllSpecification()));
