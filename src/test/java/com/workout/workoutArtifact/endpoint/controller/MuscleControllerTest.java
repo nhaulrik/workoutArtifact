@@ -13,7 +13,6 @@ import com.workout.workoutArtifact.infrastructure.common.enums.MuscleEnum;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -22,14 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestPropertySource(locations = "classpath:application.properties")
 @AutoConfigureMockMvc
 public class MuscleControllerTest {
 
@@ -63,18 +60,6 @@ public class MuscleControllerTest {
         .andExpect(status().isOk())
         .andExpect(
             content().string(containsString(new ObjectMapper().writeValueAsString(muscleDtos))));
-  }
-
-  @Ignore
-  @Test
-  public void addMusclesIsOk() throws Exception {
-    mockMvc.perform(
-        post("/workoutentity/addmuscles")
-            .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-            .content("[\n"
-                + "{\"muscle\":\"TRICEPS\", \"bodyPart\":\"ARM\"}\n"
-                + "]"))
-        .andExpect(status().isOk());
   }
 
 }

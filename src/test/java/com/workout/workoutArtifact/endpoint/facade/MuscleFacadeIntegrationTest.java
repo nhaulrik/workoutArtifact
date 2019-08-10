@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.is;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import java.util.List;
-import javax.transaction.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,9 @@ public class MuscleFacadeIntegrationTest {
   MuscleFacade muscleFacade;
 
   @Test
-  public void getAllMuscles() {
+  public void getMuscles() {
     List<MuscleDto> muscleDtos = muscleFacade.getMuscles(new MatchAllSpecification());
-    assertThat(muscleDtos.size(), is(17));
+    assertThat(muscleDtos.isEmpty(), is(false));
   }
 
 }
