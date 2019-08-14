@@ -9,7 +9,7 @@ import static org.mockito.Mockito.mock;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
-import com.workout.workoutArtifact.domain.model.WorkoutSet;
+import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.exercise.service.ExerciseService;
 import java.util.Arrays;
 import java.util.List;

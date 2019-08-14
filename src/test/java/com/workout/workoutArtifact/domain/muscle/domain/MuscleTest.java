@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.domain.model;
+package com.workout.workoutArtifact.domain.muscle.domain;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

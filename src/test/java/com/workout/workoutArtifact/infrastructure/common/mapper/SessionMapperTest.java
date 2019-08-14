@@ -10,7 +10,7 @@ import static org.mockito.Mockito.mock;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import com.workout.workoutArtifact.domain.model.Session;
-import com.workout.workoutArtifact.domain.model.WorkoutSet;
+import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;

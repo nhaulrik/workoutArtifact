@@ -6,8 +6,8 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import com.workout.workoutArtifact.domain.model.WorkoutSet;
-import com.workout.workoutArtifact.domain.service.WorkoutSetService;
+import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
+import com.workout.workoutArtifact.domain.workoutset.service.WorkoutSetService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.infrastructure.common.mapper.WorkoutSetMapper;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.endpoint.service;
+package com.workout.workoutArtifact.domain.exercise.service;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

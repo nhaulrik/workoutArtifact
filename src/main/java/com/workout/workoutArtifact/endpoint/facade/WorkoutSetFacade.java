@@ -1,7 +1,7 @@
 package com.workout.workoutArtifact.endpoint.facade;
 
 import com.workout.workoutArtifact.infrastructure.common.mapper.WorkoutSetMapper;
-import com.workout.workoutArtifact.domain.service.WorkoutSetService;
+import com.workout.workoutArtifact.domain.workoutset.service.WorkoutSetService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import java.util.List;
 import java.util.stream.Collectors;

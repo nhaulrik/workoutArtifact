@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.endpoint.service;
+package com.workout.workoutArtifact.domain.session.service;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
