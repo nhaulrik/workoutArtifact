@@ -34,7 +34,7 @@ public class WorkoutSetMapper {
   }
 
   public WorkoutSet toDomain(WorkoutSetDto workoutSetDto) {
-    // TODO: 07-07-2019 this is fishy'
+    // TODO: 07-07-2019 this is fishy'. Should not be used in this class. And it is a domain service from another bounded context.
     Exercise exercise = exerciseService.getExercises(new NameSpecification(Arrays.asList(workoutSetDto.getExerciseName())))
         .get(0);
     WorkoutSet workoutSet = WorkoutSet.builder()

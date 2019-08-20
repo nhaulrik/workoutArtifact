@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SessionMapper {
 
-  private final WorkoutSetMapper workoutSetMapper;
+  private final WorkoutSetMapper workoutSetMapper; // TODO: 14-08-2019 should propably not rely on any other mappers. Consider going away from eager loading and fetch data yourself via specifications as glue
 
   public SessionEntity toEntity(Session session) {
     SessionEntity sessionEntity = new SessionEntity();

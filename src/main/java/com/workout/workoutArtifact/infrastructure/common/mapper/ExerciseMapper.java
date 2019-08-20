@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 public class ExerciseMapper {
 
   @Autowired
-  MuscleMapper muscleMapper;
+  MuscleMapper muscleMapper; // TODO: 14-08-2019 Look into this. In any case this depency should not be autowired
 
   public ExerciseDto toDto(Exercise exercise) {
     ExerciseDto exerciseDto = new ExerciseDto(
-        exercise.getName().toString(),
+        exercise.getName(),
         exercise.getIsMultiJoint() ? "COMPOUND" : "SINGLE",
         new ArrayList<>(),
         exercise.getBodyPartString()

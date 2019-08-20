@@ -2,9 +2,12 @@ package com.workout.workoutArtifact.domain.workoutset.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
+import com.workout.workoutArtifact.specification.AbstractSpecification;
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
+import lombok.Value;
 
 
 @Data
@@ -41,5 +44,15 @@ public class WorkoutSet {
   @JsonProperty
   @NonNull
   private int setNumber;
+
+  @Value
+  public static class ExerciseNameSpecification extends AbstractSpecification<WorkoutSet> {
+    private final List<String> exerciseNames;
+
+    @Override
+    public boolean isSatisfiedBy(WorkoutSet workoutSet) {
+      return exerciseNames.contains(workoutSet.getExerciseName());
+    }
+  }
 
 }

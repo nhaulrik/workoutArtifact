@@ -7,34 +7,28 @@ import static org.mockito.Mockito.mock;
 
 import com.workout.workoutArtifact.domain.exercise.model.ExerciseRepository;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
-import com.workout.workoutArtifact.infrastructure.common.mapper.WorkoutSetMapper;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.WorkoutSetJpaRepository;
+import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSetRepository;
+import com.workout.workoutArtifact.specification.Specification;
 import java.util.Arrays;
 import org.junit.Test;
 
 public class WorkoutSetServiceTest {
 
-  WorkoutSetJpaRepository workoutSetRepository = mock(WorkoutSetJpaRepository.class);
+  WorkoutSetRepository workoutSetRepository = mock(WorkoutSetRepository.class);
   ExerciseRepository exerciseRepository = mock(ExerciseRepository.class);
-  WorkoutSetMapper workoutSetMapper = mock(WorkoutSetMapper.class);
 
-  WorkoutSetService workoutSetService = new WorkoutSetService(workoutSetRepository,
-      workoutSetMapper, exerciseRepository);
+  WorkoutSetService workoutSetService = new WorkoutSetService(workoutSetRepository, exerciseRepository);
 
   @Test
   public void getWorkoutSets() {
 
     WorkoutSet workoutSet = mock(WorkoutSet.class);
-    WorkoutSetEntity workoutSetEntity = mock(WorkoutSetEntity.class);
+    Specification specification = mock(Specification.class);
 
-    doReturn(Arrays.asList(workoutSetEntity))
-        .when(workoutSetRepository).findAll();
+    doReturn(Arrays.asList(workoutSet))
+        .when(workoutSetRepository).getWorkoutSet(specification);
 
-    doReturn(workoutSet)
-        .when(workoutSetMapper).toDomain(workoutSetEntity);
-
-    assertThat(workoutSetService.getWorkoutSet().get(0), is(workoutSet));
+    assertThat(workoutSetService.getWorkoutSet(specification).get(0), is(workoutSet));
   }
 
 }

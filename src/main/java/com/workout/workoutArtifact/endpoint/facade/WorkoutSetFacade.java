@@ -1,8 +1,10 @@
 package com.workout.workoutArtifact.endpoint.facade;
 
+import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.infrastructure.common.mapper.WorkoutSetMapper;
 import com.workout.workoutArtifact.domain.workoutset.service.WorkoutSetService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
+import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +18,9 @@ public class WorkoutSetFacade {
   private final WorkoutSetMapper workoutSetMapper;
 
   public List<WorkoutSetDto> getWorkoutSets() {
-    return workoutSetService.getWorkoutSet().stream()
+
+    List<WorkoutSet> workoutSets = workoutSetService.getWorkoutSet(new MatchAllSpecification());
+    return workoutSets.stream()
         .map(workoutSetMapper::toDto)
         .collect(Collectors.toList());
   }
