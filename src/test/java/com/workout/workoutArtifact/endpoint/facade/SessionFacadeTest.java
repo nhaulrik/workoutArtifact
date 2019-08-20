@@ -6,8 +6,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-import com.workout.workoutArtifact.domain.model.Session;
-import com.workout.workoutArtifact.domain.service.SessionService;
+import com.workout.workoutArtifact.domain.session.model.Session;
+import com.workout.workoutArtifact.domain.session.service.SessionService;
 import java.util.Arrays;
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ public class SessionFacadeTest {
     Session session = mock(Session.class);
 
     doReturn(expectedReturnString)
-        .when(sessionService).addSession(Arrays.asList(session));
+        .when(sessionService).addSessions(Arrays.asList(session));
 
     String returnString = sessionFacade.addSessions(Arrays.asList(session));
 

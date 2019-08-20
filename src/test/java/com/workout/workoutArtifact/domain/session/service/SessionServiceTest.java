@@ -2,59 +2,55 @@ package com.workout.workoutArtifact.domain.session.service;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
+import com.workout.workoutArtifact.domain.session.model.SessionRepository;
 import com.workout.workoutArtifact.infrastructure.common.mapper.SessionMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.SessionJpaRepository;
-import com.workout.workoutArtifact.domain.model.Session;
-import com.workout.workoutArtifact.domain.service.SessionService;
+import com.workout.workoutArtifact.domain.session.model.Session;
+import com.workout.workoutArtifact.specification.Specification;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import org.junit.Test;
 
 public class SessionServiceTest {
 
-  private SessionJpaRepository sessionRepository = mock(SessionJpaRepository.class);
-  private SessionMapper sessionMapper = mock(SessionMapper.class);
-
-  private SessionService sessionService = new SessionService(sessionRepository, sessionMapper);
+  private SessionRepository sessionRepository = mock(SessionRepository.class);
+  private SessionService sessionService = new SessionService(sessionRepository);
 
   @Test
-  public void addSession() {
+  public void getSessions() {
 
-    Session session = Session.builder()
-        .location("home")
-        .creationDateTime(LocalDateTime.now())
-        .workoutSets(new ArrayList<>())
-        .build();
+    Session session = mock(Session.class);
+    Specification<Session> sessionSpecification = null;
 
-    doReturn(mock(SessionEntity.class))
-        .when(sessionMapper).toEntity(session);
+    doReturn(Arrays.asList(session))
+        .when(sessionRepository).getSessions(sessionSpecification);
 
-    String returnString = sessionService.addSession(session);
+    List<Session> sessionList = sessionService.getSession(sessionSpecification);
 
-    assertThat(returnString, is(equalTo("1 session added")));
+    assertThat(sessionList.size(), is(1));
+    assertThat(sessionList.get(0), is(session));
   }
 
   @Test
-  public void addSessionsByList() {
+  public void addSessions() {
 
-    Session session = Session.builder()
-        .location("home")
-        .creationDateTime(LocalDateTime.now())
-        .workoutSets(new ArrayList<>())
-        .build();
+    Session session = mock(Session.class);
+    String someResultString = "some_string";
 
-    doReturn(mock(SessionEntity.class))
-        .when(sessionMapper).toEntity(session);
+    doReturn(someResultString)
+        .when(sessionRepository).addSessions(Arrays.asList(session));
 
-    String returnString = sessionService.addSession(Arrays.asList(session));
+    String resultString = sessionService.addSessions(Arrays.asList(session));
 
-    assertThat(returnString, is(equalTo("1 sessions added by list")));
+    assertThat(resultString, is(equalTo(someResultString)));
   }
 
 }

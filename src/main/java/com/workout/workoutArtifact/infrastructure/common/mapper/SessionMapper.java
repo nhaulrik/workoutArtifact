@@ -1,7 +1,7 @@
 package com.workout.workoutArtifact.infrastructure.common.mapper;
 
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
-import com.workout.workoutArtifact.domain.model.Session;
+import com.workout.workoutArtifact.domain.session.model.Session;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -27,4 +27,11 @@ public class SessionMapper {
         .collect(Collectors.toList());
   }
 
+  public Session toDomainObject(SessionEntity sessionEntity) {
+    return Session.builder()
+        .creationDateTime(sessionEntity.getCreationDateTime())
+        .location(sessionEntity.getLocation())
+        .id(sessionEntity.getId())
+        .build();
+  }
 }

@@ -9,7 +9,7 @@ import static org.mockito.Mockito.mock;
 
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
-import com.workout.workoutArtifact.domain.model.Session;
+import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -58,6 +58,25 @@ public class SessionMapperTest {
     assertThat(sessionEntities.get(1).getLocation(), is(session2.getLocation()));
     assertThat(sessionEntities.get(1).getCreationDateTime(), is(session2.getCreationDateTime()));
     assertThat(sessionEntities.get(1).getWorkoutSetEntities().get(0), is(mockedWorkoutSetEntity));
+  }
+
+  @Test
+  public void toDomain() {
+
+    Long someId = 1337L;
+    LocalDateTime someLocalDateTime = LocalDateTime.now();
+    String someLocation = "some_location";
+
+    SessionEntity sessionEntity = new SessionEntity();
+    sessionEntity.setId(someId);
+    sessionEntity.setCreationDateTime(someLocalDateTime);
+    sessionEntity.setLocation(someLocation);
+
+    Session session = sessionMapper.toDomainObject(sessionEntity);
+
+    assertThat(session.getId(), is(someId));
+    assertThat(session.getCreationDateTime(), is(someLocalDateTime));
+    assertThat(session.getLocation(), is(someLocation));
   }
 
   private Session getSession(String location) {
