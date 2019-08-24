@@ -46,4 +46,15 @@ public class Exercise {
     }
   }
 
+  @Value
+  public static class BodyPartsSpecification extends AbstractSpecification<Exercise> {
+    private final List<String> bodyParts;
+
+    @Override
+    public boolean isSatisfiedBy(Exercise exercise) {
+      return bodyParts.contains(exercise.getBodyPartEnum().name());
+    }
+  }
+
+
 }

@@ -12,6 +12,7 @@ import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise.NameSpecification;
 import com.workout.workoutArtifact.domain.exercise.service.ExerciseService;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
+import com.workout.workoutArtifact.endpoint.mapper.ExerciseDtoSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.infrastructure.common.mapper.ExerciseMapper;
 import com.workout.workoutArtifact.specification.Specification;
@@ -28,7 +29,8 @@ public class ExerciseFacadeTest {
 
   private ExerciseService exerciseService = mock(ExerciseService.class);
   private ExerciseMapper exerciseMapper = mock(ExerciseMapper.class);
-  private ExerciseFacade exerciseFacade = new ExerciseFacade(exerciseService, exerciseMapper);
+  private ExerciseDtoSpecificationMapper exerciseDtoSpecificationMapper = mock(ExerciseDtoSpecificationMapper.class);
+  private ExerciseFacade exerciseFacade = new ExerciseFacade(exerciseService, exerciseMapper, exerciseDtoSpecificationMapper);
 
   @Test
   public void addExercises() {
@@ -50,8 +52,13 @@ public class ExerciseFacadeTest {
     String someExerciseName = "some_name";
 
     Exercise.NameSpecification nameSpecification = new NameSpecification(Arrays.asList(someExerciseName));
+    ExerciseDto.NameSpecification dtoNameSpecification = new ExerciseDto.NameSpecification(Arrays.asList(someExerciseName));
     Exercise exercise = new Exercise(someExerciseName, false, BodyPartEnum.CHEST, new ArrayList<>());
     ExerciseDto exerciseDto = mock(ExerciseDto.class);
+
+
+    doReturn(nameSpecification)
+        .when(exerciseDtoSpecificationMapper).toExerciseSpecification(dtoNameSpecification);
 
     doReturn(Arrays.asList(exercise))
         .when(exerciseService).getExercises(nameSpecification);
@@ -59,7 +66,7 @@ public class ExerciseFacadeTest {
     doReturn(exerciseDto)
         .when(exerciseMapper).toDto(exercise);
 
-    List<ExerciseDto> resultList = exerciseFacade.getExercises(nameSpecification);
+    List<ExerciseDto> resultList = exerciseFacade.getExercises(dtoNameSpecification);
 
     assertThat(resultList.get(0), is(exerciseMapper.toDto(exercise)));
   }
