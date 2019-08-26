@@ -24,7 +24,7 @@ public class ExerciseGraphQLServiceTest {
 
     String someExerciseName = "some_name";
 
-    ExerciseDto exerciseDto = new ExerciseDto(someExerciseName, "", new ArrayList<>(), "");
+    ExerciseDto exerciseDto = new ExerciseDto(someExerciseName, "", "");
 
     doReturn(Arrays.asList(exerciseDto))
         .when(exerciseFacade).getExercises(any(AbstractSpecification.class));
@@ -40,7 +40,7 @@ public class ExerciseGraphQLServiceTest {
 
     String someType = "compound";
 
-    ExerciseDto exerciseDto = new ExerciseDto("", someType, new ArrayList<>(), "");
+    ExerciseDto exerciseDto = new ExerciseDto("", someType, "");
 
     doReturn(Arrays.asList(exerciseDto))
         .when(exerciseFacade).getExercises(any(AbstractSpecification.class));
@@ -56,7 +56,7 @@ public class ExerciseGraphQLServiceTest {
 
     String someBodyPart = "chest";
 
-    ExerciseDto exerciseDto = new ExerciseDto("", "", new ArrayList<>(), someBodyPart);
+    ExerciseDto exerciseDto = new ExerciseDto("", "", someBodyPart);
 
     doReturn(Arrays.asList(exerciseDto))
         .when(exerciseFacade).getExercises(any(AbstractSpecification.class));

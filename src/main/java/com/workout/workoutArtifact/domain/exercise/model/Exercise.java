@@ -28,10 +28,6 @@ public class Exercise {
   @JsonProperty
   private BodyPartEnum bodyPartEnum;
 
-  @NonNull
-  @JsonProperty
-  private List<Muscle> muscles;
-
   public String getBodyPartString() {
     return bodyPartEnum.toString();
   }

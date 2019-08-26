@@ -1,11 +1,10 @@
 package com.workout.workoutArtifact.infrastructure.common.mapper;
 
-import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.MuscleEntity;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.muscle.model.Muscle;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
-import java.util.ArrayList;
+import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.MuscleEntity;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
@@ -28,8 +27,7 @@ public class MuscleMapper {
         .map(entity -> new Exercise(
                 entity.getName(),
                 entity.getIsMultiJoint(),
-                BodyPartEnum.valueOf(entity.getPrimaryBodyPart()),
-                new ArrayList<>() // TODO: 04-04-2019 check this
+                BodyPartEnum.valueOf(entity.getPrimaryBodyPart())
             )
         ).collect(Collectors.toList()));
     return muscle;

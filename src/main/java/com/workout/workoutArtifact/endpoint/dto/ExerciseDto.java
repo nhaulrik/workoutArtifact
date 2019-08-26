@@ -18,9 +18,6 @@ public class ExerciseDto {
   String type;
 
   @NonNull
-  private List<String> muscles;
-
-  @NonNull
   private String bodyPart;
 
 
