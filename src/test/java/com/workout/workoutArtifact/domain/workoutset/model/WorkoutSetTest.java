@@ -12,11 +12,11 @@ public class WorkoutSetTest {
   @Test
   public void exerciseNameSpecificationIsSatisfied() {
 
-    Long exerciseId = 1L;
-    WorkoutSet workoutSet = getWorkoutSetMock(exerciseId);
+    Long id = 1L;
+    WorkoutSet workoutSet = getWorkoutSetMock(id);
 
     ExerciseIdSpecification exerciseIdSpecification = new ExerciseIdSpecification(
-        Arrays.asList(exerciseId));
+        Arrays.asList(id));
 
     assertThat(exerciseIdSpecification.isSatisfiedBy(workoutSet), is(true));
   }
@@ -32,9 +32,9 @@ public class WorkoutSetTest {
     assertThat(exerciseIdSpecification.isSatisfiedBy(workoutSet), is(false));
   }
 
-  private WorkoutSet getWorkoutSetMock(Long exerciseId) {
+  private WorkoutSet getWorkoutSetMock(Long id) {
     return WorkoutSet.builder()
-        .exerciseId(exerciseId)
+        .id(id)
         .exerciseId(1L)
         .repetitionMaximum(0)
         .repetitions(1)

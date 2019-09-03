@@ -23,6 +23,7 @@ public class MuscleMapper {
         .id(muscleEntity.getId())
         .name(muscleEntity.getName())
         .bodyPart(BodyPartEnum.valueOf(muscleEntity.getBodyPart()))
+        .exerciseIds(muscleEntity.getExerciseSet().stream().map(exerciseEntity -> exerciseEntity.getId()).collect(Collectors.toList()))
         .build();
   }
 

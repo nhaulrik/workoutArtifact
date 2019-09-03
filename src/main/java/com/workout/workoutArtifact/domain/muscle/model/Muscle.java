@@ -5,23 +5,29 @@ import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NonNull;
 import lombok.Value;
 
 @Data
 @Builder
 public class Muscle {
 
-  @NonNull
   private Long id;
 
-  @NonNull
   private String name;
 
-  @NonNull
   private BodyPartEnum bodyPart;
 
-  // TODO: 03-09-2019   it is fine to have a list of exerciseIds instead of a list of Exercise.
+  private List<Long> exerciseIds;
+
+  @Value
+  public static class ExerciseIdsSpecification extends AbstractSpecification<Muscle> {
+    private final Long exerciseId;
+
+    @Override
+    public boolean isSatisfiedBy(Muscle muscle) {
+      return muscle.getExerciseIds().contains(exerciseId); // TODO: 03-09-2019 revisit contains of list
+    }
+  }
 
 
   @Value

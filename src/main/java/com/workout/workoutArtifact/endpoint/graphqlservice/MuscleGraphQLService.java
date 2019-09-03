@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.endpoint.graphqlservice;
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
+import com.workout.workoutArtifact.endpoint.dto.MuscleDto.ExerciseIdSpecification;
 import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
@@ -43,7 +44,7 @@ public class MuscleGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
     List<AbstractSpecification<MuscleDto>> muscleDtoSpecification = new ArrayList<>();
     if (names != null) { muscleDtoSpecification.add(new MuscleDto.NameSpecification(names)); }
-    if (exerciseDto.getId() != null) { muscleDtoSpecification.add(new MuscleDto.ExerciseIdSpecification(exerciseDto.getId())); }
+    if (exerciseDto.getId() != null) { muscleDtoSpecification.add(new ExerciseIdSpecification(exerciseDto.getId())); }
 
     AbstractSpecification aggregatedSpecification = muscleDtoSpecification.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
 

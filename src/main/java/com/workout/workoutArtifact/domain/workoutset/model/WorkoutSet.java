@@ -38,7 +38,7 @@ public class WorkoutSet {
 
     @Override
     public boolean isSatisfiedBy(WorkoutSet workoutSet) {
-      return exerciseIds.contains(workoutSet.getId());
+      return exerciseIds.contains(workoutSet.getExerciseId());
     }
   }
 

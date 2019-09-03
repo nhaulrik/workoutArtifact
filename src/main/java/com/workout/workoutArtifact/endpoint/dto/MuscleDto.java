@@ -15,6 +15,7 @@ public class MuscleDto {
   @NonNull
   private Long id;
 
+  private List<Long> exerciseIds;
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<MuscleDto> {
@@ -42,7 +43,7 @@ public class MuscleDto {
 
     @Override
     public boolean isSatisfiedBy(MuscleDto muscleDto) {
-      return true; // TODO: 02-09-2019 revisit this
+      return muscleDto.getExerciseIds().contains(exerciseId);
     }
   }
 }

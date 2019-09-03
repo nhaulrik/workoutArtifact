@@ -2,6 +2,7 @@ package com.workout.workoutArtifact.endpoint.mapper;
 
 import com.workout.workoutArtifact.domain.muscle.model.Muscle;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
+import com.workout.workoutArtifact.endpoint.dto.MuscleDto.ExerciseIdSpecification;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.specification.AndSpecification;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
@@ -24,6 +25,8 @@ public class MuscleDtoSpecificationMapper {
       return new Muscle.NameSpecification(((MuscleDto.NameSpecification) muscleDtoSpecification).getNames());
     } else if (muscleDtoSpecification instanceof MuscleDto.IdsSpecification) {
       return new Muscle.IdsSpecification(((MuscleDto.IdsSpecification) muscleDtoSpecification).getIds());
+    } else if (muscleDtoSpecification instanceof ExerciseIdSpecification) {
+      return new Muscle.ExerciseIdsSpecification((((ExerciseIdSpecification) muscleDtoSpecification).getExerciseId()));
     }
     return new MatchAllSpecification();
   }

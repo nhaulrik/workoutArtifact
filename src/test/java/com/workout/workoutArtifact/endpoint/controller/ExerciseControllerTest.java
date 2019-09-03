@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -35,6 +36,8 @@ public class ExerciseControllerTest {
     ReflectionTestUtils.setField(exerciseController, "exerciseFacade", exerciseFacade);
   }
 
+  // TODO: 03-09-2019 these tests and the controller may be removed entirely
+  @Ignore
   @Test
   public void addExerciseIsOk() throws Exception {
     mockMvc.perform(
