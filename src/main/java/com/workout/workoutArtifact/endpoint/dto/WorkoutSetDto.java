@@ -12,7 +12,7 @@ public class WorkoutSetDto {
   private Long id;
 
   @NonNull
-  private String exerciseName;
+  private Long exerciseId;
 
   @NonNull
   private int repetitions;

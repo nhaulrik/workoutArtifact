@@ -6,13 +6,11 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
-import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet.ExerciseNameSpecification;
+import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet.ExerciseIdSpecification;
 import com.workout.workoutArtifact.infrastructure.common.mapper.WorkoutSetMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper
-    .WorkoutSetSpecificationMapper;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutSetSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.WorkoutSetJpaRepository;
 import com.workout.workoutArtifact.specification.Specification;
 import java.util.ArrayList;
@@ -31,14 +29,14 @@ public class WorkoutSetEntityRepositoryTest {
   @Test
   public void getWorkoutSet() {
 
-    String exerciseName = "some_exercise_name";
+    Long exerciseId = 0L;
 
-    Specification specification = new ExerciseNameSpecification(Arrays.asList(exerciseName));
+    Specification specification = new ExerciseIdSpecification(Arrays.asList(exerciseId));
     org.springframework.data.jpa.domain.Specification jpaSpecification = mock(org.springframework.data.jpa.domain.Specification.class);
 
     WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(0,0d, false, 0, 0);
 
-    WorkoutSet workoutSet = getWorkoutSetMock(exerciseName);
+    WorkoutSet workoutSet = getWorkoutSetMock(exerciseId);
 
     doReturn(jpaSpecification)
         .when(workoutSetSpecificationMapper).toJpaSpecification(specification);
@@ -58,7 +56,7 @@ public class WorkoutSetEntityRepositoryTest {
   @Test
   public void addWorkoutSet() {
 
-    WorkoutSet workoutSet = getWorkoutSetMock("");
+    WorkoutSet workoutSet = getWorkoutSetMock(0L);
     WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(0,0d, false, 0, 0);
 
     doReturn(workoutSetEntity)
@@ -73,10 +71,9 @@ public class WorkoutSetEntityRepositoryTest {
     assertThat(arg.getValue(), is(Arrays.asList(workoutSetEntity)));
   }
 
-  private WorkoutSet getWorkoutSetMock(String exerciseName) {
+  private WorkoutSet getWorkoutSetMock(Long exerciseId) {
     return WorkoutSet.builder()
-        .exerciseName(exerciseName)
-        .exercise(mock(Exercise.class))
+        .exerciseId(exerciseId)
         .repetitionMaximum(0)
         .repetitions(1)
         .weight(0d)

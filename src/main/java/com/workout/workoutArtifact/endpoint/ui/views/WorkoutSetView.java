@@ -40,7 +40,7 @@ public class WorkoutSetView extends VerticalLayout {
 
     // Instantiate and edit new WorkoutSetDto
     workoutSetEditor.editWorkoutSet(WorkoutSetDto.builder()
-    .exerciseName("Type Exercise Here")
+//    .exerciseName("Type Exercise Here")
         .build());
 
     // Listen changes made by the editor, refresh data from backend

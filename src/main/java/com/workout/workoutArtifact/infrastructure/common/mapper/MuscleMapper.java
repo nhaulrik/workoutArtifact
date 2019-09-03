@@ -13,24 +13,18 @@ public class MuscleMapper {
 
   public MuscleDto toDto(Muscle muscle) {
     return new MuscleDto(
-        muscle.getName()
-    );
+        muscle.getName(),
+        muscle.getId()
+        );
   }
 
   public Muscle toDomainObject(MuscleEntity muscleEntity) {
-    Muscle muscle = Muscle.builder()
+    return Muscle.builder()
+        .id(muscleEntity.getId())
         .name(muscleEntity.getName())
         .bodyPart(BodyPartEnum.valueOf(muscleEntity.getBodyPart()))
+        .exerciseIds(muscleEntity.getExerciseSet().stream().map(exerciseEntity -> exerciseEntity.getId()).collect(Collectors.toList()))
         .build();
-
-    muscle.setExerciseList(muscleEntity.getExerciseSet().stream()
-        .map(entity -> new Exercise(
-                entity.getName(),
-                entity.getIsMultiJoint(),
-                BodyPartEnum.valueOf(entity.getPrimaryBodyPart())
-            )
-        ).collect(Collectors.toList()));
-    return muscle;
   }
 
   public MuscleEntity toEntity(Muscle muscle) {

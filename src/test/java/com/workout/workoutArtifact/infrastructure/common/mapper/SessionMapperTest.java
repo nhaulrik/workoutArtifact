@@ -3,35 +3,19 @@ package com.workout.workoutArtifact.infrastructure.common.mapper;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
 
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import com.workout.workoutArtifact.domain.session.model.Session;
-import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Before;
 import org.junit.Test;
 
 public class SessionMapperTest {
 
-  WorkoutSetMapper workoutSetMapper = mock(WorkoutSetMapper.class);
-
-  private final SessionMapper sessionMapper = new SessionMapper(workoutSetMapper);
-  WorkoutSet workoutSet = mock(WorkoutSet.class);
-  WorkoutSetEntity mockedWorkoutSetEntity = mock(WorkoutSetEntity.class);
-
-  @Before
-  public void before() {
-    doReturn(Arrays.asList(mockedWorkoutSetEntity))
-        .when(workoutSetMapper).toEntity(Arrays.asList(workoutSet));
-  }
+  private final SessionMapper sessionMapper = new SessionMapper();
 
   @Test
   public void toEntity() {
@@ -42,7 +26,6 @@ public class SessionMapperTest {
 
     assertThat(sessionEntity.getLocation(), is(equalTo(location)));
     assertThat(sessionEntity.getCreationDateTime(), is(session.getCreationDateTime()));
-    assertThat(sessionEntity.getWorkoutSetEntities().get(0), is(mockedWorkoutSetEntity));
   }
 
   @Test
@@ -57,7 +40,6 @@ public class SessionMapperTest {
 
     assertThat(sessionEntities.get(1).getLocation(), is(session2.getLocation()));
     assertThat(sessionEntities.get(1).getCreationDateTime(), is(session2.getCreationDateTime()));
-    assertThat(sessionEntities.get(1).getWorkoutSetEntities().get(0), is(mockedWorkoutSetEntity));
   }
 
   @Test
@@ -81,16 +63,15 @@ public class SessionMapperTest {
 
   private Session getSession(String location) {
     return Session.builder()
+        .id(1L)
         .creationDateTime(LocalDateTime.of(LocalDate.now(), LocalTime.now()))
         .location(location)
-        .workoutSets(Arrays.asList(workoutSet))
         .build();
   }
 
   private void assertHasSameProperties(SessionEntity sessionEntity, Session session) {
     assertThat(sessionEntity.getLocation(), is(session.getLocation()));
     assertThat(sessionEntity.getCreationDateTime(), is(session.getCreationDateTime()));
-    assertThat(sessionEntity.getWorkoutSetEntities().get(0), is(mockedWorkoutSetEntity));
   }
 
 }

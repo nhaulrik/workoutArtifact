@@ -19,8 +19,8 @@ public class WorkoutSetSpecificationMapper {
           .orElse((root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.disjunction());
     } else if (workoutSetSpecification instanceof MatchAllSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.conjunction();
-    } else if (workoutSetSpecification instanceof WorkoutSet.ExerciseNameSpecification) {
-      return (root, criteriaQuery, criteriaBuilder) -> root.get("name").in(((WorkoutSet.ExerciseNameSpecification) workoutSetSpecification).getExerciseNames());
+    } else if (workoutSetSpecification instanceof WorkoutSet.ExerciseIdSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((WorkoutSet.ExerciseIdSpecification) workoutSetSpecification).getExerciseIds());
     }
     throw new MappingException("Unknown specification");
   }

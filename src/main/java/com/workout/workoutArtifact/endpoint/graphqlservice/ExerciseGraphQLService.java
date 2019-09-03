@@ -21,7 +21,7 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService{
 
   private final ExerciseFacade exerciseFacade;
 
-  @GraphQLQuery(name = "exercise")
+  @GraphQLQuery(name = "exercises")
   public List<ExerciseDto> getExercises(
       @GraphQLArgument(name = "names") List<String> names,
       @GraphQLArgument(name = "types") List<String> types,

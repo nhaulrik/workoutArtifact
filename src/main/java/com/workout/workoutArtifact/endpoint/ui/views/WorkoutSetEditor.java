@@ -91,7 +91,7 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
     save.addClickListener(e -> saveWorkoutSetDto());
     cancel.addClickListener(e -> editWorkoutSet(
         WorkoutSetDto.builder()
-            .exerciseName("")
+            .exerciseId(0L)
             .build()));
     setVisible(true);
   }
@@ -104,7 +104,7 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
 
     comboBoxExercises.addValueChangeListener(event -> {
       if (!event.getSource().isEmpty()) {
-        workoutSetDto.setExerciseName(event.getValue());
+//        workoutSetDto.setExerciseName(event.getValue());
       }
     });
 
@@ -124,7 +124,7 @@ public class WorkoutSetEditor extends VerticalLayout implements KeyNotifier {
       workoutSetFacade.addWorkoutSet(workoutSetDto);
 
       editWorkoutSet(WorkoutSetDto.builder()
-          .exerciseName(workoutSetDto.getExerciseName())
+//          .exerciseName(workoutSetDto.getExerciseName())
           .repetitionMaximum(workoutSetDto.getRepetitionMaximum())
           .single(workoutSetDto.isSingle())
           .build());

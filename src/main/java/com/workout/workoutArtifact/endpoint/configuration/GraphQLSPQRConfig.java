@@ -1,6 +1,7 @@
 package com.workout.workoutArtifact.endpoint.configuration;
 
 import com.workout.workoutArtifact.endpoint.graphqlservice.ExerciseGraphQLService;
+import com.workout.workoutArtifact.endpoint.graphqlservice.MuscleGraphQLService;
 import graphql.GraphQL;
 import graphql.analysis.MaxQueryComplexityInstrumentation;
 import graphql.analysis.MaxQueryDepthInstrumentation;
@@ -34,13 +35,14 @@ public class GraphQLSPQRConfig {
 
   @Bean
   public GraphQL graphQL(
-      ExerciseGraphQLService exerciseGraphQLService
+      ExerciseGraphQLService exerciseGraphQLService,
+      MuscleGraphQLService muscleGraphQLService
   ) {
     GraphQLSchema schema = new GraphQLSchemaGenerator()
         .withResolverBuilders(
             new AnnotatedResolverBuilder(),
             new PublicResolverBuilder("com.workout.workoutartifact"))
-        .withOperationsFromSingleton(exerciseGraphQLService)
+        .withOperationsFromSingletons(exerciseGraphQLService, muscleGraphQLService)
         .withValueMapperFactory(new JacksonValueMapperFactory())
         .generate();
     return GraphQL.newGraphQL(schema)

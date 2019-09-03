@@ -34,8 +34,7 @@ public class ExerciseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Getter(AccessLevel.NONE)
-  @Setter(AccessLevel.NONE)
+  @Getter
   private Long id;
 
   @Column

@@ -12,7 +12,7 @@ public class WorkoutSetDtoValidator {
     if (workoutSetDto.getWeight() == 0) { isValid = false; }
     if (workoutSetDto.getRepetitions() == 0) {isValid = false; }
     if (workoutSetDto.getRepetitionMaximum() == 0) {isValid = false; }
-    if (Strings.isBlank(workoutSetDto.getExerciseName())) { isValid = false; }
+//    if (Strings.isBlank(workoutSetDto.getExerciseName())) { isValid = false; }
     return isValid;
   }
 

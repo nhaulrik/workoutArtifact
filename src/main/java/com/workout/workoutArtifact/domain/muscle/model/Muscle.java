@@ -1,30 +1,44 @@
 package com.workout.workoutArtifact.domain.muscle.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NonNull;
 import lombok.Value;
 
 @Data
 @Builder
 public class Muscle {
 
-  @NonNull
-  @JsonProperty
+  private Long id;
+
   private String name;
 
-  @NonNull
-  @JsonProperty
   private BodyPartEnum bodyPart;
 
-  @JsonProperty
-  private List<Exercise> exerciseList = new ArrayList<>();
+  private List<Long> exerciseIds;
+
+  @Value
+  public static class ExerciseIdsSpecification extends AbstractSpecification<Muscle> {
+    private final Long exerciseId;
+
+    @Override
+    public boolean isSatisfiedBy(Muscle muscle) {
+      return muscle.getExerciseIds().contains(exerciseId); // TODO: 03-09-2019 revisit contains of list
+    }
+  }
+
+
+  @Value
+  public static class IdsSpecification extends AbstractSpecification<Muscle> {
+    private final List<Long> ids;
+
+    @Override
+    public boolean isSatisfiedBy(Muscle muscle) {
+      return ids.contains(muscle.getId());
+    }
+  }
 
   @Value
   public static class NameSpecification extends AbstractSpecification<Muscle> {

@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-import com.workout.workoutArtifact.domain.exercise.model.ExerciseRepository;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSetRepository;
 import com.workout.workoutArtifact.specification.Specification;
@@ -15,9 +14,8 @@ import org.junit.Test;
 public class WorkoutSetServiceTest {
 
   WorkoutSetRepository workoutSetRepository = mock(WorkoutSetRepository.class);
-  ExerciseRepository exerciseRepository = mock(ExerciseRepository.class);
 
-  WorkoutSetService workoutSetService = new WorkoutSetService(workoutSetRepository, exerciseRepository);
+  WorkoutSetService workoutSetService = new WorkoutSetService(workoutSetRepository);
 
   @Test
   public void getWorkoutSets() {

@@ -2,10 +2,8 @@ package com.workout.workoutArtifact.domain.workoutset.model;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.mock;
 
-import com.workout.workoutArtifact.domain.exercise.model.Exercise;
-import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet.ExerciseNameSpecification;
+import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet.ExerciseIdSpecification;
 import java.util.Arrays;
 import org.junit.Test;
 
@@ -14,30 +12,30 @@ public class WorkoutSetTest {
   @Test
   public void exerciseNameSpecificationIsSatisfied() {
 
-    String exerciseName = "some_name";
-    WorkoutSet workoutSet = getWorkoutSetMock(exerciseName);
+    Long id = 1L;
+    WorkoutSet workoutSet = getWorkoutSetMock(id);
 
-    WorkoutSet.ExerciseNameSpecification exerciseNameSpecification = new ExerciseNameSpecification(
-        Arrays.asList(exerciseName));
+    ExerciseIdSpecification exerciseIdSpecification = new ExerciseIdSpecification(
+        Arrays.asList(id));
 
-    assertThat(exerciseNameSpecification.isSatisfiedBy(workoutSet), is(true));
+    assertThat(exerciseIdSpecification.isSatisfiedBy(workoutSet), is(true));
   }
 
   @Test
   public void exerciseNameSpecificationIsNotSatisfied() {
 
-    WorkoutSet.ExerciseNameSpecification exerciseNameSpecification = new ExerciseNameSpecification(
-        Arrays.asList("some_name"));
+    WorkoutSet.ExerciseIdSpecification exerciseIdSpecification = new ExerciseIdSpecification(
+        Arrays.asList(0L));
 
-    WorkoutSet workoutSet = getWorkoutSetMock("some_other_name");
+    WorkoutSet workoutSet = getWorkoutSetMock(1L);
 
-    assertThat(exerciseNameSpecification.isSatisfiedBy(workoutSet), is(false));
+    assertThat(exerciseIdSpecification.isSatisfiedBy(workoutSet), is(false));
   }
 
-  private WorkoutSet getWorkoutSetMock(String exerciseName) {
+  private WorkoutSet getWorkoutSetMock(Long id) {
     return WorkoutSet.builder()
-        .exerciseName(exerciseName)
-        .exercise(mock(Exercise.class))
+        .id(id)
+        .exerciseId(1L)
         .repetitionMaximum(0)
         .repetitions(1)
         .weight(0d)

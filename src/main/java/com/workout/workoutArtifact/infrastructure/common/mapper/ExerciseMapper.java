@@ -11,6 +11,7 @@ public class ExerciseMapper {
 
   public ExerciseDto toDto(Exercise exercise) {
     return new ExerciseDto(
+        exercise.getId(),
         exercise.getName(),
         exercise.getIsMultiJoint() ? "COMPOUND" : "SINGLE",
         exercise.getBodyPartString()
@@ -18,13 +19,13 @@ public class ExerciseMapper {
   }
 
  public Exercise toDomainObject(ExerciseEntity exerciseEntity) {
-
-    return new Exercise(
-        exerciseEntity.getName(),
-        exerciseEntity.getIsMultiJoint(),
-        BodyPartEnum.valueOf(exerciseEntity.getPrimaryBodyPart())
-    );
-  }
+   return Exercise.builder()
+       .id(exerciseEntity.getId())
+       .name(exerciseEntity.getName())
+       .isMultiJoint(exerciseEntity.getIsMultiJoint())
+       .bodyPartEnum(BodyPartEnum.valueOf(exerciseEntity.getPrimaryBodyPart()))
+       .build();
+ }
 
   public ExerciseEntity toEntity(Exercise exercise) {
     ExerciseEntity exerciseEntity = new ExerciseEntity();
