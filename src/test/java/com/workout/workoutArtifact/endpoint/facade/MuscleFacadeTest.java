@@ -6,16 +6,13 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import com.workout.workoutArtifact.domain.exerciserelation.service.ExerciseRelationService;
 import com.workout.workoutArtifact.domain.muscle.model.Muscle;
-import com.workout.workoutArtifact.domain.muscle.model.Muscle.NameSpecification;
 import com.workout.workoutArtifact.domain.muscle.service.MuscleService;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import com.workout.workoutArtifact.endpoint.mapper.MuscleDtoSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.infrastructure.common.enums.MuscleEnum;
 import com.workout.workoutArtifact.infrastructure.common.mapper.MuscleMapper;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.MuscleSpecificationMapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,13 +35,12 @@ public class MuscleFacadeTest {
 
   @Mock
   private MuscleService muscleService;
-  private ExerciseRelationService exerciseRelationService = mock(ExerciseRelationService.class);
   private MuscleMapper muscleMapper = mock(MuscleMapper.class);
   private MuscleDtoSpecificationMapper muscleDtoSpecificationMapper = mock(MuscleDtoSpecificationMapper.class);
 
   @Before
   public void before() {
-    muscleFacade = new MuscleFacade(muscleService, exerciseRelationService, muscleMapper, muscleDtoSpecificationMapper);
+    muscleFacade = new MuscleFacade(muscleService, muscleMapper, muscleDtoSpecificationMapper);
   }
 
   @Test
