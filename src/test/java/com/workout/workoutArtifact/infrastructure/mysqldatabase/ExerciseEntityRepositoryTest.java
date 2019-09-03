@@ -34,8 +34,13 @@ public class ExerciseEntityRepositoryTest {
     Specification specification = new NameSpecification(Arrays.asList(exerciseName));
     org.springframework.data.jpa.domain.Specification jpaSpecification = mock(org.springframework.data.jpa.domain.Specification.class);
     ExerciseEntity exerciseEntity = mock(ExerciseEntity.class);
-    Exercise exercise = new Exercise(exerciseName, true, BodyPartEnum.CHEST);
-
+    Exercise exercise = Exercise.builder()
+        .id(0L)
+        .name(exerciseName)
+        .isMultiJoint(true)
+        .bodyPartEnum(BodyPartEnum.CHEST)
+        .build();
+    
     doReturn(jpaSpecification)
         .when(exerciseSpecificationMapper).toJpaSpecification(specification);
 

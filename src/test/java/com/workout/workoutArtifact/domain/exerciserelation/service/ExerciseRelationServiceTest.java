@@ -23,8 +23,8 @@ public class ExerciseRelationServiceTest {
   @Test
   public void getExerciseRelations() {
 
-    int someExerciseId = 1111;
-    int someRelatedMuscleId = 1234;
+    Long someExerciseId = 1111L;
+    Long someRelatedMuscleId = 1234L;
     ExerciseRelation.IdsSpecification idsSpecification = new IdsSpecification(Arrays.asList(someExerciseId));
 
     ExerciseRelation exerciseRelation = ExerciseRelation.builder()

@@ -15,7 +15,7 @@ public class ExerciseRelationMapper {
 
   public List<ExerciseRelation> toDomainObject(List<ExerciseRelationEntity> exerciseRelationEntities) {
 
-    Map<Integer, List<Integer>> exerciseRelationMap = new HashMap<>();
+    Map<Long, List<Long>> exerciseRelationMap = new HashMap<>();
 
     exerciseRelationEntities.stream()
         .map(entity -> exerciseRelationMap.get(entity.getCompositeIdEntity().getExerciseId()) != null ?

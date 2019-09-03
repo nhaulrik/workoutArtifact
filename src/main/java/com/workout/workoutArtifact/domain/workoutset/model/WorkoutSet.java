@@ -1,7 +1,5 @@
 package com.workout.workoutArtifact.domain.workoutset.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.List;
 import lombok.Builder;
@@ -14,44 +12,33 @@ import lombok.Value;
 @Builder
 public class WorkoutSet {
 
-  @JsonProperty
   private Long id;
 
-  @JsonProperty
-  @NonNull
-  private String exerciseName;
-
-  @JsonProperty
   @NonNull
   private int repetitions;
 
-  @JsonProperty
   @NonNull
   private double weight;
 
-  @JsonProperty
   @NonNull
   private Boolean single;
 
-  @JsonProperty
   @NonNull
   private int repetitionMaximum;
 
-  @JsonProperty
   @NonNull
-  private Exercise exercise;
+  private Long exerciseId;
 
-  @JsonProperty
   @NonNull
   private int setNumber;
 
   @Value
-  public static class ExerciseNameSpecification extends AbstractSpecification<WorkoutSet> {
-    private final List<String> exerciseNames;
+  public static class ExerciseIdSpecification extends AbstractSpecification<WorkoutSet> {
+    private final List<Long> exerciseIds;
 
     @Override
     public boolean isSatisfiedBy(WorkoutSet workoutSet) {
-      return exerciseNames.contains(workoutSet.getExerciseName());
+      return exerciseIds.contains(workoutSet.getId());
     }
   }
 

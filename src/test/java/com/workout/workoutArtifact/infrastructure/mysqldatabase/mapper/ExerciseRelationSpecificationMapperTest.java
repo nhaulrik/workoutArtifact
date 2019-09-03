@@ -17,7 +17,7 @@ public class ExerciseRelationSpecificationMapperTest {
   @Test
   public void mapsToIdsJpaSpecification() {
 
-    int someId = 1234;
+    Long someId = 1234L;
     ExerciseRelation.IdsSpecification idsSpecification = new IdsSpecification(Arrays.asList(someId));
 
     org.springframework.data.jpa.domain.Specification<ExerciseRelationEntity> jpaSpecification = exerciseRelationSpecificationMapper.toJpaSpecification(idsSpecification);

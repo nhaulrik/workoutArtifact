@@ -1,10 +1,7 @@
 package com.workout.workoutArtifact.domain.muscle.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
@@ -16,15 +13,26 @@ import lombok.Value;
 public class Muscle {
 
   @NonNull
-  @JsonProperty
+  private Long id;
+
+  @NonNull
   private String name;
 
   @NonNull
-  @JsonProperty
   private BodyPartEnum bodyPart;
 
-  @JsonProperty
-  private List<Exercise> exerciseList = new ArrayList<>();
+  // TODO: 03-09-2019   it is fine to have a list of exerciseIds instead of a list of Exercise.
+
+
+  @Value
+  public static class IdsSpecification extends AbstractSpecification<Muscle> {
+    private final List<Long> ids;
+
+    @Override
+    public boolean isSatisfiedBy(Muscle muscle) {
+      return ids.contains(muscle.getId());
+    }
+  }
 
   @Value
   public static class NameSpecification extends AbstractSpecification<Muscle> {

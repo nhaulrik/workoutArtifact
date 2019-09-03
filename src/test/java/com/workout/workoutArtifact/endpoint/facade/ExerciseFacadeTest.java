@@ -53,7 +53,13 @@ public class ExerciseFacadeTest {
 
     Exercise.NameSpecification nameSpecification = new NameSpecification(Arrays.asList(someExerciseName));
     ExerciseDto.NameSpecification dtoNameSpecification = new ExerciseDto.NameSpecification(Arrays.asList(someExerciseName));
-    Exercise exercise = new Exercise(someExerciseName, false, BodyPartEnum.CHEST);
+    Exercise exercise = Exercise.builder()
+        .id(0L)
+        .name(someExerciseName)
+        .isMultiJoint(false)
+        .bodyPartEnum(BodyPartEnum.CHEST)
+        .build();
+
     ExerciseDto exerciseDto = mock(ExerciseDto.class);
 
 

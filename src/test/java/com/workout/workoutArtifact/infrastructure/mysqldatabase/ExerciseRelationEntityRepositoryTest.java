@@ -24,7 +24,7 @@ public class ExerciseRelationEntityRepositoryTest {
   @Test
   public void getExerciseRelations() {
 
-    int dumbellPulloverExerciseId = 1;
+    Long dumbellPulloverExerciseId = 1L;
     ExerciseRelation.IdsSpecification idsSpecification = new IdsSpecification(Arrays.asList(dumbellPulloverExerciseId));
 
     List<ExerciseRelation> exerciseRelations = exerciseRelationEntityRepository.getExerciseRelations(idsSpecification);

@@ -47,7 +47,7 @@ public class MuscleControllerTest {
   @Test
   public void getShoulderMusclesIsOk() throws Exception {
 
-    List<MuscleDto> muscleDtos = Arrays.asList(new MuscleDto(MuscleEnum.FRONT_DELTS.toString()));
+    List<MuscleDto> muscleDtos = Arrays.asList(new MuscleDto(MuscleEnum.FRONT_DELTS.toString(), 0L));
 
     doReturn(muscleDtos)
         .when(muscleFacade).getMuscles(ArgumentMatchers.any());

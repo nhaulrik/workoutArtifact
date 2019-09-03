@@ -18,11 +18,11 @@ public class ExerciseRelationMapperTest {
   @Test
   public void mapsToDomainObject() {
 
-    int muscleId1 = 1; 
-    int muscleId2 = 2;
+    Long muscleId1 = 1L;
+    Long muscleId2 = 2L;
     
-    int exerciseId1 = 10;
-    int exerciseId2 = 20;
+    Long exerciseId1 = 10L;
+    Long exerciseId2 = 20L;
     
     
     ExerciseRelationEntity exerciseRelationEntity1 = getExerciseRelationEntity(exerciseId1, muscleId1);
@@ -40,7 +40,7 @@ public class ExerciseRelationMapperTest {
 
   }
   
-  private ExerciseRelationEntity getExerciseRelationEntity(int exerciseId, int muscleId) {
+  private ExerciseRelationEntity getExerciseRelationEntity(Long exerciseId, Long muscleId) {
     ExerciseRelationEntity exerciseRelationEntity = new ExerciseRelationEntity();
     CompositeIdEntity compositeIdEntity = new CompositeIdEntity();
     compositeIdEntity.setMuscleId(muscleId);

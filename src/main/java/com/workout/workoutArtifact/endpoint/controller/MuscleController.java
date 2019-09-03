@@ -1,7 +1,6 @@
 package com.workout.workoutArtifact.endpoint.controller;
 
 import com.workout.workoutArtifact.domain.muscle.model.Muscle;
-import com.workout.workoutArtifact.domain.muscle.model.Muscle.NameSpecification;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
 import java.util.List;
@@ -35,6 +34,6 @@ public class MuscleController {
       consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public List<MuscleDto> getMuscles(@RequestBody final List<String> muscleNames) {
-    return muscleFacade.getMuscles(new NameSpecification(muscleNames));
+    return muscleFacade.getMuscles(new MuscleDto.NameSpecification(muscleNames));
   }
 }

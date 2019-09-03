@@ -3,35 +3,24 @@ package com.workout.workoutArtifact.infrastructure.common.mapper;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Before;
 import org.junit.Test;
 
 public class SessionMapperTest {
 
-  WorkoutSetMapper workoutSetMapper = mock(WorkoutSetMapper.class);
-
-  private final SessionMapper sessionMapper = new SessionMapper(workoutSetMapper);
+  private final SessionMapper sessionMapper = new SessionMapper();
   WorkoutSet workoutSet = mock(WorkoutSet.class);
   WorkoutSetEntity mockedWorkoutSetEntity = mock(WorkoutSetEntity.class);
-
-  @Before
-  public void before() {
-    doReturn(Arrays.asList(mockedWorkoutSetEntity))
-        .when(workoutSetMapper).toEntity(Arrays.asList(workoutSet));
-  }
 
   @Test
   public void toEntity() {
@@ -83,7 +72,6 @@ public class SessionMapperTest {
     return Session.builder()
         .creationDateTime(LocalDateTime.of(LocalDate.now(), LocalTime.now()))
         .location(location)
-        .workoutSets(Arrays.asList(workoutSet))
         .build();
   }
 

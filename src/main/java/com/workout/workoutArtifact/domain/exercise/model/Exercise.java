@@ -1,31 +1,27 @@
 package com.workout.workoutArtifact.domain.exercise.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
-import com.workout.workoutArtifact.domain.muscle.model.Muscle;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.List;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
-@RequiredArgsConstructor
-@NoArgsConstructor
+@Builder
 @Data
 public class Exercise {
 
   @NonNull
-  @JsonProperty
+  private Long id;
+
+  @NonNull
   private String name;
 
   @NonNull
-  @JsonProperty
   private Boolean isMultiJoint;
 
   @NonNull
-  @JsonProperty
   private BodyPartEnum bodyPartEnum;
 
   public String getBodyPartString() {

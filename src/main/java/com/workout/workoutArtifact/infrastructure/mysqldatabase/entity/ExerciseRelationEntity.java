@@ -21,9 +21,9 @@ public class ExerciseRelationEntity {
   public static class CompositeIdEntity implements Serializable {
 
     @Column(name = "muscle_id")
-    private int muscleId;
+    private Long muscleId;
 
     @Column(name = "exercise_id")
-    private int exerciseId;
+    private Long exerciseId;
   }
 }

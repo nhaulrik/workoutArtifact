@@ -12,6 +12,9 @@ import lombok.Value;
 public class ExerciseDto {
 
   @NonNull
+  private Long id;
+
+  @NonNull
   private String name;
 
   @NonNull

@@ -13,14 +13,14 @@ public class ExerciseRelation {
 
 
   @NonNull
-  private int exerciseId;
+  private Long exerciseId;
 
   @NonNull
-  private List<Integer> relatedMuscleIds;
+  private List<Long> relatedMuscleIds;
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<ExerciseRelation> {
-    private final List<Integer> exerciseIds;
+    private final List<Long> exerciseIds;
 
     @Override
     public boolean isSatisfiedBy(ExerciseRelation exerciseRelation) {      return exerciseIds.contains(exerciseRelation.getRelatedMuscleIds());

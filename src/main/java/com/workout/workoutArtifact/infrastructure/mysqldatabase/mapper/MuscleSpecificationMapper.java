@@ -24,7 +24,14 @@ public class MuscleSpecificationMapper {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("name").in(((Muscle.NameSpecification) muscleSpecification).getNames());
     } else if (muscleSpecification instanceof Muscle.BodyPartSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("bodyPart").in(((Muscle.BodyPartSpecification) muscleSpecification).getBodyparts());
+    } else if (muscleSpecification instanceof Muscle.IdsSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Muscle.IdsSpecification) muscleSpecification).getIds());
     }
+
+//    else if (muscleSpecification instanceof Muscle.ExerciseIdSpecification) {
+//      return
+//    }
+    // TODO: 03-09-2019 use with runes code snippet
     throw new MappingException("Unknown specification");
   }
 }
