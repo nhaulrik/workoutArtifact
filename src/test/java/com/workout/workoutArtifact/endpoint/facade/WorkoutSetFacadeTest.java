@@ -10,8 +10,11 @@ import static org.mockito.Mockito.verify;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.workoutset.service.WorkoutSetService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
+import com.workout.workoutArtifact.endpoint.mapper.WorkoutSetDtoSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.common.mapper.WorkoutSetMapper;
+import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
+import com.workout.workoutArtifact.specification.Specification;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
@@ -30,10 +33,11 @@ public class WorkoutSetFacadeTest {
   private WorkoutSetService workoutSetService;
 
   private WorkoutSetMapper workoutSetMapper = mock(WorkoutSetMapper.class);
+  private WorkoutSetDtoSpecificationMapper workoutSetDtoSpecificationMapper = mock(WorkoutSetDtoSpecificationMapper.class);
 
   @Before
   public void before() {
-    workoutSetFacade = new WorkoutSetFacade(workoutSetService, workoutSetMapper);
+    workoutSetFacade = new WorkoutSetFacade(workoutSetService, workoutSetMapper, workoutSetDtoSpecificationMapper);
   }
 
   @Test
@@ -56,11 +60,15 @@ public class WorkoutSetFacadeTest {
   public void getWorkoutSets() {
 
     WorkoutSet expectedWorkoutSet = mock(WorkoutSet.class);
+    AbstractSpecification abstractSpecification = mock(AbstractSpecification.class);
 
     doReturn(Arrays.asList(expectedWorkoutSet))
         .when(workoutSetService).getWorkoutSet(any(MatchAllSpecification.class));
 
-    List<WorkoutSetDto> workoutSetDtos = workoutSetFacade.getWorkoutSets();
+    doReturn(new MatchAllSpecification())
+        .when(workoutSetDtoSpecificationMapper).toWorkoutSetSpecification(abstractSpecification);
+
+    List<WorkoutSetDto> workoutSetDtos = workoutSetFacade.getWorkoutSets(abstractSpecification);
 
     assertThat(workoutSetDtos.get(0), is(workoutSetMapper.toDto(expectedWorkoutSet)));
   }

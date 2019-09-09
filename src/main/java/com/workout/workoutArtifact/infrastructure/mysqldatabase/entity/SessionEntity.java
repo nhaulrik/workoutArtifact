@@ -28,7 +28,4 @@ public class SessionEntity {
   @Column
   private String location;
 
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "sessionEntity")
-  private List<WorkoutSetEntity> workoutSetEntities;
-
 }

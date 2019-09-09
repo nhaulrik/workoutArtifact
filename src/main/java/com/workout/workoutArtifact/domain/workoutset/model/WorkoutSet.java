@@ -13,23 +13,11 @@ import lombok.Value;
 public class WorkoutSet {
 
   private Long id;
-
-  @NonNull
   private int repetitions;
-
-  @NonNull
   private double weight;
-
-  @NonNull
   private Boolean single;
-
-  @NonNull
   private int repetitionMaximum;
-
-  @NonNull
   private Long exerciseId;
-
-  @NonNull
   private int setNumber;
 
   @Value
@@ -39,6 +27,16 @@ public class WorkoutSet {
     @Override
     public boolean isSatisfiedBy(WorkoutSet workoutSet) {
       return exerciseIds.contains(workoutSet.getExerciseId());
+    }
+  }
+
+  @Value
+  public static class IdsSpecification extends AbstractSpecification<WorkoutSet> {
+    private final List<Long> ids;
+
+    @Override
+    public boolean isSatisfiedBy(WorkoutSet workoutSet) {
+      return ids.contains(workoutSet.getId());
     }
   }
 

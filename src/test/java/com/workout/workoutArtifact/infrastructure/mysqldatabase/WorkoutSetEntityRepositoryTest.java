@@ -34,7 +34,7 @@ public class WorkoutSetEntityRepositoryTest {
     Specification specification = new ExerciseIdSpecification(Arrays.asList(exerciseId));
     org.springframework.data.jpa.domain.Specification jpaSpecification = mock(org.springframework.data.jpa.domain.Specification.class);
 
-    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(0,0d, false, 0, 0);
+    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(0,0d, false, 0, 0, 0L);
 
     WorkoutSet workoutSet = getWorkoutSetMock(exerciseId);
 
@@ -57,7 +57,7 @@ public class WorkoutSetEntityRepositoryTest {
   public void addWorkoutSet() {
 
     WorkoutSet workoutSet = getWorkoutSetMock(0L);
-    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(0,0d, false, 0, 0);
+    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(0,0d, false, 0, 0, 0L);
 
     doReturn(workoutSetEntity)
         .when(workoutSetMapper).toEntity(workoutSet);

@@ -9,6 +9,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
+import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -57,7 +58,7 @@ public class WorkoutSetView extends VerticalLayout {
   }
 
   private void listWorkoutSets() {
-    List<WorkoutSetDto> workoutSets = workoutSetFacade.getWorkoutSets();
+    List<WorkoutSetDto> workoutSets = workoutSetFacade.getWorkoutSets(new MatchAllSpecification());
     workoutSetDtoGrid.setItems(workoutSets);
   }
 

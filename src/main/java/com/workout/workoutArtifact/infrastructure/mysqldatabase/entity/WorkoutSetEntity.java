@@ -17,7 +17,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@EqualsAndHashCode(exclude = "exerciseEntity")
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -48,14 +47,8 @@ public class WorkoutSetEntity {
   @Column
   private int setNumber;
 
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinTable(name = "workoutset_exercise",
-  joinColumns = @JoinColumn(name = "workoutset_id", referencedColumnName = "id"),
-      inverseJoinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"))
-  private ExerciseEntity exerciseEntity;
-
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "session_id")
-  private SessionEntity sessionEntity;
+  @NonNull
+  @Column
+  private Long exerciseId;
 
 }
