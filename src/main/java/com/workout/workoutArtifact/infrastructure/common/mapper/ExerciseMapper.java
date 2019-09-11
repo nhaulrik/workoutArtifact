@@ -2,7 +2,6 @@ package com.workout.workoutArtifact.infrastructure.common.mapper;
 
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
-import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,7 @@ public class ExerciseMapper {
         exercise.getId(),
         exercise.getName(),
         exercise.getIsMultiJoint() ? "COMPOUND" : "SINGLE",
-        exercise.getBodyPartString()
+        exercise.getBodyPart()
     );
   }
 
@@ -23,14 +22,15 @@ public class ExerciseMapper {
        .id(exerciseEntity.getId())
        .name(exerciseEntity.getName())
        .isMultiJoint(exerciseEntity.getIsMultiJoint())
-       .bodyPartEnum(BodyPartEnum.valueOf(exerciseEntity.getPrimaryBodyPart()))
+       .bodyPart(exerciseEntity.getPrimaryBodyPart())
        .build();
  }
 
   public ExerciseEntity toEntity(Exercise exercise) {
     ExerciseEntity exerciseEntity = new ExerciseEntity();
-    exerciseEntity.setName(exercise.getName().toString());
+    exerciseEntity.setName(exercise.getName());
     exerciseEntity.setIsMultiJoint(exercise.getIsMultiJoint());
+    exerciseEntity.setId(exercise.getId());
     return exerciseEntity;
   }
 

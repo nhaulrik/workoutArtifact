@@ -25,6 +25,8 @@ public class ExerciseDtoSpecificationMapper {
       return new Exercise.NameSpecification(((ExerciseDto.NameSpecification) exerciseDtoSpecification).getNames());
     } else if (exerciseDtoSpecification instanceof ExerciseDto.BodyPartsSpecification) {
       return new Exercise.BodyPartsSpecification(((ExerciseDto.BodyPartsSpecification) exerciseDtoSpecification).getBodyParts());
+    } else if (exerciseDtoSpecification instanceof  ExerciseDto.ExerciseIdSpecification) {
+      return new Exercise.ExerciseIdSpecification(((ExerciseDto.ExerciseIdSpecification) exerciseDtoSpecification).getExerciseId());
     }
     return new MatchAllSpecification();
   }

@@ -2,11 +2,13 @@ package com.workout.workoutArtifact.endpoint.graphqlservice;
 
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
+import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.specification.MatchNoneSpecification;
 import io.leangen.graphql.annotations.GraphQLArgument;
+import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,25 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService{
   ) {
 
     List<AbstractSpecification<ExerciseDto>> exerciseDtoSpecifications = new ArrayList<>();
+    if (names != null) { exerciseDtoSpecifications.add(new ExerciseDto.NameSpecification(names)); }
+    if (types != null) { exerciseDtoSpecifications.add(new ExerciseDto.TypesSpecification(types)); }
+    if (bodyParts != null) { exerciseDtoSpecifications.add(new ExerciseDto.BodyPartsSpecification(bodyParts)); }
+
+    AbstractSpecification aggregatedSpecification = exerciseDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
+
+    return exerciseFacade.getExercises(aggregatedSpecification);
+  }
+
+  @GraphQLQuery(name = "exercises")
+  public List<ExerciseDto> getExercises(
+      @GraphQLContext WorkoutSetDto workoutSetDto,
+      @GraphQLArgument(name = "names") List<String> names,
+      @GraphQLArgument(name = "types") List<String> types,
+      @GraphQLArgument(name = "bodyparts") List<String> bodyParts
+      ) {
+
+    List<AbstractSpecification<ExerciseDto>> exerciseDtoSpecifications = new ArrayList<>();
+    if (workoutSetDto != null) { exerciseDtoSpecifications.add(new ExerciseDto.ExerciseIdSpecification(workoutSetDto.getExerciseId())); }
     if (names != null) { exerciseDtoSpecifications.add(new ExerciseDto.NameSpecification(names)); }
     if (types != null) { exerciseDtoSpecifications.add(new ExerciseDto.TypesSpecification(types)); }
     if (bodyParts != null) { exerciseDtoSpecifications.add(new ExerciseDto.BodyPartsSpecification(bodyParts)); }

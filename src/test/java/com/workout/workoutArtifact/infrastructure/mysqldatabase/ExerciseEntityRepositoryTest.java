@@ -38,7 +38,7 @@ public class ExerciseEntityRepositoryTest {
         .id(0L)
         .name(exerciseName)
         .isMultiJoint(true)
-        .bodyPartEnum(BodyPartEnum.CHEST)
+        .bodyPart(BodyPartEnum.CHEST.toString())
         .build();
     
     doReturn(jpaSpecification)

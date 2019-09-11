@@ -22,6 +22,8 @@ public class ExerciseSpecificationMapper {
       return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.conjunction();
     } else if (exerciseSpecification instanceof Exercise.NameSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("name").in(((Exercise.NameSpecification) exerciseSpecification).getNames());
+    } else if (exerciseSpecification instanceof Exercise.ExerciseIdSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Exercise.ExerciseIdSpecification) exerciseSpecification).getId());
     }
     throw new MappingException("Unknown specification");
   }

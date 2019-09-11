@@ -23,7 +23,6 @@ public class ExerciseDto {
   @NonNull
   private String bodyPart;
 
-
   @Value
   public static class NameSpecification extends AbstractSpecification<ExerciseDto> {
     private final List<String> names;
@@ -51,6 +50,16 @@ public class ExerciseDto {
     @Override
     public boolean isSatisfiedBy(ExerciseDto exerciseDto) {
       return bodyParts.contains(exerciseDto.getBodyPart());
+    }
+  }
+
+  @Value
+  public static class ExerciseIdSpecification extends AbstractSpecification<ExerciseDto> {
+    private final Long exerciseId;
+
+    @Override
+    public boolean isSatisfiedBy(ExerciseDto exerciseDto) {
+      return exerciseDto.getId().equals(exerciseId);
     }
   }
 

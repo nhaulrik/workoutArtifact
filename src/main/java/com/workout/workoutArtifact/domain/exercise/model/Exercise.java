@@ -1,6 +1,5 @@
 package com.workout.workoutArtifact.domain.exercise.model;
 
-import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.List;
 import lombok.Builder;
@@ -22,11 +21,7 @@ public class Exercise {
   private Boolean isMultiJoint;
 
   @NonNull
-  private BodyPartEnum bodyPartEnum;
-
-  public String getBodyPartString() {
-    return bodyPartEnum.toString();
-  }
+  private String bodyPart;
 
   @Value
   public static class NameSpecification extends AbstractSpecification<Exercise> {
@@ -44,9 +39,18 @@ public class Exercise {
 
     @Override
     public boolean isSatisfiedBy(Exercise exercise) {
-      return bodyParts.contains(exercise.getBodyPartEnum().name());
+      return bodyParts.contains(exercise.getBodyPart());
     }
   }
 
+  @Value
+  public static class ExerciseIdSpecification extends AbstractSpecification<Exercise> {
+    private final Long id;
+
+    @Override
+    public boolean isSatisfiedBy(Exercise exercise) {
+      return id.equals(exercise.getId());
+    }
+  }
 
 }

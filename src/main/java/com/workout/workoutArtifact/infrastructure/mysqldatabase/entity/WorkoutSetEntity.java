@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,7 +49,10 @@ public class WorkoutSetEntity {
   private int setNumber;
 
   @NonNull
-  @Column
   private Long exerciseId;
+
+  @ManyToOne(cascade=CascadeType.ALL)
+  @JoinColumn
+  private ExerciseEntity exerciseEntity;
 
 }

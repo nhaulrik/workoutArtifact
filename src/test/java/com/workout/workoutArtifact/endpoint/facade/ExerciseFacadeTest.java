@@ -57,7 +57,7 @@ public class ExerciseFacadeTest {
         .id(0L)
         .name(someExerciseName)
         .isMultiJoint(false)
-        .bodyPartEnum(BodyPartEnum.CHEST)
+        .bodyPart(BodyPartEnum.CHEST.toString())
         .build();
 
     ExerciseDto exerciseDto = mock(ExerciseDto.class);
