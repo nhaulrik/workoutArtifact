@@ -1,6 +1,5 @@
 package com.workout.workoutArtifact.endpoint.graphqlservice;
 
-import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
