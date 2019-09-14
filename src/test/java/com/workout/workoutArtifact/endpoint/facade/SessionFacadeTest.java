@@ -7,14 +7,25 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
 import com.workout.workoutArtifact.domain.session.model.Session;
+import com.workout.workoutArtifact.domain.session.model.Session.IdsSpecification;
 import com.workout.workoutArtifact.domain.session.service.SessionService;
+import com.workout.workoutArtifact.endpoint.dto.SessionDto;
+import com.workout.workoutArtifact.endpoint.mapper.SessionDtoSpecificationMapper;
+import com.workout.workoutArtifact.infrastructure.common.mapper.SessionMapper;
+import com.workout.workoutArtifact.specification.AbstractSpecification;
+import com.workout.workoutArtifact.specification.Specification;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 import org.junit.Test;
 
 public class SessionFacadeTest {
 
   SessionService sessionService = mock(SessionService.class);
-  SessionFacade sessionFacade = new SessionFacade(sessionService);
+  SessionMapper sessionMapper = mock(SessionMapper.class);
+  SessionDtoSpecificationMapper sessionDtoSpecificationMapper = mock(SessionDtoSpecificationMapper.class);
+
+  SessionFacade sessionFacade = new SessionFacade(sessionService, sessionMapper, sessionDtoSpecificationMapper);
 
   @Test
   public void addSessions() {
@@ -29,5 +40,37 @@ public class SessionFacadeTest {
     String returnString = sessionFacade.addSessions(Arrays.asList(session));
 
     assertThat(returnString, is(equalTo(expectedReturnString)));
+  }
+
+  @Test
+  public void getSessions() {
+
+    Long id = 1L;
+    String location = "some_location";
+    Session session = Session.builder()
+        .id(id)
+        .location("some_location")
+        .creationDateTime(LocalDateTime.now())
+        .build();
+
+    SessionDto sessionDtoMock = mock(SessionDto.class);
+
+    AbstractSpecification specification = new SessionDto.LocationsSpecification(Arrays.asList(location));
+
+    Session.IdsSpecification idsSpecification = new IdsSpecification(Arrays.asList(id));
+
+    doReturn(idsSpecification)
+        .when(sessionDtoSpecificationMapper).toSessionSpecification(specification);
+
+    doReturn(Arrays.asList(session))
+        .when(sessionService).getSession(idsSpecification);
+
+    doReturn(sessionDtoMock)
+        .when(sessionMapper).toDto(session);
+
+    List<SessionDto> sessionDtoList = sessionFacade.getSessions(specification);
+
+    assertThat(sessionDtoList.size(), is(1));
+    assertThat(sessionDtoList.get(0), is(sessionDtoMock));
   }
 }

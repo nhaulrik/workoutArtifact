@@ -1,6 +1,7 @@
 package com.workout.workoutArtifact.infrastructure.common.mapper;
 
 import com.workout.workoutArtifact.domain.session.model.Session;
+import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,13 @@ public class SessionMapper {
         .creationDateTime(sessionEntity.getCreationDateTime())
         .location(sessionEntity.getLocation())
         .id(sessionEntity.getId())
+        .build();
+  }
+
+  public SessionDto toDto(Session session) {
+    return SessionDto.builder()
+        .id(session.getId())
+        .location(session.getLocation())
         .build();
   }
 }

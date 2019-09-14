@@ -21,6 +21,10 @@ public class SessionSpecificationMapper {
           .orElse((root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.disjunction());
     } else if (sessionSpecification instanceof MatchAllSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.conjunction();
+    } else if (sessionSpecification instanceof  Session.IdsSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Session.IdsSpecification) sessionSpecification).getIds());
+    } else if (sessionSpecification instanceof  Session.LocationsSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("location").in(((Session.LocationsSpecification) sessionSpecification).getLocations());
     }
     throw new MappingException("Unknown specification");
   }

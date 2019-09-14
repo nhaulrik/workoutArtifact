@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.workout.workoutArtifact.domain.session.model.Session;
+import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -59,6 +60,23 @@ public class SessionMapperTest {
     assertThat(session.getId(), is(someId));
     assertThat(session.getCreationDateTime(), is(someLocalDateTime));
     assertThat(session.getLocation(), is(someLocation));
+  }
+
+  @Test
+  public void toDto() {
+
+    Long someId = 1L;
+    String someLocation = "some_location";
+
+    Session session = Session.builder()
+        .id(someId)
+        .location(someLocation)
+        .build();
+
+    SessionDto sessionDto = sessionMapper.toDto(session);
+
+    assertThat(sessionDto.getId(), is(session.getId()));
+    assertThat(sessionDto.getLocation(), is(session.getLocation()));
   }
 
   private Session getSession(String location) {
