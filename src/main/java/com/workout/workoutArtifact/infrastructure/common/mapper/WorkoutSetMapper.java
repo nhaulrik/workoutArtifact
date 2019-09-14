@@ -2,6 +2,7 @@ package com.workout.workoutArtifact.infrastructure.common.mapper;
 
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,22 +43,25 @@ public class WorkoutSetMapper {
         .weight(workoutSetEntity.getWeight())
         .single(workoutSetEntity.isSingle())
         .repetitionMaximum(workoutSetEntity.getRepetitionMaximum())
-        .exerciseId(workoutSetEntity.getExerciseId())
+        .exerciseId(workoutSetEntity.getExerciseEntity().getId())
         .id(workoutSetEntity.getId())
         .setNumber(workoutSetEntity.getSetNumber())
         .build();
   }
 
   public WorkoutSetEntity toEntity(WorkoutSet workoutSet) {
-    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(
-        workoutSet.getRepetitions(),
-        workoutSet.getWeight(),
-        workoutSet.getSingle(),
-        workoutSet.getRepetitionMaximum(),
-        workoutSet.getSetNumber(),
-        workoutSet.getExerciseId()
-    );
+    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity();
+    workoutSetEntity.setRepetitions(workoutSet.getRepetitions());
+    workoutSetEntity.setWeight(workoutSet.getWeight());
+    workoutSetEntity.setSingle(workoutSet.getSingle());
+    workoutSetEntity.setRepetitionMaximum(workoutSet.getRepetitionMaximum());
+    workoutSetEntity.setSetNumber(workoutSet.getSetNumber());
     workoutSetEntity.setId(workoutSet.getId());
+
+    ExerciseEntity exerciseEntity = new ExerciseEntity();
+    exerciseEntity.setId(workoutSet.getExerciseId());
+    workoutSetEntity.setExerciseEntity(exerciseEntity);
+
     return workoutSetEntity;
   }
 

@@ -4,12 +4,12 @@ import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSetRepository;
 import com.workout.workoutArtifact.infrastructure.common.mapper.WorkoutSetMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper
-    .WorkoutSetSpecificationMapper;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutSetSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.WorkoutSetJpaRepository;
 import com.workout.workoutArtifact.specification.Specification;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +22,7 @@ public class WorkoutSetEntityRepository implements WorkoutSetRepository {
   private final WorkoutSetMapper workoutSetMapper;
   private final WorkoutSetSpecificationMapper workoutSetSpecificationMapper;
 
+  @Transactional
   @Override
   public List<WorkoutSet> getWorkoutSet(Specification<WorkoutSet> workoutSetSpecification) {
     org.springframework.data.jpa.domain.Specification<WorkoutSetEntity> jpaSpecification = workoutSetSpecificationMapper.toJpaSpecification(workoutSetSpecification);

@@ -3,11 +3,11 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.repository;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import com.workout.workoutArtifact.endpoint.specification.WorkoutSetSpecification;
+import com.workout.workoutArtifact.endpoint.specification.WorkoutSetSpecification.SearchCriteria;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.configuration.JpaConfig;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
-import com.workout.workoutArtifact.endpoint.specification.WorkoutSetSpecification;
-import com.workout.workoutArtifact.endpoint.specification.WorkoutSetSpecification.SearchCriteria;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
@@ -51,7 +51,13 @@ public class WorkoutSetEntityTest {
 
   @Test
   public void saveAndFindWorkoutSetEntity() {
-    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity(1337, 10, true, 8, 1, 7L);
+    WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity();
+    workoutSetEntity.setId(1L);
+    workoutSetEntity.setRepetitions(8);
+    workoutSetEntity.setWeight(80);
+    workoutSetEntity.setRepetitionMaximum(12);
+    workoutSetEntity.setSetNumber(1);
+    workoutSetEntity.setSingle(false);
 
     workoutSetRepository.save(workoutSetEntity);
 

@@ -16,18 +16,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.Setter;
 
-@NoArgsConstructor
 @Data
-@EqualsAndHashCode(exclude = "muscleEntities")
-
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = {"muscleEntities", "workoutSets"})
 @Entity
 @Table(name = "exercise")
 public class ExerciseEntity {
@@ -40,22 +36,18 @@ public class ExerciseEntity {
   @Column
   private String name;
 
-  @NonNull
   @Column
   private Boolean isMultiJoint;
 
-  @NonNull
   @Column
   private String primaryBodyPart;
 
-  @NonNull
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(name = "exercise_muscle",
       joinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "muscle_id", referencedColumnName = "id"))
   private Set<MuscleEntity> muscleEntities = new HashSet<>();
 
-  @NonNull
   @OneToMany(mappedBy = "exerciseEntity", cascade=CascadeType.ALL)
   private Set<WorkoutSetEntity> workoutSets = new HashSet<>();
 
@@ -65,5 +57,9 @@ public class ExerciseEntity {
     this.muscleEntities = muscleEntities.stream().collect(Collectors.toSet());
     this.muscleEntities.forEach(x -> x.getExerciseSet().add(this));
     this.primaryBodyPart = primaryBodyPart;
+  }
+
+  public ExerciseEntity(Long id) {
+    this.id = id;
   }
 }
