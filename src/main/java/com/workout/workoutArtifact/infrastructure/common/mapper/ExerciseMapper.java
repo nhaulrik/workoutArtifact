@@ -9,12 +9,13 @@ import org.springframework.stereotype.Component;
 public class ExerciseMapper {
 
   public ExerciseDto toDto(Exercise exercise) {
-    return new ExerciseDto(
-        exercise.getId(),
-        exercise.getName(),
-        exercise.getIsMultiJoint() ? "COMPOUND" : "SINGLE",
-        exercise.getBodyPart()
-    );
+    return ExerciseDto.builder()
+        .id(exercise.getId())
+        .name(exercise.getName())
+        .isMultiJoint(exercise.getIsMultiJoint())
+        .bodyPart(exercise.getBodyPart())
+        .muscleIds(exercise.getMuscleIds())
+        .build();
   }
 
  public Exercise toDomainObject(ExerciseEntity exerciseEntity) {
@@ -22,13 +23,23 @@ public class ExerciseMapper {
        .id(exerciseEntity.getId())
        .name(exerciseEntity.getName())
        .isMultiJoint(exerciseEntity.getIsMultiJoint())
-       .bodyPart(exerciseEntity.getPrimaryBodyPart())
+       .bodyPart(exerciseEntity.getBodyPart())
        .build();
+ }
+
+ public Exercise toDomainObject(ExerciseDto exerciseDto) {
+    return Exercise.builder()
+        .id(exerciseDto.getId())
+        .name(exerciseDto.getName())
+        .isMultiJoint(exerciseDto.getIsMultiJoint())
+        .bodyPart(exerciseDto.getBodyPart())
+        .build();
  }
 
   public ExerciseEntity toEntity(Exercise exercise) {
     ExerciseEntity exerciseEntity = new ExerciseEntity();
     exerciseEntity.setName(exercise.getName());
+    exerciseEntity.setBodyPart(exercise.getBodyPart());
     exerciseEntity.setIsMultiJoint(exercise.getIsMultiJoint());
     exerciseEntity.setId(exercise.getId());
     return exerciseEntity;

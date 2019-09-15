@@ -3,25 +3,29 @@ package com.workout.workoutArtifact.endpoint.dto;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import io.leangen.graphql.annotations.types.GraphQLType;
 import java.util.List;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.Value;
 
 @Data
 @GraphQLType(name = "Exercise")
+@Builder
 public class ExerciseDto {
 
-  @NonNull
   private Long id;
 
   @NonNull
   private String name;
 
   @NonNull
-  String type;
+  private String bodyPart;
 
   @NonNull
-  private String bodyPart;
+  private Boolean isMultiJoint;
+
+  @NonNull
+  private List<Long> muscleIds;
 
   @Value
   public static class NameSpecification extends AbstractSpecification<ExerciseDto> {
@@ -34,12 +38,12 @@ public class ExerciseDto {
   }
 
   @Value
-  public static class TypesSpecification extends AbstractSpecification<ExerciseDto> {
-    private final List<String> types;
+  public static class IsMultiJointSpecification extends AbstractSpecification<ExerciseDto> {
+    private final Boolean isMultiJoint;
 
     @Override
     public boolean isSatisfiedBy(ExerciseDto exerciseDto) {
-      return types.contains(exerciseDto.getType());
+      return isMultiJoint.equals(exerciseDto.getIsMultiJoint());
     }
   }
 

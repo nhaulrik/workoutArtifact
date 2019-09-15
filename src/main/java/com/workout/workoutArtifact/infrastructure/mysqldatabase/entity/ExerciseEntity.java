@@ -40,7 +40,7 @@ public class ExerciseEntity {
   private Boolean isMultiJoint;
 
   @Column
-  private String primaryBodyPart;
+  private String bodyPart;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(name = "exercise_muscle",
@@ -56,7 +56,7 @@ public class ExerciseEntity {
     this.isMultiJoint = isMultiJoint;
     this.muscleEntities = muscleEntities.stream().collect(Collectors.toSet());
     this.muscleEntities.forEach(x -> x.getExerciseSet().add(this));
-    this.primaryBodyPart = primaryBodyPart;
+    this.bodyPart = primaryBodyPart;
   }
 
   public ExerciseEntity(Long id) {

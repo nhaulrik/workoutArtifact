@@ -7,11 +7,15 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
+import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import static org.mockito.Mockito.verify;
 
 public class ExerciseGraphQLServiceTest {
 
@@ -20,11 +24,44 @@ public class ExerciseGraphQLServiceTest {
       exerciseFacade);
 
   @Test
+  public void addExercise() {
+
+    String someExerciseName = "some_exercise_name";
+
+    ExerciseDto exerciseDto = ExerciseDto.builder()
+        .id(0L)
+        .name(someExerciseName)
+        .bodyPart("")
+        .isMultiJoint(true)
+        .muscleIds(new ArrayList<>())
+        .build();
+
+    exerciseGraphQLService.addExercise(
+        exerciseDto.getId(),
+        exerciseDto.getName(),
+        exerciseDto.getBodyPart(),
+        exerciseDto.getIsMultiJoint(),
+        exerciseDto.getMuscleIds()
+    );
+
+    ArgumentCaptor<ExerciseDto> arg = ArgumentCaptor.forClass(ExerciseDto.class);
+    verify(exerciseFacade).addExercise(arg.capture());
+
+    assertThat(arg.getValue(), is(exerciseDto));
+  }
+
+  @Test
   public void getExercisesByNames() {
 
     String someExerciseName = "some_name";
 
-    ExerciseDto exerciseDto = new ExerciseDto(0L, someExerciseName, "", "");
+    ExerciseDto exerciseDto = ExerciseDto.builder()
+        .id(0L)
+        .name(someExerciseName)
+        .bodyPart("")
+        .isMultiJoint(true)
+        .muscleIds(new ArrayList<>())
+        .build();
 
     doReturn(Arrays.asList(exerciseDto))
         .when(exerciseFacade).getExercises(any(AbstractSpecification.class));
@@ -37,28 +74,17 @@ public class ExerciseGraphQLServiceTest {
   }
 
   @Test
-  public void getExercisesByTypes() {
-
-    String someType = "compound";
-
-    ExerciseDto exerciseDto = new ExerciseDto(0L, "", someType, "");
-
-    doReturn(Arrays.asList(exerciseDto))
-        .when(exerciseFacade).getExercises(any(AbstractSpecification.class));
-
-    List<ExerciseDto> exerciseDtos = exerciseGraphQLService
-        .getExercises(null, Arrays.asList(someType), null);
-
-    assertThat(exerciseDtos.size(), is(1));
-    assertThat(exerciseDtos.get(0).getType(), is(someType));
-  }
-
-  @Test
   public void getExercisesByBodyPart() {
 
     String someBodyPart = "chest";
 
-    ExerciseDto exerciseDto = new ExerciseDto(0L, "", "", someBodyPart);
+    ExerciseDto exerciseDto = ExerciseDto.builder()
+        .bodyPart(someBodyPart)
+        .name("")
+        .id(1L)
+        .isMultiJoint(true)
+        .muscleIds(new ArrayList<>())
+        .build();
 
     doReturn(Arrays.asList(exerciseDto))
         .when(exerciseFacade).getExercises(any(AbstractSpecification.class));
@@ -68,5 +94,24 @@ public class ExerciseGraphQLServiceTest {
 
     assertThat(exerciseDtos.size(), is(1));
     assertThat(exerciseDtos.get(0).getBodyPart(), is(someBodyPart));
+  }
+
+  @Test
+  public void getExercisesWithWorkoutSetDtoContext() {
+
+    Long exerciseId = 1L;
+
+    WorkoutSetDto workoutSetDto = mock(WorkoutSetDto.class);
+    ExerciseDto exerciseDto = mock(ExerciseDto.class);
+
+    doReturn(exerciseId)
+        .when(workoutSetDto).getExerciseId();
+
+    doReturn(Arrays.asList(exerciseDto))
+        .when(exerciseFacade).getExercises(any(AbstractSpecification.class));
+
+    List<ExerciseDto> exerciseDtos = exerciseGraphQLService.getExercises(workoutSetDto, null, null, null);
+
+    assertThat(exerciseDtos, is(Arrays.asList(exerciseDto)));
   }
 }

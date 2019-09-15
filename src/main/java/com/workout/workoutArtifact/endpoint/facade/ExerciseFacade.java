@@ -7,6 +7,7 @@ import com.workout.workoutArtifact.endpoint.mapper.ExerciseDtoSpecificationMappe
 import com.workout.workoutArtifact.infrastructure.common.mapper.ExerciseMapper;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.specification.Specification;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,9 @@ public class ExerciseFacade {
         .filter(exerciseSpecification::isSatisfiedBy)
         .map(mapper::toDto)
         .collect(Collectors.toList());
+  }
+
+  public void addExercise(ExerciseDto exerciseDto) {
+    exerciseService.addExercises(Arrays.asList(mapper.toDomainObject(exerciseDto)));
   }
 }

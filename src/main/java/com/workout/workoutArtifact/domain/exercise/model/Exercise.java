@@ -11,7 +11,6 @@ import lombok.Value;
 @Data
 public class Exercise {
 
-  @NonNull
   private Long id;
 
   @NonNull
@@ -22,6 +21,8 @@ public class Exercise {
 
   @NonNull
   private String bodyPart;
+
+  private List<Long> muscleIds;
 
   @Value
   public static class NameSpecification extends AbstractSpecification<Exercise> {

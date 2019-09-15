@@ -23,12 +23,12 @@ public class WorkoutSetGraphQLService implements GraphQLSPQRConfig.GraphQLServic
 
   @GraphQLMutation(name = "addWorkoutSet")
   public String addWorkoutSet(
-      @GraphQLArgument(name= "setNumber") Integer setNumber,
-      @GraphQLArgument(name= "weight") Double weight,
-      @GraphQLArgument(name= "repetitions") Integer repetitions,
-      @GraphQLArgument(name= "repetitionMaximum") Integer repetitionMaximum,
-      @GraphQLArgument(name= "single") Boolean single,
-      @GraphQLArgument(name= "exerciseId") Long exerciseId
+      @GraphQLArgument(name = "setNumber") Integer setNumber,
+      @GraphQLArgument(name = "weight") Double weight,
+      @GraphQLArgument(name = "repetitions") Integer repetitions,
+      @GraphQLArgument(name = "repetitionMaximum") Integer repetitionMaximum,
+      @GraphQLArgument(name = "single") Boolean single,
+      @GraphQLArgument(name = "exerciseId") Long exerciseId
   ) {
 
     WorkoutSetDto workoutSetDto = WorkoutSetDto.builder()
