@@ -71,6 +71,7 @@ public class SessionMapperTest {
     Session session = Session.builder()
         .id(someId)
         .location(someLocation)
+        .creationDateTime(LocalDateTime.now())
         .build();
 
     SessionDto sessionDto = sessionMapper.toDto(session);

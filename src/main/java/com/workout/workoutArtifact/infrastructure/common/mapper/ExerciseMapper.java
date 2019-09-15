@@ -33,6 +33,7 @@ public class ExerciseMapper {
         .name(exerciseDto.getName())
         .isMultiJoint(exerciseDto.getIsMultiJoint())
         .bodyPart(exerciseDto.getBodyPart())
+        .muscleIds(exerciseDto.getMuscleIds())
         .build();
  }
 
