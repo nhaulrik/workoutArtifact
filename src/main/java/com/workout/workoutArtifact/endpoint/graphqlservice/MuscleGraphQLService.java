@@ -9,8 +9,10 @@ import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
+import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,25 @@ import org.springframework.stereotype.Component;
 public class MuscleGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
   private final MuscleFacade muscleFacade;
+
+  @GraphQLMutation(name = "addMuscle")
+  public Boolean addMuscle(
+      @GraphQLArgument(name = "name") String name,
+      @GraphQLArgument(name = "id") Long id,
+      @GraphQLArgument(name = "bodyPart") String bodyPart,
+      @GraphQLArgument(name = "exerciseIds") List<Long> exerciseIds) {
+
+    MuscleDto muscleDto = MuscleDto.builder()
+        .name(name)
+        .exerciseIds(exerciseIds)
+        .id(id)
+        .bodyPart(bodyPart)
+        .build();
+
+    muscleFacade.addMuscles(Arrays.asList(muscleDto));
+    return true;
+  }
+
 
   @GraphQLQuery(name = "muscles")
   public List<MuscleDto> getMuscles(

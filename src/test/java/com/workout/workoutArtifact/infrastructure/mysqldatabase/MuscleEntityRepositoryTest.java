@@ -36,7 +36,7 @@ public class MuscleEntityRepositoryTest {
 
     Muscle muscle = Muscle.builder()
         .name(someName)
-        .bodyPart(BodyPartEnum.SHOULDER)
+        .bodyPart(BodyPartEnum.SHOULDER.name())
         .build();
 
     doReturn(jpaSpecification)

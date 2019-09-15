@@ -21,8 +21,10 @@ public class MuscleFacade {
   private final MuscleMapper muscleMapper;
   private final MuscleDtoSpecificationMapper muscleDtoSpecificationMapper;
 
-  public String addMuscles(List<Muscle> muscles) throws MuscleException {
-    return muscleService.addMuscles(muscles);
+  public String addMuscles(List<MuscleDto> muscleDtos) throws MuscleException {
+    return muscleService.addMuscles(muscleDtos.stream()
+        .map(muscleMapper::toDomainObject)
+        .collect(Collectors.toList()));
   }
 
   public List<MuscleDto> getMuscles(AbstractSpecification<MuscleDto> specification) {

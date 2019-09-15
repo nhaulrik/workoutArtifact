@@ -15,7 +15,7 @@ public class Muscle {
 
   private String name;
 
-  private BodyPartEnum bodyPart;
+  private String bodyPart;
 
   private List<Long> exerciseIds;
 
@@ -56,7 +56,7 @@ public class Muscle {
 
     @Override
     public boolean isSatisfiedBy(Muscle muscle) {
-      return bodyparts.contains(muscle.getBodyPart().name());
+      return bodyparts.contains(muscle.getBodyPart());
     }
   }
 

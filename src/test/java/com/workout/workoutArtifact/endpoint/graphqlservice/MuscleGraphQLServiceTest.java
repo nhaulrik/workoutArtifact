@@ -1,41 +1,75 @@
 package com.workout.workoutArtifact.endpoint.graphqlservice;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
-import com.workout.workoutArtifact.endpoint.controller.GraphQLController;
+import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
+import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
+import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
+import com.workout.workoutArtifact.specification.AbstractSpecification;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
+import org.mockito.ArgumentCaptor;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
 public class MuscleGraphQLServiceTest {
 
-  @Autowired
-  private MockMvc mockMvc;
-
-  @Autowired
-  GraphQLController graphQLController;
-
+  private final MuscleFacade muscleFacade = mock(MuscleFacade.class);
+  private final MuscleGraphQLService muscleGraphQLService = new MuscleGraphQLService(muscleFacade);
 
   @Test
-  public void graphql() throws Exception {
+  public void addMuscles() {
 
-// TODO: 03-09-2019 make some query that uses a nested query
-    mockMvc.perform(
-        post("/graphql")
-            .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-            .content("{\"query\":\"query {\\n  exercises {\\n    name\\n  \\tmuscles {\\n      "
-                + "name\\n    }\\n  }\\n}\",\"variables\":null}"))
-        .andExpect(status().isOk());
-//        .andExpect(content().string(containsString(new ObjectMapper().writeValueAsString(result))));
+    Long id = 1L;
+    String name = "some_name";
+    String bodyPart = "some_bodypart";
+    List<Long> exerciseIds = Arrays.asList(1L, 2L, 3l);
+
+    MuscleDto muscleDto = MuscleDto.builder()
+        .name(name)
+        .id(id)
+        .exerciseIds(exerciseIds)
+        .bodyPart(bodyPart)
+        .build();
+
+    muscleGraphQLService.addMuscle(name, id, bodyPart, exerciseIds);
+
+    ArgumentCaptor<List<MuscleDto>> arg = ArgumentCaptor.forClass(ArrayList.class);
+    verify(muscleFacade).addMuscles(arg.capture());
+
+    assertThat(arg.getValue(), is(Arrays.asList(muscleDto)));
+  }
+
+  @Test
+  public void getMuscles() {
+
+    MuscleDto muscleDtoMock = mock(MuscleDto.class);
+
+    doReturn(Arrays.asList(muscleDtoMock))
+        .when(muscleFacade).getMuscles(any(AbstractSpecification.class));
+
+    List<MuscleDto> muscleDtoList = muscleGraphQLService.getMuscles(null);
+
+    assertThat(muscleDtoList, is(Arrays.asList(muscleDtoMock)));
+  }
+
+  @Test
+  public void getMusclesWithExerciseDtoContext() {
+
+    MuscleDto muscleDtoMock = mock(MuscleDto.class);
+    ExerciseDto exerciseDto = mock(ExerciseDto.class);
+
+    doReturn(Arrays.asList(muscleDtoMock))
+        .when(muscleFacade).getMuscles(any(AbstractSpecification.class));
+
+    List<MuscleDto> muscleDtoList = muscleGraphQLService.getMuscles(exerciseDto, null);
+
+    assertThat(muscleDtoList, is(Arrays.asList(muscleDtoMock)));
   }
 }

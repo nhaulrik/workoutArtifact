@@ -21,7 +21,7 @@ public class MuscleTest {
 
     Muscle muscle = Muscle.builder()
         .name(MuscleEnum.CHEST.toString())
-        .bodyPart(BodyPartEnum.CHEST)
+        .bodyPart(BodyPartEnum.CHEST.name())
         .build();
 
     assertThat(nameSpecification.isSatisfiedBy(muscle), is(false));
@@ -35,7 +35,7 @@ public class MuscleTest {
 
     Muscle muscle = Muscle.builder()
         .name(chest.toString())
-        .bodyPart(BodyPartEnum.CHEST)
+        .bodyPart(BodyPartEnum.CHEST.name())
         .build();
 
     assertThat(nameSpecification.isSatisfiedBy(muscle), is(true));
@@ -49,7 +49,7 @@ public class MuscleTest {
 
     Muscle muscle = Muscle.builder()
         .name(MuscleEnum.CHEST.toString())
-        .bodyPart(BodyPartEnum.CHEST)
+        .bodyPart(BodyPartEnum.CHEST.name())
         .build();
 
     assertThat(bodyPartSpecification.isSatisfiedBy(muscle), is(false));
@@ -63,7 +63,7 @@ public class MuscleTest {
 
     Muscle muscle = Muscle.builder()
         .name(MuscleEnum.CHEST.toString())
-        .bodyPart(BodyPartEnum.CHEST)
+        .bodyPart(BodyPartEnum.CHEST.name())
         .build();
 
     assertThat(bodyPartSpecification.isSatisfiedBy(muscle), is(true));

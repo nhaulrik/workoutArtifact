@@ -50,7 +50,7 @@ public class MuscleFacadeTest {
 
     Muscle muscle = Muscle.builder()
         .name(someName)
-        .bodyPart(BodyPartEnum.SHOULDER)
+        .bodyPart(BodyPartEnum.SHOULDER.name())
         .build();
 
     MuscleDto muscleDto = mock(MuscleDto.class);
@@ -76,12 +76,18 @@ public class MuscleFacadeTest {
   @Test
   public void addMuscles() {
 
+    MuscleDto muscleDto = mock(MuscleDto.class);
+
     Muscle muscle = Muscle.builder()
         .name(MuscleEnum.BICEPS.toString())
-        .bodyPart(BodyPartEnum.SHOULDER)
+        .bodyPart(BodyPartEnum.SHOULDER.name())
+        .id(1L)
         .build();
 
-    muscleFacade.addMuscles(Arrays.asList(muscle));
+    doReturn(muscle)
+        .when(muscleMapper).toDomainObject(muscleDto);
+
+    muscleFacade.addMuscles(Arrays.asList(muscleDto));
 
     Class<ArrayList<Muscle>> muscleListClass = (Class<ArrayList<Muscle>>) (Class) ArrayList.class;
     ArgumentCaptor<ArrayList<Muscle>> arg = ArgumentCaptor.forClass(muscleListClass);
