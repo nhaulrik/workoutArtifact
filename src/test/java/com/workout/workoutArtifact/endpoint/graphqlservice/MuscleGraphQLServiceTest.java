@@ -26,19 +26,15 @@ public class MuscleGraphQLServiceTest {
   @Test
   public void addMuscles() {
 
-    Long id = 1L;
     String name = "some_name";
     String bodyPart = "some_bodypart";
-    List<Long> exerciseIds = Arrays.asList(1L, 2L, 3l);
 
     MuscleDto muscleDto = MuscleDto.builder()
         .name(name)
-        .id(id)
-        .exerciseIds(exerciseIds)
         .bodyPart(bodyPart)
         .build();
 
-    muscleGraphQLService.addMuscle(name, id, bodyPart, exerciseIds);
+    muscleGraphQLService.addMuscle(name, bodyPart);
 
     ArgumentCaptor<List<MuscleDto>> arg = ArgumentCaptor.forClass(ArrayList.class);
     verify(muscleFacade).addMuscles(arg.capture());

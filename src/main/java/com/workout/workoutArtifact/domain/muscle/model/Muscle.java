@@ -1,13 +1,12 @@
 package com.workout.workoutArtifact.domain.muscle.model;
 
-import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
 
-@Data
+@Data // TODO: 16-09-2019 change to Value
 @Builder
 public class Muscle {
 
@@ -16,19 +15,6 @@ public class Muscle {
   private String name;
 
   private String bodyPart;
-
-  private List<Long> exerciseIds;
-
-  @Value
-  public static class ExerciseIdsSpecification extends AbstractSpecification<Muscle> {
-    private final Long exerciseId;
-
-    @Override
-    public boolean isSatisfiedBy(Muscle muscle) {
-      return muscle.getExerciseIds().contains(exerciseId); // TODO: 03-09-2019 revisit contains of list
-    }
-  }
-
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<Muscle> {

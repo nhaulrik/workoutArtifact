@@ -17,10 +17,7 @@ public class MuscleDto {
   @NonNull
   private String bodyPart;
 
-  @NonNull
   private Long id;
-
-  private List<Long> exerciseIds;
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<MuscleDto> {
@@ -42,13 +39,4 @@ public class MuscleDto {
     }
   }
 
-  @Value
-  public static class ExerciseIdSpecification extends AbstractSpecification<MuscleDto> {
-    private final Long exerciseId;
-
-    @Override
-    public boolean isSatisfiedBy(MuscleDto muscleDto) {
-      return muscleDto.getExerciseIds().contains(exerciseId);
-    }
-  }
 }

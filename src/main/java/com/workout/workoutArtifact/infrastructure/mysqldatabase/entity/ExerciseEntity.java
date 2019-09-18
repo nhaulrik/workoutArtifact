@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,13 +16,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"muscleEntities", "workoutSets"})
 @Entity
 @Table(name = "exercise")
 public class ExerciseEntity {
@@ -42,10 +39,8 @@ public class ExerciseEntity {
   @Column
   private String bodyPart;
 
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  @JoinTable(name = "exercise_muscle",
-      joinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"),
-      inverseJoinColumns = @JoinColumn(name = "muscle_id", referencedColumnName = "id"))
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(name = "muscle_exercise", joinColumns = @JoinColumn(name = "exercise_id"), inverseJoinColumns = @JoinColumn(name = "muscle_id"))
   private Set<MuscleEntity> muscleEntities = new HashSet<>();
 
   @OneToMany(mappedBy = "exerciseEntity", cascade=CascadeType.ALL)
@@ -55,7 +50,6 @@ public class ExerciseEntity {
     this.name = name;
     this.isMultiJoint = isMultiJoint;
     this.muscleEntities = muscleEntities.stream().collect(Collectors.toSet());
-    this.muscleEntities.forEach(x -> x.getExerciseSet().add(this));
     this.bodyPart = primaryBodyPart;
   }
 

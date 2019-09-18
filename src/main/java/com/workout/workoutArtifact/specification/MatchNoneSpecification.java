@@ -3,10 +3,10 @@ package com.workout.workoutArtifact.specification;
 import lombok.Value;
 
 @Value
-public class MatchNoneSpecification extends AbstractSpecification {
+public class MatchNoneSpecification<T> extends AbstractSpecification<T> {
 
   @Override
-  public boolean isSatisfiedBy(Object o) {
+  public boolean isSatisfiedBy(T o) {
     return false;
   }
 }

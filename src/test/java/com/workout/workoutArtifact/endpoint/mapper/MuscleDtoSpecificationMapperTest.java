@@ -6,7 +6,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.workout.workoutArtifact.domain.muscle.model.Muscle;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
-import com.workout.workoutArtifact.endpoint.dto.MuscleDto.ExerciseIdSpecification;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto.IdsSpecification;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto.NameSpecification;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
@@ -38,17 +37,6 @@ public class MuscleDtoSpecificationMapperTest {
     Muscle.IdsSpecification resultSpecification = (Muscle.IdsSpecification) muscleDtoSpecificationMapper.toMuscleSpecification(idsSpecification);
 
     assertThat(resultSpecification.getIds(), is(Arrays.asList(id)));
-  }
-
-  @Test
-  public void mapsExerciseIdSpecification() {
-
-    Long exerciseId = 1L;
-
-    MuscleDto.ExerciseIdSpecification exerciseIdSpecification = new ExerciseIdSpecification(exerciseId);
-    Muscle.ExerciseIdsSpecification resultSpecification = (Muscle.ExerciseIdsSpecification) muscleDtoSpecificationMapper.toMuscleSpecification(exerciseIdSpecification);
-
-    assertThat(resultSpecification.getExerciseId(), is(exerciseId));
   }
 
   @Test

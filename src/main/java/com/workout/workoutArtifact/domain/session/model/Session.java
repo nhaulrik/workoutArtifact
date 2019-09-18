@@ -20,9 +20,7 @@ public class Session {
   @NonNull
   private String location;
 
-//  private List<WorkoutSet> workoutSets;
-// TODO: 03-09-2019 at most this should be a list of workoutset ids
-
+  private List<Long> workoutSetIds;
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<Session> {

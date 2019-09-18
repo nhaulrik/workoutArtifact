@@ -2,16 +2,21 @@ package com.workout.workoutArtifact.infrastructure.common.mapper;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.MuscleEntity;
 import java.util.Arrays;
+import javax.persistence.EntityManager;
 import org.junit.Test;
 
 public class ExerciseMapperTest {
 
-  private final ExerciseMapper exerciseMapper = new ExerciseMapper();
+  private final EntityManager entityManager = mock(EntityManager.class);
+  private final ExerciseMapper exerciseMapper = new ExerciseMapper(entityManager);
 
   private final String bodyPart = "some_bodypart";
   private final Boolean isMultiJoint = true;
@@ -78,6 +83,9 @@ public class ExerciseMapperTest {
 
   @Test
   public void domainToEntity() {
+
+    doReturn(mock(MuscleEntity.class))
+        .when(entityManager).getReference(MuscleEntity.class, muscleId);
 
     Exercise exercise = Exercise.builder()
         .bodyPart(bodyPart)

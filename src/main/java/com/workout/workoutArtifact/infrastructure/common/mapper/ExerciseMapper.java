@@ -3,10 +3,17 @@ package com.workout.workoutArtifact.infrastructure.common.mapper;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.MuscleEntity;
+import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ExerciseMapper {
+
+  private final EntityManager entityManager;
 
   public ExerciseDto toDto(Exercise exercise) {
     return ExerciseDto.builder()
@@ -24,6 +31,7 @@ public class ExerciseMapper {
        .name(exerciseEntity.getName())
        .isMultiJoint(exerciseEntity.getIsMultiJoint())
        .bodyPart(exerciseEntity.getBodyPart())
+       .muscleIds(exerciseEntity.getMuscleEntities().stream().map(MuscleEntity::getId).collect(Collectors.toList()))
        .build();
  }
 
@@ -43,6 +51,7 @@ public class ExerciseMapper {
     exerciseEntity.setBodyPart(exercise.getBodyPart());
     exerciseEntity.setIsMultiJoint(exercise.getIsMultiJoint());
     exerciseEntity.setId(exercise.getId());
+    exerciseEntity.setMuscleEntities(exercise.getMuscleIds().stream().map(id -> entityManager.getReference(MuscleEntity.class, id)).collect(Collectors.toSet()));
     return exerciseEntity;
   }
 

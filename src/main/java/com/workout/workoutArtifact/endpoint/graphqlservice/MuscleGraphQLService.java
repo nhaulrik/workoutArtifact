@@ -3,7 +3,7 @@ package com.workout.workoutArtifact.endpoint.graphqlservice;
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
-import com.workout.workoutArtifact.endpoint.dto.MuscleDto.ExerciseIdSpecification;
+import com.workout.workoutArtifact.endpoint.dto.MuscleDto.IdsSpecification;
 import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
@@ -28,14 +28,10 @@ public class MuscleGraphQLService implements GraphQLSPQRConfig.GraphQLService {
   @GraphQLMutation(name = "addMuscle")
   public Boolean addMuscle(
       @GraphQLArgument(name = "name") String name,
-      @GraphQLArgument(name = "id") Long id,
-      @GraphQLArgument(name = "bodyPart") String bodyPart,
-      @GraphQLArgument(name = "exerciseIds") List<Long> exerciseIds) {
+      @GraphQLArgument(name = "bodyPart") String bodyPart) {
 
     MuscleDto muscleDto = MuscleDto.builder()
         .name(name)
-        .exerciseIds(exerciseIds)
-        .id(id)
         .bodyPart(bodyPart)
         .build();
 
@@ -65,7 +61,7 @@ public class MuscleGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
     List<AbstractSpecification<MuscleDto>> muscleDtoSpecification = new ArrayList<>();
     if (names != null) { muscleDtoSpecification.add(new MuscleDto.NameSpecification(names)); }
-    if (exerciseDto.getId() != null) { muscleDtoSpecification.add(new ExerciseIdSpecification(exerciseDto.getId())); }
+    if (exerciseDto.getId() != null) { muscleDtoSpecification.add(new IdsSpecification(exerciseDto.getMuscleIds())); }
 
     AbstractSpecification aggregatedSpecification = muscleDtoSpecification.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
 

@@ -4,7 +4,6 @@ import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NonNull;
 import lombok.Value;
 
 

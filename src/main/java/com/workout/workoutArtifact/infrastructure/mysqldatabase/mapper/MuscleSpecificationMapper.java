@@ -5,7 +5,6 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.MuscleEnt
 import com.workout.workoutArtifact.specification.AndSpecification;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.specification.Specification;
-import javax.persistence.criteria.JoinType;
 import org.springframework.data.mapping.MappingException;
 import org.springframework.stereotype.Component;
 
@@ -27,8 +26,6 @@ public class MuscleSpecificationMapper {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("bodyPart").in(((Muscle.BodyPartSpecification) muscleSpecification).getBodyparts());
     } else if (muscleSpecification instanceof Muscle.IdsSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Muscle.IdsSpecification) muscleSpecification).getIds());
-    } else if (muscleSpecification instanceof Muscle.ExerciseIdsSpecification) {
-      return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.join("exerciseSet", JoinType.INNER).get("id"), ((Muscle.ExerciseIdsSpecification) muscleSpecification).getExerciseId());
     }
     throw new MappingException("Unknown specification");
   }

@@ -9,6 +9,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.Exerc
 import com.workout.workoutArtifact.specification.Specification;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -32,6 +33,7 @@ public class ExerciseEntityRepository implements ExerciseRepository {
   }
 
   @Override
+  @Transactional
   public String addExercises(List<Exercise> exercises) {
     return exercises.stream()
         .map(exerciseMapper::toEntity)
