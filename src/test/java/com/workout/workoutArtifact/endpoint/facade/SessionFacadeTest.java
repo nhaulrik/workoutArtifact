@@ -13,7 +13,6 @@ import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.endpoint.mapper.SessionDtoSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.common.mapper.SessionMapper;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
-import com.workout.workoutArtifact.specification.Specification;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -33,11 +32,15 @@ public class SessionFacadeTest {
     String expectedReturnString = "sessions added";
 
     Session session = mock(Session.class);
+    SessionDto sessionDto = mock(SessionDto.class);
+
+    doReturn(session)
+        .when(sessionMapper).toDomainObject(sessionDto);
 
     doReturn(expectedReturnString)
         .when(sessionService).addSessions(Arrays.asList(session));
 
-    String returnString = sessionFacade.addSessions(Arrays.asList(session));
+    String returnString = sessionFacade.addSessions(Arrays.asList(sessionDto));
 
     assertThat(returnString, is(equalTo(expectedReturnString)));
   }

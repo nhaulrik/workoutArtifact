@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.infrastructure.common.mapper;
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,14 @@ public class SessionMapper {
         .creationDateTime(sessionEntity.getCreationDateTime())
         .location(sessionEntity.getLocation())
         .id(sessionEntity.getId())
+        .build();
+  }
+
+  public Session toDomainObject(SessionDto sessionDto) {
+    return Session.builder()
+        .location(sessionDto.getLocation())
+        .workoutSetIds(sessionDto.getWorkoutSetIds())
+        .creationDateTime(sessionDto.getLocalDateTime() != null ? sessionDto.getLocalDateTime() : LocalDateTime.now())
         .build();
   }
 

@@ -22,7 +22,7 @@ public class WorkoutSetGraphQLService implements GraphQLSPQRConfig.GraphQLServic
   private final WorkoutSetFacade workoutSetFacade;
 
   @GraphQLMutation(name = "addWorkoutSet")
-  public String addWorkoutSet(
+  public Boolean addWorkoutSet(
       @GraphQLArgument(name = "setNumber") Integer setNumber,
       @GraphQLArgument(name = "weight") Double weight,
       @GraphQLArgument(name = "repetitions") Integer repetitions,
@@ -41,7 +41,7 @@ public class WorkoutSetGraphQLService implements GraphQLSPQRConfig.GraphQLServic
         .build();
 
     workoutSetFacade.addWorkoutSet(workoutSetDto);
-    return "WorkoutSet added";
+    return true;
   }
 
   @GraphQLQuery(name = "workoutsets")

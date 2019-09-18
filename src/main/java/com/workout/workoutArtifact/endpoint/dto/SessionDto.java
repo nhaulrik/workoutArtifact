@@ -1,6 +1,7 @@
 package com.workout.workoutArtifact.endpoint.dto;
 
 import com.workout.workoutArtifact.specification.AbstractSpecification;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,8 @@ public class SessionDto {
 
   private Long id;
   private String location;
+  private List<Long> workoutSetIds;
+  private LocalDateTime localDateTime;
 
   // TODO: 14-09-2019 implement fields for time
 

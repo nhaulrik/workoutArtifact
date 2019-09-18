@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise.BodyPartsSpecification;
+import com.workout.workoutArtifact.domain.exercise.model.Exercise.ExerciseIdSpecification;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise.NameSpecification;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
@@ -28,6 +29,18 @@ public class ExerciseDtoSpecificationMapperTest {
     assertThat(nameSpecification, is(instanceOf(Exercise.NameSpecification.class)));
     assertThat(((NameSpecification) nameSpecification).getNames().get(0), is(someName));
   }
+
+  @Test
+  public void mapsExerciseIdSpecification() {
+
+    Long exerciseId = 1L;
+
+    AbstractSpecification<Exercise> exerciseIdSpecification = exerciseDtoSpecificationMapper.toExerciseSpecification(new ExerciseDto.ExerciseIdSpecification(exerciseId));
+
+    assertThat(exerciseIdSpecification, is(instanceOf(Exercise.ExerciseIdSpecification.class)));
+    assertThat(((ExerciseIdSpecification) exerciseIdSpecification).getId(), is(exerciseId));
+  }
+
 
   @Test
   public void mapsBodyPartsSpecification() {

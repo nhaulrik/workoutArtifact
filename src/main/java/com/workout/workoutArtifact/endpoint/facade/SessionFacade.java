@@ -21,8 +21,10 @@ public class SessionFacade {
   private final SessionMapper sessionMapper;
   private final SessionDtoSpecificationMapper sessionDtoSpecificationMapper;
 
-  public String addSessions(List<Session> sessions) {
-    return sessionService.addSessions(sessions);
+  public String addSessions(List<SessionDto> sessionDtos) {
+    return sessionService.addSessions(sessionDtos.stream()
+    .map(sessionMapper::toDomainObject)
+    .collect(Collectors.toList()));
   }
 
   public List<SessionDto> getSessions(AbstractSpecification<SessionDto> sessionDtoSpecification) {
