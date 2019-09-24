@@ -22,8 +22,4 @@ public class WorkoutSetService {
    workoutSetRepository.addWorkoutSet(Arrays.asList(workoutSet));
   }
 
-  public String removeWorkoutSet(WorkoutSet workoutSet) {
-    return "not Implemented yet";
-  }
-
 }

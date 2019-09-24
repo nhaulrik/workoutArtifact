@@ -22,6 +22,7 @@ public class Exercise {
   @NonNull
   private String bodyPart;
 
+  @NonNull
   private List<Long> muscleIds;
 
   @Value
@@ -51,6 +52,16 @@ public class Exercise {
     @Override
     public boolean isSatisfiedBy(Exercise exercise) {
       return id.equals(exercise.getId());
+    }
+  }
+
+  @Value
+  public static class MultiJointSpecification extends AbstractSpecification<Exercise> {
+    private final Boolean multiJoint;
+
+    @Override
+    public boolean isSatisfiedBy(Exercise exercise) {
+      return multiJoint.equals(exercise.getIsMultiJoint());
     }
   }
 

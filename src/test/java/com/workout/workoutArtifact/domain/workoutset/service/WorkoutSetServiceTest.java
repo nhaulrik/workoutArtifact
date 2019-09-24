@@ -4,6 +4,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSetRepository;
@@ -29,4 +31,13 @@ public class WorkoutSetServiceTest {
     assertThat(workoutSetService.getWorkoutSet(specification).get(0), is(workoutSet));
   }
 
+  @Test
+  public void addWorkoutSet() {
+
+    WorkoutSet workoutSet = mock(WorkoutSet.class);
+
+    workoutSetService.addWorkoutSet(workoutSet);
+
+    verify(workoutSetRepository, times(1)).addWorkoutSet(Arrays.asList(workoutSet));
+  }
 }

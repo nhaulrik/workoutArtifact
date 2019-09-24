@@ -68,7 +68,7 @@ public class WorkoutSetView extends VerticalLayout {
           .getDataProvider();
       dataProvider.getItems().remove(workoutSetDto);
       dataProvider.refreshAll();
-      workoutSetFacade.removeWorkoutSet(workoutSetDto);
+//      workoutSetFacade.removeWorkoutSet(workoutSetDto);
     });
     return button;
   }

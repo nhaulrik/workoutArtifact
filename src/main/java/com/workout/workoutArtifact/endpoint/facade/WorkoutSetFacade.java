@@ -32,7 +32,4 @@ public class WorkoutSetFacade {
     workoutSetService.addWorkoutSet(workoutSetMapper.toDomain(workoutSetDto));
   }
 
-  public void removeWorkoutSet(WorkoutSetDto workoutSetDto) {
-    workoutSetService.removeWorkoutSet(workoutSetMapper.toDomain(workoutSetDto));
-  }
 }
