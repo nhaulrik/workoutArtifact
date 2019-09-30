@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-
 @Entity
 @Table(name = "muscle")
 public class MuscleEntity {

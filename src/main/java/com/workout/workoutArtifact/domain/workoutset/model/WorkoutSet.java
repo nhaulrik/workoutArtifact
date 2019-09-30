@@ -12,11 +12,12 @@ import lombok.Value;
 public class WorkoutSet {
 
   private Long id;
-  private int repetitions;
-  private double weight;
-  private Boolean single;
-  private int repetitionMaximum;
+  private Long sessionId;
   private Long exerciseId;
+  private Boolean single;
+  private double weight;
+  private int repetitions;
+  private int repetitionMaximum;
   private int setNumber;
 
   @Value

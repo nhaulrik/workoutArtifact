@@ -66,7 +66,7 @@ public class WorkoutSetEntityTest {
 
     List<WorkoutSetEntity> resultList = workoutSetRepository.findAll(workoutSetSpecification);
 
-    assertThat(resultList.get(0), is(workoutSetEntity));
+    assertThat(resultList.get(0).getId(), is(workoutSetEntity.getId()));
   }
 
 }

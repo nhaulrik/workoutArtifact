@@ -1,11 +1,14 @@
 package com.workout.workoutArtifact.endpoint.graphqlservice;
 
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig;
+import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
+import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto.IdsSpecification;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import io.leangen.graphql.annotations.GraphQLArgument;
+import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;
@@ -28,7 +31,8 @@ public class WorkoutSetGraphQLService implements GraphQLSPQRConfig.GraphQLServic
       @GraphQLArgument(name = "repetitions") Integer repetitions,
       @GraphQLArgument(name = "repetitionMaximum") Integer repetitionMaximum,
       @GraphQLArgument(name = "single") Boolean single,
-      @GraphQLArgument(name = "exerciseId") Long exerciseId
+      @GraphQLArgument(name = "exerciseId") Long exerciseId,
+      @GraphQLArgument(name = "sessionId") Long sessionId
   ) {
 
     WorkoutSetDto workoutSetDto = WorkoutSetDto.builder()
@@ -38,6 +42,7 @@ public class WorkoutSetGraphQLService implements GraphQLSPQRConfig.GraphQLServic
         .repetitionMaximum(repetitionMaximum)
         .single(single)
         .exerciseId(exerciseId)
+        .sessionId(sessionId)
         .build();
 
     workoutSetFacade.addWorkoutSet(workoutSetDto);
@@ -50,6 +55,21 @@ public class WorkoutSetGraphQLService implements GraphQLSPQRConfig.GraphQLServic
   ) {
 
     List<AbstractSpecification<WorkoutSetDto>> workoutSetDtoSpecifications = new ArrayList<>();
+    if (ids != null) { workoutSetDtoSpecifications.add(new WorkoutSetDto.IdsSpecification(ids)); }
+
+    AbstractSpecification aggregatedSpecification = workoutSetDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
+
+    return workoutSetFacade.getWorkoutSets(aggregatedSpecification);
+  }
+
+
+  @GraphQLQuery(name = "workoutsets")
+  public List<WorkoutSetDto> getWorkoutSet(
+      @GraphQLArgument(name = "ids") List<Long> ids,
+      @GraphQLContext SessionDto sessionDto
+  ) {
+    List<AbstractSpecification<WorkoutSetDto>> workoutSetDtoSpecifications = new ArrayList<>();
+    if (sessionDto != null) { workoutSetDtoSpecifications.add(new IdsSpecification(sessionDto.getWorkoutSetIds())); }
     if (ids != null) { workoutSetDtoSpecifications.add(new WorkoutSetDto.IdsSpecification(ids)); }
 
     AbstractSpecification aggregatedSpecification = workoutSetDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());

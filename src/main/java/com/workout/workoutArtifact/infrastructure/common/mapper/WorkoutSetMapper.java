@@ -3,15 +3,19 @@ package com.workout.workoutArtifact.infrastructure.common.mapper;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class WorkoutSetMapper {
+
+  private final EntityManager entityManager;
 
   public WorkoutSetDto toDto(WorkoutSet workoutSet) {
     return WorkoutSetDto.builder()
@@ -21,6 +25,7 @@ public class WorkoutSetMapper {
         .single(workoutSet.getSingle())
         .repetitionMaximum(workoutSet.getRepetitionMaximum())
         .id(workoutSet.getId())
+        .sessionId(workoutSet.getSessionId())
         .setNumber(workoutSet.getSetNumber())
         .build();
   }
@@ -33,6 +38,7 @@ public class WorkoutSetMapper {
         .repetitionMaximum(workoutSetDto.getRepetitionMaximum())
         .setNumber(workoutSetDto.getSetNumber())
         .exerciseId(workoutSetDto.getExerciseId())
+        .sessionId(workoutSetDto.getSessionId())
         .id(workoutSetDto.getId())
         .build();
   }
@@ -46,6 +52,7 @@ public class WorkoutSetMapper {
         .exerciseId(workoutSetEntity.getExerciseEntity().getId())
         .id(workoutSetEntity.getId())
         .setNumber(workoutSetEntity.getSetNumber())
+        .sessionId(workoutSetEntity.getSessionEntity().getId())
         .build();
   }
 
@@ -58,9 +65,8 @@ public class WorkoutSetMapper {
     workoutSetEntity.setSetNumber(workoutSet.getSetNumber());
     workoutSetEntity.setId(workoutSet.getId());
 
-    ExerciseEntity exerciseEntity = new ExerciseEntity();
-    exerciseEntity.setId(workoutSet.getExerciseId());
-    workoutSetEntity.setExerciseEntity(exerciseEntity);
+    workoutSetEntity.setExerciseEntity(entityManager.getReference(ExerciseEntity.class, workoutSet.getExerciseId()));
+    workoutSetEntity.setSessionEntity(entityManager.getReference(SessionEntity.class, workoutSet.getSessionId()));
 
     return workoutSetEntity;
   }

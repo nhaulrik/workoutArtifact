@@ -23,7 +23,7 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
   private final SessionFacade sessionFacade;
 
-  @GraphQLQuery(name = "getSessions")
+  @GraphQLQuery(name = "sessions")
   public List<SessionDto> getSessions(
       @GraphQLArgument(name = "ids") List<Long> ids,
       @GraphQLArgument(name = "locations") List<String> locations
@@ -49,7 +49,7 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
     SessionDto sessionDto = SessionDto.builder()
         .location(location)
         .localDateTime(LocalDateTime.now()) // TODO: 18-09-2019 do some mapping from real argument here
-        .workoutSetIds(workoutSetIds)
+        .workoutSetIds(workoutSetIds != null ? workoutSetIds : new ArrayList<>())
         .build();
 
     sessionFacade.addSessions(Arrays.asList(sessionDto));

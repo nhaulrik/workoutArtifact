@@ -3,9 +3,11 @@ package com.workout.workoutArtifact.infrastructure.common.mapper;
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,10 +15,13 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SessionMapper {
 
+  private final EntityManager entityManager;
+
   public SessionEntity toEntity(Session session) {
     SessionEntity sessionEntity = new SessionEntity();
     sessionEntity.setCreationDateTime(session.getCreationDateTime());
     sessionEntity.setLocation(session.getLocation());
+    sessionEntity.setWorkoutSetEntities(session.getWorkoutSetIds().stream().map(id -> entityManager.getReference(WorkoutSetEntity.class, id)).collect(Collectors.toSet()));
     return sessionEntity;
   }
 
@@ -31,6 +36,7 @@ public class SessionMapper {
         .creationDateTime(sessionEntity.getCreationDateTime())
         .location(sessionEntity.getLocation())
         .id(sessionEntity.getId())
+        .workoutSetIds(sessionEntity.getWorkoutSetEntities().stream().map(WorkoutSetEntity::getId).collect(Collectors.toList()))
         .build();
   }
 
@@ -46,6 +52,7 @@ public class SessionMapper {
     return SessionDto.builder()
         .id(session.getId())
         .location(session.getLocation())
+        .workoutSetIds(session.getWorkoutSetIds())
         .build();
   }
 }

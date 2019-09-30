@@ -3,7 +3,6 @@ package com.workout.workoutArtifact.endpoint.dto;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.List;
 import lombok.Builder;
-import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.Value;
@@ -13,6 +12,9 @@ import lombok.Value;
 public class WorkoutSetDto {
 
   private Long id;
+
+  @NonNull
+  private Long sessionId;
 
   @NonNull
   private Long exerciseId;
