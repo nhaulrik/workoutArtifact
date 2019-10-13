@@ -5,7 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.workout.workoutArtifact.domain.exercise.model.Exercise.BodyPartsSpecification;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise.ExerciseIdSpecification;
-import com.workout.workoutArtifact.domain.exercise.model.Exercise.MultiJointSpecification;
+import com.workout.workoutArtifact.domain.exercise.model.Exercise.IsCompoundSpecification;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise.NameSpecification;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class ExerciseTest {
     Exercise exercise = Exercise.builder()
         .muscleIds(new ArrayList<>())
         .name(name)
-        .isMultiJoint(true)
+        .isCompound(true)
         .bodyPart("some_bodypart")
         .build();
 
@@ -39,7 +39,7 @@ public class ExerciseTest {
     Exercise exercise = Exercise.builder()
         .muscleIds(new ArrayList<>())
         .name("name")
-        .isMultiJoint(true)
+        .isCompound(true)
         .bodyPart(bodyPart)
         .build();
 
@@ -58,7 +58,7 @@ public class ExerciseTest {
         .id(exerciseId)
         .muscleIds(new ArrayList<>())
         .name("name")
-        .isMultiJoint(true)
+        .isCompound(true)
         .bodyPart("bodypart")
         .build();
 
@@ -69,21 +69,21 @@ public class ExerciseTest {
   }
 
   @Test
-  public void multiJointSpecification() {
+  public void isCompoundSpecification() {
 
-    Boolean isMultiJoint = true;
+    Boolean isCompound = true;
 
     Exercise exercise = Exercise.builder()
         .muscleIds(new ArrayList<>())
         .name("name")
-        .isMultiJoint(isMultiJoint)
+        .isCompound(isCompound)
         .bodyPart("bodypart")
         .build();
 
-    Exercise.MultiJointSpecification multiJointSpecification = new MultiJointSpecification(isMultiJoint);
+    IsCompoundSpecification isCompoundSpecification = new IsCompoundSpecification(isCompound);
 
-    assertThat(multiJointSpecification.isSatisfiedBy(exercise), is(true));
-    assertThat(multiJointSpecification.getMultiJoint(), is(isMultiJoint));
+    assertThat(isCompoundSpecification.isSatisfiedBy(exercise), is(true));
+    assertThat(isCompoundSpecification.getIsCompound(), is(isCompound));
   }
 
 }

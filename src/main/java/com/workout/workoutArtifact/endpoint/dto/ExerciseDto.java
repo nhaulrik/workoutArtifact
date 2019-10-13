@@ -22,7 +22,7 @@ public class ExerciseDto {
   private String bodyPart;
 
   @NonNull
-  private Boolean isMultiJoint;
+  private Boolean isCompound;
 
   @NonNull
   private List<Long> muscleIds;
@@ -38,12 +38,12 @@ public class ExerciseDto {
   }
 
   @Value
-  public static class IsMultiJointSpecification extends AbstractSpecification<ExerciseDto> {
-    private final Boolean isMultiJoint;
+  public static class IsCompoundSpecification extends AbstractSpecification<ExerciseDto> {
+    private final Boolean isCompound;
 
     @Override
     public boolean isSatisfiedBy(ExerciseDto exerciseDto) {
-      return isMultiJoint.equals(exerciseDto.getIsMultiJoint());
+      return isCompound.equals(exerciseDto.getIsCompound());
     }
   }
 

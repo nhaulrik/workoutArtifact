@@ -32,7 +32,7 @@ public class ExerciseGraphQLServiceTest {
         .id(0L)
         .name(someExerciseName)
         .bodyPart("")
-        .isMultiJoint(true)
+        .isCompound(true)
         .muscleIds(new ArrayList<>())
         .build();
 
@@ -40,7 +40,7 @@ public class ExerciseGraphQLServiceTest {
         exerciseDto.getId(),
         exerciseDto.getName(),
         exerciseDto.getBodyPart(),
-        exerciseDto.getIsMultiJoint(),
+        exerciseDto.getIsCompound(),
         exerciseDto.getMuscleIds()
     );
 
@@ -59,7 +59,7 @@ public class ExerciseGraphQLServiceTest {
         .id(0L)
         .name(someExerciseName)
         .bodyPart("")
-        .isMultiJoint(true)
+        .isCompound(true)
         .muscleIds(new ArrayList<>())
         .build();
 
@@ -82,7 +82,7 @@ public class ExerciseGraphQLServiceTest {
         .bodyPart(someBodyPart)
         .name("")
         .id(1L)
-        .isMultiJoint(true)
+        .isCompound(true)
         .muscleIds(new ArrayList<>())
         .build();
 

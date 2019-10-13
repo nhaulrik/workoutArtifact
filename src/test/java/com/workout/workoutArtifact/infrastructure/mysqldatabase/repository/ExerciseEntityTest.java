@@ -31,7 +31,7 @@ public class ExerciseEntityTest {
   public void saveAndFindExerciseEntity() {
 
     ExerciseEntity exerciseEntity = new ExerciseEntity();
-    exerciseEntity.setIsMultiJoint(true);
+    exerciseEntity.setIsCompound(true);
     exerciseEntity.setName("TEST_EXERCISE");
 
     exerciseRepository.save(exerciseEntity);

@@ -56,7 +56,7 @@ public class ExerciseFacadeTest {
     Exercise exercise = Exercise.builder()
         .id(0L)
         .name(someExerciseName)
-        .isMultiJoint(false)
+        .isCompound(false)
         .muscleIds(new ArrayList<>())
         .bodyPart(BodyPartEnum.CHEST.toString())
         .build();

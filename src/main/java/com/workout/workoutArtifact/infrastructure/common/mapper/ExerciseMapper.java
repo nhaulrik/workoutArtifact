@@ -19,7 +19,7 @@ public class ExerciseMapper {
     return ExerciseDto.builder()
         .id(exercise.getId())
         .name(exercise.getName())
-        .isMultiJoint(exercise.getIsMultiJoint())
+        .isCompound(exercise.getIsCompound())
         .bodyPart(exercise.getBodyPart())
         .muscleIds(exercise.getMuscleIds())
         .build();
@@ -29,7 +29,7 @@ public class ExerciseMapper {
     return Exercise.builder()
         .id(exerciseEntity.getId())
         .name(exerciseEntity.getName())
-        .isMultiJoint(exerciseEntity.getIsMultiJoint())
+        .isCompound(exerciseEntity.getIsCompound())
         .bodyPart(exerciseEntity.getBodyPart())
         .muscleIds(exerciseEntity.getMuscleEntities().stream().map(MuscleEntity::getId).collect(Collectors.toList()))
         .build();
@@ -39,7 +39,7 @@ public class ExerciseMapper {
     return Exercise.builder()
         .id(exerciseDto.getId())
         .name(exerciseDto.getName())
-        .isMultiJoint(exerciseDto.getIsMultiJoint())
+        .isCompound(exerciseDto.getIsCompound())
         .bodyPart(exerciseDto.getBodyPart())
         .muscleIds(exerciseDto.getMuscleIds())
         .build();
@@ -49,7 +49,7 @@ public class ExerciseMapper {
     ExerciseEntity exerciseEntity = new ExerciseEntity();
     exerciseEntity.setName(exercise.getName());
     exerciseEntity.setBodyPart(exercise.getBodyPart());
-    exerciseEntity.setIsMultiJoint(exercise.getIsMultiJoint());
+    exerciseEntity.setIsCompound(exercise.getIsCompound());
     exerciseEntity.setId(exercise.getId());
     exerciseEntity.setMuscleEntities(exercise.getMuscleIds().stream().map(id -> entityManager.getReference(MuscleEntity.class, id)).collect(Collectors.toSet()));
     return exerciseEntity;

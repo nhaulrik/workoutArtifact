@@ -2,6 +2,7 @@ package com.workout.workoutArtifact.endpoint.graphqlservice;
 
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
+import com.workout.workoutArtifact.endpoint.dto.ExerciseDto.IsCompoundSpecification;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
@@ -28,7 +29,7 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService{
       @GraphQLArgument(name = "id") Long id,
       @GraphQLArgument(name = "name") String name,
       @GraphQLArgument(name = "bodyPart") String bodyPart,
-      @GraphQLArgument(name = "isMultiJoint") Boolean isMultiJoint,
+      @GraphQLArgument(name = "isCompound") Boolean isCompound,
       @GraphQLArgument(name = "muscleIds") List<Long> muscleIds
   ) {
 
@@ -36,7 +37,7 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService{
         .id(id)
         .name(name)
         .bodyPart(bodyPart)
-        .isMultiJoint(isMultiJoint)
+        .isCompound(isCompound)
         .muscleIds(muscleIds)
         .build();
 
@@ -47,13 +48,13 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService{
   @GraphQLQuery(name = "exercises")
   public List<ExerciseDto> getExercises(
       @GraphQLArgument(name = "names") List<String> names,
-      @GraphQLArgument(name = "isMultiJoint") Boolean isMultiJoint,
+      @GraphQLArgument(name = "isCompound") Boolean isCompound,
       @GraphQLArgument(name = "bodyparts") List<String> bodyParts
   ) {
 
     List<AbstractSpecification<ExerciseDto>> exerciseDtoSpecifications = new ArrayList<>();
     if (names != null) { exerciseDtoSpecifications.add(new ExerciseDto.NameSpecification(names)); }
-    if (isMultiJoint != null) { exerciseDtoSpecifications.add(new ExerciseDto.IsMultiJointSpecification(isMultiJoint)); }
+    if (isCompound != null) { exerciseDtoSpecifications.add(new IsCompoundSpecification(isCompound)); }
     if (bodyParts != null) { exerciseDtoSpecifications.add(new ExerciseDto.BodyPartsSpecification(bodyParts)); }
 
     AbstractSpecification aggregatedSpecification = exerciseDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
@@ -65,14 +66,14 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService{
   public List<ExerciseDto> getExercises(
       @GraphQLContext WorkoutSetDto workoutSetDto,
       @GraphQLArgument(name = "names") List<String> names,
-      @GraphQLArgument(name = "isMultiJoint") Boolean isMultiJoint,
+      @GraphQLArgument(name = "isCompound") Boolean isCompound,
       @GraphQLArgument(name = "bodyparts") List<String> bodyParts
       ) {
 
     List<AbstractSpecification<ExerciseDto>> exerciseDtoSpecifications = new ArrayList<>();
     if (workoutSetDto != null) { exerciseDtoSpecifications.add(new ExerciseDto.ExerciseIdSpecification(workoutSetDto.getExerciseId())); }
     if (names != null) { exerciseDtoSpecifications.add(new ExerciseDto.NameSpecification(names)); }
-    if (isMultiJoint!= null) { exerciseDtoSpecifications.add(new ExerciseDto.IsMultiJointSpecification(isMultiJoint)); }
+    if (isCompound!= null) { exerciseDtoSpecifications.add(new IsCompoundSpecification(isCompound)); }
     if (bodyParts != null) { exerciseDtoSpecifications.add(new ExerciseDto.BodyPartsSpecification(bodyParts)); }
 
     AbstractSpecification aggregatedSpecification = exerciseDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());

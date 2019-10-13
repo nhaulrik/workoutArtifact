@@ -19,7 +19,7 @@ public class ExerciseMapperTest {
   private final ExerciseMapper exerciseMapper = new ExerciseMapper(entityManager);
 
   private final String bodyPart = "some_bodypart";
-  private final Boolean isMultiJoint = true;
+  private final Boolean isCompound = true;
   private final String someName = "some_name";
   private final Long id = 1L;
   private final Long muscleId = 13L;
@@ -29,7 +29,7 @@ public class ExerciseMapperTest {
 
     Exercise exercise = Exercise.builder()
     .bodyPart(bodyPart)
-    .isMultiJoint(isMultiJoint)
+    .isCompound(isCompound)
     .name(someName)
     .id(id)
     .muscleIds(Arrays.asList(muscleId))
@@ -40,7 +40,7 @@ public class ExerciseMapperTest {
     assertThat(exerciseDto.getName(), is(exercise.getName()));
     assertThat(exerciseDto.getBodyPart(), is(exercise.getBodyPart()));
     assertThat(exerciseDto.getId(), is(exercise.getId()));
-    assertThat(exerciseDto.getIsMultiJoint(), is(exercise.getIsMultiJoint()));
+    assertThat(exerciseDto.getIsCompound(), is(exercise.getIsCompound()));
     assertThat(exerciseDto.getMuscleIds(), is(exercise.getMuscleIds()));
   }
 
@@ -49,14 +49,14 @@ public class ExerciseMapperTest {
 
     ExerciseEntity exerciseEntity = new ExerciseEntity();
     exerciseEntity.setId(id);
-    exerciseEntity.setIsMultiJoint(isMultiJoint);
+    exerciseEntity.setIsCompound(isCompound);
     exerciseEntity.setName(someName);
     exerciseEntity.setBodyPart(bodyPart);
 
     Exercise exercise = exerciseMapper.toDomainObject(exerciseEntity);
 
     assertThat(exercise.getId(), is(exerciseEntity.getId()));
-    assertThat(exercise.getIsMultiJoint(), is(exerciseEntity.getIsMultiJoint()));
+    assertThat(exercise.getIsCompound(), is(exerciseEntity.getIsCompound()));
     assertThat(exercise.getName(), is(exerciseEntity.getName()));
     assertThat(exercise.getBodyPart(), is(exerciseEntity.getBodyPart()));
   }
@@ -67,7 +67,7 @@ public class ExerciseMapperTest {
     ExerciseDto exerciseDto = ExerciseDto.builder()
         .id(id)
         .bodyPart(bodyPart)
-        .isMultiJoint(isMultiJoint)
+        .isCompound(isCompound)
         .name(someName)
         .muscleIds(Arrays.asList(muscleId))
         .build();
@@ -76,7 +76,7 @@ public class ExerciseMapperTest {
 
     assertThat(exercise.getBodyPart(), is(exerciseDto.getBodyPart()));
     assertThat(exercise.getName(), is(exerciseDto.getName()));
-    assertThat(exercise.getIsMultiJoint(), is(exerciseDto.getIsMultiJoint()));
+    assertThat(exercise.getIsCompound(), is(exerciseDto.getIsCompound()));
     assertThat(exercise.getMuscleIds(), is(exerciseDto.getMuscleIds()));
     assertThat(exercise.getId(), is(exerciseDto.getId()));
   }
@@ -89,7 +89,7 @@ public class ExerciseMapperTest {
 
     Exercise exercise = Exercise.builder()
         .bodyPart(bodyPart)
-        .isMultiJoint(isMultiJoint)
+        .isCompound(isCompound)
         .name(someName)
         .id(id)
         .muscleIds(Arrays.asList(muscleId))
@@ -98,7 +98,7 @@ public class ExerciseMapperTest {
     ExerciseEntity exerciseEntity = exerciseMapper.toEntity(exercise);
 
     assertThat(exerciseEntity.getId(), is(exercise.getId()));
-    assertThat(exerciseEntity.getIsMultiJoint(), is(exercise.getIsMultiJoint()));
+    assertThat(exerciseEntity.getIsCompound(), is(exercise.getIsCompound()));
     assertThat(exerciseEntity.getBodyPart(), is(exercise.getBodyPart()));
     assertThat(exerciseEntity.getName(), is(exercise.getName()));
   }

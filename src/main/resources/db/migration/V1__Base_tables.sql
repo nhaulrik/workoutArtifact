@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS `exercise`;
 CREATE TABLE `exercise` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `body_part` varchar(255) DEFAULT NULL,
-  `is_multi_joint` bit(1) DEFAULT NULL,
+  `is_compound` bit(1) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

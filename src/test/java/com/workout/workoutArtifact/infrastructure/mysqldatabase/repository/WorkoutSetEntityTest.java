@@ -37,7 +37,7 @@ public class WorkoutSetEntityTest {
   @Before
   public void before() {
     mockedExerciseEntity = new ExerciseEntity();
-    mockedExerciseEntity.setIsMultiJoint(true);
+    mockedExerciseEntity.setIsCompound(true);
     mockedExerciseEntity.setName("TEST_EXERCISE");
     exerciseRepository.save(mockedExerciseEntity);
   }

@@ -34,7 +34,7 @@ public class ExerciseEntity {
   private String name;
 
   @Column
-  private Boolean isMultiJoint;
+  private Boolean isCompound;
 
   @Column
   private String bodyPart;
@@ -45,16 +45,5 @@ public class ExerciseEntity {
 
   @OneToMany(mappedBy = "exerciseEntity", cascade = CascadeType.ALL)
   private Set<WorkoutSetEntity> workoutSets = new HashSet<>();
-
-  public ExerciseEntity(String name, Boolean isMultiJoint, List<MuscleEntity> muscleEntities, String primaryBodyPart) {
-    this.name = name;
-    this.isMultiJoint = isMultiJoint;
-    this.muscleEntities = muscleEntities.stream().collect(Collectors.toSet());
-    this.bodyPart = primaryBodyPart;
-  }
-
-  public ExerciseEntity(Long id) {
-    this.id = id;
-  }
 
 }

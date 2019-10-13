@@ -16,13 +16,15 @@ public class R__Exercises extends BaseJavaMigration {
   public void migrate(Context context) {
 
     addExercise("Barbell Chest Press", "Chest", true, "Biceps", "Triceps");
+    addExercise("Dumbell Pullover", "Chest", false, "Lats", "Sternal Pectorals");
+    addExercise("Dumbell One Arm Row", "Back", true, "Inner Back", "Biceps");
   }
 
-  private void addExercise(String name, String bodyPart, Boolean isMultiJoint, String ...muscleNames) {
+  private void addExercise(String name, String bodyPart, Boolean isCompound, String ...muscleNames) {
     ExerciseEntity exerciseEntity = new ExerciseEntity();
     exerciseEntity.setName(name);
     exerciseEntity.setBodyPart(bodyPart);
-    exerciseEntity.setIsMultiJoint(isMultiJoint);
+    exerciseEntity.setIsCompound(isCompound);
     exerciseEntity.setMuscleEntities(muscleJpaRepository.findAllByNameIn(muscleNames).stream().collect(Collectors.toSet()));
     exerciseJpaRepository.save(exerciseEntity);
   }

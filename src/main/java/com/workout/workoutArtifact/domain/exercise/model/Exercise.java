@@ -17,7 +17,7 @@ public class Exercise {
   private String name;
 
   @NonNull
-  private Boolean isMultiJoint;
+  private Boolean isCompound;
 
   @NonNull
   private String bodyPart;
@@ -56,12 +56,12 @@ public class Exercise {
   }
 
   @Value
-  public static class MultiJointSpecification extends AbstractSpecification<Exercise> {
-    private final Boolean multiJoint;
+  public static class IsCompoundSpecification extends AbstractSpecification<Exercise> {
+    private final Boolean isCompound;
 
     @Override
     public boolean isSatisfiedBy(Exercise exercise) {
-      return multiJoint.equals(exercise.getIsMultiJoint());
+      return isCompound.equals(exercise.getIsCompound());
     }
   }
 

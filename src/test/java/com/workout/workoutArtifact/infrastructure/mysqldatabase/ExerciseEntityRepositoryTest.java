@@ -16,6 +16,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.Exerc
 import com.workout.workoutArtifact.specification.Specification;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import org.junit.Test;
 
@@ -38,7 +39,7 @@ public class ExerciseEntityRepositoryTest {
         .id(0L)
         .name(exerciseName)
         .muscleIds(new ArrayList<>())
-        .isMultiJoint(true)
+        .isCompound(true)
         .bodyPart(BodyPartEnum.CHEST.toString())
         .build();
     
@@ -64,7 +65,11 @@ public class ExerciseEntityRepositoryTest {
 
     Exercise exercise = mock(Exercise.class);
 
-    ExerciseEntity exerciseEntity = new ExerciseEntity(someExerciseName, false, new ArrayList(), "");
+    ExerciseEntity exerciseEntity = new ExerciseEntity();
+    exerciseEntity.setName(someExerciseName);
+    exerciseEntity.setIsCompound(false);
+    exerciseEntity.setMuscleEntities(new HashSet<>());
+    exerciseEntity.setId(1337L);
 
     doReturn(exerciseEntity)
         .when(exerciseMapper).toEntity(exercise);
