@@ -25,17 +25,17 @@ public class ExerciseMapper {
         .build();
   }
 
- public Exercise toDomainObject(ExerciseEntity exerciseEntity) {
-   return Exercise.builder()
-       .id(exerciseEntity.getId())
-       .name(exerciseEntity.getName())
-       .isMultiJoint(exerciseEntity.getIsMultiJoint())
-       .bodyPart(exerciseEntity.getBodyPart())
-       .muscleIds(exerciseEntity.getMuscleEntities().stream().map(MuscleEntity::getId).collect(Collectors.toList()))
-       .build();
- }
+  public Exercise toDomainObject(ExerciseEntity exerciseEntity) {
+    return Exercise.builder()
+        .id(exerciseEntity.getId())
+        .name(exerciseEntity.getName())
+        .isMultiJoint(exerciseEntity.getIsMultiJoint())
+        .bodyPart(exerciseEntity.getBodyPart())
+        .muscleIds(exerciseEntity.getMuscleEntities().stream().map(MuscleEntity::getId).collect(Collectors.toList()))
+        .build();
+  }
 
- public Exercise toDomainObject(ExerciseDto exerciseDto) {
+  public Exercise toDomainObject(ExerciseDto exerciseDto) {
     return Exercise.builder()
         .id(exerciseDto.getId())
         .name(exerciseDto.getName())
@@ -43,7 +43,7 @@ public class ExerciseMapper {
         .bodyPart(exerciseDto.getBodyPart())
         .muscleIds(exerciseDto.getMuscleIds())
         .build();
- }
+  }
 
   public ExerciseEntity toEntity(Exercise exercise) {
     ExerciseEntity exerciseEntity = new ExerciseEntity();

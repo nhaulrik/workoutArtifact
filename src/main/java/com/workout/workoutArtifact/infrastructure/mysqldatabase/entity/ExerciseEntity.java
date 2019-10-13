@@ -39,11 +39,11 @@ public class ExerciseEntity {
   @Column
   private String bodyPart;
 
-  @ManyToMany(cascade = CascadeType.ALL)
+  @ManyToMany
   @JoinTable(name = "muscle_exercise", joinColumns = @JoinColumn(name = "exercise_id"), inverseJoinColumns = @JoinColumn(name = "muscle_id"))
   private Set<MuscleEntity> muscleEntities = new HashSet<>();
 
-  @OneToMany(mappedBy = "exerciseEntity", cascade=CascadeType.ALL)
+  @OneToMany(mappedBy = "exerciseEntity", cascade = CascadeType.ALL)
   private Set<WorkoutSetEntity> workoutSets = new HashSet<>();
 
   public ExerciseEntity(String name, Boolean isMultiJoint, List<MuscleEntity> muscleEntities, String primaryBodyPart) {
@@ -56,4 +56,5 @@ public class ExerciseEntity {
   public ExerciseEntity(Long id) {
     this.id = id;
   }
+
 }
