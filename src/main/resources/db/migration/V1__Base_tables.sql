@@ -26,18 +26,21 @@ CREATE TABLE `muscle` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Table structure for table `muscle_exercise`
+-- Table structure for table `exercise_muscle_relation`
 --
 
-DROP TABLE IF EXISTS `muscle_exercise`;
+DROP TABLE IF EXISTS `exercise_muscle_relation`;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `muscle_exercise` (
-  `exercise_id` bigint(20) NOT NULL,
-  `muscle_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`exercise_id`,`muscle_id`),
-  KEY `FKmrwy4hl3oah17q7tkrft87mq5` (`muscle_id`),
-  CONSTRAINT `FKlhsxiqybbk4syf9j6rm6wt9yw` FOREIGN KEY (`exercise_id`) REFERENCES `exercise` (`id`),
-  CONSTRAINT `FKmrwy4hl3oah17q7tkrft87mq5` FOREIGN KEY (`muscle_id`) REFERENCES `muscle` (`id`)
+CREATE TABLE `exercise_muscle_relation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `ratio` int(11) DEFAULT NULL,
+  `exercise_entity_id` bigint(20) DEFAULT NULL,
+  `muscle_entity_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKkxfradqvr65o99d2jcm9kf7qu` (`exercise_entity_id`),
+  KEY `FKehi12yt81x1omut7w2mwkw8aa` (`muscle_entity_id`),
+  CONSTRAINT `FKehi12yt81x1omut7w2mwkw8aa` FOREIGN KEY (`muscle_entity_id`) REFERENCES `muscle` (`id`),
+  CONSTRAINT `FKkxfradqvr65o99d2jcm9kf7qu` FOREIGN KEY (`exercise_entity_id`) REFERENCES `exercise` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
