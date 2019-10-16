@@ -33,7 +33,7 @@ public class ExerciseGraphQLServiceTest {
         .name(someExerciseName)
         .bodyPart("")
         .isCompound(true)
-        .muscleIds(new ArrayList<>())
+        .muscleRelations(new ArrayList<>())
         .build();
 
     exerciseGraphQLService.addExercise(
@@ -41,7 +41,7 @@ public class ExerciseGraphQLServiceTest {
         exerciseDto.getName(),
         exerciseDto.getBodyPart(),
         exerciseDto.getIsCompound(),
-        exerciseDto.getMuscleIds()
+        exerciseDto.getMuscleRelations()
     );
 
     ArgumentCaptor<ExerciseDto> arg = ArgumentCaptor.forClass(ExerciseDto.class);
@@ -60,7 +60,7 @@ public class ExerciseGraphQLServiceTest {
         .name(someExerciseName)
         .bodyPart("")
         .isCompound(true)
-        .muscleIds(new ArrayList<>())
+        .muscleRelations(new ArrayList<>())
         .build();
 
     doReturn(Arrays.asList(exerciseDto))
@@ -83,7 +83,7 @@ public class ExerciseGraphQLServiceTest {
         .name("")
         .id(1L)
         .isCompound(true)
-        .muscleIds(new ArrayList<>())
+        .muscleRelations(new ArrayList<>())
         .build();
 
     doReturn(Arrays.asList(exerciseDto))

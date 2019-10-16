@@ -2,6 +2,7 @@ package com.workout.workoutArtifact.endpoint.graphqlservice;
 
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
+import com.workout.workoutArtifact.endpoint.dto.ExerciseDto.MuscleRelation;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto.IdsSpecification;
 import com.workout.workoutArtifact.endpoint.facade.MuscleFacade;
@@ -14,6 +15,7 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -61,7 +63,7 @@ public class MuscleGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
     List<AbstractSpecification<MuscleDto>> muscleDtoSpecification = new ArrayList<>();
     if (names != null) { muscleDtoSpecification.add(new MuscleDto.NameSpecification(names)); }
-    if (exerciseDto.getId() != null) { muscleDtoSpecification.add(new IdsSpecification(exerciseDto.getMuscleIds())); }
+    if (exerciseDto.getId() != null) { muscleDtoSpecification.add(new IdsSpecification(exerciseDto.getMuscleRelations().stream().map(MuscleRelation::getMuscleId).collect(Collectors.toList()))); }
 
     AbstractSpecification aggregatedSpecification = muscleDtoSpecification.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
 

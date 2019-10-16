@@ -23,10 +23,18 @@ public class Exercise {
   private String bodyPart;
 
   @NonNull
-  private List<Long> muscleIds;
+  private List<MuscleRelation> muscleRelations;
+
+  @Value
+  public static class MuscleRelation {
+
+    private final Long muscleId;
+    private final int utilization;
+  }
 
   @Value
   public static class NameSpecification extends AbstractSpecification<Exercise> {
+
     private final List<String> names;
 
     @Override
@@ -37,6 +45,7 @@ public class Exercise {
 
   @Value
   public static class BodyPartsSpecification extends AbstractSpecification<Exercise> {
+
     private final List<String> bodyParts;
 
     @Override
@@ -47,6 +56,7 @@ public class Exercise {
 
   @Value
   public static class ExerciseIdSpecification extends AbstractSpecification<Exercise> {
+
     private final Long id;
 
     @Override
@@ -57,6 +67,7 @@ public class Exercise {
 
   @Value
   public static class IsCompoundSpecification extends AbstractSpecification<Exercise> {
+
     private final Boolean isCompound;
 
     @Override

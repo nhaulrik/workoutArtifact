@@ -2,10 +2,8 @@ package com.workout.workoutArtifact.endpoint.facade;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockingDetails;
 import static org.mockito.Mockito.verify;
 
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
@@ -15,7 +13,6 @@ import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.mapper.ExerciseDtoSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.common.enums.BodyPartEnum;
 import com.workout.workoutArtifact.infrastructure.common.mapper.ExerciseMapper;
-import com.workout.workoutArtifact.specification.Specification;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -57,7 +54,7 @@ public class ExerciseFacadeTest {
         .id(0L)
         .name(someExerciseName)
         .isCompound(false)
-        .muscleIds(new ArrayList<>())
+        .muscleRelations(new ArrayList<>())
         .bodyPart(BodyPartEnum.CHEST.toString())
         .build();
 

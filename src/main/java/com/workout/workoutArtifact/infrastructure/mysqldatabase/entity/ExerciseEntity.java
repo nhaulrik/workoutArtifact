@@ -1,21 +1,17 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "exercise")
+@EqualsAndHashCode(exclude="exerciseMuscleRelationEntities")
 public class ExerciseEntity {
 
   @Id
@@ -39,9 +36,8 @@ public class ExerciseEntity {
   @Column
   private String bodyPart;
 
-  @ManyToMany
-  @JoinTable(name = "muscle_exercise", joinColumns = @JoinColumn(name = "exercise_id"), inverseJoinColumns = @JoinColumn(name = "muscle_id"))
-  private Set<MuscleEntity> muscleEntities = new HashSet<>();
+  @OneToMany(mappedBy = "exerciseEntity", cascade = CascadeType.ALL)
+  private Set<ExerciseMuscleRelationEntity> exerciseMuscleRelationEntities = new HashSet<>();
 
   @OneToMany(mappedBy = "exerciseEntity", cascade = CascadeType.ALL)
   private Set<WorkoutSetEntity> workoutSets = new HashSet<>();

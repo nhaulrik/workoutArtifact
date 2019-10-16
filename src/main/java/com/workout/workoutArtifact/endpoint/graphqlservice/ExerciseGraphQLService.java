@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.endpoint.graphqlservice;
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto.IsCompoundSpecification;
+import com.workout.workoutArtifact.endpoint.dto.ExerciseDto.MuscleRelation;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService{
+public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
   private final ExerciseFacade exerciseFacade;
 
@@ -30,7 +31,7 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService{
       @GraphQLArgument(name = "name") String name,
       @GraphQLArgument(name = "bodyPart") String bodyPart,
       @GraphQLArgument(name = "isCompound") Boolean isCompound,
-      @GraphQLArgument(name = "muscleIds") List<Long> muscleIds
+      @GraphQLArgument(name = "muscleRelations") List<MuscleRelation> muscleRelations
   ) {
 
     ExerciseDto exerciseDto = ExerciseDto.builder()
@@ -38,7 +39,7 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService{
         .name(name)
         .bodyPart(bodyPart)
         .isCompound(isCompound)
-        .muscleIds(muscleIds)
+        .muscleRelations(muscleRelations)
         .build();
 
     exerciseFacade.addExercise(exerciseDto);
@@ -68,7 +69,7 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService{
       @GraphQLArgument(name = "names") List<String> names,
       @GraphQLArgument(name = "isCompound") Boolean isCompound,
       @GraphQLArgument(name = "bodyparts") List<String> bodyParts
-      ) {
+  ) {
 
     List<AbstractSpecification<ExerciseDto>> exerciseDtoSpecifications = new ArrayList<>();
     if (workoutSetDto != null) { exerciseDtoSpecifications.add(new ExerciseDto.ExerciseIdSpecification(workoutSetDto.getExerciseId())); }

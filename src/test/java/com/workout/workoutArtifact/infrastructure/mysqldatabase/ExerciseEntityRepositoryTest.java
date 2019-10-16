@@ -38,7 +38,7 @@ public class ExerciseEntityRepositoryTest {
     Exercise exercise = Exercise.builder()
         .id(0L)
         .name(exerciseName)
-        .muscleIds(new ArrayList<>())
+        .muscleRelations(new ArrayList<>())
         .isCompound(true)
         .bodyPart(BodyPartEnum.CHEST.toString())
         .build();
@@ -68,7 +68,7 @@ public class ExerciseEntityRepositoryTest {
     ExerciseEntity exerciseEntity = new ExerciseEntity();
     exerciseEntity.setName(someExerciseName);
     exerciseEntity.setIsCompound(false);
-    exerciseEntity.setMuscleEntities(new HashSet<>());
+    exerciseEntity.setExerciseMuscleRelationEntities(new HashSet<>());
     exerciseEntity.setId(1337L);
 
     doReturn(exerciseEntity)
