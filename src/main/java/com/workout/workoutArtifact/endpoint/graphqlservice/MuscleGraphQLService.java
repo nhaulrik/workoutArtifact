@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.endpoint.graphqlservice;
 
+import com.workout.workoutArtifact.domain.muscle.model.Muscle;
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto.MuscleRelation;
@@ -15,6 +16,7 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -67,7 +69,13 @@ public class MuscleGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
     AbstractSpecification aggregatedSpecification = muscleDtoSpecification.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
 
-    return muscleFacade.getMuscles(aggregatedSpecification);
+    List<MuscleDto> muscleDtos = muscleFacade.getMuscles(aggregatedSpecification);
+
+    // TODO: 16-10-2019 might be a bit shady
+    Map<Long, Integer> muscleRelationMap = exerciseDto.getMuscleRelations().stream().collect(Collectors.toMap(MuscleRelation::getMuscleId, MuscleRelation::getUtilization));
+    muscleDtos.forEach(muscleDto -> muscleDto.setUtilization(muscleRelationMap.get(muscleDto.getId())));
+
+    return muscleDtos;
   }
 
 }

@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface MuscleJpaRepository extends JpaRepository<MuscleEntity, Long>,
     JpaSpecificationExecutor<MuscleEntity> {
 
-  List<MuscleEntity> findAllByNameIn(String... names);
+  MuscleEntity findByName(String name);
 
 }

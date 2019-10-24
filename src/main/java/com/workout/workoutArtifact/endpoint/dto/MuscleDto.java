@@ -17,10 +17,13 @@ public class MuscleDto {
   @NonNull
   private String bodyPart;
 
+  private Integer utilization;
+
   private Long id;
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<MuscleDto> {
+
     private final List<Long> ids;
 
     @Override
@@ -31,6 +34,7 @@ public class MuscleDto {
 
   @Value
   public static class NameSpecification extends AbstractSpecification<MuscleDto> {
+
     private final List<String> names;
 
     @Override

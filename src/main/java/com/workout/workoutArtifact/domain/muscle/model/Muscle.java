@@ -32,7 +32,7 @@ public class Muscle {
 
     @Override
     public boolean isSatisfiedBy(Muscle muscle) {
-      return names.contains(muscle.getName());
+      return names.contains(muscle.getName().toUpperCase());
     }
   }
 
