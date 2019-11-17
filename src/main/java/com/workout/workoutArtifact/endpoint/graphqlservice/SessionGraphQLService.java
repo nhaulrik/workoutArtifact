@@ -9,6 +9,7 @@ import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,13 +27,16 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
   @GraphQLQuery(name = "sessions")
   public List<SessionDto> getSessions(
       @GraphQLArgument(name = "ids") List<Long> ids,
-      @GraphQLArgument(name = "locations") List<String> locations
-
+      @GraphQLArgument(name = "locations") List<String> locations,
+      @GraphQLArgument(name = "programme") String programme,
+      @GraphQLArgument(name = "splitName") String splitName
   ) {
     List<AbstractSpecification<SessionDto>> sessionDtoSpecifications = new ArrayList<>();
 
     if (ids != null) { sessionDtoSpecifications.add(new SessionDto.IdsSpecification(ids)); }
     if (locations != null) { sessionDtoSpecifications.add(new SessionDto.LocationsSpecification(locations)); }
+    if (programme != null) { sessionDtoSpecifications.add(new SessionDto.ProgrammeSpecification(programme)); }
+    if (splitName != null) { sessionDtoSpecifications.add(new SessionDto.SplitNameSpecification(splitName)); }
 
     AbstractSpecification aggregatedSpecification = sessionDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
 
@@ -42,13 +46,20 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
   @GraphQLMutation(name = "addSession")
   public Boolean addSession(
       @GraphQLArgument(name = "location") String location,
+      @GraphQLArgument(name = "programme") String programme,
+      @GraphQLArgument(name = "splitName") String splitName,
       @GraphQLArgument(name = "time") String time,
       @GraphQLArgument(name = "workoutSetIds") List<Long> workoutSetIds
       ) {
 
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    LocalDateTime parsedTime = LocalDateTime.parse(time, dateTimeFormatter);
+
     SessionDto sessionDto = SessionDto.builder()
         .location(location)
-        .localDateTime(LocalDateTime.now()) // TODO: 18-09-2019 do some mapping from real argument here
+        .programme(programme)
+        .splitName(splitName)
+        .localDateTime(parsedTime)
         .workoutSetIds(workoutSetIds != null ? workoutSetIds : new ArrayList<>())
         .build();
 

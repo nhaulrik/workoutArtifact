@@ -1,28 +1,50 @@
 package com.workout.workoutArtifact.endpoint.mapper;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto.IdsSpecification;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto.LocationsSpecification;
-import com.workout.workoutArtifact.specification.AbstractSpecification;
+import com.workout.workoutArtifact.endpoint.dto.SessionDto.ProgrammeSpecification;
+import com.workout.workoutArtifact.endpoint.dto.SessionDto.SplitNameSpecification;
 import com.workout.workoutArtifact.specification.AndSpecification;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.specification.NotSpecification;
 import com.workout.workoutArtifact.specification.OrSpecification;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.aspectj.weaver.patterns.OrSignaturePattern;
 import org.junit.Test;
 
 public class SessionDtoSpecificationMapperTest {
 
   private final SessionDtoSpecificationMapper sessionDtoSpecificationMapper = new SessionDtoSpecificationMapper();
+
+  @Test
+  public void mapsSplitNameSpecification() {
+
+    String splitName = "split1";
+
+    SessionDto.SplitNameSpecification splitNameSpecification = new SplitNameSpecification(splitName);
+
+    Session.SplitNameSpecification resultSpecification = (Session.SplitNameSpecification) sessionDtoSpecificationMapper.toSessionSpecification(splitNameSpecification);
+
+    assertThat(resultSpecification.getSplitName(), is(equalTo(splitName)));
+  }
+
+  @Test
+  public void mapsProgrammeSpecification() {
+
+    String programme = "program1";
+
+    SessionDto.ProgrammeSpecification programmeSpecification = new ProgrammeSpecification(programme);
+
+    Session.ProgrammeSpecification resultSpecification = (Session.ProgrammeSpecification) sessionDtoSpecificationMapper.toSessionSpecification(programmeSpecification);
+
+    assertThat(resultSpecification.getProgramme(), is(equalTo(programme)));
+  }
 
   @Test
   public void mapsIdsSpecification() {

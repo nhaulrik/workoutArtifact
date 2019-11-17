@@ -30,6 +30,12 @@ public class SessionEntity {
   @Column
   private String location;
 
+  @Column
+  private String programme;
+
+  @Column
+  private String splitName;
+
   @OneToMany(mappedBy = "sessionEntity")
   private Set<WorkoutSetEntity> workoutSetEntities = new HashSet<>();
 

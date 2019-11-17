@@ -27,12 +27,12 @@ public class SessionGraphQLServiceTest {
 
     SessionDto sessionDtoMock = mock(SessionDto.class);
 
-    Long id  = 1L;
+    Long id = 1L;
 
     doReturn(Arrays.asList(sessionDtoMock))
         .when(sessionFacade).getSessions(any(AbstractSpecification.class));
 
-    List<SessionDto> sessionDtoList = sessionGraphQLService.getSessions(Arrays.asList(id), null);
+    List<SessionDto> sessionDtoList = sessionGraphQLService.getSessions(Arrays.asList(id), null, null, null);
     assertThat(sessionDtoList, is(Arrays.asList(sessionDtoMock)));
   }
 
@@ -40,11 +40,15 @@ public class SessionGraphQLServiceTest {
   public void addSession() {
 
     String location = "location";
-    String time = "time";
+    String programme = "program1";
+    String splitName = "split1";
+    String time = "12-11-2019 15:30";
     Long workoutSetId = 1L;
 
     Boolean resultBoolean = sessionGraphQLService.addSession(
         location,
+        programme,
+        splitName,
         time,
         Arrays.asList(workoutSetId)
     );
@@ -56,6 +60,8 @@ public class SessionGraphQLServiceTest {
 
     assertThat(resultBoolean, is(true));
     assertThat(sessionDto.getLocation(), is(location));
+    assertThat(sessionDto.getProgramme(), is(programme));
+    assertThat(sessionDto.getSplitName(), is(splitName));
     assertThat(sessionDto.getLocalDateTime(), is(notNullValue()));
     assertThat(sessionDto.getWorkoutSetIds(), is(Arrays.asList(workoutSetId)));
   }

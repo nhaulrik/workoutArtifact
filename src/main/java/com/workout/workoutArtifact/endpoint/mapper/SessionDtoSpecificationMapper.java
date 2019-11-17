@@ -32,6 +32,12 @@ public class SessionDtoSpecificationMapper {
     } else if (sessionDtoSpecification instanceof SessionDto.LocationsSpecification) {
       return new Session.LocationsSpecification(
           ((SessionDto.LocationsSpecification) sessionDtoSpecification).getLocations());
+    } else if (sessionDtoSpecification instanceof SessionDto.ProgrammeSpecification) {
+      return new Session.ProgrammeSpecification(
+          ((SessionDto.ProgrammeSpecification) sessionDtoSpecification).getProgramme());
+    } else if (sessionDtoSpecification instanceof SessionDto.SplitNameSpecification) {
+      return new Session.SplitNameSpecification(
+          ((SessionDto.SplitNameSpecification) sessionDtoSpecification).getSplitName());
     }
     return new MatchAllSpecification();
   }

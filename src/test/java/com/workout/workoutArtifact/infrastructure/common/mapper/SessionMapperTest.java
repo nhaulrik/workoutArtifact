@@ -27,6 +27,7 @@ public class SessionMapperTest {
   @Test
   public void domainToEntity() {
     String location = "home";
+    String splitName = "split1";
     Session session = getSession(location);
 
     WorkoutSetEntity workoutSetEntityMock = mock(WorkoutSetEntity.class);
@@ -38,6 +39,7 @@ public class SessionMapperTest {
     SessionEntity sessionEntity = sessionMapper.toEntity(session);
 
     assertThat(sessionEntity.getLocation(), is(equalTo(location)));
+    assertThat(sessionEntity.getSplitName(), is(equalTo(splitName)));
     assertThat(sessionEntity.getCreationDateTime(), is(session.getCreationDateTime()));
     assertThat(sessionEntity.getWorkoutSetEntities().stream().findFirst().get().getId(), is(session.getWorkoutSetIds().get(0)));
   }
@@ -71,6 +73,8 @@ public class SessionMapperTest {
 
     SessionEntity sessionEntity = new SessionEntity();
     sessionEntity.setId(someId);
+    sessionEntity.setProgramme("program1");
+    sessionEntity.setSplitName("split1");
     sessionEntity.setCreationDateTime(someLocalDateTime);
     sessionEntity.setLocation(someLocation);
 
@@ -91,6 +95,8 @@ public class SessionMapperTest {
         .id(someId)
         .location(someLocation)
         .creationDateTime(LocalDateTime.now())
+        .programme("program1")
+        .splitName("split1")
         .build();
 
     SessionDto sessionDto = sessionMapper.toDto(session);
@@ -104,6 +110,8 @@ public class SessionMapperTest {
 
     SessionDto sessionDto = SessionDto.builder()
         .workoutSetIds(Arrays.asList(1L))
+        .programme("program1")
+        .splitName("split1")
         .localDateTime(LocalDateTime.now())
         .location("HOME")
         .build();
@@ -117,6 +125,8 @@ public class SessionMapperTest {
 
   private Session getSession(String location) {
     return Session.builder()
+        .splitName("split1")
+        .programme("program1")
         .id(1L)
         .creationDateTime(LocalDateTime.of(LocalDate.now(), LocalTime.now()))
         .location(location)
@@ -126,6 +136,7 @@ public class SessionMapperTest {
 
   private void assertHasSameProperties(SessionEntity sessionEntity, Session session) {
     assertThat(sessionEntity.getLocation(), is(session.getLocation()));
+    assertThat(sessionEntity.getProgramme(), is(session.getProgramme()));
     assertThat(sessionEntity.getCreationDateTime(), is(session.getCreationDateTime()));
     assertThat(sessionEntity.getWorkoutSetEntities().stream().map(WorkoutSetEntity::getId).collect(Collectors.toList()), is(session.getWorkoutSetIds()));
   }
