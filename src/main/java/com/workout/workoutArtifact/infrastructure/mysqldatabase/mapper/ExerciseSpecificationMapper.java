@@ -22,10 +22,12 @@ public class ExerciseSpecificationMapper {
       return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.conjunction();
     } else if (exerciseSpecification instanceof Exercise.NameSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("name").in(((Exercise.NameSpecification) exerciseSpecification).getNames());
+    } else if (exerciseSpecification instanceof Exercise.BodyPartsSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("bodyPart").in(((Exercise.BodyPartsSpecification) exerciseSpecification).getBodyParts());
     } else if (exerciseSpecification instanceof Exercise.ExerciseIdSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Exercise.ExerciseIdSpecification) exerciseSpecification).getId());
     }
-    throw new MappingException("Unknown specification");
+    throw new MappingException(String.format("Unknown specification: %s", exerciseSpecification.getClass().getSimpleName()));
   }
 
 }

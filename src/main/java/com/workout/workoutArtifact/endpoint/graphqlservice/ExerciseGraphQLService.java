@@ -14,6 +14,7 @@ import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -54,9 +55,9 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService 
   ) {
 
     List<AbstractSpecification<ExerciseDto>> exerciseDtoSpecifications = new ArrayList<>();
-    if (names != null) { exerciseDtoSpecifications.add(new ExerciseDto.NameSpecification(names)); }
+    if (names != null) { exerciseDtoSpecifications.add(new ExerciseDto.NameSpecification(names.stream().map(String::toUpperCase).collect(Collectors.toList()))); }
     if (isCompound != null) { exerciseDtoSpecifications.add(new IsCompoundSpecification(isCompound)); }
-    if (bodyParts != null) { exerciseDtoSpecifications.add(new ExerciseDto.BodyPartsSpecification(bodyParts)); }
+    if (bodyParts != null) { exerciseDtoSpecifications.add(new ExerciseDto.BodyPartsSpecification(bodyParts.stream().map(String::toUpperCase).collect(Collectors.toList()))); }
 
     AbstractSpecification aggregatedSpecification = exerciseDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
 

@@ -39,7 +39,7 @@ public class Exercise {
 
     @Override
     public boolean isSatisfiedBy(Exercise exercise) {
-      return names.contains(exercise.getName());
+      return names.contains(exercise.getName().toUpperCase());
     }
   }
 
@@ -50,7 +50,7 @@ public class Exercise {
 
     @Override
     public boolean isSatisfiedBy(Exercise exercise) {
-      return bodyParts.contains(exercise.getBodyPart());
+      return bodyParts.contains(exercise.getBodyPart().toUpperCase());
     }
   }
 
