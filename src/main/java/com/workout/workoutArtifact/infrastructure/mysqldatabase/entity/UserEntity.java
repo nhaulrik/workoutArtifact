@@ -1,6 +1,6 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -8,41 +8,33 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "session")
-public class SessionEntity {
+@Table(name = "user")
+public class UserEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @CreationTimestamp
-  private LocalDateTime creationDateTime;
+  @Column
+  private String firstName;
 
   @Column
-  private String location;
+  private String lastName;
 
   @Column
-  private String programme;
+  private LocalDate birthDay;
 
   @Column
-  private String splitName;
+  private String gender;
 
-  @ManyToOne
-  @JoinColumn
-  private UserEntity userEntity;
-
-  @OneToMany(mappedBy = "sessionEntity")
-  private Set<WorkoutSetEntity> workoutSetEntities = new HashSet<>();
-
+  @OneToMany(mappedBy = "user")
+  private Set<SessionEntity> sessionEntities = new HashSet<>(); boot app og se om mappingen virker
 }
