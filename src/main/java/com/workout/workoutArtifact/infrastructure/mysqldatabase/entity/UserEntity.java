@@ -35,6 +35,6 @@ public class UserEntity {
   @Column
   private String gender;
 
-  @OneToMany(mappedBy = "user")
-  private Set<SessionEntity> sessionEntities = new HashSet<>(); boot app og se om mappingen virker
+  @OneToMany(mappedBy = "userEntity")
+  private Set<SessionEntity> sessionEntities = new HashSet<>();
 }

@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.endpoint.configuration;
 import com.workout.workoutArtifact.endpoint.graphqlservice.ExerciseGraphQLService;
 import com.workout.workoutArtifact.endpoint.graphqlservice.MuscleGraphQLService;
 import com.workout.workoutArtifact.endpoint.graphqlservice.SessionGraphQLService;
+import com.workout.workoutArtifact.endpoint.graphqlservice.UserGraphQLService;
 import com.workout.workoutArtifact.endpoint.graphqlservice.WorkoutSetGraphQLService;
 import graphql.GraphQL;
 import graphql.analysis.MaxQueryComplexityInstrumentation;
@@ -40,7 +41,8 @@ public class GraphQLSPQRConfig {
       ExerciseGraphQLService exerciseGraphQLService,
       MuscleGraphQLService muscleGraphQLService,
       WorkoutSetGraphQLService workoutSetGraphQLService,
-      SessionGraphQLService sessionGraphQLService
+      SessionGraphQLService sessionGraphQLService,
+      UserGraphQLService userGraphQLService
   ) {
     GraphQLSchema schema = new GraphQLSchemaGenerator()
         .withResolverBuilders(
@@ -50,7 +52,8 @@ public class GraphQLSPQRConfig {
             exerciseGraphQLService,
             muscleGraphQLService,
             workoutSetGraphQLService,
-            sessionGraphQLService
+            sessionGraphQLService,
+            userGraphQLService
             )
         .withValueMapperFactory(new JacksonValueMapperFactory())
         .generate();

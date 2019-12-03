@@ -43,6 +43,7 @@ public class SessionGraphQLServiceTest {
     String programme = "program1";
     String splitName = "split1";
     String time = "12-11-2019 15:30";
+    Long userId = 2L;
     Long workoutSetId = 1L;
 
     Boolean resultBoolean = sessionGraphQLService.addSession(
@@ -50,7 +51,8 @@ public class SessionGraphQLServiceTest {
         programme,
         splitName,
         time,
-        Arrays.asList(workoutSetId)
+        Arrays.asList(workoutSetId),
+        userId
     );
 
     ArgumentCaptor<List<SessionDto>> arg = ArgumentCaptor.forClass(ArrayList.class);

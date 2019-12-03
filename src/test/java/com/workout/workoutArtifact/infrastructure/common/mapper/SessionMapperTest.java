@@ -9,6 +9,7 @@ import static org.mockito.Mockito.mock;
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.UserEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -77,6 +78,12 @@ public class SessionMapperTest {
     sessionEntity.setSplitName("split1");
     sessionEntity.setCreationDateTime(someLocalDateTime);
     sessionEntity.setLocation(someLocation);
+
+    UserEntity userEntity = mock(UserEntity.class);
+    doReturn(1L)
+        .when(userEntity).getId();
+
+    sessionEntity.setUserEntity(userEntity);
 
     Session session = sessionMapper.toDomainObject(sessionEntity);
 

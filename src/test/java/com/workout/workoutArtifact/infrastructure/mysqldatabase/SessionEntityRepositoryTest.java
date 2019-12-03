@@ -40,6 +40,8 @@ public class SessionEntityRepositoryTest {
         .creationDateTime(LocalDateTime.now())
         .location("some_location")
         .id(1337L)
+        .programme("some_programme")
+        .splitName("some_split_name")
         .build();
 
     doReturn(jpaSpecification)
@@ -65,6 +67,8 @@ public class SessionEntityRepositoryTest {
     Session session = Session.builder()
         .id(someId)
         .location("some_location")
+        .programme("some_programme")
+        .splitName("some_split_name")
         .creationDateTime(LocalDateTime.now())
         .build();
 

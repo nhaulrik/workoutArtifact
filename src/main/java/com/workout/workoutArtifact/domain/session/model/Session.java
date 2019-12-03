@@ -27,6 +27,7 @@ public class Session {
   private String splitName;
 
   private List<Long> workoutSetIds;
+  private Long userId;
 
   @Value
   public static class SplitNameSpecification extends AbstractSpecification<Session> {
@@ -70,6 +71,17 @@ public class Session {
     @Override
     public boolean isSatisfiedBy(Session session) {
       return locations.contains(session.getLocation());
+    }
+  }
+
+  @Value
+  public static class UserIdSpecification extends AbstractSpecification<Session> {
+
+    private final Long userId;
+
+    @Override
+    public boolean isSatisfiedBy(Session session) {
+      return userId.equals(session.getUserId());
     }
   }
 

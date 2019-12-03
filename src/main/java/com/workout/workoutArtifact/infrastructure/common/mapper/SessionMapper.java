@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.infrastructure.common.mapper;
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.UserEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,6 +25,7 @@ public class SessionMapper {
     sessionEntity.setProgramme(session.getProgramme());
     sessionEntity.setLocation(session.getLocation());
     sessionEntity.setWorkoutSetEntities(session.getWorkoutSetIds().stream().map(id -> entityManager.getReference(WorkoutSetEntity.class, id)).collect(Collectors.toSet()));
+    sessionEntity.setUserEntity(entityManager.getReference(UserEntity.class, session.getUserId()));
     return sessionEntity;
   }
 
@@ -41,6 +43,7 @@ public class SessionMapper {
         .location(sessionEntity.getLocation())
         .id(sessionEntity.getId())
         .workoutSetIds(sessionEntity.getWorkoutSetEntities().stream().map(WorkoutSetEntity::getId).collect(Collectors.toList()))
+        .userId(sessionEntity.getUserEntity().getId())
         .build();
   }
 
@@ -51,6 +54,7 @@ public class SessionMapper {
         .location(sessionDto.getLocation())
         .workoutSetIds(sessionDto.getWorkoutSetIds())
         .creationDateTime(sessionDto.getLocalDateTime() != null ? sessionDto.getLocalDateTime() : LocalDateTime.now())
+        .userId(sessionDto.getUserId())
         .build();
   }
 
@@ -60,6 +64,7 @@ public class SessionMapper {
         .splitName(session.getSplitName())
         .id(session.getId())
         .location(session.getLocation())
+        .localDateTime(session.getCreationDateTime())
         .workoutSetIds(session.getWorkoutSetIds())
         .build();
   }

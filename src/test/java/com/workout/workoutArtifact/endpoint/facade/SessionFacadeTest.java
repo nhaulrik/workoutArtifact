@@ -54,6 +54,8 @@ public class SessionFacadeTest {
         .id(id)
         .location("some_location")
         .creationDateTime(LocalDateTime.now())
+        .programme("some_programme")
+        .splitName("split_name")
         .build();
 
     SessionDto sessionDtoMock = mock(SessionDto.class);

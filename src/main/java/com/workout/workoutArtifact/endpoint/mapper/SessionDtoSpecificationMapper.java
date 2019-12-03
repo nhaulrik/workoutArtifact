@@ -38,6 +38,9 @@ public class SessionDtoSpecificationMapper {
     } else if (sessionDtoSpecification instanceof SessionDto.SplitNameSpecification) {
       return new Session.SplitNameSpecification(
           ((SessionDto.SplitNameSpecification) sessionDtoSpecification).getSplitName());
+    } else if (sessionDtoSpecification instanceof SessionDto.UserIdSpecification) {
+      return new Session.UserIdSpecification(
+          ((SessionDto.UserIdSpecification) sessionDtoSpecification).getUserId());
     }
     return new MatchAllSpecification();
   }

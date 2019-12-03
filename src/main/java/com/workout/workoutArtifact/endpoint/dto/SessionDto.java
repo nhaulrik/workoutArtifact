@@ -15,8 +15,9 @@ public class SessionDto {
   private String location;
   private String programme;
   private String splitName;
-  private List<Long> workoutSetIds;
   private LocalDateTime localDateTime;
+  private List<Long> workoutSetIds;
+  private Long userId;
 
   // TODO: 14-09-2019 implement fields for time
 
@@ -64,4 +65,16 @@ public class SessionDto {
       return locations.contains(sessionDto.getLocation());
     }
   }
+
+  @Value
+  public static class UserIdSpecification extends AbstractSpecification<SessionDto> {
+
+    private final Long userId;
+
+    @Override
+    public boolean isSatisfiedBy(SessionDto sessionDto) {
+      return userId.equals(sessionDto.getUserId());
+    }
+  }
+
 }

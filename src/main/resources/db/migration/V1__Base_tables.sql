@@ -1,4 +1,21 @@
 --
+-- Table structure for table `user`
+--
+DROP TABLE IF EXISTS `user`;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `user`
+(
+	`id` bigint(20) NOT NULL auto_increment,
+	`birth_day` date NULL,
+	`first_name` varchar(255) NULL,
+	`gender` varchar(255) NULL,
+	`last_name` varchar(255) NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+;
+
+
+--
 -- Table structure for table `exercise`
 --
 
@@ -56,7 +73,7 @@ CREATE TABLE `session` (
   `programme` varchar(255) DEFAULT NULL,
   `split_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Table structure for table `workoutset`

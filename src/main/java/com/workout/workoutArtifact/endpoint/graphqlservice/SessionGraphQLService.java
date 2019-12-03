@@ -2,10 +2,12 @@ package com.workout.workoutArtifact.endpoint.graphqlservice;
 
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
+import com.workout.workoutArtifact.endpoint.dto.UserDto;
 import com.workout.workoutArtifact.endpoint.facade.SessionFacade;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import io.leangen.graphql.annotations.GraphQLArgument;
+import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.time.LocalDateTime;
@@ -23,6 +25,14 @@ import org.springframework.stereotype.Component;
 public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
   private final SessionFacade sessionFacade;
+
+  @GraphQLQuery(name = "sessions")
+  public List<SessionDto> getSessions(
+      @GraphQLContext UserDto userDto
+  ) {
+    AbstractSpecification userIdSpecification = new SessionDto.UserIdSpecification(userDto.getId());
+    return sessionFacade.getSessions(userIdSpecification);
+  }
 
   @GraphQLQuery(name = "sessions")
   public List<SessionDto> getSessions(
@@ -49,7 +59,8 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
       @GraphQLArgument(name = "programme") String programme,
       @GraphQLArgument(name = "splitName") String splitName,
       @GraphQLArgument(name = "time") String time,
-      @GraphQLArgument(name = "workoutSetIds") List<Long> workoutSetIds
+      @GraphQLArgument(name = "workoutSetIds") List<Long> workoutSetIds,
+      @GraphQLArgument(name = "userId") Long userId
       ) {
 
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -61,6 +72,7 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
         .splitName(splitName)
         .localDateTime(parsedTime)
         .workoutSetIds(workoutSetIds != null ? workoutSetIds : new ArrayList<>())
+        .userId(userId)
         .build();
 
     sessionFacade.addSessions(Arrays.asList(sessionDto));

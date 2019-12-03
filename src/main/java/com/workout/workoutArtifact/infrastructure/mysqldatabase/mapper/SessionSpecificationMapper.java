@@ -27,6 +27,8 @@ public class SessionSpecificationMapper {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("location").in(((Session.LocationsSpecification) sessionSpecification).getLocations());
     } else if (sessionSpecification instanceof  Session.ProgrammeSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("programme").in(((Session.ProgrammeSpecification) sessionSpecification).getProgramme());
+    } else if (sessionSpecification instanceof  Session.UserIdSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("userEntity").get("id").in(((Session.UserIdSpecification) sessionSpecification).getUserId());
     }
     throw new MappingException("Unknown specification");
   }
