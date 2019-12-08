@@ -3,9 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                container('maven') {
-                    sh 'mvn package -DskipTests'
-                }
+                sh 'mvn package -DskipTests'
             }
         }
 //        stage('Test') {
