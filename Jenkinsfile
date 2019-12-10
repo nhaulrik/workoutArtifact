@@ -16,5 +16,17 @@ pipeline {
                 sh 'mvn -B test'
             }
         }
+        stage('Build Docker Container') {
+            when {
+                expression {
+                    fileExists 'Dockerfile'
+                }
+            }
+            steps {
+                script {
+                    sh "docker image build -t workout-service ."
+                }
+            }
+        }
     }
 }
