@@ -10,9 +10,10 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.workout</groupId>
-  <artifactId>workoutArtifact</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>workoutArtifact</name>
+  <artifactId>workout-service</artifactId>
+  <packaging>jar</packaging>
+  <version>0.0.1</version>
+  <name>workout-service</name>
   <description>Demo project for Spring Boot</description>
 
   <properties>
