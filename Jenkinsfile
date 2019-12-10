@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2'
-        }
-    }
+    agent any
     stages {
         stage('Build') {
             steps {
@@ -17,15 +12,8 @@ pipeline {
             }
         }
         stage('Build Docker Container') {
-            when {
-                expression {
-                    fileExists 'Dockerfile'
-                }
-            }
             steps {
-                script {
-                    sh "docker image build -t workout-service ."
-                }
+                sh "docker build -t workout-service ."
             }
         }
     }
