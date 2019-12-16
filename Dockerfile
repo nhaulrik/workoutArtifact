@@ -1,17 +1,9 @@
-FROM maven:3.6.3-jdk-8 AS MAVEN_BUILD
-MAINTAINER Brian Hannaway
-
-COPY pom.xml /build/
-COPY src /build/src/
-
-WORKDIR /build/
-RUN mvn package
-
-FROM openjdk:8-jre-alpine
-
-WORKDIR /app
-COPY --from=MAVEN_BUILD /build/target/workout-service-0.0.1.jar /app/
-ENTRYPOINT ["java", "-jar", "workout-service-0.0.1.jar"]
+FROM openjdk:8-jdk-alpine
+LABEL maintainer="Nikolaj Haulrik <nikolaj.haulrik@gmail.com>"
+VOLUME /tmp
 EXPOSE 9090
+ARG JAR_FILE
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar","/app.jar"]
 
-# docker container run --network="host" workout-service.
+#docker run --rm -p 9090:9090 f81d4f21ac7a
