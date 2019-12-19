@@ -19,6 +19,7 @@ pipeline {
         stage('Publish') {
             steps {
                 sh "mvn -B deploy -DskipTests"
+                sh "docker-compose up -d"
             }
         }
     }
