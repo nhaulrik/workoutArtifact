@@ -16,13 +16,10 @@ pipeline {
                 sh 'mvn -B test'
             }
         }
-        stage('Publish') {
+        stage('Build docker image') {
             steps {
-                sh "mvn -B deploy -DskipTests"
-//                sh "docker-compose up -d" virker ikke!!! fordi jenkins ikke kan køre docker
+                sh "mvn dockerfile:build"
             }
         }
     }
 }
-
-//step([$class: 'DockerComposeBuilder', dockerComposeFile: 'docker-compose.yml', option: [$class: 'StartService', scale: 1, service: 'application'], useCustomDockerComposeFile: true])
