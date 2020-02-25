@@ -1,5 +1,4 @@
 FROM openjdk:8-jdk-alpine
-LABEL maintainer="Nikolaj Haulrik <nikolaj.haulrik@gmail.com>"
 VOLUME /tmp
 EXPOSE 9090
 ARG JAR_FILE
