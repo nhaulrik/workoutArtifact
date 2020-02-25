@@ -1,28 +1,21 @@
-pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2'
-        }
+#!groovy
+
+node {
+//    agent {
+//        docker {
+//            image 'maven:3-alpine'
+//            args '-v /root/.m2:/root/.m2'
+//        }
+//    }
+    stage('Compile') {
+        sh 'mvn -B -DskipTests clean compile'
     }
-    stages {
-        stage('Compile') {
-            steps {
-                sh 'mvn -B -DskipTests clean compile'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn -B test'
-            }
-        }
-        stage('Build docker image') {
-            steps {
-                sh '''
-                    mvn clean package -DskipTests -DskipDockerBuild
-                    mvn dockerfile:build
-                '''
-            }
-        }
+//    stage('Test') {
+//        sh 'mvn -B test'
+//    }
+    stage('Build docker image') {
+        sh "mvn -B clean package -DskipTests"
     }
+
+
 }
