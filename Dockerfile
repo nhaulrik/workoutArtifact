@@ -1,4 +1,3 @@
-CMD echo Hello world
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
 EXPOSE 9090
