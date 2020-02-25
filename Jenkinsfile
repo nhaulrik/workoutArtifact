@@ -17,5 +17,7 @@ node {
         sh "mvn package -e -DskipTests"
     }
 
+    stage([$class: 'DockerComposeBuilder', dockerComposeFile: 'docker-compose.yml', option: [$class: 'StartService', scale: 1, service: 'blablaservice'], useCustomDockerComposeFile: true])
+
 
 }
