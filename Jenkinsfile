@@ -19,7 +19,7 @@ pipeline {
         stage('Build docker image') {
             steps {
                 sh '''
-                    mvn clean package -DskipTestsDD
+                    mvn clean package -DskipTests
                     mvn dockerfile:build
                 '''
             }
