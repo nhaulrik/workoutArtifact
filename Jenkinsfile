@@ -20,7 +20,6 @@ pipeline {
             steps {
                 sh '''
                     mvn clean package -DskipTests
-                    mvn dockerfile:build
                 '''
             }
         }
