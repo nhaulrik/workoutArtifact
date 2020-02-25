@@ -16,13 +16,13 @@ pipeline {
                 sh 'mvn -B test'
             }
         }
-        stage('Build docker image') {
-            steps {
-                sh '''
-                    mvn clean package -DskipTestsDD
-                    mvn dockerfile:build
-                '''
-            }
-        }
+//        stage('Build docker image') {
+//            steps {
+//                sh '''
+//                    mvn clean package -DskipTestsDD
+//                    mvn dockerfile:build
+//                '''
+//            }
+//        }
     }
 }
