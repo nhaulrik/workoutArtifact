@@ -107,19 +107,19 @@
         <executions>
           <execution>
             <id>default</id>
-            <phase>install</phase>
             <goals>
               <goal>build</goal>
+              <goal>push</goal>
             </goals>
           </execution>
         </executions>
         <configuration>
-          <repository>workout-service</repository>
+          <repository>workout/service</repository>
           <tag>${project.version}</tag>
           <!--<useMavenSettingsForAuth>true</useMavenSettingsForAuth>-->
-          <!--<buildArgs>-->
-          <!--<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>-->
-          <!--</buildArgs>-->
+          <buildArgs>
+            <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+          </buildArgs>
         </configuration>
 
       </plugin>
