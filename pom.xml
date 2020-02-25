@@ -116,9 +116,9 @@
           <repository>workout-service</repository>
           <tag>${project.version}</tag>
           <!--<useMavenSettingsForAuth>true</useMavenSettingsForAuth>-->
-          <buildArgs>
-            <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-          </buildArgs>
+          <!--<buildArgs>-->
+            <!--<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>-->
+          <!--</buildArgs>-->
         </configuration>
 
       </plugin>
