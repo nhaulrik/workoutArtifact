@@ -14,7 +14,7 @@ node {
 //        sh 'mvn -B test'
 //    }
     stage('Build docker image') {
-        sh "mvn package -e"
+        sh "mvn package -e -DskipTests"
     }
 
 
