@@ -18,7 +18,10 @@ pipeline {
         }
         stage('Build docker image') {
             steps {
-                sh "mvn -B deploy"
+                sh '''
+                    mvn clean package -DskipTestsDD
+                    mvn dockerfile:build
+                '''
             }
         }
     }
