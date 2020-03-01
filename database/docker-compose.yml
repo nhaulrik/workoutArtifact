@@ -5,12 +5,15 @@ services:
 
   mysqldb:
      image: mysql
-#     volumes:
-#       - generateddb:/var/lib/mysql
      environment:
        MYSQL_ROOT_USER: root
        MYSQL_ROOT_PASSWORD: 1234
        MYSQL_DATABASE: 'workoutdb'
      ports:
        - "3306:3306"
-     command: --disable-partition-engine-check
+     expose:
+       -'3306'
+     volumes:
+       - workoutddb:/var/lib/mysql
+  volumes:
+  workoutdb:
