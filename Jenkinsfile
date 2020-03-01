@@ -12,7 +12,7 @@ node {
     }
 
     stage('build') {
-        sh "mvn -B -f ${pomFile} -Dbuild.number=${version} -DskipTests -s package"
+        sh "mvn -B -f ${pomFile} -Dbuild.number=${version} -DskipTests package"
     }
 
 //    stage('Compile') {
