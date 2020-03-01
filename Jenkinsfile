@@ -6,7 +6,7 @@ node {
     def pomFile = "pom.xml"
     def version = currentBuild.number
 
-    stage('Git clone') {
+    stage('checkout') {
         scmVars = checkout scm
     }
 
