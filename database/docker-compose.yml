@@ -13,6 +13,6 @@ services:
      expose:
        -'3306'
      volumes:
-       - workoutddb:/var/lib/mysql
+       - workoutdb:/var/lib/mysql
   volumes:
     workoutdb:
