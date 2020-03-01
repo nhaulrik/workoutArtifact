@@ -5,9 +5,10 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: 'workoutdb'
-      MYSQL_USER: 'root'
-      MYSQL_PASSWORD: '1234'
-      MYSQL_ROOT_PASSWORD: '1234'
+      MYSQL_ROOT_USER: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: 1234
     ports:
       - '3306:3306'
     expose:
