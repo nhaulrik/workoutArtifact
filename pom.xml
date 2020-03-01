@@ -114,7 +114,7 @@
           </execution>
         </executions>
         <configuration>
-          <repository>workout/service</repository>
+          <repository>workout-service</repository>
           <tag>${project.version}</tag>
           <!--<useMavenSettingsForAuth>true</useMavenSettingsForAuth>-->
           <buildArgs>
