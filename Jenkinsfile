@@ -5,14 +5,13 @@ node {
     def scmVars
     def pomFile = "pom.xml"
     def version = currentBuild.number
-    def mvn_version
 
     stage('Git clone') {
         scmVars = checkout scm
     }
 
     stage('build') {
-        sh "mvn -B -f ${pomFile} -Dbuild.number=${version} -DskipTests package"
+        sh "mvn -B -f ${pomFile} -Dbuild.number=${version} -DskipTests compile"
     }
 
 //    stage('Compile') {
@@ -22,7 +21,7 @@ node {
 //        sh 'mvn -B test'
 //    }
     stage('Build docker image') {
-        sh "mvn package -e"
+        sh "mvn package -e -DskipTests"
     }
 
 
