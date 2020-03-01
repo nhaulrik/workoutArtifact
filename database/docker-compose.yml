@@ -2,7 +2,6 @@
 version: '3'
 
 services:
-
   mysqldb:
      image: mysql
      environment:
@@ -16,4 +15,4 @@ services:
      volumes:
        - workoutddb:/var/lib/mysql
   volumes:
-  workoutdb:
+    workoutdb:
