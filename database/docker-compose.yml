@@ -15,4 +15,4 @@ services:
      volumes:
        - workoutdb:/var/lib/mysql
   volumes:
-    workoutdb:
+    workoutdb
