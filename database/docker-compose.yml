@@ -13,3 +13,5 @@ services:
     ports:
       - "3306:3306"
     command: --disable-partition-engine-check
+volumes:
+  generateddb:
