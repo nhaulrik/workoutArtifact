@@ -77,4 +77,17 @@ public class SessionDto {
     }
   }
 
+  @Value
+  public static class DateTimeSpecification extends AbstractSpecification<SessionDto> {
+
+    private final LocalDateTime localDateTime;
+
+    @Override
+    public boolean isSatisfiedBy(SessionDto sessionDto) {
+      return localDateTime.getMonth().equals(sessionDto.getLocalDateTime().getMonth())
+          && localDateTime.getDayOfMonth() == sessionDto.getLocalDateTime().getDayOfMonth()
+          && localDateTime.getYear() == sessionDto.getLocalDateTime().getYear();
+    }
+  }
+
 }

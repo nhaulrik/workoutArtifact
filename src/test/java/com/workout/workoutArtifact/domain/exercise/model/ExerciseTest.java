@@ -19,7 +19,6 @@ public class ExerciseTest {
     String name = "name";
 
     Exercise exercise = Exercise.builder()
-        .muscleRelations(new ArrayList<>())
         .name(name)
         .isCompound(true)
         .bodyPart("some_bodypart")
@@ -37,7 +36,6 @@ public class ExerciseTest {
     String bodyPart = "bodyPart";
 
     Exercise exercise = Exercise.builder()
-        .muscleRelations(new ArrayList<>())
         .name("name")
         .isCompound(true)
         .bodyPart(bodyPart)
@@ -56,7 +54,6 @@ public class ExerciseTest {
 
     Exercise exercise = Exercise.builder()
         .id(exerciseId)
-        .muscleRelations(new ArrayList<>())
         .name("name")
         .isCompound(true)
         .bodyPart("bodypart")
@@ -74,7 +71,6 @@ public class ExerciseTest {
     Boolean isCompound = true;
 
     Exercise exercise = Exercise.builder()
-        .muscleRelations(new ArrayList<>())
         .name("name")
         .isCompound(isCompound)
         .bodyPart("bodypart")

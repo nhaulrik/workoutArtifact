@@ -22,9 +22,6 @@ public class Exercise {
   @NonNull
   private String bodyPart;
 
-  @NonNull
-  private List<MuscleRelation> muscleRelations;
-
   @Value
   public static class MuscleRelation {
 

@@ -70,7 +70,10 @@ CREATE TABLE `session` (
   `location` varchar(255) DEFAULT NULL,
   `programme` varchar(255) DEFAULT NULL,
   `split_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `user_entity_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKnue23810584fru342j5p4cn34` (`user_entity_id`),
+  CONSTRAINT `FKnue23810584fru342j5p4cn34` FOREIGN KEY (`user_entity_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --

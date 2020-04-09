@@ -65,16 +65,10 @@ public class MuscleGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
     List<AbstractSpecification<MuscleDto>> muscleDtoSpecification = new ArrayList<>();
     if (names != null) { muscleDtoSpecification.add(new MuscleDto.NameSpecification(names)); }
-    if (exerciseDto.getId() != null) { muscleDtoSpecification.add(new IdsSpecification(exerciseDto.getMuscleRelations().stream().map(MuscleRelation::getMuscleId).collect(Collectors.toList()))); }
 
     AbstractSpecification aggregatedSpecification = muscleDtoSpecification.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
 
     List<MuscleDto> muscleDtos = muscleFacade.getMuscles(aggregatedSpecification);
-
-    // TODO: 16-10-2019 might be a bit shady
-    Map<Long, Integer> muscleRelationMap = exerciseDto.getMuscleRelations().stream().collect(Collectors.toMap(MuscleRelation::getMuscleId, MuscleRelation::getUtilization));
-    muscleDtos.forEach(muscleDto -> muscleDto.setUtilization(muscleRelationMap.get(muscleDto.getId())));
-
     return muscleDtos;
   }
 

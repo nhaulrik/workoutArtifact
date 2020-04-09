@@ -38,7 +38,6 @@ public class ExerciseEntityRepositoryTest {
     Exercise exercise = Exercise.builder()
         .id(0L)
         .name(exerciseName)
-        .muscleRelations(new ArrayList<>())
         .isCompound(true)
         .bodyPart(BodyPartEnum.CHEST.toString())
         .build();

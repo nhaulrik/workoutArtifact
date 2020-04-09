@@ -31,8 +31,7 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService 
       @GraphQLArgument(name = "id") Long id,
       @GraphQLArgument(name = "name") String name,
       @GraphQLArgument(name = "bodyPart") String bodyPart,
-      @GraphQLArgument(name = "isCompound") Boolean isCompound,
-      @GraphQLArgument(name = "muscleRelations") List<MuscleRelation> muscleRelations
+      @GraphQLArgument(name = "isCompound") Boolean isCompound
   ) {
 
     ExerciseDto exerciseDto = ExerciseDto.builder()
@@ -40,7 +39,6 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService 
         .name(name)
         .bodyPart(bodyPart)
         .isCompound(isCompound)
-        .muscleRelations(muscleRelations)
         .build();
 
     exerciseFacade.addExercise(exerciseDto);

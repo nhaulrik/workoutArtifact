@@ -10,6 +10,7 @@ import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -39,7 +40,10 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
       @GraphQLArgument(name = "ids") List<Long> ids,
       @GraphQLArgument(name = "locations") List<String> locations,
       @GraphQLArgument(name = "programme") String programme,
-      @GraphQLArgument(name = "splitName") String splitName
+      @GraphQLArgument(name = "splitName") String splitName,
+      @GraphQLArgument(name = "userId") Long userId,
+      @GraphQLArgument(name = "date") String date
+
   ) {
     List<AbstractSpecification<SessionDto>> sessionDtoSpecifications = new ArrayList<>();
 
@@ -47,6 +51,15 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
     if (locations != null) { sessionDtoSpecifications.add(new SessionDto.LocationsSpecification(locations)); }
     if (programme != null) { sessionDtoSpecifications.add(new SessionDto.ProgrammeSpecification(programme)); }
     if (splitName != null) { sessionDtoSpecifications.add(new SessionDto.SplitNameSpecification(splitName)); }
+    if (userId != null) { sessionDtoSpecifications.add(new SessionDto.UserIdSpecification(userId)); }
+    if (date != null) {
+      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+      LocalDate localDate = LocalDate.parse(date, dateTimeFormatter);
+
+      LocalDateTime localDateTime = localDate.atStartOfDay();
+
+      sessionDtoSpecifications.add(new SessionDto.DateTimeSpecification(localDateTime));
+    }
 
     AbstractSpecification aggregatedSpecification = sessionDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
 

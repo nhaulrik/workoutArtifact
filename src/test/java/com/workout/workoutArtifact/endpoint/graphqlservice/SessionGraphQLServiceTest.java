@@ -32,7 +32,7 @@ public class SessionGraphQLServiceTest {
     doReturn(Arrays.asList(sessionDtoMock))
         .when(sessionFacade).getSessions(any(AbstractSpecification.class));
 
-    List<SessionDto> sessionDtoList = sessionGraphQLService.getSessions(Arrays.asList(id), null, null, null);
+    List<SessionDto> sessionDtoList = sessionGraphQLService.getSessions(Arrays.asList(id), null, null, null, null, null);
     assertThat(sessionDtoList, is(Arrays.asList(sessionDtoMock)));
   }
 

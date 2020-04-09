@@ -41,6 +41,9 @@ public class SessionDtoSpecificationMapper {
     } else if (sessionDtoSpecification instanceof SessionDto.UserIdSpecification) {
       return new Session.UserIdSpecification(
           ((SessionDto.UserIdSpecification) sessionDtoSpecification).getUserId());
+    } else if (sessionDtoSpecification instanceof SessionDto.DateTimeSpecification) {
+      return new Session.DateTimeSpecification(
+          ((SessionDto.DateTimeSpecification) sessionDtoSpecification).getLocalDateTime());
     }
     return new MatchAllSpecification();
   }

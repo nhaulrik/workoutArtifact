@@ -33,7 +33,6 @@ public class ExerciseMapperTest {
         .isCompound(isCompound)
         .name(someName)
         .id(id)
-        .muscleRelations(Arrays.asList(new MuscleRelation(muscleId, 100)))
         .build();
 
     ExerciseDto exerciseDto = exerciseMapper.toDto(exercise);
@@ -42,8 +41,6 @@ public class ExerciseMapperTest {
     assertThat(exerciseDto.getBodyPart(), is(exercise.getBodyPart()));
     assertThat(exerciseDto.getId(), is(exercise.getId()));
     assertThat(exerciseDto.getIsCompound(), is(exercise.getIsCompound()));
-    assertThat(exerciseDto.getMuscleRelations().get(0).getMuscleId(), is(exercise.getMuscleRelations().get(0).getMuscleId()));
-    assertThat(exerciseDto.getMuscleRelations().get(0).getUtilization(), is(exercise.getMuscleRelations().get(0).getUtilization()));
   }
 
   @Test
@@ -71,7 +68,6 @@ public class ExerciseMapperTest {
         .bodyPart(bodyPart)
         .isCompound(isCompound)
         .name(someName)
-        .muscleRelations(Arrays.asList(new ExerciseDto.MuscleRelation(muscleId, 100)))
         .build();
 
     Exercise exercise = exerciseMapper.toDomainObject(exerciseDto);
@@ -79,8 +75,6 @@ public class ExerciseMapperTest {
     assertThat(exercise.getBodyPart(), is(exerciseDto.getBodyPart()));
     assertThat(exercise.getName(), is(exerciseDto.getName()));
     assertThat(exercise.getIsCompound(), is(exerciseDto.getIsCompound()));
-    assertThat(exercise.getMuscleRelations().get(0).getMuscleId(), is(exerciseDto.getMuscleRelations().get(0).getMuscleId()));
-    assertThat(exercise.getMuscleRelations().get(0).getUtilization(), is(exerciseDto.getMuscleRelations().get(0).getUtilization()));
     assertThat(exercise.getId(), is(exerciseDto.getId()));
   }
 
@@ -95,7 +89,6 @@ public class ExerciseMapperTest {
         .isCompound(isCompound)
         .name(someName)
         .id(id)
-        .muscleRelations(Arrays.asList(new MuscleRelation(muscleId, 100)))
         .build();
 
     ExerciseEntity exerciseEntity = exerciseMapper.toEntity(exercise);

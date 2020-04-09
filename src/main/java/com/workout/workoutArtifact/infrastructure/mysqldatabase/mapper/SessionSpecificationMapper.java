@@ -5,6 +5,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEn
 import com.workout.workoutArtifact.specification.AndSpecification;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.specification.Specification;
+import java.time.LocalDateTime;
 import org.springframework.data.mapping.MappingException;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,11 @@ public class SessionSpecificationMapper {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("programme").in(((Session.ProgrammeSpecification) sessionSpecification).getProgramme());
     } else if (sessionSpecification instanceof  Session.UserIdSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("userEntity").get("id").in(((Session.UserIdSpecification) sessionSpecification).getUserId());
+    } else if (sessionSpecification instanceof  Session.DateTimeSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> {
+        LocalDateTime parsedLocalDateTime = ((Session.DateTimeSpecification) sessionSpecification).getLocalDateTime();
+        return criteriaBuilder.between(root.get("creationDateTime"), parsedLocalDateTime, parsedLocalDateTime.plusDays(1));
+      };
     }
     throw new MappingException("Unknown specification");
   }

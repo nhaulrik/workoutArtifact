@@ -85,4 +85,17 @@ public class Session {
     }
   }
 
+  @Value
+  public static class DateTimeSpecification extends AbstractSpecification<Session> {
+
+    private final LocalDateTime localDateTime;
+
+    @Override
+    public boolean isSatisfiedBy(Session session) {
+      return localDateTime.getMonth().equals(session.getCreationDateTime().getMonth())
+          && localDateTime.getDayOfMonth() == session.getCreationDateTime().getDayOfMonth()
+          && localDateTime.getYear() == session.getCreationDateTime().getYear();
+    }
+  }
+
 }

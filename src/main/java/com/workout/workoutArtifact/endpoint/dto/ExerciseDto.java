@@ -26,9 +26,6 @@ public class ExerciseDto {
   @NonNull
   private Boolean isCompound;
 
-  @NonNull
-  private List<MuscleRelation> muscleRelations;
-
   @Data
   @NoArgsConstructor
   @AllArgsConstructor

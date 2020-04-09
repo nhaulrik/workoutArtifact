@@ -54,7 +54,6 @@ public class ExerciseFacadeTest {
         .id(0L)
         .name(someExerciseName)
         .isCompound(false)
-        .muscleRelations(new ArrayList<>())
         .bodyPart(BodyPartEnum.CHEST.toString())
         .build();
 

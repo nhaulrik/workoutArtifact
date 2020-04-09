@@ -23,7 +23,6 @@ public class ExerciseMapper {
         .name(exercise.getName())
         .isCompound(exercise.getIsCompound())
         .bodyPart(exercise.getBodyPart())
-        .muscleRelations(exercise.getMuscleRelations().stream().map(muscleRelation -> new ExerciseDto.MuscleRelation(muscleRelation.getMuscleId(), muscleRelation.getUtilization())).collect(Collectors.toList()))
         .build();
   }
 
@@ -33,11 +32,6 @@ public class ExerciseMapper {
         .name(exerciseEntity.getName())
         .isCompound(exerciseEntity.getIsCompound())
         .bodyPart(exerciseEntity.getBodyPart())
-        .muscleRelations(exerciseEntity.getExerciseMuscleRelationEntities().stream()
-            .map(exerciseMuscleRelationEntity -> new Exercise.MuscleRelation(
-                exerciseMuscleRelationEntity.getMuscleEntity().getId(),
-                exerciseMuscleRelationEntity.getRatio()))
-            .collect(Collectors.toList()))
         .build();
   }
 
@@ -47,7 +41,6 @@ public class ExerciseMapper {
         .name(exerciseDto.getName())
         .isCompound(exerciseDto.getIsCompound())
         .bodyPart(exerciseDto.getBodyPart())
-        .muscleRelations(exerciseDto.getMuscleRelations().stream().map(muscleRelation -> new Exercise.MuscleRelation(muscleRelation.getMuscleId(), muscleRelation.getUtilization())).collect(Collectors.toList()))
         .build();
   }
 
@@ -57,14 +50,6 @@ public class ExerciseMapper {
     exerciseEntity.setBodyPart(exercise.getBodyPart());
     exerciseEntity.setIsCompound(exercise.getIsCompound());
     exerciseEntity.setId(exercise.getId());
-
-    exerciseEntity.setExerciseMuscleRelationEntities(exercise.getMuscleRelations().stream()
-        .map(muscleRelation -> new ExerciseMuscleRelationEntity(
-            entityManager.getReference(MuscleEntity.class, muscleRelation.getMuscleId()),
-            exerciseEntity,
-            muscleRelation.getUtilization()
-        )).collect(Collectors.toSet()));
-
     return exerciseEntity;
   }
 
