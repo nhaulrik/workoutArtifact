@@ -21,10 +21,12 @@ public class SessionFacade {
   private final SessionMapper sessionMapper;
   private final SessionDtoSpecificationMapper sessionDtoSpecificationMapper;
 
-  public String addSessions(List<SessionDto> sessionDtos) {
-    return sessionService.addSessions(sessionDtos.stream()
+  public List<Long> addSessions(List<SessionDto> sessionDtos) {
+    List<Long> sessionIds = sessionService.addSessions(sessionDtos.stream()
     .map(sessionMapper::toDomainObject)
     .collect(Collectors.toList()));
+
+    return sessionIds;
   }
 
   public List<SessionDto> getSessions(AbstractSpecification<SessionDto> sessionDtoSpecification) {
@@ -35,5 +37,12 @@ public class SessionFacade {
         .filter(sessionSpecification::isSatisfiedBy)
         .map(sessionMapper::toDto)
         .collect(Collectors.toList());
+  }
+
+  public Boolean deleteSessions(AbstractSpecification sessionIdSpecification) {
+
+    Specification<Session> sessionSpecification = sessionDtoSpecificationMapper.toSessionSpecification(sessionIdSpecification);
+
+    return sessionService.deleteSessions(sessionSpecification);
   }
 }

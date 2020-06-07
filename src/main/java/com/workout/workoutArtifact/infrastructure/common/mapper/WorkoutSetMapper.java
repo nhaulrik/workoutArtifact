@@ -18,16 +18,16 @@ public class WorkoutSetMapper {
   private final EntityManager entityManager;
 
   public WorkoutSetDto toDto(WorkoutSet workoutSet) {
-    return WorkoutSetDto.builder()
-        .exerciseId(workoutSet.getExerciseId())
-        .repetitions(workoutSet.getRepetitions())
-        .weight(workoutSet.getWeight())
-        .single(workoutSet.getSingle())
-        .repetitionMaximum(workoutSet.getRepetitionMaximum())
-        .id(workoutSet.getId())
-        .sessionId(workoutSet.getSessionId())
-        .setNumber(workoutSet.getSetNumber())
-        .build();
+    return new WorkoutSetDto(
+        workoutSet.getId(),
+        workoutSet.getSessionId(),
+        workoutSet.getExerciseId(),
+        workoutSet.getRepetitions(),
+        workoutSet.getWeight(),
+        workoutSet.getSingle(),
+        workoutSet.getRepetitionMaximum(),
+        workoutSet.getSetNumber()
+    );
   }
 
   public WorkoutSet toDomain(WorkoutSetDto workoutSetDto) {

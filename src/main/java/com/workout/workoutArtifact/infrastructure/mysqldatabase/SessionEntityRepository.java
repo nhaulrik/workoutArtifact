@@ -7,6 +7,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEn
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.SessionSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.SessionJpaRepository;
 import com.workout.workoutArtifact.specification.Specification;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -31,12 +32,25 @@ public class SessionEntityRepository implements SessionRepository {
   }
 
   @Override
-  public String addSessions(List<Session> sessions) {
-    return sessions.stream()
+  public List<Long> addSessions(List<Session> sessions) {
+    List<Long> sessionIds = new ArrayList<>();
+
+    sessionIds.addAll(sessions.stream()
         .map(sessionMapper::toEntity)
         .map(sessionJpaRepository::save)
         .map(entity -> entity.getId())
-        .collect(Collectors.toList())
-        .toString();
+        .collect(Collectors.toList()));
+
+    return sessionIds;
+  }
+
+  @Override
+  public Boolean deleteSessions(Specification<Session> sessionSpecification) {
+
+    org.springframework.data.jpa.domain.Specification<SessionEntity> jpaSpecification = sessionSpecificationMapper.toJpaSpecification(sessionSpecification);
+
+    List<SessionEntity> entitiesToDelete = sessionJpaRepository.findAll(jpaSpecification);
+    sessionJpaRepository.deleteAll(entitiesToDelete);
+    return true;
   }
 }

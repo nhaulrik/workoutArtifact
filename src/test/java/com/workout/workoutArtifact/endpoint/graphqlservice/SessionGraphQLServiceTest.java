@@ -46,7 +46,8 @@ public class SessionGraphQLServiceTest {
     Long userId = 2L;
     Long workoutSetId = 1L;
 
-    Boolean resultBoolean = sessionGraphQLService.addSession(
+    sessionGraphQLService.addSession(
+        null,
         location,
         programme,
         splitName,
@@ -60,7 +61,6 @@ public class SessionGraphQLServiceTest {
 
     SessionDto sessionDto = arg.getValue().get(0);
 
-    assertThat(resultBoolean, is(true));
     assertThat(sessionDto.getLocation(), is(location));
     assertThat(sessionDto.getProgramme(), is(programme));
     assertThat(sessionDto.getSplitName(), is(splitName));

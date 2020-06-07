@@ -13,12 +13,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-@Data
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
+@Getter
+@Setter
 @Table(name = "session")
 public class SessionEntity {
 

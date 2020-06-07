@@ -40,7 +40,7 @@ public class SessionFacadeTest {
     doReturn(expectedReturnString)
         .when(sessionService).addSessions(Arrays.asList(session));
 
-    String returnString = sessionFacade.addSessions(Arrays.asList(sessionDto));
+    String returnString = sessionFacade.addSessions(Arrays.asList(sessionDto)).get(0).toString();
 
     assertThat(returnString, is(equalTo(expectedReturnString)));
   }

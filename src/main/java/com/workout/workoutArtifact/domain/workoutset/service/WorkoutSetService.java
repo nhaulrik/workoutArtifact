@@ -18,8 +18,9 @@ public class WorkoutSetService {
     return workoutSetRepository.getWorkoutSet(workoutSetSpecification);
   }
 
-  public void addWorkoutSet(WorkoutSet workoutSet) {
-   workoutSetRepository.addWorkoutSet(Arrays.asList(workoutSet));
+  public Long addWorkoutSet(WorkoutSet workoutSet) {
+   Long workoutSetId = workoutSetRepository.addWorkoutSet(Arrays.asList(workoutSet)).get(0);
+   return workoutSetId;
   }
 
 }

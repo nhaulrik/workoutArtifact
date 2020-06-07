@@ -48,7 +48,7 @@ public class SessionServiceTest {
     doReturn(someResultString)
         .when(sessionRepository).addSessions(Arrays.asList(session));
 
-    String resultString = sessionService.addSessions(Arrays.asList(session));
+    String resultString = sessionService.addSessions(Arrays.asList(session)).get(0).toString();
 
     assertThat(resultString, is(equalTo(someResultString)));
   }

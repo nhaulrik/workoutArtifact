@@ -81,7 +81,7 @@ public class SessionEntityRepositoryTest {
     doReturn(sessionEntity)
         .when(sessionJpaRepository).save(sessionEntity);
 
-    String resultString = sessionEntityRepository.addSessions(Arrays.asList(session));
+    String resultString = sessionEntityRepository.addSessions(Arrays.asList(session)).get(0).toString();
     assertThat(resultString.contains(someId.toString()), is(true));
   }
 }

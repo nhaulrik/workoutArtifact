@@ -16,11 +16,16 @@ public class SessionService {
 
   private final SessionRepository sessionRepository;
 
-  public String addSessions(List<Session> sessions) {
-    return sessionRepository.addSessions(sessions);
+  public List<Long> addSessions(List<Session> sessions) {
+    List<Long> sessionIds = sessionRepository.addSessions(sessions);
+    return sessionIds;
   }
 
   public List<Session> getSession(Specification<Session> sessionSpecification) {
     return sessionRepository.getSessions(sessionSpecification);
+  }
+
+  public Boolean deleteSessions(Specification<Session> sessionSpecification) {
+    return sessionRepository.deleteSessions(sessionSpecification);
   }
 }

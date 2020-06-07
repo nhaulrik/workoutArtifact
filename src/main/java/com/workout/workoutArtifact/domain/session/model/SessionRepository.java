@@ -6,5 +6,6 @@ import java.util.List;
 public interface SessionRepository {
 
   List<Session> getSessions(Specification<Session> sessionSpecification);
-  String addSessions(List<Session> sessions);
+  List<Long> addSessions(List<Session> sessions);
+  Boolean deleteSessions(Specification<Session> sessionSpecification);
 }

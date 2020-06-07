@@ -56,31 +56,31 @@ public class WorkoutSetMapperTest {
     assertThat(workoutSetDto.getSessionId(), is(workoutSet.getSessionId()));
   }
 
-  @Test
-  public void dtoToDomain() {
-
-    WorkoutSetDto workoutSetDto = WorkoutSetDto.builder()
-        .weight(weight)
-        .single(single)
-        .repetitions(repetitions)
-        .repetitionMaximum(repetitionMaximum)
-        .setNumber(setNumber)
-        .exerciseId(exerciseId)
-        .id(id)
-        .sessionId(sessionId)
-        .build();
-
-    WorkoutSet workoutSet = workoutSetMapper.toDomain(workoutSetDto);
-
-    assertThat(workoutSetDto.getWeight(), is(workoutSet.getWeight()));
-    assertThat(workoutSetDto.isSingle(), is(workoutSet.getSingle()));
-    assertThat(workoutSetDto.getRepetitions(), is(workoutSet.getRepetitions()));
-    assertThat(workoutSetDto.getRepetitionMaximum(), is(workoutSet.getRepetitionMaximum()));
-    assertThat(workoutSetDto.getSetNumber(), is(workoutSet.getSetNumber()));
-    assertThat(workoutSetDto.getExerciseId(), is(workoutSet.getExerciseId()));
-    assertThat(workoutSetDto.getId(), is(workoutSet.getId()));
-    assertThat(workoutSetDto.getSessionId(), is(workoutSet.getSessionId()));
-  }
+//  @Test
+//  public void dtoToDomain() {
+//
+//    WorkoutSetDto workoutSetDto = WorkoutSetDto.builder()
+//        .weight(weight)
+//        .single(single)
+//        .repetitions(repetitions)
+//        .repetitionMaximum(repetitionMaximum)
+//        .setNumber(setNumber)
+//        .exerciseId(exerciseId)
+//        .id(id)
+//        .sessionId(sessionId)
+//        .build();
+//
+//    WorkoutSet workoutSet = workoutSetMapper.toDomain(workoutSetDto);
+//
+//    assertThat(workoutSetDto.getWeight(), is(workoutSet.getWeight()));
+//    assertThat(workoutSetDto.isSingle(), is(workoutSet.getSingle()));
+//    assertThat(workoutSetDto.getRepetitions(), is(workoutSet.getRepetitions()));
+//    assertThat(workoutSetDto.getRepetitionMaximum(), is(workoutSet.getRepetitionMaximum()));
+//    assertThat(workoutSetDto.getSetNumber(), is(workoutSet.getSetNumber()));
+//    assertThat(workoutSetDto.getExerciseId(), is(workoutSet.getExerciseId()));
+//    assertThat(workoutSetDto.getId(), is(workoutSet.getId()));
+//    assertThat(workoutSetDto.getSessionId(), is(workoutSet.getSessionId()));
+//  }
 
   @Test
   public void entityToDomain() {

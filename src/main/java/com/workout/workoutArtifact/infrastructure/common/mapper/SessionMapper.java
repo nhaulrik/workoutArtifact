@@ -20,6 +20,11 @@ public class SessionMapper {
 
   public SessionEntity toEntity(Session session) {
     SessionEntity sessionEntity = new SessionEntity();
+
+    if (session.getId() != null) {
+      sessionEntity.setId(session.getId());
+    }
+
     sessionEntity.setCreationDateTime(session.getCreationDateTime());
     sessionEntity.setSplitName(session.getSplitName());
     sessionEntity.setProgramme(session.getProgramme());
@@ -49,6 +54,7 @@ public class SessionMapper {
 
   public Session toDomainObject(SessionDto sessionDto) {
     return Session.builder()
+        .id(sessionDto.getId() != null ? sessionDto.getId() : null)
         .programme(sessionDto.getProgramme())
         .splitName(sessionDto.getSplitName())
         .location(sessionDto.getLocation())
@@ -63,6 +69,7 @@ public class SessionMapper {
         .programme(session.getProgramme())
         .splitName(session.getSplitName())
         .id(session.getId())
+        .userId(session.getUserId())
         .location(session.getLocation())
         .localDateTime(session.getCreationDateTime())
         .workoutSetIds(session.getWorkoutSetIds())

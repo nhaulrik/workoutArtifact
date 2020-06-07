@@ -24,8 +24,21 @@ public class WorkoutSetGraphQLService implements GraphQLSPQRConfig.GraphQLServic
 
   private final WorkoutSetFacade workoutSetFacade;
 
+  @GraphQLMutation(name = "addWorkoutSetList")
+  public List<Long> addWorkoutSetList(
+      @GraphQLArgument(name = "workoutSet") List<WorkoutSetDto> workoutSetDtos
+  ) {
+    List<Long> workoutSetIds = new ArrayList<>();
+    workoutSetDtos.forEach(workoutSetDto -> {
+      Long workoutSetId = workoutSetFacade.addWorkoutSet(workoutSetDto);
+      workoutSetIds.add(workoutSetId);
+    });
+    return workoutSetIds;
+  }
+
   @GraphQLMutation(name = "addWorkoutSet")
   public Boolean addWorkoutSet(
+      @GraphQLArgument(name = "id") Long id,
       @GraphQLArgument(name = "setNumber") Integer setNumber,
       @GraphQLArgument(name = "weight") Double weight,
       @GraphQLArgument(name = "repetitions") Integer repetitions,
@@ -35,21 +48,26 @@ public class WorkoutSetGraphQLService implements GraphQLSPQRConfig.GraphQLServic
       @GraphQLArgument(name = "sessionId") Long sessionId
   ) {
 
-    WorkoutSetDto workoutSetDto = WorkoutSetDto.builder()
-        .setNumber(setNumber)
-        .weight(weight)
-        .repetitions(repetitions)
-        .repetitionMaximum(repetitionMaximum)
-        .single(single)
-        .exerciseId(exerciseId)
-        .sessionId(sessionId)
-        .build();
+    WorkoutSetDto workoutSetDto = new WorkoutSetDto(
+      null,
+        sessionId,
+        exerciseId,
+        repetitions,
+        weight,
+        single,
+        repetitionMaximum,
+        setNumber
+    );
+
+    if (id != null) {
+      workoutSetDto.setId(id);
+    }
 
     workoutSetFacade.addWorkoutSet(workoutSetDto);
     return true;
   }
 
-  @GraphQLQuery(name = "workoutsets")
+  @GraphQLQuery(name = "workoutSet")
   public List<WorkoutSetDto> getWorkoutSet(
       @GraphQLArgument(name = "ids") List<Long> ids
   ) {
@@ -63,7 +81,7 @@ public class WorkoutSetGraphQLService implements GraphQLSPQRConfig.GraphQLServic
   }
 
 
-  @GraphQLQuery(name = "workoutsets")
+  @GraphQLQuery(name = "workoutSet")
   public List<WorkoutSetDto> getWorkoutSet(
       @GraphQLArgument(name = "ids") List<Long> ids,
       @GraphQLContext SessionDto sessionDto

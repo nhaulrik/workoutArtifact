@@ -68,8 +68,10 @@ public class WorkoutSetGraphQLServiceTest {
     Boolean single = true;
     Long exerciseId = 2L;
     Long sessionId = 1L;
+    Long id = 1L;
 
     Boolean resultBoolean = workoutSetGraphQLService.addWorkoutSet(
+        id,
         setNumber,
         weight,
         repetitions,

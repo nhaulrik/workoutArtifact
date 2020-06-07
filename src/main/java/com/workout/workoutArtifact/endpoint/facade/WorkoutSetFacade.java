@@ -28,8 +28,9 @@ public class WorkoutSetFacade {
         .collect(Collectors.toList());
   }
 
-  public void addWorkoutSet(WorkoutSetDto workoutSetDto) {
-    workoutSetService.addWorkoutSet(workoutSetMapper.toDomain(workoutSetDto));
+  public Long addWorkoutSet(WorkoutSetDto workoutSetDto) {
+    Long workoutSetId = workoutSetService.addWorkoutSet(workoutSetMapper.toDomain(workoutSetDto));
+    return workoutSetId;
   }
 
 }

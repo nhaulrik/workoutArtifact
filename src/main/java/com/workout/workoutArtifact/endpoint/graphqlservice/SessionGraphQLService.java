@@ -27,6 +27,14 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
   private final SessionFacade sessionFacade;
 
+//  @GraphQLQuery(name = "deleteSessions")
+//  public Boolean deleteSessions(
+//      @GraphQLArgument(name = "ids") List<Long> ids
+//  ) {
+//    AbstractSpecification sessionIdSpecification = new SessionDto.IdsSpecification(ids);
+//    return sessionFacade.deleteSessions(sessionIdSpecification);
+//  }
+
   @GraphQLQuery(name = "sessions")
   public List<SessionDto> getSessions(
       @GraphQLContext UserDto userDto
@@ -47,11 +55,21 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
   ) {
     List<AbstractSpecification<SessionDto>> sessionDtoSpecifications = new ArrayList<>();
 
-    if (ids != null) { sessionDtoSpecifications.add(new SessionDto.IdsSpecification(ids)); }
-    if (locations != null) { sessionDtoSpecifications.add(new SessionDto.LocationsSpecification(locations)); }
-    if (programme != null) { sessionDtoSpecifications.add(new SessionDto.ProgrammeSpecification(programme)); }
-    if (splitName != null) { sessionDtoSpecifications.add(new SessionDto.SplitNameSpecification(splitName)); }
-    if (userId != null) { sessionDtoSpecifications.add(new SessionDto.UserIdSpecification(userId)); }
+    if (ids != null) {
+      sessionDtoSpecifications.add(new SessionDto.IdsSpecification(ids));
+    }
+    if (locations != null) {
+      sessionDtoSpecifications.add(new SessionDto.LocationsSpecification(locations));
+    }
+    if (programme != null) {
+      sessionDtoSpecifications.add(new SessionDto.ProgrammeSpecification(programme));
+    }
+    if (splitName != null) {
+      sessionDtoSpecifications.add(new SessionDto.SplitNameSpecification(splitName));
+    }
+    if (userId != null) {
+      sessionDtoSpecifications.add(new SessionDto.UserIdSpecification(userId));
+    }
     if (date != null) {
       DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
       LocalDate localDate = LocalDate.parse(date, dateTimeFormatter);
@@ -63,18 +81,19 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
     AbstractSpecification aggregatedSpecification = sessionDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
 
-  return sessionFacade.getSessions(aggregatedSpecification);
+    return sessionFacade.getSessions(aggregatedSpecification);
   }
 
   @GraphQLMutation(name = "addSession")
-  public Boolean addSession(
+  public Long addSession(
+      @GraphQLArgument(name = "id") Long id,
       @GraphQLArgument(name = "location") String location,
       @GraphQLArgument(name = "programme") String programme,
       @GraphQLArgument(name = "splitName") String splitName,
       @GraphQLArgument(name = "time") String time,
       @GraphQLArgument(name = "workoutSetIds") List<Long> workoutSetIds,
       @GraphQLArgument(name = "userId") Long userId
-      ) {
+  ) {
 
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     LocalDateTime parsedTime = LocalDateTime.parse(time, dateTimeFormatter);
@@ -88,8 +107,12 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
         .userId(userId)
         .build();
 
-    sessionFacade.addSessions(Arrays.asList(sessionDto));
+    if (id != null) {
+      sessionDto.setId(id);
+    }
 
-    return true;
+    Long sessionId = sessionFacade.addSessions(Arrays.asList(sessionDto)).get(0);
+
+    return sessionId;
   }
 }
