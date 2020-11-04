@@ -12,6 +12,7 @@ import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,13 +28,13 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
   private final SessionFacade sessionFacade;
 
-//  @GraphQLQuery(name = "deleteSessions")
-//  public Boolean deleteSessions(
-//      @GraphQLArgument(name = "ids") List<Long> ids
-//  ) {
-//    AbstractSpecification sessionIdSpecification = new SessionDto.IdsSpecification(ids);
-//    return sessionFacade.deleteSessions(sessionIdSpecification);
-//  }
+  @GraphQLQuery(name = "deleteSessions")
+  public Boolean deleteSessions(
+      @GraphQLArgument(name = "ids") List<Long> ids
+  ) {
+    AbstractSpecification sessionIdSpecification = new SessionDto.IdsSpecification(ids);
+    return sessionFacade.deleteSessions(sessionIdSpecification);
+  }
 
   @GraphQLQuery(name = "sessions")
   public List<SessionDto> getSessions(
@@ -50,11 +51,13 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
       @GraphQLArgument(name = "programme") String programme,
       @GraphQLArgument(name = "splitName") String splitName,
       @GraphQLArgument(name = "userId") Long userId,
-      @GraphQLArgument(name = "date") String date
+      @GraphQLArgument(name = "date") String date,
+      @GraphQLArgument(name = "month") Integer month,
+      @GraphQLArgument(name = "year") Integer year
 
   ) {
     List<AbstractSpecification<SessionDto>> sessionDtoSpecifications = new ArrayList<>();
-
+    AbstractSpecification aggregatedSpecification;
     if (ids != null) {
       sessionDtoSpecifications.add(new SessionDto.IdsSpecification(ids));
     }
@@ -78,10 +81,26 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
       sessionDtoSpecifications.add(new SessionDto.DateTimeSpecification(localDateTime));
     }
+    if (month != null && year != null) {
+      YearMonth yearMonth = YearMonth.of(year, month);
 
-    AbstractSpecification aggregatedSpecification = sessionDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
+      List<LocalDateTime> dateTimes = new ArrayList<>();
 
-    return sessionFacade.getSessions(aggregatedSpecification);
+      for (int i = 1; i < yearMonth.lengthOfMonth(); i++) {
+        LocalDate localDate = LocalDate.of(year, month, i);
+        LocalDateTime localDateTime = localDate.atStartOfDay();
+        dateTimes.add(localDateTime);
+        sessionDtoSpecifications.add(new SessionDto.DateTimeSpecification(localDateTime));
+      }
+      aggregatedSpecification = sessionDtoSpecifications.stream().reduce(AbstractSpecification::or).orElse(new MatchAllSpecification());
+      return sessionFacade.getSessions(aggregatedSpecification);
+    }
+
+    aggregatedSpecification = sessionDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
+
+    List<SessionDto> sessionDtos = new ArrayList<>();
+    sessionDtos.addAll(sessionFacade.getSessions(aggregatedSpecification));
+    return sessionDtos;
   }
 
   @GraphQLMutation(name = "addSession")

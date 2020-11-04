@@ -16,8 +16,10 @@ import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class SessionFacadeTest {
 
   SessionService sessionService = mock(SessionService.class);

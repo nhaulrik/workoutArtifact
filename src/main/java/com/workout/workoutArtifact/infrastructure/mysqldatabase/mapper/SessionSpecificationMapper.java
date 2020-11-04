@@ -4,6 +4,7 @@ import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
 import com.workout.workoutArtifact.specification.AndSpecification;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
+import com.workout.workoutArtifact.specification.OrSpecification;
 import com.workout.workoutArtifact.specification.Specification;
 import java.time.LocalDateTime;
 import org.springframework.data.mapping.MappingException;
@@ -19,6 +20,11 @@ public class SessionSpecificationMapper {
       return ((AndSpecification<Session>) sessionSpecification).getSet().stream()
           .map(this::toJpaSpecification)
           .reduce(org.springframework.data.jpa.domain.Specification::and)
+          .orElse((root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.disjunction());
+    } else if (sessionSpecification instanceof OrSpecification) {
+      return ((OrSpecification<Session>) sessionSpecification).getSet().stream()
+          .map(this::toJpaSpecification)
+          .reduce(org.springframework.data.jpa.domain.Specification::or)
           .orElse((root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.disjunction());
     } else if (sessionSpecification instanceof MatchAllSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.conjunction();

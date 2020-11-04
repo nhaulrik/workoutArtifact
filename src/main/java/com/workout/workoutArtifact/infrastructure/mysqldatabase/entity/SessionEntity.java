@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,12 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
 @RequiredArgsConstructor
 @Entity
@@ -45,7 +43,7 @@ public class SessionEntity {
   @JoinColumn
   private UserEntity userEntity;
 
-  @OneToMany(mappedBy = "sessionEntity")
+  @OneToMany(mappedBy = "sessionEntity", cascade = CascadeType.REMOVE)
   private Set<WorkoutSetEntity> workoutSetEntities = new HashSet<>();
 
 }

@@ -22,7 +22,8 @@ public class SessionService {
   }
 
   public List<Session> getSession(Specification<Session> sessionSpecification) {
-    return sessionRepository.getSessions(sessionSpecification);
+    List<Session> sessions = sessionRepository.getSessions(sessionSpecification);
+    return sessions;
   }
 
   public Boolean deleteSessions(Specification<Session> sessionSpecification) {

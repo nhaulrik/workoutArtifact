@@ -25,7 +25,8 @@ public class SessionEntityRepository implements SessionRepository {
   public List<Session> getSessions(Specification<Session> sessionSpecification) {
     org.springframework.data.jpa.domain.Specification<SessionEntity> jpaSpecification = sessionSpecificationMapper.toJpaSpecification(sessionSpecification);
 
-    return sessionJpaRepository.findAll(jpaSpecification).stream()
+    List<SessionEntity> sessionEntities = sessionJpaRepository.findAll(jpaSpecification);
+    return sessionEntities.stream()
         .map(sessionMapper::toDomainObject)
         .filter(sessionSpecification::isSatisfiedBy)
         .collect(Collectors.toList());
