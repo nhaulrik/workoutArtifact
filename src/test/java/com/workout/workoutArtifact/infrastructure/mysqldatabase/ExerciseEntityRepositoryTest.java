@@ -67,7 +67,6 @@ public class ExerciseEntityRepositoryTest {
     ExerciseEntity exerciseEntity = new ExerciseEntity();
     exerciseEntity.setName(someExerciseName);
     exerciseEntity.setIsCompound(false);
-    exerciseEntity.setExerciseMuscleRelationEntities(new HashSet<>());
     exerciseEntity.setId(1337L);
 
     doReturn(exerciseEntity)

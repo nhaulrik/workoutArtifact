@@ -2,11 +2,7 @@ package com.workout.workoutArtifact.infrastructure.common.mapper;
 
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
-import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseMuscleRelationEntity;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.MuscleEntity;
-import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

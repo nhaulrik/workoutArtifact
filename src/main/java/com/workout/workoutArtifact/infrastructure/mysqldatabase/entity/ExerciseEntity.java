@@ -37,9 +37,6 @@ public class ExerciseEntity {
   private String bodyPart;
 
   @OneToMany(mappedBy = "exerciseEntity", cascade = CascadeType.ALL)
-  private Set<ExerciseMuscleRelationEntity> exerciseMuscleRelationEntities = new HashSet<>();
-
-  @OneToMany(mappedBy = "exerciseEntity", cascade = CascadeType.ALL)
   private Set<WorkoutSetEntity> workoutSets = new HashSet<>();
 
 }
