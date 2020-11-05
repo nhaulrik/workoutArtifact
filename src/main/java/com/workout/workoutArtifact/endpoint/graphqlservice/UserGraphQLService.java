@@ -58,10 +58,10 @@ public class UserGraphQLService {
     LocalDate parsedDate = LocalDate.parse(birthday, dateTimeFormatter);
 
     UserDto userDto = UserDto.builder()
-        .birthDay(parsedDate)
+        .birthday(parsedDate)
         .firstName(firstName)
         .lastName(lastName)
-        .gender(Gender.valueOf(gender))
+        .gender(Gender.valueOf(gender.toUpperCase()))
         .build();
 
     return userFacade.addUser(userDto);

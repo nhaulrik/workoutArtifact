@@ -13,7 +13,7 @@ public class UserDto {
 
   private String firstName;
   private String lastName;
-  private LocalDate birthDay;
+  private LocalDate birthday;
   private Gender gender;
   private Long id;
 

@@ -31,7 +31,7 @@ public class UserMapper {
 
   public UserDto toDto(User user) {
     return UserDto.builder()
-        .birthDay(user.getBirthDay())
+        .birthday(user.getBirthDay())
         .firstName(user.getFirstName())
         .lastName(user.getLastName())
         .gender(UserDto.Gender.valueOf(user.getGender().name()))
@@ -44,7 +44,7 @@ public class UserMapper {
         .firstName(userDto.getFirstName())
         .lastName(userDto.getLastName())
         .gender(User.Gender.valueOf(userDto.getGender().name()))
-        .birthDay(userDto.getBirthDay())
+        .birthDay(userDto.getBirthday())
         .build();
   }
 }
