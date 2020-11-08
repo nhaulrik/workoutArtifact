@@ -3,21 +3,24 @@ package com.workout.workoutArtifact.endpoint.dto;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
 
 @Data
 @Builder
+@AllArgsConstructor
 public class SessionDto {
 
-  private Long id;
+  private UUID id;
   private String location;
   private String programme;
   private String splitName;
   private LocalDateTime localDateTime;
   private List<Long> workoutSetIds;
-  private Long userId;
+  private UUID userId;
 
   // TODO: 14-09-2019 implement fields for time
 
@@ -47,7 +50,7 @@ public class SessionDto {
   @Value
   public static class IdsSpecification extends AbstractSpecification<SessionDto> {
 
-    private final List<Long> ids;
+    private final List<UUID> ids;
 
     @Override
     public boolean isSatisfiedBy(SessionDto sessionDto) {
@@ -69,7 +72,7 @@ public class SessionDto {
   @Value
   public static class UserIdSpecification extends AbstractSpecification<SessionDto> {
 
-    private final Long userId;
+    private final UUID userId;
 
     @Override
     public boolean isSatisfiedBy(SessionDto sessionDto) {

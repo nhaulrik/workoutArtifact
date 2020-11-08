@@ -13,6 +13,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEn
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import org.junit.Test;
 
@@ -28,7 +29,7 @@ public class WorkoutSetMapperTest {
   private final int setNumber = 1;
   private final Long exerciseId = 1L;
   private final Long id = 2L;
-  private final Long sessionId = 3L;
+  private final UUID sessionId = UUID.randomUUID();
 
   @Test
   public void domainToDto() {
@@ -167,7 +168,7 @@ public class WorkoutSetMapperTest {
         .repetitions(8)
         .exerciseId(1L)
         .exerciseId(1L)
-        .sessionId(1L)
+        .sessionId(UUID.randomUUID())
         .build();
   }
 

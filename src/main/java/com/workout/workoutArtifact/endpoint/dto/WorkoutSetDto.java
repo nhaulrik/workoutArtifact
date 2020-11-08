@@ -2,6 +2,7 @@ package com.workout.workoutArtifact.endpoint.dto;
 
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,7 @@ public class WorkoutSetDto {
   private Long id;
 
   @NonNull
-  private Long sessionId;
+  private UUID sessionId;
 
   @NonNull
   private Long exerciseId;

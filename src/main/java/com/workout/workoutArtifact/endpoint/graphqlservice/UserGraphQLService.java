@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -58,6 +59,7 @@ public class UserGraphQLService {
     LocalDate parsedDate = LocalDate.parse(birthday, dateTimeFormatter);
 
     UserDto userDto = UserDto.builder()
+        .id(UUID.randomUUID())
         .birthday(parsedDate)
         .firstName(firstName)
         .lastName(lastName)

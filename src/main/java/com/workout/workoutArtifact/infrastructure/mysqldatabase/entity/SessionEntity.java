@@ -3,9 +3,11 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 @RequiredArgsConstructor
 @Entity
@@ -25,8 +28,7 @@ import lombok.Setter;
 public class SessionEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String id;
 
   private LocalDateTime creationDateTime;
 
@@ -40,10 +42,18 @@ public class SessionEntity {
   private String splitName;
 
   @ManyToOne
-  @JoinColumn
+  @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_session_user_id"))
   private UserEntity userEntity;
 
   @OneToMany(mappedBy = "sessionEntity", cascade = CascadeType.REMOVE)
   private Set<WorkoutSetEntity> workoutSetEntities = new HashSet<>();
+
+  public UUID getId() {
+    return UUID.fromString(this.id);
+  }
+
+  public void setId(UUID id) {
+    this.id = id.toString();
+  }
 
 }

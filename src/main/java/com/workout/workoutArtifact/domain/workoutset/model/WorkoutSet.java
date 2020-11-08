@@ -2,6 +2,7 @@ package com.workout.workoutArtifact.domain.workoutset.model;
 
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.List;
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
@@ -12,7 +13,7 @@ import lombok.Value;
 public class WorkoutSet {
 
   private Long id;
-  private Long sessionId;
+  private UUID sessionId;
   private Long exerciseId;
   private Boolean single;
   private double weight;

@@ -14,6 +14,7 @@ import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -29,7 +30,7 @@ public class SessionGraphQLServiceTest {
 
     SessionDto sessionDtoMock = mock(SessionDto.class);
 
-    Long id = 1L;
+    UUID id = UUID.randomUUID();
 
     doReturn(Arrays.asList(sessionDtoMock))
         .when(sessionFacade).getSessions(any(AbstractSpecification.class));
@@ -45,7 +46,7 @@ public class SessionGraphQLServiceTest {
     String programme = "program1";
     String splitName = "split1";
     String time = "12-11-2019 15:30";
-    Long userId = 2L;
+    UUID userId = UUID.randomUUID();
     Long workoutSetId = 1L;
 
     sessionGraphQLService.addSession(

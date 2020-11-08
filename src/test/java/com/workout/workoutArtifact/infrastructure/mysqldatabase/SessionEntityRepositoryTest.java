@@ -15,6 +15,7 @@ import com.workout.workoutArtifact.specification.Specification;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import org.junit.Test;
 
 public class SessionEntityRepositoryTest {
@@ -39,7 +40,7 @@ public class SessionEntityRepositoryTest {
     Session session = Session.builder()
         .creationDateTime(LocalDateTime.now())
         .location("some_location")
-        .id(1337L)
+        .id(UUID.randomUUID())
         .programme("some_programme")
         .splitName("some_split_name")
         .build();
@@ -62,7 +63,7 @@ public class SessionEntityRepositoryTest {
   @Test
   public void addSessions() {
 
-    Long someId = 1337L;
+    UUID someId = UUID.randomUUID();
 
     Session session = Session.builder()
         .id(someId)

@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset nch:1604519917427-1
+--changeset nch:1604609499566-1
 INSERT INTO exercise (id, body_part, is_compound, name) VALUES (1, 'UPPER BODY', FALSE, 'DUMBELL PULLOVER');
 INSERT INTO exercise (id, body_part, is_compound, name) VALUES (2, 'BACK', TRUE, 'DUMBELL ONE ARM ROW');
 INSERT INTO exercise (id, body_part, is_compound, name) VALUES (3, 'BACK', TRUE, 'BARBELL BENT ROW');
@@ -64,7 +64,7 @@ INSERT INTO exercise (id, body_part, is_compound, name) VALUES (60, 'LOWER BODY'
 INSERT INTO exercise (id, body_part, is_compound, name) VALUES (61, 'LOWER BODY', FALSE, 'TOE PRESS');
 INSERT INTO exercise (id, body_part, is_compound, name) VALUES (62, 'LOWER BACK', FALSE, 'HYPEREXTENSION');
 
---changeset nch:1604519917427-2
+--changeset nch:1604609499566-2
 INSERT INTO muscle (id, body_part, name) VALUES (1, 'upper back', 'Lats');
 INSERT INTO muscle (id, body_part, name) VALUES (2, 'upper back', 'Inner Back');
 INSERT INTO muscle (id, body_part, name) VALUES (3, 'upper back', 'Rhomboid');

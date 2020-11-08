@@ -7,6 +7,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.Sessi
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.specification.Specification;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +17,8 @@ public class SessionService {
 
   private final SessionRepository sessionRepository;
 
-  public List<Long> addSessions(List<Session> sessions) {
-    List<Long> sessionIds = sessionRepository.addSessions(sessions);
+  public List<UUID> addSessions(List<Session> sessions) {
+    List<UUID> sessionIds = sessionRepository.addSessions(sessions);
     return sessionIds;
   }
 

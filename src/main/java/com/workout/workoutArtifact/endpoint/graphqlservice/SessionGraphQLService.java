@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -30,7 +31,7 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
   @GraphQLQuery(name = "deleteSessions")
   public Boolean deleteSessions(
-      @GraphQLArgument(name = "ids") List<Long> ids
+      @GraphQLArgument(name = "ids") List<UUID> ids
   ) {
     AbstractSpecification sessionIdSpecification = new SessionDto.IdsSpecification(ids);
     return sessionFacade.deleteSessions(sessionIdSpecification);
@@ -46,11 +47,11 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
   @GraphQLQuery(name = "sessions")
   public List<SessionDto> getSessions(
-      @GraphQLArgument(name = "ids") List<Long> ids,
+      @GraphQLArgument(name = "ids") List<UUID> ids,
       @GraphQLArgument(name = "locations") List<String> locations,
       @GraphQLArgument(name = "programme") String programme,
       @GraphQLArgument(name = "splitName") String splitName,
-      @GraphQLArgument(name = "userId") Long userId,
+      @GraphQLArgument(name = "userId") UUID userId,
       @GraphQLArgument(name = "date") String date,
       @GraphQLArgument(name = "month") Integer month,
       @GraphQLArgument(name = "year") Integer year
@@ -104,14 +105,14 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
   }
 
   @GraphQLMutation(name = "addSession")
-  public Long addSession(
-      @GraphQLArgument(name = "id") Long id,
+  public UUID addSession(
+      @GraphQLArgument(name = "id") UUID id,
       @GraphQLArgument(name = "location") String location,
       @GraphQLArgument(name = "programme") String programme,
       @GraphQLArgument(name = "splitName") String splitName,
       @GraphQLArgument(name = "time") String time,
       @GraphQLArgument(name = "workoutSetIds") List<Long> workoutSetIds,
-      @GraphQLArgument(name = "userId") Long userId
+      @GraphQLArgument(name = "userId") UUID userId
   ) {
 
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -130,7 +131,7 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
       sessionDto.setId(id);
     }
 
-    Long sessionId = sessionFacade.addSessions(Arrays.asList(sessionDto)).get(0);
+    UUID sessionId = sessionFacade.addSessions(Arrays.asList(sessionDto)).get(0);
 
     return sessionId;
   }

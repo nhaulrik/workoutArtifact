@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import org.junit.Test;
@@ -68,7 +69,7 @@ public class SessionMapperTest {
   @Test
   public void entityToDomain() {
 
-    Long someId = 1337L;
+    UUID someId = UUID.randomUUID();
     LocalDateTime someLocalDateTime = LocalDateTime.now();
     String someLocation = "some_location";
 
@@ -95,7 +96,7 @@ public class SessionMapperTest {
   @Test
   public void domainToDto() {
 
-    Long someId = 1L;
+    UUID someId = UUID.randomUUID();
     String someLocation = "some_location";
 
     Session session = Session.builder()
@@ -134,7 +135,7 @@ public class SessionMapperTest {
     return Session.builder()
         .splitName("split1")
         .programme("program1")
-        .id(1L)
+        .id(UUID.randomUUID())
         .creationDateTime(LocalDateTime.of(LocalDate.now(), LocalTime.now()))
         .location(location)
         .workoutSetIds(Arrays.asList(1L))

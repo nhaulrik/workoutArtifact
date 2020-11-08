@@ -8,6 +8,7 @@ import com.workout.workoutArtifact.infrastructure.common.mapper.SessionMapper;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.specification.Specification;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,8 @@ public class SessionFacade {
   private final SessionMapper sessionMapper;
   private final SessionDtoSpecificationMapper sessionDtoSpecificationMapper;
 
-  public List<Long> addSessions(List<SessionDto> sessionDtos) {
-    List<Long> sessionIds = sessionService.addSessions(sessionDtos.stream()
+  public List<UUID> addSessions(List<SessionDto> sessionDtos) {
+    List<UUID> sessionIds = sessionService.addSessions(sessionDtos.stream()
     .map(sessionMapper::toDomainObject)
     .collect(Collectors.toList()));
 

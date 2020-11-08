@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.domain.user.model;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
@@ -15,7 +16,7 @@ public class User {
   private String lastName;
   private LocalDate birthDay;
   private Gender gender;
-  private Long id;
+  private UUID id;
 
   public enum Gender{
     MALE,

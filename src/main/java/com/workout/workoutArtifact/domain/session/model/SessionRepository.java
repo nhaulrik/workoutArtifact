@@ -2,10 +2,11 @@ package com.workout.workoutArtifact.domain.session.model;
 
 import com.workout.workoutArtifact.specification.Specification;
 import java.util.List;
+import java.util.UUID;
 
 public interface SessionRepository {
 
   List<Session> getSessions(Specification<Session> sessionSpecification);
-  List<Long> addSessions(List<Session> sessions);
+  List<UUID> addSessions(List<Session> sessions);
   Boolean deleteSessions(Specification<Session> sessionSpecification);
 }

@@ -6,6 +6,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseE
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +55,7 @@ public class WorkoutSetMapper {
         .setNumber(workoutSetEntity.getSetNumber())
         .sessionId(workoutSetEntity.getSessionEntity().getId())
         .build();
+
   }
 
   public WorkoutSetEntity toEntity(WorkoutSet workoutSet) {

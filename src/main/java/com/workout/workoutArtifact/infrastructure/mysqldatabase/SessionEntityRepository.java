@@ -9,6 +9,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.Sessi
 import com.workout.workoutArtifact.specification.Specification;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -33,8 +34,8 @@ public class SessionEntityRepository implements SessionRepository {
   }
 
   @Override
-  public List<Long> addSessions(List<Session> sessions) {
-    List<Long> sessionIds = new ArrayList<>();
+  public List<UUID> addSessions(List<Session> sessions) {
+    List<UUID> sessionIds = new ArrayList<>();
 
     sessionIds.addAll(sessions.stream()
         .map(sessionMapper::toEntity)

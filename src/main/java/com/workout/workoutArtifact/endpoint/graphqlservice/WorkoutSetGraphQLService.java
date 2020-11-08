@@ -14,6 +14,7 @@ import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -46,7 +47,7 @@ public class WorkoutSetGraphQLService implements GraphQLSPQRConfig.GraphQLServic
       @GraphQLArgument(name = "repetitionMaximum") Integer repetitionMaximum,
       @GraphQLArgument(name = "single") Boolean single,
       @GraphQLArgument(name = "exerciseId") Long exerciseId,
-      @GraphQLArgument(name = "sessionId") Long sessionId
+      @GraphQLArgument(name = "sessionId") UUID sessionId
   ) {
 
     WorkoutSetDto workoutSetDto = new WorkoutSetDto(

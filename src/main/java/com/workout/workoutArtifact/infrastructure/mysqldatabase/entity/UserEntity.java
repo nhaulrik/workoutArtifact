@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 @Data
 @NoArgsConstructor
@@ -20,8 +22,7 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String id;
 
   @Column
   private String firstName;
@@ -37,4 +38,12 @@ public class UserEntity {
 
   @OneToMany(mappedBy = "userEntity")
   private Set<SessionEntity> sessionEntities = new HashSet<>();
+
+  public UUID getId() {
+    return UUID.fromString(this.id);
+  }
+
+  public void setId(UUID id) {
+    this.id = id.toString();
+  }
 }

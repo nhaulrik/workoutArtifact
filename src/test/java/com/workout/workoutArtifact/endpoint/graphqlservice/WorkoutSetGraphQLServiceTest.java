@@ -15,6 +15,7 @@ import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -67,7 +68,7 @@ public class WorkoutSetGraphQLServiceTest {
     Integer repetitionMaximum = 12;
     Boolean single = true;
     Long exerciseId = 2L;
-    Long sessionId = 1L;
+    UUID sessionId = UUID.randomUUID();
     Long id = 1L;
 
     Boolean resultBoolean = workoutSetGraphQLService.addWorkoutSet(

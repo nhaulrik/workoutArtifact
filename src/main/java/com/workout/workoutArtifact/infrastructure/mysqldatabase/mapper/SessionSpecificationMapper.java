@@ -7,6 +7,8 @@ import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.specification.OrSpecification;
 import com.workout.workoutArtifact.specification.Specification;
 import java.time.LocalDateTime;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import org.springframework.data.mapping.MappingException;
 import org.springframework.stereotype.Component;
 
@@ -29,13 +31,13 @@ public class SessionSpecificationMapper {
     } else if (sessionSpecification instanceof MatchAllSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.conjunction();
     } else if (sessionSpecification instanceof  Session.IdsSpecification) {
-      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Session.IdsSpecification) sessionSpecification).getIds());
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Session.IdsSpecification) sessionSpecification).getIds().stream().map(UUID::toString).collect(Collectors.toList()));
     } else if (sessionSpecification instanceof  Session.LocationsSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("location").in(((Session.LocationsSpecification) sessionSpecification).getLocations());
     } else if (sessionSpecification instanceof  Session.ProgrammeSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("programme").in(((Session.ProgrammeSpecification) sessionSpecification).getProgramme());
     } else if (sessionSpecification instanceof  Session.UserIdSpecification) {
-      return (root, criteriaQuery, criteriaBuilder) -> root.get("userEntity").get("id").in(((Session.UserIdSpecification) sessionSpecification).getUserId());
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("userEntity").get("id").in(((Session.UserIdSpecification) sessionSpecification).getUserId().toString());
     } else if (sessionSpecification instanceof  Session.DateTimeSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> {
         LocalDateTime parsedLocalDateTime = ((Session.DateTimeSpecification) sessionSpecification).getLocalDateTime();

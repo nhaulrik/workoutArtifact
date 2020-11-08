@@ -16,6 +16,7 @@ import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -50,7 +51,7 @@ public class SessionFacadeTest {
   @Test
   public void getSessions() {
 
-    Long id = 1L;
+    UUID id = UUID.randomUUID();
     String location = "some_location";
     Session session = Session.builder()
         .id(id)

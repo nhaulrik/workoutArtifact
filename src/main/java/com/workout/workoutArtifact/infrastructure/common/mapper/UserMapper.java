@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.infrastructure.common.mapper;
 import com.workout.workoutArtifact.domain.user.model.User;
 import com.workout.workoutArtifact.endpoint.dto.UserDto;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.UserEntity;
+import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 @Component

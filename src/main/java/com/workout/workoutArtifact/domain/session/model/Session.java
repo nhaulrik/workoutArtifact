@@ -3,6 +3,8 @@ package com.workout.workoutArtifact.domain.session.model;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
@@ -12,7 +14,7 @@ import lombok.Value;
 @Data
 public class Session {
 
-  private Long id;
+  private UUID id;
 
   @NonNull
   private LocalDateTime creationDateTime;
@@ -27,7 +29,7 @@ public class Session {
   private String splitName;
 
   private List<Long> workoutSetIds;
-  private Long userId;
+  private UUID userId;
 
   @Value
   public static class SplitNameSpecification extends AbstractSpecification<Session> {
@@ -55,7 +57,7 @@ public class Session {
   @Value
   public static class IdsSpecification extends AbstractSpecification<Session> {
 
-    private final List<Long> ids;
+    private final List<UUID> ids;
 
     @Override
     public boolean isSatisfiedBy(Session session) {
@@ -77,7 +79,7 @@ public class Session {
   @Value
   public static class UserIdSpecification extends AbstractSpecification<Session> {
 
-    private final Long userId;
+    private final UUID userId;
 
     @Override
     public boolean isSatisfiedBy(Session session) {

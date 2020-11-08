@@ -16,6 +16,7 @@ import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.specification.NotSpecification;
 import com.workout.workoutArtifact.specification.OrSpecification;
 import java.util.Arrays;
+import java.util.UUID;
 import org.junit.Test;
 
 public class SessionDtoSpecificationMapperTest {
@@ -49,7 +50,7 @@ public class SessionDtoSpecificationMapperTest {
   @Test
   public void mapsIdsSpecification() {
 
-    Long id = 1L;
+    UUID id = UUID.randomUUID();
 
     SessionDto.IdsSpecification idsSpecification = new IdsSpecification(Arrays.asList(id));
 
@@ -83,7 +84,7 @@ public class SessionDtoSpecificationMapperTest {
   public void mapsAndSpecification() {
 
     String location = "some_location";
-    Long id = 1L;
+    UUID id = UUID.randomUUID();
 
     SessionDto.LocationsSpecification locationsSpecification = new LocationsSpecification(Arrays.asList(location));
     SessionDto.IdsSpecification idsSpecification = new IdsSpecification(Arrays.asList(id));
@@ -99,7 +100,7 @@ public class SessionDtoSpecificationMapperTest {
   public void mapsOrSpecification() {
 
     String location = "some_location";
-    Long id = 1L;
+    UUID id = UUID.randomUUID();
 
     SessionDto.LocationsSpecification locationsSpecification = new LocationsSpecification(Arrays.asList(location));
     SessionDto.IdsSpecification idsSpecification = new IdsSpecification(Arrays.asList(id));
@@ -114,7 +115,7 @@ public class SessionDtoSpecificationMapperTest {
   @Test
   public void mapsNotSpecification() {
 
-    Long id = 1L;
+    UUID id = UUID.randomUUID();
     SessionDto.IdsSpecification idsSpecification = new IdsSpecification(Arrays.asList(id));
 
     NotSpecification notSpecification = new NotSpecification(idsSpecification);

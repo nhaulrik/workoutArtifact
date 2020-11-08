@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.endpoint.dto;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
@@ -15,7 +16,7 @@ public class UserDto {
   private String lastName;
   private LocalDate birthday;
   private Gender gender;
-  private Long id;
+  private UUID id;
 
   public enum Gender{
     MALE,

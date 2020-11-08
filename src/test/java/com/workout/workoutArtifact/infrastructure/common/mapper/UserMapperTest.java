@@ -7,13 +7,14 @@ import com.workout.workoutArtifact.domain.user.model.User;
 import com.workout.workoutArtifact.domain.user.model.User.Gender;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.UserEntity;
 import java.time.LocalDate;
+import java.util.UUID;
 import org.junit.Test;
 
 public class UserMapperTest {
 
   private final UserMapper userMapper = new UserMapper();
 
-  private final Long id = 1L;
+  private final UUID id = UUID.randomUUID();
   private final String firstName = "first_name";
   private final String lastName = "last_name";
   private final String gender = "MALE";
