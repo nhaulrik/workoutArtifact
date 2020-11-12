@@ -11,5 +11,45 @@
 
   <artifactId>application</artifactId>
 
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <finalName>workout-service-v1</finalName>
+
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.3.1.RELEASE</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.workout</groupId>
+      <artifactId>endpoint</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.workout</groupId>
+      <artifactId>domain</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.workout</groupId>
+      <artifactId>infrastructure</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.workout</groupId>
+      <artifactId>common</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+  </dependencies>
 
 </project>
