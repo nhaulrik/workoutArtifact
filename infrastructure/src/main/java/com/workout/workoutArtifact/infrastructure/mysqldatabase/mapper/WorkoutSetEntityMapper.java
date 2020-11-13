@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class WorkoutSetEntityMapper {
 
-  private final EntityManager entityManager;
+  private final ExerciseEntityMapper exerciseEntityMapper;
 
   public WorkoutSet toDomain(WorkoutSetEntity workoutSetEntity) {
     return WorkoutSet.builder()
@@ -22,7 +22,7 @@ public class WorkoutSetEntityMapper {
         .weight(workoutSetEntity.getWeight())
         .single(workoutSetEntity.isSingle())
         .repetitionMaximum(workoutSetEntity.getRepetitionMaximum())
-        .exerciseId(workoutSetEntity.getExerciseEntity().getId())
+        .exercise(exerciseEntityMapper.toDomainObject(workoutSetEntity.getExerciseEntity()))
         .id(workoutSetEntity.getId())
         .setNumber(workoutSetEntity.getSetNumber())
         .sessionId(workoutSetEntity.getSessionEntity().getId())
@@ -39,8 +39,8 @@ public class WorkoutSetEntityMapper {
     workoutSetEntity.setSetNumber(workoutSet.getSetNumber());
     workoutSetEntity.setId(workoutSet.getId());
 
-    workoutSetEntity.setExerciseEntity(entityManager.getReference(ExerciseEntity.class, workoutSet.getExerciseId()));
-    workoutSetEntity.setSessionEntity(entityManager.getReference(SessionEntity.class, workoutSet.getSessionId()));
+    workoutSetEntity.setExerciseEntity(exerciseEntityMapper.toEntity(workoutSet.getExercise()));
+//    workoutSetEntity.setSessionEntity(workoutSet.getSession()));
 
     return workoutSetEntity;
   }

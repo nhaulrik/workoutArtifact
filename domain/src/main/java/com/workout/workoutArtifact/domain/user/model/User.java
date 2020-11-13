@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.domain.user.model;
 
+import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.time.LocalDate;
 import java.util.List;

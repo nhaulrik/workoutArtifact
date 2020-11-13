@@ -9,11 +9,13 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class WorkoutSetDtoMapper {
 
+  private final ExerciseDtoMapper exerciseDtoMapper;
+
   public WorkoutSetDto toDto(WorkoutSet workoutSet) {
     return new WorkoutSetDto(
         workoutSet.getId(),
         workoutSet.getSessionId(),
-        workoutSet.getExerciseId(),
+        exerciseDtoMapper.toDto(workoutSet.getExercise()),
         workoutSet.getRepetitions(),
         workoutSet.getWeight(),
         workoutSet.getSingle(),
@@ -29,7 +31,7 @@ public class WorkoutSetDtoMapper {
         .single(workoutSetDto.isSingle())
         .repetitionMaximum(workoutSetDto.getRepetitionMaximum())
         .setNumber(workoutSetDto.getSetNumber())
-        .exerciseId(workoutSetDto.getExerciseId())
+        .exercise(exerciseDtoMapper.toDomainObject(workoutSetDto.getExerciseDto()))
         .sessionId(workoutSetDto.getSessionId())
         .id(workoutSetDto.getId())
         .build();

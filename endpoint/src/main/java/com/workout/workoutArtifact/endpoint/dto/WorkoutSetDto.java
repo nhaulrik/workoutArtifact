@@ -20,7 +20,7 @@ public class WorkoutSetDto {
   private UUID sessionId;
 
   @NonNull
-  private Long exerciseId;
+  private ExerciseDto exerciseDto;
 
   @NonNull
   private int repetitions;

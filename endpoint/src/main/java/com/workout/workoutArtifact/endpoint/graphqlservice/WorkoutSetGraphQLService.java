@@ -4,6 +4,7 @@ import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchNoneSpecification;
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig.GraphQLService;
+import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto.IdsSpecification;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
@@ -15,6 +16,7 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -46,14 +48,14 @@ public class WorkoutSetGraphQLService implements GraphQLService {
       @GraphQLArgument(name = "repetitions") Integer repetitions,
       @GraphQLArgument(name = "repetitionMaximum") Integer repetitionMaximum,
       @GraphQLArgument(name = "single") Boolean single,
-      @GraphQLArgument(name = "exerciseId") Long exerciseId,
+      @GraphQLArgument(name = "exerciseId") ExerciseDto exerciseDto,
       @GraphQLArgument(name = "sessionId") UUID sessionId
   ) {
 
     WorkoutSetDto workoutSetDto = new WorkoutSetDto(
         null,
         sessionId,
-        exerciseId,
+        exerciseDto,
         repetitions,
         weight,
         single,
@@ -91,8 +93,8 @@ public class WorkoutSetGraphQLService implements GraphQLService {
       @GraphQLContext SessionDto sessionDto
   ) {
     List<AbstractSpecification<WorkoutSetDto>> workoutSetDtoSpecifications = new ArrayList<>();
-    if (sessionDto != null && !sessionDto.getWorkoutSetIds().isEmpty()) {
-      workoutSetDtoSpecifications.add(new IdsSpecification(sessionDto.getWorkoutSetIds()));
+    if (sessionDto != null && !sessionDto.getWorkoutSetDtos().isEmpty()) {
+      workoutSetDtoSpecifications.add(new IdsSpecification(sessionDto.getWorkoutSetDtos().stream().map(ws -> ws.getId()).collect(Collectors.toList())));
     }
     if (ids != null) {
       workoutSetDtoSpecifications.add(new WorkoutSetDto.IdsSpecification(ids));

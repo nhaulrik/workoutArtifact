@@ -6,7 +6,9 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.WorkoutSetEntityRepository;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutSetEntityMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutSetSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.WorkoutSetJpaRepository;
@@ -39,7 +41,7 @@ public class WorkoutSetEntityRepositoryTest {
 
     WorkoutSetEntity workoutSetEntity = mock(WorkoutSetEntity.class);
 
-    WorkoutSet workoutSet = getWorkoutSetMock(exerciseId);
+    WorkoutSet workoutSet = getWorkoutSetMock(mock(Exercise.class));
 
     doReturn(jpaSpecification)
         .when(workoutSetSpecificationMapper).toJpaSpecification(specification);
@@ -59,7 +61,7 @@ public class WorkoutSetEntityRepositoryTest {
   @Test
   public void addWorkoutSet() {
 
-    WorkoutSet workoutSet = getWorkoutSetMock(0L);
+    WorkoutSet workoutSet = getWorkoutSetMock(mock(Exercise.class));
     WorkoutSetEntity workoutSetEntity = mock(WorkoutSetEntity.class);
 
     Mockito.doReturn(workoutSetEntity)
@@ -74,9 +76,9 @@ public class WorkoutSetEntityRepositoryTest {
     assertThat(arg.getValue(), is(Arrays.asList(workoutSetEntity)));
   }
 
-  private WorkoutSet getWorkoutSetMock(Long exerciseId) {
+  private WorkoutSet getWorkoutSetMock(Exercise exercise) {
     return WorkoutSet.builder()
-        .exerciseId(exerciseId)
+        .exercise(exercise)
         .repetitionMaximum(0)
         .repetitions(1)
         .weight(0d)

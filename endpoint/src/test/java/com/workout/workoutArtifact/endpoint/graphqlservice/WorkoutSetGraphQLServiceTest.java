@@ -8,6 +8,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
+import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto.IdsSpecification;
@@ -48,7 +49,7 @@ public class WorkoutSetGraphQLServiceTest {
     SessionDto sessionDto = mock(SessionDto.class);
 
     doReturn(workoutSetIds)
-        .when(sessionDto).getWorkoutSetIds();
+        .when(sessionDto).getWorkoutSetDtos();
 
     WorkoutSetDto workoutSetDto = mock(WorkoutSetDto.class);
 
@@ -67,7 +68,7 @@ public class WorkoutSetGraphQLServiceTest {
     Integer repetitions = 8;
     Integer repetitionMaximum = 12;
     Boolean single = true;
-    Long exerciseId = 2L;
+    ExerciseDto exercise = mock(ExerciseDto.class);
     UUID sessionId = UUID.randomUUID();
     Long id = 1L;
 
@@ -78,7 +79,7 @@ public class WorkoutSetGraphQLServiceTest {
         repetitions,
         repetitionMaximum,
         single,
-        exerciseId,
+        exercise,
         sessionId
     );
 
@@ -93,7 +94,7 @@ public class WorkoutSetGraphQLServiceTest {
     assertThat(workoutSetDto.getRepetitions(), is(repetitions));
     assertThat(workoutSetDto.getRepetitionMaximum(), is(repetitionMaximum));
     assertThat(workoutSetDto.isSingle(), is(single));
-    assertThat(workoutSetDto.getExerciseId(), is(exerciseId));
+    assertThat(workoutSetDto.getExerciseDto(), is(exercise));
     assertThat(workoutSetDto.getSessionId(), is(sessionId));
   }
 }

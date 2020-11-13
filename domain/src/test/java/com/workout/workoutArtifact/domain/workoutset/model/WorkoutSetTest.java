@@ -2,7 +2,9 @@ package com.workout.workoutArtifact.domain.workoutset.model;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.mock;
 
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet.ExerciseIdSpecification;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet.IdsSpecification;
 import java.util.Arrays;
@@ -13,11 +15,11 @@ public class WorkoutSetTest {
   @Test
   public void exerciseIdSpecificationIsSatisfied() {
 
-    Long exerciseId = 1L;
+    Exercise exercise = mock(Exercise.class);
 
     WorkoutSet workoutSet = WorkoutSet.builder()
         .id(100L)
-        .exerciseId(exerciseId)
+        .exercise(exercise)
         .repetitionMaximum(0)
         .repetitions(1)
         .weight(0d)
@@ -26,22 +28,23 @@ public class WorkoutSetTest {
         .build();
 
     ExerciseIdSpecification exerciseIdSpecification = new ExerciseIdSpecification(
-        Arrays.asList(exerciseId));
+        Arrays.asList(1L));
 
     assertThat(exerciseIdSpecification.isSatisfiedBy(workoutSet), is(true));
-    assertThat(exerciseIdSpecification.getExerciseIds(), is(Arrays.asList(exerciseId)));
+    assertThat(exerciseIdSpecification.getExerciseIds(), is(Arrays.asList(1L)));
   }
 
   @Test
   public void idsSpecificationSpecificationIsSatisfied() {
 
     Long id = 1L;
+    Exercise exercise = mock(Exercise.class);
 
     WorkoutSet.IdsSpecification idsSpecification = new IdsSpecification(Arrays.asList(id));
 
     WorkoutSet workoutSet = WorkoutSet.builder()
         .id(id)
-        .exerciseId(100L)
+        .exercise(exercise)
         .repetitionMaximum(0)
         .repetitions(1)
         .weight(0d)

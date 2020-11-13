@@ -5,6 +5,7 @@ import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.endpoint.dto.UserDto;
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
+import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.SessionFacade;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
@@ -111,8 +112,8 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
       @GraphQLArgument(name = "programme") String programme,
       @GraphQLArgument(name = "splitName") String splitName,
       @GraphQLArgument(name = "time") String time,
-      @GraphQLArgument(name = "workoutSetIds") List<Long> workoutSetIds,
-      @GraphQLArgument(name = "userId") UUID userId
+      @GraphQLArgument(name = "workoutSetIds") List<WorkoutSetDto> workoutSetDtos,
+      @GraphQLArgument(name = "userId") UserDto user
   ) {
 
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -123,8 +124,8 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
         .programme(programme)
         .splitName(splitName)
         .localDateTime(parsedTime)
-        .workoutSetIds(workoutSetIds != null ? workoutSetIds : new ArrayList<>())
-        .userId(userId)
+        .workoutSetDtos(workoutSetDtos != null ? workoutSetDtos : new ArrayList<>())
+        .userDto(user)
         .build();
 
     if (id != null) {

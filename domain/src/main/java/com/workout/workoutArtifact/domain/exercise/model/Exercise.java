@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.domain.exercise.model;
 
+import com.workout.workoutArtifact.domain.muscle.model.Muscle;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.util.List;
 import lombok.Builder;
@@ -22,12 +23,7 @@ public class Exercise {
   @NonNull
   private String bodyPart;
 
-  @Value
-  public static class MuscleRelation {
-
-    private final Long muscleId;
-    private final int utilization;
-  }
+  private List<Muscle> muscles;
 
   @Value
   public static class NameSpecification extends AbstractSpecification<Exercise> {

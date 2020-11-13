@@ -1,6 +1,8 @@
 package com.workout.workoutArtifact.domain.session.model;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
+import com.workout.workoutArtifact.domain.user.model.User;
+import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -27,8 +29,8 @@ public class Session {
   @NonNull
   private String splitName;
 
-  private List<Long> workoutSetIds;
-  private UUID userId;
+  private List<WorkoutSet> workoutSet;
+  private User user;
 
   @Value
   public static class SplitNameSpecification extends AbstractSpecification<Session> {
@@ -82,7 +84,7 @@ public class Session {
 
     @Override
     public boolean isSatisfiedBy(Session session) {
-      return userId.equals(session.getUserId());
+      return userId.equals(session.getUser().getId());
     }
   }
 

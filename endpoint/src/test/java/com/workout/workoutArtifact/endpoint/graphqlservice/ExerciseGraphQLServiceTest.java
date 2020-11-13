@@ -95,13 +95,11 @@ public class ExerciseGraphQLServiceTest {
   @Test
   public void getExercisesWithWorkoutSetDtoContext() {
 
-    Long exerciseId = 1L;
-
     WorkoutSetDto workoutSetDto = mock(WorkoutSetDto.class);
     ExerciseDto exerciseDto = mock(ExerciseDto.class);
 
-    doReturn(exerciseId)
-        .when(workoutSetDto).getExerciseId();
+    doReturn(exerciseDto)
+        .when(workoutSetDto).getExerciseDto();
 
     doReturn(Arrays.asList(exerciseDto))
         .when(exerciseFacade).getExercises(any(AbstractSpecification.class));

@@ -10,6 +10,8 @@ import static org.mockito.Mockito.verify;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
+import com.workout.workoutArtifact.endpoint.dto.UserDto;
+import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.SessionFacade;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,8 +48,8 @@ public class SessionGraphQLServiceTest {
     String programme = "program1";
     String splitName = "split1";
     String time = "12-11-2019 15:30";
-    UUID userId = UUID.randomUUID();
-    Long workoutSetId = 1L;
+    UserDto userDto = mock(UserDto.class);
+    WorkoutSetDto workoutSetDto = mock(WorkoutSetDto.class);
 
     sessionGraphQLService.addSession(
         null,
@@ -55,8 +57,8 @@ public class SessionGraphQLServiceTest {
         programme,
         splitName,
         time,
-        Arrays.asList(workoutSetId),
-        userId
+        Arrays.asList(workoutSetDto),
+        userDto
     );
 
     ArgumentCaptor<List<SessionDto>> arg = ArgumentCaptor.forClass(ArrayList.class);
@@ -68,6 +70,6 @@ public class SessionGraphQLServiceTest {
     assertThat(sessionDto.getProgramme(), is(programme));
     assertThat(sessionDto.getSplitName(), is(splitName));
     assertThat(sessionDto.getLocalDateTime(), is(notNullValue()));
-    assertThat(sessionDto.getWorkoutSetIds(), is(Arrays.asList(workoutSetId)));
+    assertThat(sessionDto.getWorkoutSetDtos(), is(Arrays.asList(workoutSetDto)));
   }
 }

@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.domain.workoutset.model;
 
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +15,7 @@ public class WorkoutSet {
 
   private Long id;
   private UUID sessionId;
-  private Long exerciseId;
+  private Exercise exercise;
   private Boolean single;
   private double weight;
   private int repetitions;
@@ -27,7 +28,7 @@ public class WorkoutSet {
 
     @Override
     public boolean isSatisfiedBy(WorkoutSet workoutSet) {
-      return exerciseIds.contains(workoutSet.getExerciseId());
+      return exerciseIds.contains(workoutSet.getExercise().getId());
     }
   }
 

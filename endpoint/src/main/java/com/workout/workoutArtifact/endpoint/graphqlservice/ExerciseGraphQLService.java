@@ -70,7 +70,7 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService 
   ) {
 
     List<AbstractSpecification<ExerciseDto>> exerciseDtoSpecifications = new ArrayList<>();
-    if (workoutSetDto != null) { exerciseDtoSpecifications.add(new ExerciseDto.ExerciseIdSpecification(workoutSetDto.getExerciseId())); }
+    if (workoutSetDto != null) { exerciseDtoSpecifications.add(new ExerciseDto.ExerciseIdSpecification(workoutSetDto.getExerciseDto().getId())); }
     if (names != null) { exerciseDtoSpecifications.add(new ExerciseDto.NameSpecification(names)); }
     if (isCompound!= null) { exerciseDtoSpecifications.add(new IsCompoundSpecification(isCompound)); }
     if (bodyParts != null) { exerciseDtoSpecifications.add(new ExerciseDto.BodyPartsSpecification(bodyParts)); }
