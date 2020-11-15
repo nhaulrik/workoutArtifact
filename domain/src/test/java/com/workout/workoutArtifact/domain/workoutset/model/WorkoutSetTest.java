@@ -8,6 +8,7 @@ import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet.ExerciseIdSpecification;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet.IdsSpecification;
 import java.util.Arrays;
+import java.util.UUID;
 import org.junit.Test;
 
 public class WorkoutSetTest {
@@ -18,7 +19,7 @@ public class WorkoutSetTest {
     Exercise exercise = mock(Exercise.class);
 
     WorkoutSet workoutSet = WorkoutSet.builder()
-        .id(100L)
+        .id(UUID.randomUUID())
         .exercise(exercise)
         .repetitionMaximum(0)
         .repetitions(1)
@@ -28,7 +29,7 @@ public class WorkoutSetTest {
         .build();
 
     ExerciseIdSpecification exerciseIdSpecification = new ExerciseIdSpecification(
-        Arrays.asList(1L));
+        Arrays.asList(UUID.randomUUID()));
 
     assertThat(exerciseIdSpecification.isSatisfiedBy(workoutSet), is(true));
     assertThat(exerciseIdSpecification.getExerciseIds(), is(Arrays.asList(1L)));
@@ -37,7 +38,7 @@ public class WorkoutSetTest {
   @Test
   public void idsSpecificationSpecificationIsSatisfied() {
 
-    Long id = 1L;
+    UUID id = UUID.randomUUID();
     Exercise exercise = mock(Exercise.class);
 
     WorkoutSet.IdsSpecification idsSpecification = new IdsSpecification(Arrays.asList(id));

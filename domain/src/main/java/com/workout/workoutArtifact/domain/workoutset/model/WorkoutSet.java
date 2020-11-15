@@ -13,7 +13,7 @@ import lombok.Value;
 @Builder
 public class WorkoutSet {
 
-  private Long id;
+  private UUID id;
   private UUID sessionId;
   private Exercise exercise;
   private Boolean single;
@@ -24,7 +24,7 @@ public class WorkoutSet {
 
   @Value
   public static class ExerciseIdSpecification extends AbstractSpecification<WorkoutSet> {
-    private final List<Long> exerciseIds;
+    private final List<UUID> exerciseIds;
 
     @Override
     public boolean isSatisfiedBy(WorkoutSet workoutSet) {
@@ -34,7 +34,7 @@ public class WorkoutSet {
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<WorkoutSet> {
-    private final List<Long> ids;
+    private final List<UUID> ids;
 
     @Override
     public boolean isSatisfiedBy(WorkoutSet workoutSet) {

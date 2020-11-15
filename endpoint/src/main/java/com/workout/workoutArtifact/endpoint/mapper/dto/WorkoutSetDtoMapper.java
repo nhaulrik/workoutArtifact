@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.endpoint.mapper.dto;
 
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class WorkoutSetDtoMapper {
     return new WorkoutSetDto(
         workoutSet.getId(),
         workoutSet.getSessionId(),
-        exerciseDtoMapper.toDto(workoutSet.getExercise()),
+        workoutSet.getExercise().getId(),
         workoutSet.getRepetitions(),
         workoutSet.getWeight(),
         workoutSet.getSingle(),
@@ -31,7 +32,7 @@ public class WorkoutSetDtoMapper {
         .single(workoutSetDto.isSingle())
         .repetitionMaximum(workoutSetDto.getRepetitionMaximum())
         .setNumber(workoutSetDto.getSetNumber())
-        .exercise(exerciseDtoMapper.toDomainObject(workoutSetDto.getExerciseDto()))
+        .exercise(Exercise.fromId(workoutSetDto.getId()))
         .sessionId(workoutSetDto.getSessionId())
         .id(workoutSetDto.getId())
         .build();

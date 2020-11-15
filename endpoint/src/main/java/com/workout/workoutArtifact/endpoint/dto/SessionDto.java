@@ -19,8 +19,8 @@ public class SessionDto {
   private String programme;
   private String splitName;
   private LocalDateTime localDateTime;
-  private List<WorkoutSetDto> workoutSetDtos;
-  private UserDto userDto;
+  private List<UUID> workoutSetIds;
+  private UUID userId;
 
   // TODO: 14-09-2019 implement fields for time
 
@@ -76,7 +76,7 @@ public class SessionDto {
 
     @Override
     public boolean isSatisfiedBy(SessionDto sessionDto) {
-      return userId.equals(sessionDto.getUserDto());
+      return userId.equals(sessionDto.getUserId());
     }
   }
 

@@ -12,11 +12,11 @@ import lombok.Value;
 @Builder
 public class UserDto {
 
+  private UUID id;
   private String firstName;
   private String lastName;
   private LocalDate birthday;
   private Gender gender;
-  private UUID id;
 
   public enum Gender {
     MALE,

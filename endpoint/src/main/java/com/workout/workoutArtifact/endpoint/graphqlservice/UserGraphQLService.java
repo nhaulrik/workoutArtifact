@@ -28,7 +28,7 @@ public class UserGraphQLService {
 
   private final UserFacade userFacade;
 
-  @GraphQLQuery(name = "users")
+  @GraphQLQuery(name = "userDtos")
   public List<UserDto> getUsers(
       @GraphQLArgument(name = "ids") List<Long> ids,
       @GraphQLArgument(name = "firstNames") List<String> firstNames,

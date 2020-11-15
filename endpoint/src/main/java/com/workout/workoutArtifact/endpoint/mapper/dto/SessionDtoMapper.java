@@ -1,6 +1,8 @@
 package com.workout.workoutArtifact.endpoint.mapper.dto;
 
 import com.workout.workoutArtifact.domain.session.model.Session;
+import com.workout.workoutArtifact.domain.user.model.User;
+import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
@@ -12,7 +14,6 @@ import org.springframework.stereotype.Component;
 public class SessionDtoMapper {
 
   private final WorkoutSetDtoMapper workoutSetDtoMapper;
-  private final UserDtoMapper userDtoMapper;
 
   public Session toDomainObject(SessionDto sessionDto) {
     return Session.builder()
@@ -20,9 +21,9 @@ public class SessionDtoMapper {
         .programme(sessionDto.getProgramme())
         .splitName(sessionDto.getSplitName())
         .location(sessionDto.getLocation())
-        .workoutSet(sessionDto.getWorkoutSetDtos().stream().map(workoutSetDtoMapper::toDomain).collect(Collectors.toList()))
+        .workoutSet(sessionDto.getWorkoutSetIds().stream().map(id -> WorkoutSet.builder().id(id).build()).collect(Collectors.toList()))
         .creationDateTime(sessionDto.getLocalDateTime() != null ? sessionDto.getLocalDateTime() : LocalDateTime.now())
-        .user(userDtoMapper.toDomainObject(sessionDto.getUserDto()))
+        .user(User.builder().id(sessionDto.getUserId()).build())
         .build();
   }
 
@@ -31,10 +32,10 @@ public class SessionDtoMapper {
         .programme(session.getProgramme())
         .splitName(session.getSplitName())
         .id(session.getId())
-        .userDto(userDtoMapper.toDto(session.getUser()))
+        .userId(session.getUser().getId())
         .location(session.getLocation())
         .localDateTime(session.getCreationDateTime())
-        .workoutSetDtos(session.getWorkoutSet().stream().map(workoutSetDtoMapper::toDto).collect(Collectors.toList()))
+        .workoutSetIds(session.getWorkoutSet().stream().map(WorkoutSet::getId).collect(Collectors.toList()))
         .build();
   }
 }

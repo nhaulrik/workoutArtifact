@@ -11,6 +11,7 @@ import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet.IdsSpecifi
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutSetSpecificationMapper;
 import java.util.Arrays;
+import java.util.UUID;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -25,13 +26,13 @@ public class WorkoutSetSpecificationMapperTest {
 
   @Test
   public void mapsExerciseIdsSpecification() {
-    org.springframework.data.jpa.domain.Specification<WorkoutSetEntity> jpaSpecification = workoutSetSpecificationMapper.toJpaSpecification(new ExerciseIdSpecification(Arrays.asList(1L)));
+    org.springframework.data.jpa.domain.Specification<WorkoutSetEntity> jpaSpecification = workoutSetSpecificationMapper.toJpaSpecification(new ExerciseIdSpecification(Arrays.asList(UUID.randomUUID())));
     assertThat(jpaSpecification, is(instanceOf(org.springframework.data.jpa.domain.Specification.class)));
   }
 
   @Test
   public void mapsIdsSpecification() {
-    org.springframework.data.jpa.domain.Specification<WorkoutSetEntity> jpaSpecification = workoutSetSpecificationMapper.toJpaSpecification(new IdsSpecification(Arrays.asList(1L)));
+    org.springframework.data.jpa.domain.Specification<WorkoutSetEntity> jpaSpecification = workoutSetSpecificationMapper.toJpaSpecification(new IdsSpecification(Arrays.asList(UUID.randomUUID())));
     assertThat(jpaSpecification, is(instanceOf(org.springframework.data.jpa.domain.Specification.class)));
   }
 
@@ -43,7 +44,7 @@ public class WorkoutSetSpecificationMapperTest {
 
   @Test
   public void mapsAndSpecification() {
-    AndSpecification andSpecification = new AndSpecification(new IdsSpecification(Arrays.asList(1L)), new ExerciseIdSpecification(Arrays.asList(2L)));
+    AndSpecification andSpecification = new AndSpecification(new IdsSpecification(Arrays.asList(UUID.randomUUID())), new ExerciseIdSpecification(Arrays.asList(UUID.randomUUID())));
     org.springframework.data.jpa.domain.Specification<WorkoutSetEntity> jpaSpecification = workoutSetSpecificationMapper.toJpaSpecification(andSpecification);
     assertThat(jpaSpecification, is(instanceOf(org.springframework.data.jpa.domain.Specification.class)));
   }

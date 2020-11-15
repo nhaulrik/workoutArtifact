@@ -17,6 +17,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.Exerc
 import com.workout.workoutArtifact.domain.specification.Specification;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -37,7 +38,7 @@ public class ExerciseEntityRepositoryTest {
     org.springframework.data.jpa.domain.Specification jpaSpecification = mock(org.springframework.data.jpa.domain.Specification.class);
     ExerciseEntity exerciseEntity = mock(ExerciseEntity.class);
     Exercise exercise = Exercise.builder()
-        .id(0L)
+        .id(UUID.randomUUID())
         .name(exerciseName)
         .isCompound(true)
         .bodyPart(BodyPartEnum.CHEST.toString())
@@ -68,7 +69,7 @@ public class ExerciseEntityRepositoryTest {
     ExerciseEntity exerciseEntity = new ExerciseEntity();
     exerciseEntity.setName(someExerciseName);
     exerciseEntity.setIsCompound(false);
-    exerciseEntity.setId(1337L);
+    exerciseEntity.setId(UUID.randomUUID().toString());
 
     Mockito.doReturn(exerciseEntity)
         .when(exerciseEntityMapper).toEntity(exercise);

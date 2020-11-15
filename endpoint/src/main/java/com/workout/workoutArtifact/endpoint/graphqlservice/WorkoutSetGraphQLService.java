@@ -4,7 +4,6 @@ import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchNoneSpecification;
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig.GraphQLService;
-import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto.IdsSpecification;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
@@ -29,12 +28,12 @@ public class WorkoutSetGraphQLService implements GraphQLService {
   private final WorkoutSetFacade workoutSetFacade;
 
   @GraphQLMutation(name = "addWorkoutSetList")
-  public List<Long> addWorkoutSetList(
+  public List<UUID> addWorkoutSetList(
       @GraphQLArgument(name = "workoutSet") List<WorkoutSetDto> workoutSetDtos
   ) {
-    List<Long> workoutSetIds = new ArrayList<>();
+    List<UUID> workoutSetIds = new ArrayList<>();
     workoutSetDtos.forEach(workoutSetDto -> {
-      Long workoutSetId = workoutSetFacade.addWorkoutSet(workoutSetDto);
+      UUID workoutSetId = workoutSetFacade.addWorkoutSet(workoutSetDto);
       workoutSetIds.add(workoutSetId);
     });
     return workoutSetIds;
@@ -42,20 +41,20 @@ public class WorkoutSetGraphQLService implements GraphQLService {
 
   @GraphQLMutation(name = "addWorkoutSet")
   public Boolean addWorkoutSet(
-      @GraphQLArgument(name = "id") Long id,
+      @GraphQLArgument(name = "id") String id,
       @GraphQLArgument(name = "setNumber") Integer setNumber,
       @GraphQLArgument(name = "weight") Double weight,
       @GraphQLArgument(name = "repetitions") Integer repetitions,
       @GraphQLArgument(name = "repetitionMaximum") Integer repetitionMaximum,
       @GraphQLArgument(name = "single") Boolean single,
-      @GraphQLArgument(name = "exerciseId") ExerciseDto exerciseDto,
+      @GraphQLArgument(name = "exerciseId") String exerciseId,
       @GraphQLArgument(name = "sessionId") UUID sessionId
   ) {
 
     WorkoutSetDto workoutSetDto = new WorkoutSetDto(
         null,
         sessionId,
-        exerciseDto,
+        UUID.fromString(exerciseId),
         repetitions,
         weight,
         single,
@@ -64,7 +63,7 @@ public class WorkoutSetGraphQLService implements GraphQLService {
     );
 
     if (id != null) {
-      workoutSetDto.setId(id);
+      workoutSetDto.setId(UUID.fromString(id));
     }
 
     workoutSetFacade.addWorkoutSet(workoutSetDto);
@@ -73,12 +72,12 @@ public class WorkoutSetGraphQLService implements GraphQLService {
 
   @GraphQLQuery(name = "workoutSet")
   public List<WorkoutSetDto> getWorkoutSet(
-      @GraphQLArgument(name = "ids") List<Long> ids
+      @GraphQLArgument(name = "ids") List<String> ids
   ) {
 
     List<AbstractSpecification<WorkoutSetDto>> workoutSetDtoSpecifications = new ArrayList<>();
     if (ids != null) {
-      workoutSetDtoSpecifications.add(new WorkoutSetDto.IdsSpecification(ids));
+      workoutSetDtoSpecifications.add(new WorkoutSetDto.IdsSpecification(ids.stream().map(UUID::fromString).collect(Collectors.toList())));
     }
 
     AbstractSpecification aggregatedSpecification = workoutSetDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
@@ -89,15 +88,15 @@ public class WorkoutSetGraphQLService implements GraphQLService {
 
   @GraphQLQuery(name = "workoutSet")
   public List<WorkoutSetDto> getWorkoutSet(
-      @GraphQLArgument(name = "ids") List<Long> ids,
+      @GraphQLArgument(name = "ids") List<String> ids,
       @GraphQLContext SessionDto sessionDto
   ) {
     List<AbstractSpecification<WorkoutSetDto>> workoutSetDtoSpecifications = new ArrayList<>();
-    if (sessionDto != null && !sessionDto.getWorkoutSetDtos().isEmpty()) {
-      workoutSetDtoSpecifications.add(new IdsSpecification(sessionDto.getWorkoutSetDtos().stream().map(ws -> ws.getId()).collect(Collectors.toList())));
+    if (sessionDto != null && !sessionDto.getWorkoutSetIds().isEmpty()) {
+      workoutSetDtoSpecifications.add(new IdsSpecification(sessionDto.getWorkoutSetIds()));
     }
     if (ids != null) {
-      workoutSetDtoSpecifications.add(new WorkoutSetDto.IdsSpecification(ids));
+      workoutSetDtoSpecifications.add(new WorkoutSetDto.IdsSpecification(ids.stream().map(UUID::fromString).collect(Collectors.toList())));
     }
 
     AbstractSpecification aggregatedSpecification = workoutSetDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification<>());

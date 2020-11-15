@@ -11,6 +11,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSe
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.ExerciseJpaRepository;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.WorkoutSetJpaRepository;
 import java.util.List;
+import java.util.UUID;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import org.hamcrest.MatcherAssert;
@@ -56,7 +57,7 @@ public class WorkoutSetEntityTest {
   @Test
   public void saveAndFindWorkoutSetEntity() {
     WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity();
-    workoutSetEntity.setId(1L);
+    workoutSetEntity.setId(UUID.randomUUID().toString());
     workoutSetEntity.setRepetitions(8);
     workoutSetEntity.setWeight(80);
     workoutSetEntity.setRepetitionMaximum(12);

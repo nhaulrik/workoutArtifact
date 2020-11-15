@@ -9,6 +9,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutSe
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.WorkoutSetJpaRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -35,14 +36,14 @@ public class WorkoutSetEntityRepository implements WorkoutSetRepository {
   }
 
   @Override
-  public List<Long> addWorkoutSet(List<WorkoutSet> workoutSets) {
-    List<Long> workoutSetIds = new ArrayList<>();
+  public List<UUID> addWorkoutSet(List<WorkoutSet> workoutSets) {
+    List<UUID> workoutSetIds = new ArrayList<>();
     workoutSetIds.addAll(workoutSetJpaRepository.saveAll(
         workoutSets.stream()
             .map(workoutSetEntityMapper::toEntity)
             .collect(Collectors.toList())
     ).stream()
-        .map(entity -> entity.getId()).collect(Collectors.toList()));
+        .map(entity -> UUID.fromString(entity.getId())).collect(Collectors.toList()));
     return workoutSetIds;
   }
 }

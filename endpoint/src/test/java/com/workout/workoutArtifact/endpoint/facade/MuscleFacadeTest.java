@@ -16,6 +16,7 @@ import com.workout.workoutArtifact.endpoint.mapper.specification.MuscleDtoSpecif
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
@@ -82,7 +83,7 @@ public class MuscleFacadeTest {
     Muscle muscle = Muscle.builder()
         .name(MuscleEnum.BICEPS.toString())
         .bodyPart(BodyPartEnum.SHOULDER.name())
-        .id(1L)
+        .id(UUID.randomUUID())
         .build();
 
     doReturn(muscle)

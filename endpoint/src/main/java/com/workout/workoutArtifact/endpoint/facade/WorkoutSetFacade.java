@@ -8,6 +8,7 @@ import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.mapper.dto.WorkoutSetDtoMapper;
 import com.workout.workoutArtifact.endpoint.mapper.specification.WorkoutSetDtoSpecificationMapper;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -28,8 +29,8 @@ public class WorkoutSetFacade {
         .collect(Collectors.toList());
   }
 
-  public Long addWorkoutSet(WorkoutSetDto workoutSetDto) {
-    Long workoutSetId = workoutSetService.addWorkoutSet(workoutSetDtoMapper.toDomain(workoutSetDto));
+  public UUID addWorkoutSet(WorkoutSetDto workoutSetDto) {
+    UUID workoutSetId = workoutSetService.addWorkoutSet(workoutSetDtoMapper.toDomain(workoutSetDto));
     return workoutSetId;
   }
 

@@ -5,6 +5,7 @@ import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSetRepository;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +19,8 @@ public class WorkoutSetService {
     return workoutSetRepository.getWorkoutSet(workoutSetSpecification);
   }
 
-  public Long addWorkoutSet(WorkoutSet workoutSet) {
-   Long workoutSetId = workoutSetRepository.addWorkoutSet(Arrays.asList(workoutSet)).get(0);
+  public UUID addWorkoutSet(WorkoutSet workoutSet) {
+   UUID workoutSetId = workoutSetRepository.addWorkoutSet(Arrays.asList(workoutSet)).get(0);
    return workoutSetId;
   }
 

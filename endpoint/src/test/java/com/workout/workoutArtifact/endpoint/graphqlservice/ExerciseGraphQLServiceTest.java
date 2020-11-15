@@ -12,6 +12,7 @@ import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.ExerciseFacade;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -29,14 +30,14 @@ public class ExerciseGraphQLServiceTest {
     String someExerciseName = "some_exercise_name";
 
     ExerciseDto exerciseDto = ExerciseDto.builder()
-        .id(0L)
+        .id(UUID.randomUUID())
         .name(someExerciseName)
         .bodyPart("")
         .isCompound(true)
         .build();
 
     exerciseGraphQLService.addExercise(
-        exerciseDto.getId(),
+        exerciseDto.getId().toString(),
         exerciseDto.getName(),
         exerciseDto.getBodyPart(),
         exerciseDto.getIsCompound()
@@ -54,7 +55,7 @@ public class ExerciseGraphQLServiceTest {
     String someExerciseName = "some_name";
 
     ExerciseDto exerciseDto = ExerciseDto.builder()
-        .id(0L)
+        .id(UUID.randomUUID())
         .name(someExerciseName)
         .bodyPart("")
         .isCompound(true)
@@ -78,7 +79,7 @@ public class ExerciseGraphQLServiceTest {
     ExerciseDto exerciseDto = ExerciseDto.builder()
         .bodyPart(someBodyPart)
         .name("")
-        .id(1L)
+        .id(UUID.randomUUID())
         .isCompound(true)
         .build();
 
@@ -99,7 +100,7 @@ public class ExerciseGraphQLServiceTest {
     ExerciseDto exerciseDto = mock(ExerciseDto.class);
 
     doReturn(exerciseDto)
-        .when(workoutSetDto).getExerciseDto();
+        .when(workoutSetDto).getExerciseId();
 
     doReturn(Arrays.asList(exerciseDto))
         .when(exerciseFacade).getExercises(any(AbstractSpecification.class));

@@ -16,6 +16,7 @@ import com.workout.workoutArtifact.endpoint.mapper.specification.ExerciseDtoSpec
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,7 +54,7 @@ public class ExerciseFacadeTest {
     Exercise.NameSpecification nameSpecification = new NameSpecification(Arrays.asList(someExerciseName));
     ExerciseDto.NameSpecification dtoNameSpecification = new ExerciseDto.NameSpecification(Arrays.asList(someExerciseName));
     Exercise exercise = Exercise.builder()
-        .id(0L)
+        .id(UUID.randomUUID())
         .name(someExerciseName)
         .isCompound(false)
         .bodyPart(BodyPartEnum.CHEST.toString())

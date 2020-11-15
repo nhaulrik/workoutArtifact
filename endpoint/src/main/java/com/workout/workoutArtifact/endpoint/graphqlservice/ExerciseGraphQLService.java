@@ -13,6 +13,7 @@ import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,14 +28,14 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService 
 
   @GraphQLMutation(name = "addExercise")
   public boolean addExercise(
-      @GraphQLArgument(name = "id") Long id,
+      @GraphQLArgument(name = "id") String id,
       @GraphQLArgument(name = "name") String name,
       @GraphQLArgument(name = "bodyPart") String bodyPart,
       @GraphQLArgument(name = "isCompound") Boolean isCompound
   ) {
 
     ExerciseDto exerciseDto = ExerciseDto.builder()
-        .id(id)
+        .id(UUID.fromString(id))
         .name(name)
         .bodyPart(bodyPart)
         .isCompound(isCompound)
@@ -70,7 +71,7 @@ public class ExerciseGraphQLService implements GraphQLSPQRConfig.GraphQLService 
   ) {
 
     List<AbstractSpecification<ExerciseDto>> exerciseDtoSpecifications = new ArrayList<>();
-    if (workoutSetDto != null) { exerciseDtoSpecifications.add(new ExerciseDto.ExerciseIdSpecification(workoutSetDto.getExerciseDto().getId())); }
+    if (workoutSetDto != null) { exerciseDtoSpecifications.add(new ExerciseDto.ExerciseIdSpecification(workoutSetDto.getExerciseId())); }
     if (names != null) { exerciseDtoSpecifications.add(new ExerciseDto.NameSpecification(names)); }
     if (isCompound!= null) { exerciseDtoSpecifications.add(new IsCompoundSpecification(isCompound)); }
     if (bodyParts != null) { exerciseDtoSpecifications.add(new ExerciseDto.BodyPartsSpecification(bodyParts)); }

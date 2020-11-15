@@ -2,6 +2,7 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,9 +24,8 @@ import lombok.NoArgsConstructor;
 public class ExerciseEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter
-  private Long id;
+  private String id;
 
   @Column
   private String name;

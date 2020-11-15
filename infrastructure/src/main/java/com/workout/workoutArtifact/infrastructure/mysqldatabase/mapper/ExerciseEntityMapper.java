@@ -1,6 +1,7 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper;
 
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,13 +19,13 @@ public class ExerciseEntityMapper {
     exerciseEntity.setName(exercise.getName());
     exerciseEntity.setBodyPart(exercise.getBodyPart());
     exerciseEntity.setIsCompound(exercise.getIsCompound());
-    exerciseEntity.setId(exercise.getId());
+    exerciseEntity.setId(exercise.getId().toString());
     return exerciseEntity;
   }
 
   public Exercise toDomainObject(ExerciseEntity exerciseEntity) {
     return Exercise.builder()
-        .id(exerciseEntity.getId())
+        .id(UUID.fromString(exerciseEntity.getId()))
         .name(exerciseEntity.getName())
         .isCompound(exerciseEntity.getIsCompound())
         .bodyPart(exerciseEntity.getBodyPart())

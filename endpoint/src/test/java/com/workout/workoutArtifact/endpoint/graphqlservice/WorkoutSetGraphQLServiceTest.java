@@ -8,7 +8,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
-import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto.IdsSpecification;
@@ -30,7 +29,7 @@ public class WorkoutSetGraphQLServiceTest {
 
     WorkoutSetDto workoutSetDtoMock = mock(WorkoutSetDto.class);
 
-    Long id = 1L;
+    String id = UUID.randomUUID().toString();
 
     doReturn(Arrays.asList(workoutSetDtoMock))
         .when(workoutSetFacade).getWorkoutSets(any(AbstractSpecification.class));
@@ -44,12 +43,12 @@ public class WorkoutSetGraphQLServiceTest {
   @Test
   public void getWorkoutSetWithSessionContext() {
 
-    List<Long> workoutSetIds = Arrays.asList(1L, 3L, 5L);
+    List<UUID> workoutSetIds = Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
 
     SessionDto sessionDto = mock(SessionDto.class);
 
     doReturn(workoutSetIds)
-        .when(sessionDto).getWorkoutSetDtos();
+        .when(sessionDto).getWorkoutSetIds();
 
     WorkoutSetDto workoutSetDto = mock(WorkoutSetDto.class);
 
@@ -68,9 +67,9 @@ public class WorkoutSetGraphQLServiceTest {
     Integer repetitions = 8;
     Integer repetitionMaximum = 12;
     Boolean single = true;
-    ExerciseDto exercise = mock(ExerciseDto.class);
+    String exerciseId = UUID.randomUUID().toString();
     UUID sessionId = UUID.randomUUID();
-    Long id = 1L;
+    String id = UUID.randomUUID().toString();
 
     Boolean resultBoolean = workoutSetGraphQLService.addWorkoutSet(
         id,
@@ -79,7 +78,7 @@ public class WorkoutSetGraphQLServiceTest {
         repetitions,
         repetitionMaximum,
         single,
-        exercise,
+        exerciseId,
         sessionId
     );
 
@@ -94,7 +93,7 @@ public class WorkoutSetGraphQLServiceTest {
     assertThat(workoutSetDto.getRepetitions(), is(repetitions));
     assertThat(workoutSetDto.getRepetitionMaximum(), is(repetitionMaximum));
     assertThat(workoutSetDto.isSingle(), is(single));
-    assertThat(workoutSetDto.getExerciseDto(), is(exercise));
+    assertThat(workoutSetDto.getExerciseId(), is(exerciseId));
     assertThat(workoutSetDto.getSessionId(), is(sessionId));
   }
 }

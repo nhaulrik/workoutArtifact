@@ -19,6 +19,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSe
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -34,7 +35,7 @@ public class WorkoutSetEntityRepositoryTest {
   @Test
   public void getWorkoutSet() {
 
-    Long exerciseId = 0L;
+    UUID exerciseId = UUID.randomUUID();
 
     Specification specification = new ExerciseIdSpecification(Arrays.asList(exerciseId));
     org.springframework.data.jpa.domain.Specification jpaSpecification = mock(org.springframework.data.jpa.domain.Specification.class);

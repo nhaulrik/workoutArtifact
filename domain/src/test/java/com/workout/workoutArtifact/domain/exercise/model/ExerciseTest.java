@@ -8,6 +8,7 @@ import com.workout.workoutArtifact.domain.exercise.model.Exercise.ExerciseIdSpec
 import com.workout.workoutArtifact.domain.exercise.model.Exercise.IsCompoundSpecification;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise.NameSpecification;
 import java.util.Arrays;
+import java.util.UUID;
 import org.junit.Test;
 
 public class ExerciseTest {
@@ -49,7 +50,7 @@ public class ExerciseTest {
   @Test
   public void exerciseIdSpecification() {
 
-    Long exerciseId = 1L;
+    UUID exerciseId = UUID.randomUUID();
 
     Exercise exercise = Exercise.builder()
         .id(exerciseId)

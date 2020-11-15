@@ -1,7 +1,9 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,8 +22,7 @@ import lombok.Setter;
 public class WorkoutSetEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String id;
 
   @Column
   private int repetitions;
@@ -39,11 +40,11 @@ public class WorkoutSetEntity {
   private int setNumber;
 
   @ManyToOne
-  @JoinColumn
+  @JoinColumn(name = "exercise_id", foreignKey = @ForeignKey(name = "FK_workoutset_exercise_id"))
   private ExerciseEntity exerciseEntity;
 
   @ManyToOne
-  @JoinColumn
+  @JoinColumn(name = "session_id", foreignKey = @ForeignKey(name = "FK_workoutset_session_id"))
   private SessionEntity sessionEntity;
 
 }

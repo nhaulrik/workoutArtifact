@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.domain.exercise.model;
 import com.workout.workoutArtifact.domain.muscle.model.Muscle;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.util.List;
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
@@ -12,7 +13,7 @@ import lombok.Value;
 @Data
 public class Exercise {
 
-  private Long id;
+  private UUID id;
 
   @NonNull
   private String name;
@@ -24,6 +25,10 @@ public class Exercise {
   private String bodyPart;
 
   private List<Muscle> muscles;
+
+  public static Exercise fromId(UUID id) {
+    return Exercise.builder().id(id).build();
+  }
 
   @Value
   public static class NameSpecification extends AbstractSpecification<Exercise> {
@@ -50,7 +55,7 @@ public class Exercise {
   @Value
   public static class ExerciseIdSpecification extends AbstractSpecification<Exercise> {
 
-    private final Long id;
+    private final UUID id;
 
     @Override
     public boolean isSatisfiedBy(Exercise exercise) {

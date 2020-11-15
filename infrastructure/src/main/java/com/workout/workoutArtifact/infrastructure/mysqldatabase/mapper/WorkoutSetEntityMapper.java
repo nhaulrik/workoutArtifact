@@ -5,6 +5,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseE
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class WorkoutSetEntityMapper {
         .single(workoutSetEntity.isSingle())
         .repetitionMaximum(workoutSetEntity.getRepetitionMaximum())
         .exercise(exerciseEntityMapper.toDomainObject(workoutSetEntity.getExerciseEntity()))
-        .id(workoutSetEntity.getId())
+        .id(UUID.fromString(workoutSetEntity.getId()))
         .setNumber(workoutSetEntity.getSetNumber())
         .sessionId(workoutSetEntity.getSessionEntity().getId())
         .build();
@@ -37,7 +38,7 @@ public class WorkoutSetEntityMapper {
     workoutSetEntity.setSingle(workoutSet.getSingle());
     workoutSetEntity.setRepetitionMaximum(workoutSet.getRepetitionMaximum());
     workoutSetEntity.setSetNumber(workoutSet.getSetNumber());
-    workoutSetEntity.setId(workoutSet.getId());
+    workoutSetEntity.setId(workoutSet.getId().toString());
 
     workoutSetEntity.setExerciseEntity(exerciseEntityMapper.toEntity(workoutSet.getExercise()));
 //    workoutSetEntity.setSessionEntity(workoutSet.getSession()));

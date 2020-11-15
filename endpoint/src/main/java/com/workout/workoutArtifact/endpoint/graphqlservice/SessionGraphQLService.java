@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -58,6 +59,7 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
       @GraphQLArgument(name = "year") Integer year
 
   ) {
+
     List<AbstractSpecification<SessionDto>> sessionDtoSpecifications = new ArrayList<>();
     AbstractSpecification aggregatedSpecification;
     if (ids != null) {
@@ -112,8 +114,8 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
       @GraphQLArgument(name = "programme") String programme,
       @GraphQLArgument(name = "splitName") String splitName,
       @GraphQLArgument(name = "time") String time,
-      @GraphQLArgument(name = "workoutSetIds") List<WorkoutSetDto> workoutSetDtos,
-      @GraphQLArgument(name = "userId") UserDto user
+      @GraphQLArgument(name = "workoutSetIds") List<String> workoutSetIds,
+      @GraphQLArgument(name = "userId") UUID userId
   ) {
 
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -124,8 +126,8 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
         .programme(programme)
         .splitName(splitName)
         .localDateTime(parsedTime)
-        .workoutSetDtos(workoutSetDtos != null ? workoutSetDtos : new ArrayList<>())
-        .userDto(user)
+        .workoutSetIds(workoutSetIds != null ? workoutSetIds.stream().map(UUID::fromString).collect(Collectors.toList()) : new ArrayList<>())
+        .userId(userId)
         .build();
 
     if (id != null) {

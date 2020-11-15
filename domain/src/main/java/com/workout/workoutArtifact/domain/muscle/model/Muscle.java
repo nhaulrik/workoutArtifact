@@ -2,6 +2,7 @@ package com.workout.workoutArtifact.domain.muscle.model;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.util.List;
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
@@ -10,7 +11,7 @@ import lombok.Value;
 @Builder
 public class Muscle {
 
-  private Long id;
+  private UUID id;
 
   private String name;
 

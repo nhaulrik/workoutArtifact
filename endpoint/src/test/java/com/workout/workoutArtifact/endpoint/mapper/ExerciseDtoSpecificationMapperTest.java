@@ -13,6 +13,7 @@ import com.workout.workoutArtifact.domain.specification.AndSpecification;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
 import com.workout.workoutArtifact.endpoint.mapper.specification.ExerciseDtoSpecificationMapper;
 import java.util.Arrays;
+import java.util.UUID;
 import org.junit.Test;
 
 public class ExerciseDtoSpecificationMapperTest {
@@ -34,7 +35,7 @@ public class ExerciseDtoSpecificationMapperTest {
   @Test
   public void mapsExerciseIdSpecification() {
 
-    Long exerciseId = 1L;
+    UUID exerciseId = UUID.randomUUID();
 
     AbstractSpecification<Exercise> exerciseIdSpecification = exerciseDtoSpecificationMapper.toExerciseSpecification(new ExerciseDto.ExerciseIdSpecification(exerciseId));
 

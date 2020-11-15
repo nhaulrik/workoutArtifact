@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.endpoint.dto;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import io.leangen.graphql.annotations.types.GraphQLType;
 import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import lombok.Value;
 @Builder
 public class ExerciseDto {
 
-  private Long id;
+  private UUID id;
 
   @NonNull
   private String name;
@@ -25,16 +26,6 @@ public class ExerciseDto {
 
   @NonNull
   private Boolean isCompound;
-
-  @Data
-  @NoArgsConstructor
-  @AllArgsConstructor
-  @GraphQLType(name = "MuscleRelation")
-  public static class MuscleRelation {
-
-    private Long muscleId;
-    private int utilization;
-  }
 
   @Value
   public static class NameSpecification extends AbstractSpecification<ExerciseDto> {
@@ -72,7 +63,7 @@ public class ExerciseDto {
   @Value
   public static class ExerciseIdSpecification extends AbstractSpecification<ExerciseDto> {
 
-    private final Long exerciseId;
+    private final UUID exerciseId;
 
     @Override
     public boolean isSatisfiedBy(ExerciseDto exerciseDto) {

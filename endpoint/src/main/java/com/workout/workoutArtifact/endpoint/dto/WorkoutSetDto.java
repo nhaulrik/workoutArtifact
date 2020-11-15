@@ -14,13 +14,13 @@ import lombok.Value;
 @NoArgsConstructor
 public class WorkoutSetDto {
 
-  private Long id;
+  private UUID id;
 
   @NonNull
   private UUID sessionId;
 
   @NonNull
-  private ExerciseDto exerciseDto;
+  private UUID exerciseId;
 
   @NonNull
   private int repetitions;
@@ -40,7 +40,7 @@ public class WorkoutSetDto {
   @Value
   public static class IdsSpecification extends AbstractSpecification<WorkoutSetDto> {
 
-    private final List<Long> ids;
+    private final List<UUID> ids;
 
     @Override
     public boolean isSatisfiedBy(WorkoutSetDto workoutSetDto) {
