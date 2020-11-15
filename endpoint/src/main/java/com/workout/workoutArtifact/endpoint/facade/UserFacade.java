@@ -7,7 +7,9 @@ import com.workout.workoutArtifact.domain.user.service.UserService;
 import com.workout.workoutArtifact.endpoint.dto.UserDto;
 import com.workout.workoutArtifact.endpoint.mapper.dto.UserDtoMapper;
 import com.workout.workoutArtifact.endpoint.mapper.specification.UserDtoSpecificationMapper;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -33,5 +35,10 @@ public class UserFacade {
 
     User user = userDtoMapper.toDomainObject(userDto);
     return userService.addUser(user);
+  }
+
+
+  public void createSession(LocalDateTime parsedTime, List<UUID> userIds) {
+    userService.createSession(parsedTime, userIds);
   }
 }

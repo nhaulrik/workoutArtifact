@@ -4,6 +4,8 @@ import com.workout.workoutArtifact.domain.specification.AndSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.domain.user.model.User;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.UserEntity;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.mapping.MappingException;
 import org.springframework.stereotype.Component;
@@ -21,7 +23,7 @@ public class UserSpecificationMapper {
     } else if (userSpecification instanceof MatchAllSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.conjunction();
     } else if (userSpecification instanceof User.IdsSpecification) {
-      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((User.IdsSpecification) userSpecification).getIds());
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((User.IdsSpecification) userSpecification).getIds().stream().map(UUID::toString).collect(Collectors.toList()));
     } else if (userSpecification instanceof User.FirstNameSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("firstName").in(((User.FirstNameSpecification) userSpecification).getFirstNames());
     } else if (userSpecification instanceof User.LastNameSpecification) {

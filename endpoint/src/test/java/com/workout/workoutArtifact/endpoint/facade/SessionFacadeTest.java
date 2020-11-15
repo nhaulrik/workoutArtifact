@@ -53,13 +53,11 @@ public class SessionFacadeTest {
 
     UUID id = UUID.randomUUID();
     String location = "some_location";
-    Session session = Session.builder()
-        .id(id)
-        .location("some_location")
-        .creationDateTime(LocalDateTime.now())
-        .programme("some_programme")
-        .splitName("split_name")
-        .build();
+
+    Session session = new Session(UUID.randomUUID(), LocalDateTime.now());
+    session.setLocation("some_location");
+    session.setProgramme("some_programme");
+    session.setSplitName("some_split_name");
 
     SessionDto sessionDtoMock = mock(SessionDto.class);
 

@@ -30,15 +30,13 @@ public class SessionSpecificationMapper {
           .orElse((root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.disjunction());
     } else if (sessionSpecification instanceof MatchAllSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.conjunction();
-    } else if (sessionSpecification instanceof  Session.IdsSpecification) {
+    } else if (sessionSpecification instanceof Session.IdsSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Session.IdsSpecification) sessionSpecification).getIds().stream().map(UUID::toString).collect(Collectors.toList()));
-    } else if (sessionSpecification instanceof  Session.LocationsSpecification) {
+    } else if (sessionSpecification instanceof Session.LocationsSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("location").in(((Session.LocationsSpecification) sessionSpecification).getLocations());
-    } else if (sessionSpecification instanceof  Session.ProgrammeSpecification) {
+    } else if (sessionSpecification instanceof Session.ProgrammeSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("programme").in(((Session.ProgrammeSpecification) sessionSpecification).getProgramme());
-    } else if (sessionSpecification instanceof  Session.UserIdSpecification) {
-      return (root, criteriaQuery, criteriaBuilder) -> root.get("userEntity").get("id").in(((Session.UserIdSpecification) sessionSpecification).getUserId().toString());
-    } else if (sessionSpecification instanceof  Session.DateTimeSpecification) {
+    } else if (sessionSpecification instanceof Session.DateTimeSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> {
         LocalDateTime parsedLocalDateTime = ((Session.DateTimeSpecification) sessionSpecification).getLocalDateTime();
         return criteriaBuilder.between(root.get("creationDateTime"), parsedLocalDateTime, parsedLocalDateTime.plusDays(1));

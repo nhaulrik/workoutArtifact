@@ -38,4 +38,10 @@ public class UserEntityRepository implements UserRepository {
     UserEntity userEntity = userEntityMapper.toEntity(user);
     return userJpaRepository.save(userEntity).getFirstName();
   }
+
+  @Override
+  public void save(User user) {
+    UserEntity userEntity = userEntityMapper.toEntity(user);
+    userJpaRepository.save(userEntity);
+  }
 }

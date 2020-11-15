@@ -7,4 +7,6 @@ public interface UserRepository {
 
   List<User> getUsers(Specification<User> userSpecification);
   String addUser(User user);
+
+  void save(User user);
 }

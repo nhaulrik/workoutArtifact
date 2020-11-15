@@ -3,23 +3,93 @@ package com.workout.workoutArtifact.domain.user.model;
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.Value;
+import org.springframework.util.Assert;
 
-@Builder
-@Data
+@Getter
 public class User {
 
   private String firstName;
   private String lastName;
-  private LocalDate birthDay;
+  private LocalDate birthday;
   private Gender gender;
   private UUID id;
+  private final List<Session> sessions;
 
-  public enum Gender{
+  private User(
+      UUID id,
+      String firstName,
+      String lastName,
+      LocalDate birthDay,
+      Gender gender
+  ) {
+    this.id = id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.birthday = birthDay;
+    this.gender = gender;
+    this.sessions = new ArrayList<>();
+  }
+
+  public static User createNewUser(String firstName,
+      String lastName,
+      LocalDate birthDay,
+      Gender gender) {
+    return new User(
+        UUID.randomUUID(),
+        firstName,
+        lastName,
+        birthDay,
+        gender
+    );
+  }
+
+  public static User fromEntity(
+      UUID id,
+      String firstName,
+      String lastName,
+      LocalDate birthDay,
+      Gender gender,
+      List<Session> sessions) {
+    User user = new User(
+        id,
+        firstName,
+        lastName,
+        birthDay,
+        gender
+    );
+
+    sessions.forEach(user::addSession);
+    return user;
+  }
+
+  public static User fromDto(
+      UUID id,
+      String firstName,
+      String lastName,
+      LocalDate birthDay,
+      Gender gender
+  ) {
+    return new User(
+        id,
+        firstName,
+        lastName,
+        birthDay,
+        gender
+    );
+
+  }
+
+  public void addSession(Session session) {
+    Assert.notNull(session, "session is required");
+    this.sessions.add(session);
+  }
+
+  public enum Gender {
     MALE,
     FEMALE
   }

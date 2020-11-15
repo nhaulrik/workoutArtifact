@@ -6,7 +6,6 @@ import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.endpoint.dto.UserDto;
 import com.workout.workoutArtifact.endpoint.dto.UserDto.FirstNameSpecification;
-import com.workout.workoutArtifact.endpoint.dto.UserDto.Gender;
 import com.workout.workoutArtifact.endpoint.dto.UserDto.IdsSpecification;
 import com.workout.workoutArtifact.endpoint.dto.UserDto.LastNameSpecification;
 import com.workout.workoutArtifact.endpoint.facade.UserFacade;
@@ -15,6 +14,7 @@ import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 @Slf4j
 @Component
@@ -52,32 +53,52 @@ public class UserGraphQLService {
   }
 
   @GraphQLQuery(name = "users")
-  public List<SessionDto> getSessions(
+  public List<UserDto> getSessions(
       @GraphQLContext SessionDto sessionDto
   ) {
     AbstractSpecification idsSpecification = new UserDto.IdsSpecification(Arrays.asList(sessionDto.getUserId()));
     return userFacade.getUsers(idsSpecification);
   }
 
-  @GraphQLMutation(name = "addUser")
-  public String addUser(
-      @GraphQLArgument(name = "firstName") String firstName,
-      @GraphQLArgument(name = "lastName") String lastName,
-      @GraphQLArgument(name = "birthday") String birthday,
-      @GraphQLArgument(name = "gender") String gender
-  ) {
+  @GraphQLMutation(name = "createSession")
+  public Boolean createSession(
+      @GraphQLArgument(name = "userIds") List<String> userIds,
+      @GraphQLArgument(name = "date") String dateString) {
 
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    LocalDate parsedDate = LocalDate.parse(birthday, dateTimeFormatter);
+    Assert.notNull(userIds, "userIds required");
+    Assert.notNull(dateString, "dateString required");
 
-    UserDto userDto = UserDto.builder()
-        .id(UUID.randomUUID())
-        .birthday(parsedDate)
-        .firstName(firstName)
-        .lastName(lastName)
-        .gender(Gender.valueOf(gender.toUpperCase()))
-        .build();
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    LocalDateTime parsedTime = LocalDateTime.parse(dateString, dateTimeFormatter);
 
-    return userFacade.addUser(userDto);
+    List<UUID> userUUIDs = userIds.stream().map(UUID::fromString).collect(Collectors.toList());
+
+    userFacade.createSession(parsedTime, userUUIDs);
+
+    boolean bla = false;
+    return bla;
   }
+
+  // TODO: 15-11-2020 consider if this can be removed
+//  @GraphQLMutation(name = "addUser")
+//  public String addUser(
+//      @GraphQLArgument(name = "firstName") String firstName,
+//      @GraphQLArgument(name = "lastName") String lastName,
+//      @GraphQLArgument(name = "birthday") String birthday,
+//      @GraphQLArgument(name = "gender") String gender
+//  ) {
+//
+//    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//    LocalDate parsedDate = LocalDate.parse(birthday, dateTimeFormatter);
+//
+//    UserDto userDto = new UserDto()
+//        .id(UUID.randomUUID())
+//        .birthday(parsedDate)
+//        .firstName(firstName)
+//        .lastName(lastName)
+//        .gender(Gender.valueOf(gender.toUpperCase()))
+//        .build();
+//
+//    return userFacade.addUser(userDto);
+//  }
 }

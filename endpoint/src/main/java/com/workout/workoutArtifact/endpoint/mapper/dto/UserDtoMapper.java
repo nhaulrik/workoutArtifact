@@ -8,21 +8,22 @@ import org.springframework.stereotype.Component;
 public class UserDtoMapper {
 
   public UserDto toDto(User user) {
-    return UserDto.builder()
-        .birthday(user.getBirthDay())
-        .firstName(user.getFirstName())
-        .lastName(user.getLastName())
-        .gender(UserDto.Gender.valueOf(user.getGender().name()))
-        .id(user.getId())
-        .build();
+    return new UserDto(
+        user.getId(),
+        user.getFirstName(),
+        user.getLastName(),
+        user.getBirthday(),
+        user.getGender().name()
+    );
   }
 
   public User toDomainObject(UserDto userDto) {
-    return User.builder()
-        .firstName(userDto.getFirstName())
-        .lastName(userDto.getLastName())
-        .gender(User.Gender.valueOf(userDto.getGender().name()))
-        .birthDay(userDto.getBirthday())
-        .build();
+    return User.fromDto(
+        userDto.getId(),
+        userDto.getFirstName(),
+        userDto.getLastName(),
+        userDto.getBirthday(),
+        User.Gender.valueOf(userDto.getGender())
+    );
   }
 }

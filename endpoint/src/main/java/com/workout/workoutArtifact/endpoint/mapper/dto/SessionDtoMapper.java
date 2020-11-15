@@ -13,18 +13,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SessionDtoMapper {
 
-  private final WorkoutSetDtoMapper workoutSetDtoMapper;
-
   public Session toDomainObject(SessionDto sessionDto) {
-    return Session.builder()
-        .id(sessionDto.getId() != null ? sessionDto.getId() : null)
-        .programme(sessionDto.getProgramme())
-        .splitName(sessionDto.getSplitName())
-        .location(sessionDto.getLocation())
-        .workoutSet(sessionDto.getWorkoutSetIds().stream().map(id -> WorkoutSet.builder().id(id).build()).collect(Collectors.toList()))
-        .creationDateTime(sessionDto.getLocalDateTime() != null ? sessionDto.getLocalDateTime() : LocalDateTime.now())
-        .user(User.builder().id(sessionDto.getUserId()).build())
-        .build();
+    Session session = new Session(sessionDto.getId(), sessionDto.getLocalDateTime());
+    session.setProgramme(sessionDto.getProgramme());
+    session.setSplitName(sessionDto.getSplitName());
+    session.setLocation(sessionDto.getLocation());
+    return session;
   }
 
   public SessionDto toDto(Session session) {
@@ -32,10 +26,10 @@ public class SessionDtoMapper {
         .programme(session.getProgramme())
         .splitName(session.getSplitName())
         .id(session.getId())
-        .userId(session.getUser().getId())
         .location(session.getLocation())
         .localDateTime(session.getCreationDateTime())
         .workoutSetIds(session.getWorkoutSet().stream().map(WorkoutSet::getId).collect(Collectors.toList()))
+        .userId(session.getUserId())
         .build();
   }
 }

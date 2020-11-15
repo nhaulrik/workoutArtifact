@@ -7,6 +7,7 @@ import com.workout.workoutArtifact.domain.specification.Specification;
 import com.workout.workoutArtifact.endpoint.mapper.dto.SessionDtoMapper;
 import com.workout.workoutArtifact.endpoint.mapper.specification.SessionDtoSpecificationMapper;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -45,4 +46,5 @@ public class SessionFacade {
 
     return sessionService.deleteSessions(sessionSpecification);
   }
+
 }

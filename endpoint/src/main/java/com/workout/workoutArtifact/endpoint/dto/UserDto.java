@@ -4,24 +4,20 @@ import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
 
 @Data
-@Builder
+@AllArgsConstructor
 public class UserDto {
 
   private UUID id;
   private String firstName;
   private String lastName;
   private LocalDate birthday;
-  private Gender gender;
-
-  public enum Gender {
-    MALE,
-    FEMALE
-  }
+  private String gender;
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<UserDto> {

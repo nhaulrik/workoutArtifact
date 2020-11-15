@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ public class UserEntity {
   @Column
   private String gender;
 
-  @OneToMany(mappedBy = "userEntity")
+  @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<SessionEntity> sessionEntities = new HashSet<>();
 
   public UUID getId() {

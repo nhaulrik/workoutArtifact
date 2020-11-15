@@ -1,36 +1,35 @@
 package com.workout.workoutArtifact.domain.session.model;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
-import com.workout.workoutArtifact.domain.user.model.User;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NonNull;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
-@Builder
 @Data
+@RequiredArgsConstructor
 public class Session {
 
-  private UUID id;
+  private final UUID id;
+  private final LocalDateTime creationDateTime;
 
-  @NonNull
-  private LocalDateTime creationDateTime;
-
-  @NonNull
   private String location;
-
-  @NonNull
   private String programme;
-
-  @NonNull
   private String splitName;
+  private UUID userId;
 
-  private List<WorkoutSet> workoutSet;
-  private User user;
+  private final List<WorkoutSet> workoutSet = new ArrayList<>();
+
+
+  public static Session createNewSession(LocalDateTime localDateTime) {
+    Session session = new Session(UUID.randomUUID(), localDateTime);
+    return session;
+  }
 
   @Value
   public static class SplitNameSpecification extends AbstractSpecification<Session> {
@@ -74,17 +73,6 @@ public class Session {
     @Override
     public boolean isSatisfiedBy(Session session) {
       return locations.contains(session.getLocation());
-    }
-  }
-
-  @Value
-  public static class UserIdSpecification extends AbstractSpecification<Session> {
-
-    private final UUID userId;
-
-    @Override
-    public boolean isSatisfiedBy(Session session) {
-      return userId.equals(session.getUser().getId());
     }
   }
 

@@ -14,9 +14,11 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.SessionEn
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.SessionSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.SessionJpaRepository;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import org.apache.tomcat.jni.Local;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -40,13 +42,10 @@ public class SessionEntityRepositoryTest {
         org.springframework.data.jpa.domain.Specification.class);
 
     SessionEntity sessionEntity = mock(SessionEntity.class);
-    Session session = Session.builder()
-        .creationDateTime(LocalDateTime.now())
-        .location("some_location")
-        .id(UUID.randomUUID())
-        .programme("some_programme")
-        .splitName("some_split_name")
-        .build();
+    Session session = new Session(UUID.randomUUID(), LocalDateTime.now());
+    session.setLocation("some_location");
+    session.setProgramme("some_programme");
+    session.setSplitName("some_split_name");
 
     doReturn(jpaSpecification)
         .when(sessionSpecificationMapper).toJpaSpecification(specification);
@@ -68,13 +67,10 @@ public class SessionEntityRepositoryTest {
 
     UUID someId = UUID.randomUUID();
 
-    Session session = Session.builder()
-        .id(someId)
-        .location("some_location")
-        .programme("some_programme")
-        .splitName("some_split_name")
-        .creationDateTime(LocalDateTime.now())
-        .build();
+    Session session = new Session(someId, LocalDateTime.now());
+    session.setLocation("some_location");
+    session.setProgramme("some_programme");
+    session.setSplitName("some_split_name");
 
     SessionEntity sessionEntity = new SessionEntity();
     sessionEntity.setId(someId);

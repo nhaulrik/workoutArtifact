@@ -2,10 +2,9 @@ package com.workout.workoutArtifact.endpoint.graphqlservice;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
-import com.workout.workoutArtifact.endpoint.dto.UserDto;
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
-import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
+import com.workout.workoutArtifact.endpoint.dto.UserDto;
 import com.workout.workoutArtifact.endpoint.facade.SessionFacade;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
@@ -23,6 +22,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 @Slf4j
 @Component
@@ -107,7 +107,7 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
     return sessionDtos;
   }
 
-  @GraphQLMutation(name = "addSession")
+      @GraphQLMutation(name = "addSession")
   public UUID addSession(
       @GraphQLArgument(name = "id") UUID id,
       @GraphQLArgument(name = "location") String location,
