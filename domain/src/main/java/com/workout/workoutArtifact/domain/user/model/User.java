@@ -27,7 +27,7 @@ public class User {
   @Value
   public static class IdsSpecification extends AbstractSpecification<User> {
 
-    private final List<Long> ids;
+    private final List<UUID> ids;
 
     @Override
     public boolean isSatisfiedBy(User user) {

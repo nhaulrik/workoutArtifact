@@ -26,7 +26,7 @@ public class UserDto {
   @Value
   public static class IdsSpecification extends AbstractSpecification<UserDto> {
 
-    private final List<Long> ids;
+    private final List<UUID> ids;
 
     @Override
     public boolean isSatisfiedBy(UserDto userDto) {
