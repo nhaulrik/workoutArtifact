@@ -14,7 +14,8 @@ import org.springframework.stereotype.Component;
 public class SessionDtoMapper {
 
   public Session toDomainObject(SessionDto sessionDto) {
-    Session session = new Session(sessionDto.getId(), sessionDto.getLocalDateTime());
+    Session session = new Session(sessionDto.getId());
+    session.setCreationDateTime(sessionDto.getLocalDateTime());
     session.setProgramme(sessionDto.getProgramme());
     session.setSplitName(sessionDto.getSplitName());
     session.setLocation(sessionDto.getLocation());

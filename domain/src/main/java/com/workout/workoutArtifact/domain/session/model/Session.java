@@ -2,6 +2,7 @@ package com.workout.workoutArtifact.domain.session.model;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +11,15 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.util.Assert;
 
 @Data
 @RequiredArgsConstructor
 public class Session {
 
   private final UUID id;
-  private final LocalDateTime creationDateTime;
+  private LocalDateTime creationDateTime;
 
   private String location;
   private String programme;
@@ -25,11 +28,36 @@ public class Session {
 
   private final List<WorkoutSet> workoutSet = new ArrayList<>();
 
+  public void changeLocation(String location) {
+    Assert.notNull(location, "location is required");
+    this.location = location;
+  }
 
   public static Session createNewSession(LocalDateTime localDateTime) {
-    Session session = new Session(UUID.randomUUID(), localDateTime);
+    Session session = new Session(UUID.randomUUID());
+    session.creationDateTime = localDateTime;
     return session;
   }
+
+  public void changeProgramme(String programme) {
+    Assert.isTrue(!Strings.isBlank(splitName), "programme is required");
+    this.programme = programme;
+  }
+
+  public void changeSplitName(String splitName) {
+    Assert.isTrue(!Strings.isBlank(splitName), "splitName is required");
+    this.splitName = splitName;
+  }
+
+  public void changeTime(LocalDateTime localDateTime) {
+    Assert.notNull(localDateTime, "localDateTime is required");
+    this.creationDateTime = localDateTime;
+  }
+
+  public void changeUser(UUID userId) {
+    this.userId = userId;
+  }
+
 
   @Value
   public static class SplitNameSpecification extends AbstractSpecification<Session> {

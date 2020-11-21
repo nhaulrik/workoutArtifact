@@ -54,7 +54,8 @@ public class SessionFacadeTest {
     UUID id = UUID.randomUUID();
     String location = "some_location";
 
-    Session session = new Session(UUID.randomUUID(), LocalDateTime.now());
+    Session session = new Session(UUID.randomUUID());
+    session.setCreationDateTime(LocalDateTime.now());
     session.setLocation("some_location");
     session.setProgramme("some_programme");
     session.setSplitName("some_split_name");

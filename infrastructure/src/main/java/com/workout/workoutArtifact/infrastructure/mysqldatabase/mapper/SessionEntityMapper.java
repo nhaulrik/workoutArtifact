@@ -2,8 +2,10 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper;
 
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.UserEntity;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class SessionEntityMapper {
 
   private final WorkoutSetEntityMapper workoutSetEntityMapper;
+  private final EntityManager entityManager;
 
   public SessionEntity toEntity(Session session) {
     SessionEntity sessionEntity = new SessionEntity();
@@ -24,6 +27,7 @@ public class SessionEntityMapper {
     sessionEntity.setSplitName(session.getSplitName());
     sessionEntity.setProgramme(session.getProgramme());
     sessionEntity.setLocation(session.getLocation());
+    sessionEntity.setUserEntity(entityManager.getReference(UserEntity.class, session.getUserId().toString()));
     sessionEntity.setWorkoutSetEntities(session.getWorkoutSet().stream().map(workoutSetEntityMapper::toEntity).collect(Collectors.toSet()));
     return sessionEntity;
   }
@@ -35,10 +39,11 @@ public class SessionEntityMapper {
   }
 
   public Session toDomainObject(SessionEntity sessionEntity) {
-    Session session = new Session(sessionEntity.getId(), sessionEntity.getCreationDateTime());
-    session.setProgramme(session.getProgramme());
-    session.setSplitName(session.getSplitName());
-    session.setLocation(session.getLocation());
+    Session session = new Session(sessionEntity.getId());
+    session.setCreationDateTime(sessionEntity.getCreationDateTime());
+    session.setProgramme(sessionEntity.getProgramme());
+    session.setSplitName(sessionEntity.getSplitName());
+    session.setLocation(sessionEntity.getLocation());
     session.setUserId(sessionEntity.getUserEntity().getId());
     session.getWorkoutSet().addAll(sessionEntity.getWorkoutSetEntities().stream().map(workoutSetEntityMapper::toDomain).collect(Collectors.toList()));
 

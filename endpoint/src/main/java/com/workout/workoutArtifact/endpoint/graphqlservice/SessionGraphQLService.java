@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 @Slf4j
 @Component
@@ -107,7 +106,35 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
     return sessionDtos;
   }
 
-      @GraphQLMutation(name = "addSession")
+
+  @GraphQLMutation(name = "postSession")
+  public Boolean postSession(
+      @GraphQLArgument(name = "id") UUID id,
+      @GraphQLArgument(name = "location") String location,
+      @GraphQLArgument(name = "programme") String programme,
+      @GraphQLArgument(name = "splitName") String splitName,
+      @GraphQLArgument(name = "time") String time,
+      @GraphQLArgument(name = "workoutSetIds") List<String> workoutSetIds,
+      @GraphQLArgument(name = "userId") UUID userId
+  ) {
+
+    if (id != null) {
+      return sessionFacade.postSession(
+          id,
+          location,
+          programme,
+          splitName,
+          time,
+          userId
+      );
+    } else {
+      log.error("PostSession request contained no sessionId");
+      return false;
+    }
+  }
+
+
+  @GraphQLMutation(name = "addSession")
   public UUID addSession(
       @GraphQLArgument(name = "id") UUID id,
       @GraphQLArgument(name = "location") String location,

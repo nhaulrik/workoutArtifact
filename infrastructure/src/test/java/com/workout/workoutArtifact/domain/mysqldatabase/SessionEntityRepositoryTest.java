@@ -42,7 +42,8 @@ public class SessionEntityRepositoryTest {
         org.springframework.data.jpa.domain.Specification.class);
 
     SessionEntity sessionEntity = mock(SessionEntity.class);
-    Session session = new Session(UUID.randomUUID(), LocalDateTime.now());
+    Session session = new Session(UUID.randomUUID());
+    session.setCreationDateTime(LocalDateTime.now());
     session.setLocation("some_location");
     session.setProgramme("some_programme");
     session.setSplitName("some_split_name");
@@ -67,7 +68,8 @@ public class SessionEntityRepositoryTest {
 
     UUID someId = UUID.randomUUID();
 
-    Session session = new Session(someId, LocalDateTime.now());
+    Session session = new Session(someId);
+    session.setCreationDateTime(LocalDateTime.now());
     session.setLocation("some_location");
     session.setProgramme("some_programme");
     session.setSplitName("some_split_name");
