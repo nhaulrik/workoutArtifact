@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.Data;
 import lombok.Getter;
@@ -56,6 +57,10 @@ public class Session {
 
   public void changeUser(UUID userId) {
     this.userId = userId;
+  }
+
+  public Optional<WorkoutSet> getWorkoutSet(UUID id) {
+    return this.workoutSet.stream().filter(ws -> id.equals(ws.getId())).findFirst();
   }
 
 

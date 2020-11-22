@@ -67,11 +67,11 @@ public class WorkoutSetGraphQLServiceTest {
     Integer repetitions = 8;
     Integer repetitionMaximum = 12;
     Boolean single = true;
-    String exerciseId = UUID.randomUUID().toString();
+    UUID exerciseId = UUID.randomUUID();
     UUID sessionId = UUID.randomUUID();
-    String id = UUID.randomUUID().toString();
+    UUID id = UUID.randomUUID();
 
-    Boolean resultBoolean = workoutSetGraphQLService.addWorkoutSet(
+    Boolean resultBoolean = workoutSetGraphQLService.postWorkoutSet(
         id,
         setNumber,
         weight,

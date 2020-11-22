@@ -7,6 +7,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.workout.workoutArtifact.domain.exercise.model.ExerciseRepository;
+import com.workout.workoutArtifact.domain.session.model.Session;
+import com.workout.workoutArtifact.domain.session.model.SessionRepository;
 import com.workout.workoutArtifact.domain.specification.Specification;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSetRepository;
@@ -18,8 +21,10 @@ import org.junit.Test;
 public class WorkoutSetServiceTest {
 
   WorkoutSetRepository workoutSetRepository = mock(WorkoutSetRepository.class);
+  ExerciseRepository exerciseRepository = mock(ExerciseRepository.class);
+  SessionRepository sessionRepository = mock(SessionRepository.class);
 
-  WorkoutSetService workoutSetService = new WorkoutSetService(workoutSetRepository);
+  WorkoutSetService workoutSetService = new WorkoutSetService(workoutSetRepository, exerciseRepository, sessionRepository);
 
   @Test
   public void getWorkoutSets() {

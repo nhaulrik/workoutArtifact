@@ -32,7 +32,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 public class WorkoutSetEntityTest {
 
   @Autowired
-  WorkoutSetJpaRepository workoutSetRepository;
+  WorkoutSetJpaRepository workoutSetJpaRepository;
 
   @Resource
   ExerciseJpaRepository exerciseRepository;
@@ -50,7 +50,7 @@ public class WorkoutSetEntityTest {
   @Test
   public void emptyRepositoryShouldReturnEmptyList() {
 
-    List<WorkoutSetEntity> resultList = workoutSetRepository.findAll();
+    List<WorkoutSetEntity> resultList = workoutSetJpaRepository.findAll();
     assertThat(resultList.isEmpty(), is(true));
   }
 
@@ -59,17 +59,17 @@ public class WorkoutSetEntityTest {
     WorkoutSetEntity workoutSetEntity = new WorkoutSetEntity();
     workoutSetEntity.setId(UUID.randomUUID().toString());
     workoutSetEntity.setRepetitions(8);
-    workoutSetEntity.setWeight(80);
+    workoutSetEntity.setWeight(80d);
     workoutSetEntity.setRepetitionMaximum(12);
     workoutSetEntity.setSetNumber(1);
     workoutSetEntity.setSingle(false);
 
-    workoutSetRepository.save(workoutSetEntity);
+    workoutSetJpaRepository.save(workoutSetEntity);
 
     WorkoutSetSpecification workoutSetSpecification = new WorkoutSetSpecification(
         new SearchCriteria("repetitions", ":", workoutSetEntity.getRepetitions()));
 
-    List<WorkoutSetEntity> resultList = workoutSetRepository.findAll(workoutSetSpecification);
+    List<WorkoutSetEntity> resultList = workoutSetJpaRepository.findAll(workoutSetSpecification);
 
     MatcherAssert.assertThat(resultList.get(0).getId(), Matchers.is(workoutSetEntity.getId()));
   }

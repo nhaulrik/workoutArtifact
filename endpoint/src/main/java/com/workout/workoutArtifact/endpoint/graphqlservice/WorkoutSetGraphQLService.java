@@ -40,33 +40,26 @@ public class WorkoutSetGraphQLService implements GraphQLService {
   }
 
   @GraphQLMutation(name = "addWorkoutSet")
-  public Boolean addWorkoutSet(
-      @GraphQLArgument(name = "id") String id,
+  public Boolean postWorkoutSet(
+      @GraphQLArgument(name = "id") UUID id,
       @GraphQLArgument(name = "setNumber") Integer setNumber,
       @GraphQLArgument(name = "weight") Double weight,
       @GraphQLArgument(name = "repetitions") Integer repetitions,
       @GraphQLArgument(name = "repetitionMaximum") Integer repetitionMaximum,
       @GraphQLArgument(name = "single") Boolean single,
-      @GraphQLArgument(name = "exerciseId") String exerciseId,
+      @GraphQLArgument(name = "exerciseId") UUID exerciseId,
       @GraphQLArgument(name = "sessionId") UUID sessionId
   ) {
-
-    WorkoutSetDto workoutSetDto = new WorkoutSetDto(
-        null,
-        sessionId,
-        UUID.fromString(exerciseId),
-        repetitions,
+    workoutSetFacade.postWorkoutSet(
+        id,
+        setNumber,
         weight,
-        single,
+        repetitions,
         repetitionMaximum,
-        setNumber
+        single,
+        exerciseId,
+        sessionId
     );
-
-    if (id != null) {
-      workoutSetDto.setId(UUID.fromString(id));
-    }
-
-    workoutSetFacade.addWorkoutSet(workoutSetDto);
     return true;
   }
 

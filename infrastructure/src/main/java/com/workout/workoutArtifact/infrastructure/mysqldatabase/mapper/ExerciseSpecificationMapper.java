@@ -25,7 +25,7 @@ public class ExerciseSpecificationMapper {
     } else if (exerciseSpecification instanceof Exercise.BodyPartsSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("bodyPart").in(((Exercise.BodyPartsSpecification) exerciseSpecification).getBodyParts());
     } else if (exerciseSpecification instanceof Exercise.ExerciseIdSpecification) {
-      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Exercise.ExerciseIdSpecification) exerciseSpecification).getId());
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Exercise.ExerciseIdSpecification) exerciseSpecification).getId().toString());
     }
     throw new MappingException(String.format("Unknown specification: %s", exerciseSpecification.getClass().getSimpleName()));
   }

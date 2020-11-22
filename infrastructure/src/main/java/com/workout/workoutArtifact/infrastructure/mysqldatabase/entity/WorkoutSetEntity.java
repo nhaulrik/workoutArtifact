@@ -25,19 +25,19 @@ public class WorkoutSetEntity {
   private String id;
 
   @Column
-  private int repetitions;
+  private Integer repetitions;
 
   @Column
-  private double weight;
+  private Double weight;
 
   @Column
-  private boolean single;
+  private Boolean single;
 
   @Column
-  private int repetitionMaximum;
+  private Integer repetitionMaximum;
 
   @Column
-  private int setNumber;
+  private Integer setNumber;
 
   @ManyToOne
   @JoinColumn(name = "exercise_id", foreignKey = @ForeignKey(name = "FK_workoutset_exercise_id"))

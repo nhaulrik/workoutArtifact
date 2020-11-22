@@ -21,7 +21,7 @@ public class WorkoutSetEntityMapper {
     return WorkoutSet.builder()
         .repetitions(workoutSetEntity.getRepetitions())
         .weight(workoutSetEntity.getWeight())
-        .single(workoutSetEntity.isSingle())
+        .single(workoutSetEntity.getSingle())
         .repetitionMaximum(workoutSetEntity.getRepetitionMaximum())
         .exercise(exerciseEntityMapper.toDomainObject(workoutSetEntity.getExerciseEntity()))
         .id(UUID.fromString(workoutSetEntity.getId()))

@@ -5,6 +5,8 @@ import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.domain.specification.Specification;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import org.springframework.data.mapping.MappingException;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +24,7 @@ public class WorkoutSetSpecificationMapper {
     } else if (workoutSetSpecification instanceof WorkoutSet.ExerciseIdSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("exerciseId").in(((WorkoutSet.ExerciseIdSpecification) workoutSetSpecification).getExerciseIds());
     } else if (workoutSetSpecification instanceof WorkoutSet.IdsSpecification) {
-      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((WorkoutSet.IdsSpecification) workoutSetSpecification).getIds());
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((WorkoutSet.IdsSpecification) workoutSetSpecification).getIds().stream().map(UUID::toString).collect(Collectors.toList()));
     }
 
     throw new MappingException("Unknown specification");
