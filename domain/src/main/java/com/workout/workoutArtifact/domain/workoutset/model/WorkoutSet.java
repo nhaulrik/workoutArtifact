@@ -80,4 +80,14 @@ public class WorkoutSet {
     }
   }
 
+  @Value
+  public static class SessionIdsSpecification extends AbstractSpecification<WorkoutSet> {
+    private final List<UUID> ids;
+
+    @Override
+    public boolean isSatisfiedBy(WorkoutSet workoutSet) {
+      return ids.contains(workoutSet.getSessionId());
+    }
+  }
+
 }

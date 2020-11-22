@@ -92,7 +92,7 @@ public class WorkoutSetGraphQLServiceTest {
     assertThat(workoutSetDto.getWeight(), is(weight));
     assertThat(workoutSetDto.getRepetitions(), is(repetitions));
     assertThat(workoutSetDto.getRepetitionMaximum(), is(repetitionMaximum));
-    assertThat(workoutSetDto.isSingle(), is(single));
+    assertThat(workoutSetDto.getSingle(), is(single));
     assertThat(workoutSetDto.getExerciseId(), is(exerciseId));
     assertThat(workoutSetDto.getSessionId(), is(sessionId));
   }

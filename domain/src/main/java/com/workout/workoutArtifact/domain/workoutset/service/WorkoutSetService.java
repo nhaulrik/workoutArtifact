@@ -68,8 +68,9 @@ public class WorkoutSetService {
               repetitionMaximum,
               setNumber
           );
+          session.addWorkoutSet(workoutSet);
         }
-        workoutSetRepository.addWorkoutSet(Arrays.asList(workoutSet));
+        sessionRepository.addSessions(Arrays.asList(session));
       }
     }
   }

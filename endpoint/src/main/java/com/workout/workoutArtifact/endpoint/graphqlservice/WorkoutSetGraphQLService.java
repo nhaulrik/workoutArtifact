@@ -6,6 +6,7 @@ import com.workout.workoutArtifact.domain.specification.MatchNoneSpecification;
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig.GraphQLService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto.IdsSpecification;
+import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto.SessionIdsSpecification;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import io.leangen.graphql.annotations.GraphQLArgument;
@@ -13,6 +14,7 @@ import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -85,8 +87,8 @@ public class WorkoutSetGraphQLService implements GraphQLService {
       @GraphQLContext SessionDto sessionDto
   ) {
     List<AbstractSpecification<WorkoutSetDto>> workoutSetDtoSpecifications = new ArrayList<>();
-    if (sessionDto != null && !sessionDto.getWorkoutSetIds().isEmpty()) {
-      workoutSetDtoSpecifications.add(new IdsSpecification(sessionDto.getWorkoutSetIds()));
+    if (sessionDto != null) {
+      workoutSetDtoSpecifications.add(new SessionIdsSpecification(Arrays.asList(sessionDto.getId())));
     }
     if (ids != null) {
       workoutSetDtoSpecifications.add(new WorkoutSetDto.IdsSpecification(ids.stream().map(UUID::fromString).collect(Collectors.toList())));

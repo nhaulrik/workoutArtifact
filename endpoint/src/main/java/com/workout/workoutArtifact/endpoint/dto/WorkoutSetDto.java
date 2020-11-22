@@ -14,28 +14,23 @@ import lombok.Value;
 @NoArgsConstructor
 public class WorkoutSetDto {
 
+  @NonNull
   private UUID id;
 
   @NonNull
   private UUID sessionId;
 
-  @NonNull
   private UUID exerciseId;
 
-  @NonNull
-  private int repetitions;
+  private Integer repetitions;
 
-  @NonNull
-  private double weight;
+  private Double weight;
 
-  @NonNull
-  private boolean single;
+  private Boolean single;
 
-  @NonNull
-  private int repetitionMaximum;
+  private Integer repetitionMaximum;
 
-  @NonNull
-  private int setNumber;
+  private Integer setNumber;
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<WorkoutSetDto> {
@@ -45,6 +40,17 @@ public class WorkoutSetDto {
     @Override
     public boolean isSatisfiedBy(WorkoutSetDto workoutSetDto) {
       return ids.contains(workoutSetDto.getId());
+    }
+  }
+
+  @Value
+  public static class SessionIdsSpecification extends AbstractSpecification<WorkoutSetDto> {
+
+    private final List<UUID> ids;
+
+    @Override
+    public boolean isSatisfiedBy(WorkoutSetDto workoutSetDto) {
+      return ids.contains(workoutSetDto.getSessionId());
     }
   }
 

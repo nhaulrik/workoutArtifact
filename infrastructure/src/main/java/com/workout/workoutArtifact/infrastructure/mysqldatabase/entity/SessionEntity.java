@@ -42,7 +42,7 @@ public class SessionEntity {
   @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_session_user_id"))
   private UserEntity userEntity;
 
-  @OneToMany(mappedBy = "sessionEntity", cascade = CascadeType.REMOVE)
+  @OneToMany(mappedBy = "sessionEntity", cascade = CascadeType.ALL)
   private Set<WorkoutSetEntity> workoutSetEntities = new HashSet<>();
 
   public UUID getId() {

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class WorkoutSetEntityMapper {
 
   private final ExerciseEntityMapper exerciseEntityMapper;
 
+  @Transactional
   public WorkoutSet toDomain(WorkoutSetEntity workoutSetEntity) {
     return WorkoutSet.builder()
         .repetitions(workoutSetEntity.getRepetitions())

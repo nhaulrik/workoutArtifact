@@ -2,14 +2,12 @@ package com.workout.workoutArtifact.domain.session.model;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.Data;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.apache.logging.log4j.util.Strings;
@@ -61,6 +59,15 @@ public class Session {
 
   public Optional<WorkoutSet> getWorkoutSet(UUID id) {
     return this.workoutSet.stream().filter(ws -> id.equals(ws.getId())).findFirst();
+  }
+
+  public void addWorkoutSet(WorkoutSet workoutSet) {
+    Assert.notNull(workoutSet, "workouSet is required");
+
+    if (this.workoutSet.stream().filter(ws -> workoutSet.getId().equals(ws)).findAny().isPresent()) {
+      throw new RuntimeException(String.format("workoutSet with id: %s is already present on session with id: %s", workoutSet.getId().toString(), this.id.toString()));
+    }
+    this.workoutSet.add(workoutSet);
   }
 
 

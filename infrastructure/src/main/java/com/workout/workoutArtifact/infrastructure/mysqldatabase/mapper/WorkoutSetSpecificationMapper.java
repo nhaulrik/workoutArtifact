@@ -25,6 +25,8 @@ public class WorkoutSetSpecificationMapper {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("exerciseId").in(((WorkoutSet.ExerciseIdSpecification) workoutSetSpecification).getExerciseIds());
     } else if (workoutSetSpecification instanceof WorkoutSet.IdsSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((WorkoutSet.IdsSpecification) workoutSetSpecification).getIds().stream().map(UUID::toString).collect(Collectors.toList()));
+    } else if (workoutSetSpecification instanceof WorkoutSet.SessionIdsSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("sessionEntity").get("id").in(((WorkoutSet.SessionIdsSpecification) workoutSetSpecification).getIds().stream().map(UUID::toString).collect(Collectors.toList()));
     }
 
     throw new MappingException("Unknown specification");

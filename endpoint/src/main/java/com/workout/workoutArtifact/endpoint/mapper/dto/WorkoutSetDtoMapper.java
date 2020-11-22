@@ -29,7 +29,7 @@ public class WorkoutSetDtoMapper {
     return WorkoutSet.builder()
         .repetitions(workoutSetDto.getRepetitions())
         .weight(workoutSetDto.getWeight())
-        .single(workoutSetDto.isSingle())
+        .single(workoutSetDto.getSingle())
         .repetitionMaximum(workoutSetDto.getRepetitionMaximum())
         .setNumber(workoutSetDto.getSetNumber())
         .exercise(Exercise.fromId(workoutSetDto.getId()))

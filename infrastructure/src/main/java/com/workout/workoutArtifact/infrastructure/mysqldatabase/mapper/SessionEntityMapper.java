@@ -29,6 +29,7 @@ public class SessionEntityMapper {
     sessionEntity.setLocation(session.getLocation());
     sessionEntity.setUserEntity(entityManager.getReference(UserEntity.class, session.getUserId().toString()));
     sessionEntity.setWorkoutSetEntities(session.getWorkoutSet().stream().map(workoutSetEntityMapper::toEntity).collect(Collectors.toSet()));
+    sessionEntity.getWorkoutSetEntities().forEach(workoutSetEntity -> workoutSetEntity.setSessionEntity(sessionEntity));
     return sessionEntity;
   }
 
