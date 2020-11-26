@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WorkoutSetJpaRepository extends JpaRepository<WorkoutSetEntity, Long>,
     JpaSpecificationExecutor<WorkoutSetEntity> {
+    void deleteAllById(String id);
 }

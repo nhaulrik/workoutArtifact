@@ -34,8 +34,8 @@ public class WorkoutSetFacade {
     return workoutSetId;
   }
 
-  public void postWorkoutSet(UUID id, Integer setNumber, Double weight, Integer repetitions, Integer repetitionMaximum, Boolean single, UUID exerciseId, UUID sessionId) {
-    workoutSetService.postWorkoutSet(
+  public UUID postWorkoutSet(UUID id, Integer setNumber, Double weight, Integer repetitions, Integer repetitionMaximum, Boolean single, UUID exerciseId, UUID sessionId) {
+   return workoutSetService.postWorkoutSet(
         id,
         setNumber,
         weight,
@@ -45,5 +45,9 @@ public class WorkoutSetFacade {
         exerciseId,
         sessionId
     );
+  }
+
+  public void deleteWorkoutSet(UUID id) {
+    workoutSetService.deleteWorkoutSet(id);
   }
 }

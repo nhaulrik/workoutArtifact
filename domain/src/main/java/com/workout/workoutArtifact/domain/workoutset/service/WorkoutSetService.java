@@ -32,7 +32,7 @@ public class WorkoutSetService {
     return workoutSetId;
   }
 
-  public void postWorkoutSet(UUID id, Integer setNumber, Double weight, Integer repetitions, Integer repetitionMaximum, Boolean single, UUID exerciseId, UUID sessionId) {
+  public UUID postWorkoutSet(UUID id, Integer setNumber, Double weight, Integer repetitions, Integer repetitionMaximum, Boolean single, UUID exerciseId, UUID sessionId) {
 
     if (sessionId != null) {
       Optional<Session> sessionOptional = sessionRepository.getSessions(new Session.IdsSpecification(Arrays.asList(sessionId))).stream().findFirst();
@@ -71,7 +71,13 @@ public class WorkoutSetService {
           session.addWorkoutSet(workoutSet);
         }
         sessionRepository.addSessions(Arrays.asList(session));
+        return workoutSet.getId();
       }
     }
+    return id;
+  }
+
+  public void deleteWorkoutSet(UUID id) {
+    workoutSetRepository.deleteWorkoutSet(id);
   }
 }

@@ -42,7 +42,7 @@ public class WorkoutSetGraphQLService implements GraphQLService {
   }
 
   @GraphQLMutation(name = "addWorkoutSet")
-  public Boolean postWorkoutSet(
+  public UUID postWorkoutSet(
       @GraphQLArgument(name = "id") UUID id,
       @GraphQLArgument(name = "setNumber") Integer setNumber,
       @GraphQLArgument(name = "weight") Double weight,
@@ -52,7 +52,7 @@ public class WorkoutSetGraphQLService implements GraphQLService {
       @GraphQLArgument(name = "exerciseId") UUID exerciseId,
       @GraphQLArgument(name = "sessionId") UUID sessionId
   ) {
-    workoutSetFacade.postWorkoutSet(
+   return workoutSetFacade.postWorkoutSet(
         id,
         setNumber,
         weight,
@@ -62,6 +62,13 @@ public class WorkoutSetGraphQLService implements GraphQLService {
         exerciseId,
         sessionId
     );
+  }
+
+  @GraphQLMutation(name = "deleteWorkoutSet")
+  public Boolean deleteWorkoutSet(
+      @GraphQLArgument(name = "id") UUID id
+  ) {
+    workoutSetFacade.deleteWorkoutSet(id);
     return true;
   }
 

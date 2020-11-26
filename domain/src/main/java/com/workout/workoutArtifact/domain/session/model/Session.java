@@ -58,6 +58,9 @@ public class Session {
   }
 
   public Optional<WorkoutSet> getWorkoutSet(UUID id) {
+    if (id == null) {
+      return Optional.empty();
+    }
     return this.workoutSet.stream().filter(ws -> id.equals(ws.getId())).findFirst();
   }
 

@@ -71,7 +71,7 @@ public class WorkoutSetGraphQLServiceTest {
     UUID sessionId = UUID.randomUUID();
     UUID id = UUID.randomUUID();
 
-    Boolean resultBoolean = workoutSetGraphQLService.postWorkoutSet(
+    UUID uuid = workoutSetGraphQLService.postWorkoutSet(
         id,
         setNumber,
         weight,
@@ -87,7 +87,7 @@ public class WorkoutSetGraphQLServiceTest {
 
     WorkoutSetDto workoutSetDto = arg.getValue();
 
-    assertThat(resultBoolean, is(true));
+    //assertThat(uuid, is(not));
     assertThat(workoutSetDto.getSetNumber(), is(setNumber));
     assertThat(workoutSetDto.getWeight(), is(weight));
     assertThat(workoutSetDto.getRepetitions(), is(repetitions));

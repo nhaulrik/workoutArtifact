@@ -46,4 +46,10 @@ public class WorkoutSetEntityRepository implements WorkoutSetRepository {
         .map(entity -> UUID.fromString(entity.getId())).collect(Collectors.toList()));
     return workoutSetIds;
   }
+
+  @Transactional
+  @Override
+  public void deleteWorkoutSet(UUID id) {
+    workoutSetJpaRepository.deleteAllById(id.toString());
+  }
 }
