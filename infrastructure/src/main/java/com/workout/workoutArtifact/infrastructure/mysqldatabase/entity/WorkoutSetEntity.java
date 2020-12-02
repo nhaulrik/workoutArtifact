@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +39,13 @@ public class WorkoutSetEntity {
 
   @Column
   private Integer setNumber;
+
+  @Column
+  private LocalDateTime createdTime;
+
+  @ManyToOne
+  @JoinColumn(name = "workout_exercise_id", foreignKey = @ForeignKey(name = "FK_workoutset_workout_exercise_id"))
+  private WorkoutExerciseEntity workoutExerciseEntity;
 
   @ManyToOne
   @JoinColumn(name = "exercise_id", foreignKey = @ForeignKey(name = "FK_workoutset_exercise_id"))

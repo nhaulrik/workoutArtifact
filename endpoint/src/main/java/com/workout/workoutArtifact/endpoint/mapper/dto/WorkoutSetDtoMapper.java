@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class WorkoutSetDtoMapper {
-
-  private final ExerciseDtoMapper exerciseDtoMapper;
 
   public WorkoutSetDto toDto(WorkoutSet workoutSet) {
     return new WorkoutSetDto(
@@ -21,21 +18,23 @@ public class WorkoutSetDtoMapper {
         workoutSet.getWeight(),
         workoutSet.getSingle(),
         workoutSet.getRepetitionMaximum(),
-        workoutSet.getSetNumber()
+        workoutSet.getSetNumber(),
+        workoutSet.getCreatedTime()
     );
   }
 
   public WorkoutSet toDomain(WorkoutSetDto workoutSetDto) {
-    return WorkoutSet.builder()
-        .repetitions(workoutSetDto.getRepetitions())
-        .weight(workoutSetDto.getWeight())
-        .single(workoutSetDto.getSingle())
-        .repetitionMaximum(workoutSetDto.getRepetitionMaximum())
-        .setNumber(workoutSetDto.getSetNumber())
-        .exercise(Exercise.fromId(workoutSetDto.getId()))
-        .sessionId(workoutSetDto.getSessionId())
-        .id(workoutSetDto.getId())
-        .build();
+    return WorkoutSet.initializeWorkoutSet(
+        workoutSetDto.getId(),
+        workoutSetDto.getSessionId(),
+        Exercise.fromId(workoutSetDto.getExerciseId()),
+        workoutSetDto.getSingle(),
+        workoutSetDto.getWeight(),
+        workoutSetDto.getRepetitions(),
+        workoutSetDto.getRepetitionMaximum(),
+        workoutSetDto.getSetNumber(),
+        workoutSetDto.getCreatedTime()
+    );
   }
 
 }

@@ -2,18 +2,16 @@ package com.workout.workoutArtifact.domain.workoutset.model;
 
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
 import org.springframework.util.Assert;
 
 
 @Data
-@Builder
-@AllArgsConstructor
 public class WorkoutSet {
 
   private UUID id;
@@ -24,6 +22,33 @@ public class WorkoutSet {
   private Integer repetitions;
   private Integer repetitionMaximum;
   private Integer setNumber;
+  private LocalDateTime createdTime;
+
+  private WorkoutSet(UUID id, UUID sessionId, Exercise exercise, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber, LocalDateTime createdTime) {
+    this.id = id;
+    this.sessionId = sessionId;
+    this.exercise = exercise;
+    this.single = single;
+    this.weight = weight;
+    this.repetitions = repetitions;
+    this.repetitionMaximum = repetitionMaximum;
+    this.setNumber = setNumber;
+    this.createdTime = createdTime;
+  }
+
+  public static WorkoutSet initializeWorkoutSet(UUID workoutSetId, UUID sessionId, Exercise exercise, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber, LocalDateTime createdTime) {
+    return new WorkoutSet(
+        workoutSetId, sessionId, exercise, single, weight, repetitions, repetitionMaximum, setNumber, createdTime);
+  }
+
+  public static WorkoutSet createWorkoutSet(UUID sessionId, Exercise exercise, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber) {
+    return new WorkoutSet(
+        UUID.randomUUID(), sessionId, exercise, single, weight, repetitions, repetitionMaximum, setNumber, LocalDateTime.now());
+  }
+
+  public static WorkoutSet fromId(UUID id) {
+    return new WorkoutSet(id, null, null,null,null,null,null, null, null);
+  }
 
   public void changeSetNumber(Integer setNumber) {
     Assert.notNull(setNumber, "setNumber is required");
@@ -31,7 +56,7 @@ public class WorkoutSet {
   }
 
   public void changeSetNumber(Double weight) {
-    Assert.notNull(weight,"weight is not required");
+    Assert.notNull(weight, "weight is not required");
     this.weight = weight;
   }
 
@@ -62,6 +87,7 @@ public class WorkoutSet {
 
   @Value
   public static class ExerciseIdSpecification extends AbstractSpecification<WorkoutSet> {
+
     private final List<UUID> exerciseIds;
 
     @Override
@@ -72,6 +98,7 @@ public class WorkoutSet {
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<WorkoutSet> {
+
     private final List<UUID> ids;
 
     @Override
@@ -82,6 +109,7 @@ public class WorkoutSet {
 
   @Value
   public static class SessionIdsSpecification extends AbstractSpecification<WorkoutSet> {
+
     private final List<UUID> ids;
 
     @Override

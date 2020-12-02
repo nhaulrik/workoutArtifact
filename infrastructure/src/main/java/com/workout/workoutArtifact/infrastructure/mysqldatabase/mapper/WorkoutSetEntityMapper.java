@@ -1,13 +1,10 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper;
 
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,17 +17,16 @@ public class WorkoutSetEntityMapper {
 
   @Transactional
   public WorkoutSet toDomain(WorkoutSetEntity workoutSetEntity) {
-    return WorkoutSet.builder()
-        .repetitions(workoutSetEntity.getRepetitions())
-        .weight(workoutSetEntity.getWeight())
-        .single(workoutSetEntity.getSingle())
-        .repetitionMaximum(workoutSetEntity.getRepetitionMaximum())
-        .exercise(exerciseEntityMapper.toDomainObject(workoutSetEntity.getExerciseEntity()))
-        .id(UUID.fromString(workoutSetEntity.getId()))
-        .setNumber(workoutSetEntity.getSetNumber())
-        .sessionId(workoutSetEntity.getSessionEntity().getId())
-        .build();
-
+    return WorkoutSet.initializeWorkoutSet(
+        UUID.fromString(workoutSetEntity.getId()),
+        workoutSetEntity.getSessionEntity().getId(),
+        exerciseEntityMapper.toDomainObject(workoutSetEntity.getExerciseEntity()),
+        workoutSetEntity.getSingle(),
+        workoutSetEntity.getWeight(),
+        workoutSetEntity.getRepetitions(),
+        workoutSetEntity.getRepetitionMaximum(),
+        workoutSetEntity.getSetNumber(),
+        workoutSetEntity.getCreatedTime());
   }
 
   public WorkoutSetEntity toEntity(WorkoutSet workoutSet) {
@@ -41,6 +37,7 @@ public class WorkoutSetEntityMapper {
     workoutSetEntity.setRepetitionMaximum(workoutSet.getRepetitionMaximum());
     workoutSetEntity.setSetNumber(workoutSet.getSetNumber());
     workoutSetEntity.setId(workoutSet.getId().toString());
+    workoutSetEntity.setCreatedTime(workoutSet.getCreatedTime());
 
     workoutSetEntity.setExerciseEntity(exerciseEntityMapper.toEntity(workoutSet.getExercise()));
 //    workoutSetEntity.setSessionEntity(workoutSet.getSession()));

@@ -58,8 +58,7 @@ public class WorkoutSetService {
             }
           }
         } else {
-          workoutSet = new WorkoutSet(
-              UUID.randomUUID(),
+          workoutSet = WorkoutSet.createWorkoutSet(
               sessionId,
               exerciseRepository.getExercises(new Exercise.ExerciseIdSpecification(exerciseId)).stream().findFirst().get(),
               single,

@@ -2,9 +2,7 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,41 +19,26 @@ import lombok.Setter;
 
 @RequiredArgsConstructor
 @Entity
+@Table(name = "workout_exercise")
 @Getter
 @Setter
-@Table(name = "session")
-public class SessionEntity {
+public class WorkoutExerciseEntity {
 
   @Id
   private String id;
 
-  private LocalDateTime creationDateTime;
-
   @Column
-  private String location;
+  private LocalDateTime createdTime;
 
-  @Column
-  private String programme;
-
-  @Column
-  private String splitName;
+  @OneToMany(mappedBy = "workoutExerciseEntity", cascade = CascadeType.ALL)
+  private List<WorkoutSetEntity> workoutSets = new ArrayList<>();
 
   @ManyToOne
-  @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_session_user_id"))
-  private UserEntity userEntity;
-
-  @OneToMany(mappedBy = "sessionEntity", cascade = CascadeType.ALL)
-  private Set<WorkoutSetEntity> workoutSetEntities = new HashSet<>();
-
-  @OneToMany(mappedBy = "sessionEntity", cascade = CascadeType.ALL)
-  private List<WorkoutExerciseEntity> workoutExercises = new ArrayList<>();
+  @JoinColumn(name = "session_id", foreignKey = @ForeignKey(name = "FK_workout_exercise_session_id"))
+  SessionEntity sessionEntity;
 
   public UUID getId() {
     return UUID.fromString(this.id);
-  }
-
-  public void setId(UUID id) {
-    this.id = id.toString();
   }
 
 }

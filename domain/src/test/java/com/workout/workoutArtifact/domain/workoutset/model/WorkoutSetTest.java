@@ -18,15 +18,14 @@ public class WorkoutSetTest {
 
     Exercise exercise = mock(Exercise.class);
 
-    WorkoutSet workoutSet = WorkoutSet.builder()
-        .id(UUID.randomUUID())
-        .exercise(exercise)
-        .repetitionMaximum(0)
-        .repetitions(1)
-        .weight(0d)
-        .setNumber(1)
-        .single(false)
-        .build();
+    WorkoutSet workoutSet = WorkoutSet.createWorkoutSet(
+        UUID.randomUUID(),
+        exercise,
+        false,
+        0d,
+        1,
+        1,
+        1);
 
     ExerciseIdSpecification exerciseIdSpecification = new ExerciseIdSpecification(
         Arrays.asList(UUID.randomUUID()));
@@ -43,15 +42,14 @@ public class WorkoutSetTest {
 
     WorkoutSet.IdsSpecification idsSpecification = new IdsSpecification(Arrays.asList(id));
 
-    WorkoutSet workoutSet = WorkoutSet.builder()
-        .id(id)
-        .exercise(exercise)
-        .repetitionMaximum(0)
-        .repetitions(1)
-        .weight(0d)
-        .setNumber(1)
-        .single(false)
-        .build();
+    WorkoutSet workoutSet = WorkoutSet.createWorkoutSet(
+        UUID.randomUUID(),
+        exercise,
+        false,
+        0d,
+        1,
+        1,
+        1);
 
     assertThat(idsSpecification.isSatisfiedBy(workoutSet), is(true));
     assertThat(idsSpecification.getIds(), is(Arrays.asList(id)));

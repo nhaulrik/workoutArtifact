@@ -7,15 +7,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.WorkoutSetEntityRepository;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutSetEntityMapper;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutSetSpecificationMapper;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.WorkoutSetJpaRepository;
 import com.workout.workoutArtifact.domain.specification.Specification;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet.ExerciseIdSpecification;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.WorkoutSetEntityRepository;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutSetEntityMapper;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutSetSpecificationMapper;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.WorkoutSetJpaRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -78,13 +77,13 @@ public class WorkoutSetEntityRepositoryTest {
   }
 
   private WorkoutSet getWorkoutSetMock(Exercise exercise) {
-    return WorkoutSet.builder()
-        .exercise(exercise)
-        .repetitionMaximum(0)
-        .repetitions(1)
-        .weight(0d)
-        .setNumber(1)
-        .single(false)
-        .build();
+    return WorkoutSet.createWorkoutSet(
+        UUID.randomUUID(),
+        exercise,
+        false,
+        0d,
+        1,
+        1,
+        1);
   }
 }
