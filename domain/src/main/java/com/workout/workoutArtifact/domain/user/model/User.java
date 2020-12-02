@@ -3,8 +3,10 @@ package com.workout.workoutArtifact.domain.user.model;
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Value;
@@ -87,6 +89,10 @@ public class User {
   public void addSession(Session session) {
     Assert.notNull(session, "session is required");
     this.sessions.add(session);
+  }
+
+  public Optional<Session> getSessionForDate(LocalDateTime localDateTime) {
+    return this.sessions.stream().filter(session -> session.getCreationDateTime().toLocalDate().equals(localDateTime.toLocalDate())).findAny();
   }
 
   public enum Gender {

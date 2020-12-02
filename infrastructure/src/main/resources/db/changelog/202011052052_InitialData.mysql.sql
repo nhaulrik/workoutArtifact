@@ -2,6 +2,7 @@
 
 --changeset nch:1604609499566-1
 INSERT INTO exercise (id, body_part, is_compound, name) VALUES ('f8837126-274b-11eb-adc1-0242ac120002', 'UPPER BODY', FALSE, 'DUMBELL PULLOVER');
+INSERT INTO exercise (id, body_part, is_compound, name) VALUES ('bad477b9-9978-46ca-8f86-fcf61e196b4b', 'BACK', TRUE, 'LAT PULL DOWN');
 INSERT INTO exercise (id, body_part, is_compound, name) VALUES ('f8837388-274b-11eb-adc1-0242ac120002', 'BACK', TRUE, 'DUMBELL ONE ARM ROW');
 INSERT INTO exercise (id, body_part, is_compound, name) VALUES ('f8837482-274b-11eb-adc1-0242ac120002', 'BACK', TRUE, 'BARBELL BENT ROW');
 INSERT INTO exercise (id, body_part, is_compound, name) VALUES ('f8837554-274b-11eb-adc1-0242ac120002', 'BACK', TRUE, 'CABLE SEATED ROW');

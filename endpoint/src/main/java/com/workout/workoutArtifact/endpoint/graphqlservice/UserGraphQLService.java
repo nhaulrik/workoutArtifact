@@ -13,7 +13,6 @@ import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -42,10 +41,15 @@ public class UserGraphQLService {
 
     List<AbstractSpecification<UserDto>> userDtoSpecifications = new ArrayList<>();
 
-
-    if (ids != null) { userDtoSpecifications.add(new IdsSpecification(ids.stream().map(UUID::fromString).collect(Collectors.toList()))); }
-    if (firstNames != null) { userDtoSpecifications.add(new FirstNameSpecification(firstNames)); }
-    if (lastNames != null) { userDtoSpecifications.add(new LastNameSpecification(lastNames)); }
+    if (ids != null) {
+      userDtoSpecifications.add(new IdsSpecification(ids.stream().map(UUID::fromString).collect(Collectors.toList())));
+    }
+    if (firstNames != null) {
+      userDtoSpecifications.add(new FirstNameSpecification(firstNames));
+    }
+    if (lastNames != null) {
+      userDtoSpecifications.add(new LastNameSpecification(lastNames));
+    }
 
     AbstractSpecification aggregatedSpecification = userDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
 
@@ -61,7 +65,7 @@ public class UserGraphQLService {
   }
 
   @GraphQLMutation(name = "createSession")
-  public Boolean createSession(
+  public List<UUID> createSession(
       @GraphQLArgument(name = "userIds") List<String> userIds,
       @GraphQLArgument(name = "date") String dateString) {
 
@@ -73,10 +77,7 @@ public class UserGraphQLService {
 
     List<UUID> userUUIDs = userIds.stream().map(UUID::fromString).collect(Collectors.toList());
 
-    userFacade.createSession(parsedTime, userUUIDs);
-
-    boolean bla = false;
-    return bla;
+    return userFacade.createSession(parsedTime, userUUIDs);
   }
 
   // TODO: 15-11-2020 consider if this can be removed

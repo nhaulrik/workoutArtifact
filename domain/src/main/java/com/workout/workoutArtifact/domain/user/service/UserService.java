@@ -40,7 +40,11 @@ public class UserService {
       if (userOptional.isPresent()) {
         User user = userOptional.get();
 
-        Session session = Session.createNewSession(parsedTime);
+        if (user.getSessionForDate(parsedTime).isPresent()) {
+          throw new RuntimeException(String.format("There is already a session for userId: %s on date: %s", userId, parsedTime.toLocalDate().toString()));
+        }
+
+        Session session = Session.createNewSession(userId, parsedTime);
         user.addSession(session);
 
         userRepository.save(user);

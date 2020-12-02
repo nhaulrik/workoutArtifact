@@ -38,7 +38,7 @@ public class UserFacade {
   }
 
 
-  public void createSession(LocalDateTime parsedTime, List<UUID> userIds) {
-    userService.createSession(parsedTime, userIds);
+  public List<UUID> createSession(LocalDateTime parsedTime, List<UUID> userIds) {
+    return userService.createSession(parsedTime, userIds);
   }
 }

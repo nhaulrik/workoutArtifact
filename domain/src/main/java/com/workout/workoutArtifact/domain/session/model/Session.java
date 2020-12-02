@@ -32,14 +32,15 @@ public class Session {
     this.location = location;
   }
 
-  public static Session createNewSession(LocalDateTime localDateTime) {
+  public static Session createNewSession(UUID userId, LocalDateTime localDateTime) {
     Session session = new Session(UUID.randomUUID());
     session.creationDateTime = localDateTime;
+    session.userId = userId;
     return session;
   }
 
   public void changeProgramme(String programme) {
-    Assert.isTrue(!Strings.isBlank(splitName), "programme is required");
+    Assert.isTrue(!Strings.isBlank(programme), "programme is required");
     this.programme = programme;
   }
 
