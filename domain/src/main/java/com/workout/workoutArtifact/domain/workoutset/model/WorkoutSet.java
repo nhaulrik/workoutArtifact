@@ -22,9 +22,8 @@ public class WorkoutSet {
   private Integer repetitions;
   private Integer repetitionMaximum;
   private Integer setNumber;
-  private LocalDateTime createdTime;
 
-  private WorkoutSet(UUID id, UUID sessionId, Exercise exercise, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber, LocalDateTime createdTime) {
+  private WorkoutSet(UUID id, UUID sessionId, Exercise exercise, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber) {
     this.id = id;
     this.sessionId = sessionId;
     this.exercise = exercise;
@@ -33,21 +32,20 @@ public class WorkoutSet {
     this.repetitions = repetitions;
     this.repetitionMaximum = repetitionMaximum;
     this.setNumber = setNumber;
-    this.createdTime = createdTime;
   }
 
-  public static WorkoutSet initializeWorkoutSet(UUID workoutSetId, UUID sessionId, Exercise exercise, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber, LocalDateTime createdTime) {
+  public static WorkoutSet initializeWorkoutSet(UUID workoutSetId, UUID sessionId, Exercise exercise, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber) {
     return new WorkoutSet(
-        workoutSetId, sessionId, exercise, single, weight, repetitions, repetitionMaximum, setNumber, createdTime);
+        workoutSetId, sessionId, exercise, single, weight, repetitions, repetitionMaximum, setNumber);
   }
 
   public static WorkoutSet createWorkoutSet(UUID sessionId, Exercise exercise, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber) {
     return new WorkoutSet(
-        UUID.randomUUID(), sessionId, exercise, single, weight, repetitions, repetitionMaximum, setNumber, LocalDateTime.now());
+        UUID.randomUUID(), sessionId, exercise, single, weight, repetitions, repetitionMaximum, setNumber);
   }
 
   public static WorkoutSet fromId(UUID id) {
-    return new WorkoutSet(id, null, null,null,null,null,null, null, null);
+    return new WorkoutSet(id, null, null,null,null,null,null, null);
   }
 
   public void changeSetNumber(Integer setNumber) {

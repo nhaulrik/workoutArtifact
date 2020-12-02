@@ -13,17 +13,17 @@ public class WorkoutExercise {
 
   private UUID id;
   private UUID sessionId;
-  private LocalDateTime createdTime;
+  private Integer exerciseNumber;
   private List<WorkoutSet> workoutSets;
 
-  private WorkoutExercise(UUID id, LocalDateTime createdTime, List<WorkoutSet> workoutSets) {
+  private WorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets) {
     this.id = id;
-    this.createdTime = createdTime;
+    this.exerciseNumber = exerciseNumber;
     this.workoutSets = workoutSets;
   }
 
-  public static WorkoutExercise createWorkoutExercise(UUID id, LocalDateTime createdTime, List<WorkoutSet> workoutSets) {
-    return new WorkoutExercise(id, createdTime, workoutSets);
+  public static WorkoutExercise createWorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets) {
+    return new WorkoutExercise(id, exerciseNumber, workoutSets);
   }
 
   @Value

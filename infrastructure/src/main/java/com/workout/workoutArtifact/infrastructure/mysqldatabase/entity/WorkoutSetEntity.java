@@ -40,9 +40,6 @@ public class WorkoutSetEntity {
   @Column
   private Integer setNumber;
 
-  @Column
-  private LocalDateTime createdTime;
-
   @ManyToOne
   @JoinColumn(name = "workout_exercise_id", foreignKey = @ForeignKey(name = "FK_workoutset_workout_exercise_id"))
   private WorkoutExerciseEntity workoutExerciseEntity;

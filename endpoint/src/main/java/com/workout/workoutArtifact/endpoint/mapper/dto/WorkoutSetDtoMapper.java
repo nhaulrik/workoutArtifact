@@ -18,8 +18,7 @@ public class WorkoutSetDtoMapper {
         workoutSet.getWeight(),
         workoutSet.getSingle(),
         workoutSet.getRepetitionMaximum(),
-        workoutSet.getSetNumber(),
-        workoutSet.getCreatedTime()
+        workoutSet.getSetNumber()
     );
   }
 
@@ -32,8 +31,7 @@ public class WorkoutSetDtoMapper {
         workoutSetDto.getWeight(),
         workoutSetDto.getRepetitions(),
         workoutSetDto.getRepetitionMaximum(),
-        workoutSetDto.getSetNumber(),
-        workoutSetDto.getCreatedTime()
+        workoutSetDto.getSetNumber()
     );
   }
 

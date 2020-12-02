@@ -1,7 +1,6 @@
 package com.workout.workoutArtifact.endpoint.dto;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -32,8 +31,6 @@ public class WorkoutSetDto {
   private Integer repetitionMaximum;
 
   private Integer setNumber;
-
-  private LocalDateTime createdTime;
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<WorkoutSetDto> {

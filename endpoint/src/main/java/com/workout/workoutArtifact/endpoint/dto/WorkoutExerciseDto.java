@@ -18,7 +18,7 @@ public class WorkoutExerciseDto {
 
   @NonNull
   private UUID id;
-  private LocalDateTime createdTime;
+  private Integer exerciseNumber;
   private List<UUID> workoutSetIds;
 
   @Value

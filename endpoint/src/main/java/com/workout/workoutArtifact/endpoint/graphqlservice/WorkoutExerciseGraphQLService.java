@@ -24,7 +24,7 @@ public class WorkoutExerciseGraphQLService implements GraphQLService {
 
   private final WorkoutExerciseFacade workoutExerciseFacade;
 
-  @GraphQLQuery(name = "workoutExercise")
+  @GraphQLQuery(name = "workoutExercises")
   public List<WorkoutExerciseDto> getWorkoutExercise(
       @GraphQLArgument(name = "ids") List<String> ids,
       @GraphQLContext SessionDto sessionDto

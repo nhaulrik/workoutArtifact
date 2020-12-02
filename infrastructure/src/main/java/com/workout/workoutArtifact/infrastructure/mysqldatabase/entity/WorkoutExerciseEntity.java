@@ -28,7 +28,7 @@ public class WorkoutExerciseEntity {
   private String id;
 
   @Column
-  private LocalDateTime createdTime;
+  private Integer exerciseNumber;
 
   @OneToMany(mappedBy = "workoutExerciseEntity", cascade = CascadeType.ALL)
   private List<WorkoutSetEntity> workoutSets = new ArrayList<>();

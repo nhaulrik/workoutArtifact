@@ -45,7 +45,8 @@ public class GraphQLSPQRConfig {
             muscleGraphQLService,
             workoutSetGraphQLService,
             sessionGraphQLService,
-            userGraphQLService
+            userGraphQLService,
+            workoutExerciseGraphQLService
         )
         .withValueMapperFactory(new JacksonValueMapperFactory())
         .generate();

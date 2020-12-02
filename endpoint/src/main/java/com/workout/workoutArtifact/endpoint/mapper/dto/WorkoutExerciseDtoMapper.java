@@ -10,13 +10,13 @@ import org.springframework.stereotype.Component;
 public class WorkoutExerciseDtoMapper {
 
   public WorkoutExerciseDto toDto(WorkoutExercise workoutExercise) {
-    return new WorkoutExerciseDto(workoutExercise.getId(), workoutExercise.getCreatedTime(), workoutExercise.getWorkoutSets().stream().map(WorkoutSet::getId).collect(Collectors.toList()));
+    return new WorkoutExerciseDto(workoutExercise.getId(), workoutExercise.getExerciseNumber(), workoutExercise.getWorkoutSets().stream().map(WorkoutSet::getId).collect(Collectors.toList()));
   }
 
   public WorkoutExercise toDomain(WorkoutExerciseDto workoutExerciseDto) {
     return WorkoutExercise.createWorkoutExercise(
         workoutExerciseDto.getId(),
-        workoutExerciseDto.getCreatedTime(),
+        workoutExerciseDto.getExerciseNumber(),
         workoutExerciseDto.getWorkoutSetIds().stream().map(WorkoutSet::fromId).collect(Collectors.toList())
     );
   }
