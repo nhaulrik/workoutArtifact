@@ -8,6 +8,7 @@ import com.workout.workoutArtifact.endpoint.dto.WorkoutExerciseDto;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutExerciseFacade;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
+import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,15 @@ public class WorkoutExerciseGraphQLService implements GraphQLService {
     AbstractSpecification aggregatedSpecification = workoutExerciseDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
 
     return workoutExerciseFacade.getWorkoutExercises(aggregatedSpecification);
+  }
+
+  @GraphQLMutation(name = "postWorkoutExercise")
+  public UUID postWorkoutExercise(
+      @GraphQLArgument(name = "id") UUID id,
+      @GraphQLArgument(name = "exerciseNumber") Integer exerciseNumber,
+      @GraphQLArgument(name = "sessionId") UUID sessionId
+  ) {
+    return workoutExerciseFacade.addWorkoutExercise(id, exerciseNumber, sessionId);
   }
 
 }

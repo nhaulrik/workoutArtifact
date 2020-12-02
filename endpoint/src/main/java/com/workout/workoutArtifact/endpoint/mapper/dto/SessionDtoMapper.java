@@ -1,10 +1,8 @@
 package com.workout.workoutArtifact.endpoint.mapper.dto;
 
 import com.workout.workoutArtifact.domain.session.model.Session;
-import com.workout.workoutArtifact.domain.user.model.User;
-import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
+import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExercise;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
-import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -29,7 +27,7 @@ public class SessionDtoMapper {
         .id(session.getId())
         .location(session.getLocation())
         .localDateTime(session.getCreationDateTime())
-        .workoutSetIds(session.getWorkoutSet().stream().map(WorkoutSet::getId).collect(Collectors.toList()))
+        .workoutSetIds(session.getWorkoutExercises().stream().map(WorkoutExercise::getId).collect(Collectors.toList()))
         .userId(session.getUserId())
         .build();
   }

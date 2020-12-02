@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SessionEntityMapper {
 
-  private final WorkoutSetEntityMapper workoutSetEntityMapper;
+  private final WorkoutExerciseEntityMapper workoutExerciseEntityMapper;
   private final EntityManager entityManager;
 
   public SessionEntity toEntity(Session session) {
@@ -28,8 +28,8 @@ public class SessionEntityMapper {
     sessionEntity.setProgramme(session.getProgramme());
     sessionEntity.setLocation(session.getLocation());
     sessionEntity.setUserEntity(entityManager.getReference(UserEntity.class, session.getUserId().toString()));
-    sessionEntity.setWorkoutSetEntities(session.getWorkoutSet().stream().map(workoutSetEntityMapper::toEntity).collect(Collectors.toSet()));
-    sessionEntity.getWorkoutSetEntities().forEach(workoutSetEntity -> workoutSetEntity.setSessionEntity(sessionEntity));
+    sessionEntity.setWorkoutExercises(session.getWorkoutExercises().stream().map(workoutExerciseEntityMapper::toEntity).collect(Collectors.toList()));
+    sessionEntity.getWorkoutExercises().forEach(workoutExerciseEntity -> workoutExerciseEntity.setSessionEntity(sessionEntity));
     return sessionEntity;
   }
 
@@ -46,7 +46,7 @@ public class SessionEntityMapper {
     session.setSplitName(sessionEntity.getSplitName());
     session.setLocation(sessionEntity.getLocation());
     session.setUserId(sessionEntity.getUserEntity().getId());
-    session.getWorkoutSet().addAll(sessionEntity.getWorkoutSetEntities().stream().map(workoutSetEntityMapper::toDomain).collect(Collectors.toList()));
+    session.getWorkoutExercises().addAll(sessionEntity.getWorkoutExercises().stream().map(workoutExerciseEntityMapper::toDomain).collect(Collectors.toList()));
 
     return session;
   }

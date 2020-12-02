@@ -34,46 +34,47 @@ public class WorkoutSetService {
 
   public UUID postWorkoutSet(UUID id, Integer setNumber, Double weight, Integer repetitions, Integer repetitionMaximum, Boolean single, UUID exerciseId, UUID sessionId) {
 
-    if (sessionId != null) {
-      Optional<Session> sessionOptional = sessionRepository.getSessions(new Session.IdsSpecification(Arrays.asList(sessionId))).stream().findFirst();
-
-      if (sessionOptional.isPresent()) {
-        Session session = sessionOptional.get();
-
-        Optional<WorkoutSet> workoutSetOptional = session.getWorkoutSet(id);
-        WorkoutSet workoutSet;
-        if (workoutSetOptional.isPresent()) {
-          workoutSet = workoutSetOptional.get();
-
-          if (setNumber != null && setNumber != workoutSet.getSetNumber()) { workoutSet.changeSetNumber(setNumber); }
-          if (weight != null && weight != workoutSet.getWeight()) { workoutSet.changeSetNumber(weight); }
-          if (repetitions != null && repetitions != workoutSet.getRepetitions()) { workoutSet.changeRepetitions(repetitions); }
-          if (repetitionMaximum != null && repetitionMaximum != workoutSet.getRepetitionMaximum()) { workoutSet.changeRepetitionMaximum(repetitionMaximum); }
-          if (single != null && single != workoutSet.getSingle()) { workoutSet.changeIsSingle(single); }
-          if (sessionId != null && sessionId != workoutSet.getSessionId()) { workoutSet.changeSession(sessionId); }
-          if (exerciseId != null && exerciseId != workoutSet.getExercise().getId()) {
-            Optional<Exercise> newExerciseOptional = exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst();
-            if (newExerciseOptional.isPresent()) {
-              workoutSet.changeExercise(newExerciseOptional.get());
-            }
-          }
-        } else {
-          workoutSet = WorkoutSet.createWorkoutSet(
-              sessionId,
-              exerciseRepository.getExercises(new Exercise.ExerciseIdSpecification(exerciseId)).stream().findFirst().get(),
-              single,
-              weight,
-              repetitions,
-              repetitionMaximum,
-              setNumber
-          );
-          session.addWorkoutSet(workoutSet);
-        }
-        sessionRepository.addSessions(Arrays.asList(session));
-        return workoutSet.getId();
-      }
-    }
-    return id;
+//    if (sessionId != null) {
+//      Optional<Session> sessionOptional = sessionRepository.getSessions(new Session.IdsSpecification(Arrays.asList(sessionId))).stream().findFirst();
+//
+//      if (sessionOptional.isPresent()) {
+//        Session session = sessionOptional.get();
+//
+//        Optional<WorkoutSet> workoutSetOptional = session.getWorkoutSet(id);
+//        WorkoutSet workoutSet;
+//        if (workoutSetOptional.isPresent()) {
+//          workoutSet = workoutSetOptional.get();
+//
+//          if (setNumber != null && setNumber != workoutSet.getSetNumber()) { workoutSet.changeSetNumber(setNumber); }
+//          if (weight != null && weight != workoutSet.getWeight()) { workoutSet.changeSetNumber(weight); }
+//          if (repetitions != null && repetitions != workoutSet.getRepetitions()) { workoutSet.changeRepetitions(repetitions); }
+//          if (repetitionMaximum != null && repetitionMaximum != workoutSet.getRepetitionMaximum()) { workoutSet.changeRepetitionMaximum(repetitionMaximum); }
+//          if (single != null && single != workoutSet.getSingle()) { workoutSet.changeIsSingle(single); }
+//          if (sessionId != null && sessionId != workoutSet.getSessionId()) { workoutSet.changeSession(sessionId); }
+//          if (exerciseId != null && exerciseId != workoutSet.getExercise().getId()) {
+//            Optional<Exercise> newExerciseOptional = exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst();
+//            if (newExerciseOptional.isPresent()) {
+//              workoutSet.changeExercise(newExerciseOptional.get());
+//            }
+//          }
+//        } else {
+//          workoutSet = WorkoutSet.createWorkoutSet(
+//              sessionId,
+//              exerciseRepository.getExercises(new Exercise.ExerciseIdSpecification(exerciseId)).stream().findFirst().get(),
+//              single,
+//              weight,
+//              repetitions,
+//              repetitionMaximum,
+//              setNumber
+//          );
+//          session.addWorkoutSet(workoutSet);
+//        }
+//        sessionRepository.addSessions(Arrays.asList(session));
+//        return workoutSet.getId();
+//      }
+//    }
+//    return id;
+    return null;
   }
 
   public void deleteWorkoutSet(UUID id) {

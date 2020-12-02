@@ -45,9 +45,6 @@ public class SessionEntity {
   private UserEntity userEntity;
 
   @OneToMany(mappedBy = "sessionEntity", cascade = CascadeType.ALL)
-  private Set<WorkoutSetEntity> workoutSetEntities = new HashSet<>();
-
-  @OneToMany(mappedBy = "sessionEntity", cascade = CascadeType.ALL)
   private List<WorkoutExerciseEntity> workoutExercises = new ArrayList<>();
 
   public UUID getId() {

@@ -1,11 +1,11 @@
-# --liquibase formatted sql
-#
-# --changeset nch:1606928941516-1
-# INSERT INTO session (id, creation_date_time, location, programme, split_name, user_id) VALUES ('39275223-c6bf-4f9f-9dc5-9dc915c66eff', '2020-11-29 11:22:00', NULL, 'Stronglifts', NULL, '51a649d4-d693-4b69-b039-b5ed0f971ac7');
-# INSERT INTO session (id, creation_date_time, location, programme, split_name, user_id) VALUES ('708a22af-0ba6-420b-8b21-f8124e695ed0', '2020-11-14 10:58:00', NULL, 'Stronglifts 5x5', NULL, '51a649d4-d693-4b69-b039-b5ed0f971ac7');
-# INSERT INTO session (id, creation_date_time, location, programme, split_name, user_id) VALUES ('80a1fd4c-de5c-4e4c-b1fa-f938e46e2c61', '2020-11-29 11:22:00', NULL, 'Stronglifts 5x5', NULL, '1aad7954-9812-421e-9e0a-7437df8b5558');
-# INSERT INTO session (id, creation_date_time, location, programme, split_name, user_id) VALUES ('97b1b9a9-153d-4bc1-9357-ebfc1e659678', '2020-11-11 11:11:00', NULL, 'Stronglifts 5x5', NULL, '51a649d4-d693-4b69-b039-b5ed0f971ac7');
-#
+--liquibase formatted sql
+
+--changeset nch:1606928941516-1
+INSERT INTO session (id, creation_date_time, location, programme, split_name, user_id) VALUES ('39275223-c6bf-4f9f-9dc5-9dc915c66eff', '2020-11-29 11:22:00', NULL, 'Stronglifts', NULL, '51a649d4-d693-4b69-b039-b5ed0f971ac7');
+INSERT INTO session (id, creation_date_time, location, programme, split_name, user_id) VALUES ('708a22af-0ba6-420b-8b21-f8124e695ed0', '2020-11-14 10:58:00', NULL, 'Stronglifts 5x5', NULL, '51a649d4-d693-4b69-b039-b5ed0f971ac7');
+INSERT INTO session (id, creation_date_time, location, programme, split_name, user_id) VALUES ('80a1fd4c-de5c-4e4c-b1fa-f938e46e2c61', '2020-11-29 11:22:00', NULL, 'Stronglifts 5x5', NULL, '1aad7954-9812-421e-9e0a-7437df8b5558');
+INSERT INTO session (id, creation_date_time, location, programme, split_name, user_id) VALUES ('97b1b9a9-153d-4bc1-9357-ebfc1e659678', '2020-11-11 11:11:00', NULL, 'Stronglifts 5x5', NULL, '51a649d4-d693-4b69-b039-b5ed0f971ac7');
+
 # --changeset nch:1606928941516-2
 # INSERT INTO workoutset (id, repetition_maximum, repetitions, set_number, single, weight, exercise_id, session_id, created_time, workout_exercise_id) VALUES ('074a36fb-197e-4ef8-867a-44c002c14fa2', NULL, 5, 4, 0, 8.0, 'f883a9e8-274b-11eb-adc1-0242ac120002', '708a22af-0ba6-420b-8b21-f8124e695ed0', '2020-11-14 10:58:00', NULL);
 # INSERT INTO workoutset (id, repetition_maximum, repetitions, set_number, single, weight, exercise_id, session_id, created_time, workout_exercise_id) VALUES ('09d36f1f-e986-4ceb-bacc-7548e23ec90a', NULL, 5, 4, 0, 67.5, 'f8837dd8-274b-11eb-adc1-0242ac120002', '708a22af-0ba6-420b-8b21-f8124e695ed0', '2020-11-14 10:58:00', NULL);
@@ -77,4 +77,4 @@
 # INSERT INTO workoutset (id, repetition_maximum, repetitions, set_number, single, weight, exercise_id, session_id, created_time, workout_exercise_id) VALUES ('ff3a300d-a639-480e-8068-596dfe545ab3', NULL, 10, 1, 0, 10.0, 'bad477b9-9978-46ca-8f86-fcf61e196b4b', '708a22af-0ba6-420b-8b21-f8124e695ed0', '2020-11-14 10:58:00', NULL);
 # INSERT INTO workoutset (id, repetition_maximum, repetitions, set_number, single, weight, exercise_id, session_id, created_time, workout_exercise_id) VALUES ('ff4f7517-615f-4e95-b416-deb72376ecff', NULL, 10, 1, 0, 3.0, 'f883a380-274b-11eb-adc1-0242ac120002', '39275223-c6bf-4f9f-9dc5-9dc915c66eff', '2020-11-29 11:22:00', NULL);
 # INSERT INTO workoutset (id, repetition_maximum, repetitions, set_number, single, weight, exercise_id, session_id, created_time, workout_exercise_id) VALUES ('ff6517ec-12df-426a-8090-d55f01ed70bd', NULL, 10, 3, 0, 10.0, 'bad477b9-9978-46ca-8f86-fcf61e196b4b', '39275223-c6bf-4f9f-9dc5-9dc915c66eff', '2020-11-29 11:22:00', NULL);
-#
+

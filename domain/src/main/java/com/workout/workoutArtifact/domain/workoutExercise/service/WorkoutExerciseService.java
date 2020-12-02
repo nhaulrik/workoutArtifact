@@ -17,5 +17,4 @@ public class WorkoutExerciseService {
     return workoutExerciseRepository.getWorkoutExercises(workoutExerciseSpecification);
   }
 
-
 }

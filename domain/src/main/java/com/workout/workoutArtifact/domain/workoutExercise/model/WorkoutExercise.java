@@ -2,11 +2,11 @@ package com.workout.workoutArtifact.domain.workoutExercise.model;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.Data;
 import lombok.Value;
+import org.springframework.util.Assert;
 
 @Data
 public class WorkoutExercise {
@@ -22,8 +22,17 @@ public class WorkoutExercise {
     this.workoutSets = workoutSets;
   }
 
-  public static WorkoutExercise createWorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets) {
+  public static WorkoutExercise createWorkoutExercise(Integer exerciseNumber, List<WorkoutSet> workoutSets) {
+    return new WorkoutExercise(UUID.randomUUID(), exerciseNumber, workoutSets);
+  }
+
+  public static WorkoutExercise initializeWorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets) {
     return new WorkoutExercise(id, exerciseNumber, workoutSets);
+  }
+
+  public void updateExerciseNumber(Integer exerciseNumber) {
+    Assert.notNull(exerciseNumber, "exerciseNumber is required");
+    this.exerciseNumber = exerciseNumber;
   }
 
   @Value

@@ -13,7 +13,10 @@ public class WorkoutExerciseEntityMapper {
   private final WorkoutSetEntityMapper workoutSetEntityMapper;
 
   public WorkoutExercise toDomain(WorkoutExerciseEntity workoutExerciseEntity) {
-    return WorkoutExercise.createWorkoutExercise(workoutExerciseEntity.getId(),workoutExerciseEntity.getExerciseNumber(), workoutExerciseEntity.getWorkoutSets().stream().map(workoutSetEntityMapper::toDomain).collect(Collectors.toList()));
+    return WorkoutExercise.initializeWorkoutExercise(
+        workoutExerciseEntity.getId(),
+        workoutExerciseEntity.getExerciseNumber(),
+        workoutExerciseEntity.getWorkoutSets().stream().map(workoutSetEntityMapper::toDomain).collect(Collectors.toList()));
   }
 
   public WorkoutExerciseEntity toEntity(WorkoutExercise workoutExercise) {

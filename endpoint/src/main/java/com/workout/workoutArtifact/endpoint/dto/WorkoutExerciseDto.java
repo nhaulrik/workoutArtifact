@@ -1,8 +1,6 @@
 package com.workout.workoutArtifact.endpoint.dto;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
-import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -19,7 +17,6 @@ public class WorkoutExerciseDto {
   @NonNull
   private UUID id;
   private Integer exerciseNumber;
-  private List<UUID> workoutSetIds;
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<WorkoutExerciseDto> {
