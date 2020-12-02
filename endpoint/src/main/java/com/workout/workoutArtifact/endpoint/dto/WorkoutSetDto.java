@@ -17,11 +17,6 @@ public class WorkoutSetDto {
   @NonNull
   private UUID id;
 
-  @NonNull
-  private UUID sessionId;
-
-  private UUID exerciseId;
-
   private Integer repetitions;
 
   private Double weight;
@@ -40,17 +35,6 @@ public class WorkoutSetDto {
     @Override
     public boolean isSatisfiedBy(WorkoutSetDto workoutSetDto) {
       return ids.contains(workoutSetDto.getId());
-    }
-  }
-
-  @Value
-  public static class SessionIdsSpecification extends AbstractSpecification<WorkoutSetDto> {
-
-    private final List<UUID> ids;
-
-    @Override
-    public boolean isSatisfiedBy(WorkoutSetDto workoutSetDto) {
-      return ids.contains(workoutSetDto.getSessionId());
     }
   }
 

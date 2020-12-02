@@ -1,12 +1,8 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -43,13 +39,5 @@ public class WorkoutSetEntity {
   @ManyToOne
   @JoinColumn(name = "workout_exercise_id", foreignKey = @ForeignKey(name = "FK_workoutset_workout_exercise_id"))
   private WorkoutExerciseEntity workoutExerciseEntity;
-
-  @ManyToOne
-  @JoinColumn(name = "exercise_id", foreignKey = @ForeignKey(name = "FK_workoutset_exercise_id"))
-  private ExerciseEntity exerciseEntity;
-
-  @ManyToOne
-  @JoinColumn(name = "session_id", foreignKey = @ForeignKey(name = "FK_workoutset_session_id"))
-  private SessionEntity sessionEntity;
 
 }

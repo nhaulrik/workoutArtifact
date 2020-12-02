@@ -37,6 +37,10 @@ public class WorkoutExerciseEntity {
   @JoinColumn(name = "session_id", foreignKey = @ForeignKey(name = "FK_workout_exercise_session_id"))
   SessionEntity sessionEntity;
 
+  @ManyToOne
+  @JoinColumn(name = "exercise_id", foreignKey = @ForeignKey(name = "FK_workout_exercise_exercise_id"))
+  private ExerciseEntity exerciseEntity;
+
   public UUID getId() {
     return UUID.fromString(this.id);
   }

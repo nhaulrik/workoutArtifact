@@ -45,9 +45,10 @@ public class WorkoutExerciseGraphQLService implements GraphQLService {
   public UUID postWorkoutExercise(
       @GraphQLArgument(name = "id") UUID id,
       @GraphQLArgument(name = "exerciseNumber") Integer exerciseNumber,
-      @GraphQLArgument(name = "sessionId") UUID sessionId
+      @GraphQLArgument(name = "sessionId") UUID sessionId,
+      @GraphQLArgument(name = "exerciseId") UUID exerciseId
   ) {
-    return workoutExerciseFacade.addWorkoutExercise(id, exerciseNumber, sessionId);
+    return workoutExerciseFacade.addWorkoutExercise(id, exerciseNumber, sessionId, exerciseId);
   }
 
 }

@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.domain.workoutExercise.model;
 
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import java.util.List;
@@ -15,19 +16,21 @@ public class WorkoutExercise {
   private UUID sessionId;
   private Integer exerciseNumber;
   private List<WorkoutSet> workoutSets;
+  private Exercise exercise;
 
-  private WorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets) {
+  private WorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise) {
     this.id = id;
     this.exerciseNumber = exerciseNumber;
     this.workoutSets = workoutSets;
+    this.exercise = exercise;
   }
 
-  public static WorkoutExercise createWorkoutExercise(Integer exerciseNumber, List<WorkoutSet> workoutSets) {
-    return new WorkoutExercise(UUID.randomUUID(), exerciseNumber, workoutSets);
+  public static WorkoutExercise createWorkoutExercise(Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise) {
+    return new WorkoutExercise(UUID.randomUUID(), exerciseNumber, workoutSets, exercise);
   }
 
-  public static WorkoutExercise initializeWorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets) {
-    return new WorkoutExercise(id, exerciseNumber, workoutSets);
+  public static WorkoutExercise initializeWorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise) {
+    return new WorkoutExercise(id, exerciseNumber, workoutSets, exercise);
   }
 
   public void updateExerciseNumber(Integer exerciseNumber) {

@@ -11,12 +11,15 @@ import org.springframework.stereotype.Component;
 public class WorkoutExerciseEntityMapper {
 
   private final WorkoutSetEntityMapper workoutSetEntityMapper;
+  private final ExerciseEntityMapper exerciseEntityMapper;
 
   public WorkoutExercise toDomain(WorkoutExerciseEntity workoutExerciseEntity) {
     return WorkoutExercise.initializeWorkoutExercise(
         workoutExerciseEntity.getId(),
         workoutExerciseEntity.getExerciseNumber(),
-        workoutExerciseEntity.getWorkoutSets().stream().map(workoutSetEntityMapper::toDomain).collect(Collectors.toList()));
+        workoutExerciseEntity.getWorkoutSets().stream().map(workoutSetEntityMapper::toDomain).collect(Collectors.toList()),
+        exerciseEntityMapper.toDomainObject(workoutExerciseEntity.getExerciseEntity())
+    );
   }
 
   public WorkoutExerciseEntity toEntity(WorkoutExercise workoutExercise) {
@@ -24,6 +27,7 @@ public class WorkoutExerciseEntityMapper {
     workoutExerciseEntity.setId(workoutExercise.getId().toString());
     workoutExerciseEntity.setExerciseNumber(workoutExercise.getExerciseNumber());
     workoutExerciseEntity.setWorkoutSets(workoutExercise.getWorkoutSets().stream().map(workoutSetEntityMapper::toEntity).collect(Collectors.toList()));
+    workoutExerciseEntity.setExerciseEntity(exerciseEntityMapper.toEntity(workoutExercise.getExercise()));
     return workoutExerciseEntity;
   }
 

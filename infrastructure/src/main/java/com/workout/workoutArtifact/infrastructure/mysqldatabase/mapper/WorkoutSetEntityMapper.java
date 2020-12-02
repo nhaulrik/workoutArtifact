@@ -19,8 +19,6 @@ public class WorkoutSetEntityMapper {
   public WorkoutSet toDomain(WorkoutSetEntity workoutSetEntity) {
     return WorkoutSet.initializeWorkoutSet(
         UUID.fromString(workoutSetEntity.getId()),
-        workoutSetEntity.getSessionEntity().getId(),
-        exerciseEntityMapper.toDomainObject(workoutSetEntity.getExerciseEntity()),
         workoutSetEntity.getSingle(),
         workoutSetEntity.getWeight(),
         workoutSetEntity.getRepetitions(),
@@ -36,9 +34,6 @@ public class WorkoutSetEntityMapper {
     workoutSetEntity.setRepetitionMaximum(workoutSet.getRepetitionMaximum());
     workoutSetEntity.setSetNumber(workoutSet.getSetNumber());
     workoutSetEntity.setId(workoutSet.getId().toString());
-
-    workoutSetEntity.setExerciseEntity(exerciseEntityMapper.toEntity(workoutSet.getExercise()));
-//    workoutSetEntity.setSessionEntity(workoutSet.getSession()));
 
     return workoutSetEntity;
   }

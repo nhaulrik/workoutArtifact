@@ -1,5 +1,7 @@
 package com.workout.workoutArtifact.domain.session.service;
 
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
+import com.workout.workoutArtifact.domain.exercise.model.ExerciseRepository;
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.domain.session.model.Session.IdsSpecification;
 import com.workout.workoutArtifact.domain.session.model.SessionRepository;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Component;
 public class SessionService {
 
   private final SessionRepository sessionRepository;
+  private final ExerciseRepository exerciseRepository;
 
   public List<UUID> addSessions(List<Session> sessions) {
     List<UUID> sessionIds = sessionRepository.addSessions(sessions);
@@ -33,7 +36,7 @@ public class SessionService {
     return sessionRepository.deleteSessions(sessionSpecification);
   }
 
-  public UUID postWorkoutExercise(UUID id, Integer exerciseNumber, UUID sessionId) {
+  public UUID postWorkoutExercise(UUID id, Integer exerciseNumber, UUID sessionId, UUID exerciseId) {
     Optional<Session> sessionOptional = sessionRepository.getSessions(new IdsSpecification(Arrays.asList(sessionId))).stream().findFirst();
     if (sessionOptional.isPresent()) {
       Session session = sessionOptional.get();
@@ -46,7 +49,9 @@ public class SessionService {
           workoutExercise.updateExerciseNumber(exerciseNumber);
         }
       } else {
-        workoutExercise = WorkoutExercise.createWorkoutExercise(exerciseNumber, new ArrayList<>());
+        Exercise exercise = exerciseRepository.getExercises(new Exercise.ExerciseIdSpecification(exerciseId)).stream().findFirst().get();
+
+        workoutExercise = WorkoutExercise.createWorkoutExercise(exerciseNumber, new ArrayList<>(), exercise);
         session.addWorkoutExercise(workoutExercise);
       }
       return sessionRepository.addSessions(Arrays.asList(session)).stream().findFirst().get();
