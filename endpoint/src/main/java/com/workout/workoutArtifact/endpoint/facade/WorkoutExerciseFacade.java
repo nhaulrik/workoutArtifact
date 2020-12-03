@@ -33,8 +33,12 @@ public class WorkoutExerciseFacade {
   }
 
 
-  public UUID addWorkoutExercise(UUID id, Integer exerciseNumber, UUID sessionId, UUID exerciseId) {
+  public UUID postWorkoutExercise(UUID id, Integer exerciseNumber, UUID sessionId, UUID exerciseId) {
     Assert.notNull(sessionId, "sessionId is required");
     return sessionService.postWorkoutExercise(id, exerciseNumber, sessionId, exerciseId);
+  }
+
+  public Boolean deleteWorkoutExercise(UUID id) {
+    return workoutExerciseService.deleteWorkoutExercise(id);
   }
 }

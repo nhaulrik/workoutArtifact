@@ -8,7 +8,11 @@ import org.springframework.stereotype.Component;
 public class WorkoutExerciseDtoMapper {
 
   public WorkoutExerciseDto toDto(WorkoutExercise workoutExercise) {
-    return new WorkoutExerciseDto(workoutExercise.getId(), workoutExercise.getExerciseNumber());
+    return new WorkoutExerciseDto(
+        workoutExercise.getId(),
+        workoutExercise.getSessionId(),
+        workoutExercise.getExercise().getId(),
+        workoutExercise.getExerciseNumber());
   }
 
 }

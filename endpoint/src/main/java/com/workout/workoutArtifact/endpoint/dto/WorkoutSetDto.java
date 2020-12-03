@@ -27,6 +27,8 @@ public class WorkoutSetDto {
 
   private Integer setNumber;
 
+  private UUID workoutExerciseId;
+
   @Value
   public static class IdsSpecification extends AbstractSpecification<WorkoutSetDto> {
 
@@ -38,4 +40,14 @@ public class WorkoutSetDto {
     }
   }
 
+  @Value
+  public static class WorkoutExerciseIdsSpecification extends AbstractSpecification<WorkoutSetDto> {
+
+    private final List<UUID> ids;
+
+    @Override
+    public boolean isSatisfiedBy(WorkoutSetDto workoutSetDto) {
+      return ids.contains(workoutSetDto.getWorkoutExerciseId());
+    }
+  }
 }

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WorkoutExerciseJpaRepository extends JpaRepository<WorkoutExerciseEntity, String>, JpaSpecificationExecutor<WorkoutExerciseEntity> {
-
+  void deleteAllById(String id);
 }

@@ -4,6 +4,7 @@ import com.workout.workoutArtifact.domain.specification.Specification;
 import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExercise;
 import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExerciseRepository;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,4 +18,7 @@ public class WorkoutExerciseService {
     return workoutExerciseRepository.getWorkoutExercises(workoutExerciseSpecification);
   }
 
+  public Boolean deleteWorkoutExercise(UUID id) {
+    return workoutExerciseRepository.deleteWorkoutExercise(id);
+  }
 }

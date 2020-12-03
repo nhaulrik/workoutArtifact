@@ -5,6 +5,7 @@ import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchNoneSpecification;
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig.GraphQLService;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
+import com.workout.workoutArtifact.endpoint.dto.WorkoutExerciseDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
 import io.leangen.graphql.annotations.GraphQLArgument;
@@ -47,17 +48,17 @@ public class WorkoutSetGraphQLService implements GraphQLService {
       @GraphQLArgument(name = "repetitions") Integer repetitions,
       @GraphQLArgument(name = "repetitionMaximum") Integer repetitionMaximum,
       @GraphQLArgument(name = "single") Boolean single,
-      @GraphQLArgument(name = "exerciseId") UUID exerciseId,
+      @GraphQLArgument(name = "workoutExerciseId") UUID workoutExerciseId,
       @GraphQLArgument(name = "sessionId") UUID sessionId
   ) {
-   return workoutSetFacade.postWorkoutSet(
+    return workoutSetFacade.postWorkoutSet(
         id,
         setNumber,
         weight,
         repetitions,
         repetitionMaximum,
         single,
-        exerciseId,
+        workoutExerciseId,
         sessionId
     );
   }
@@ -97,6 +98,27 @@ public class WorkoutSetGraphQLService implements GraphQLService {
     }
     if (ids != null) {
       workoutSetDtoSpecifications.add(new WorkoutSetDto.IdsSpecification(ids.stream().map(UUID::fromString).collect(Collectors.toList())));
+    }
+
+    AbstractSpecification aggregatedSpecification = workoutSetDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification<>());
+
+    return workoutSetFacade.getWorkoutSets(aggregatedSpecification);
+  }
+
+  @GraphQLQuery(name = "workoutSet")
+  public List<WorkoutSetDto> getWorkoutSet(
+      @GraphQLArgument(name = "ids") List<String> ids,
+      @GraphQLContext WorkoutExerciseDto workoutExerciseDto
+  ) {
+    List<AbstractSpecification<WorkoutSetDto>> workoutSetDtoSpecifications = new ArrayList<>();
+    if (workoutExerciseDto != null) {
+      //workoutSetDtoSpecifications.add(new SessionIdsSpecification(Arrays.asList(sessionDto.getId())));
+    }
+    if (ids != null) {
+      workoutSetDtoSpecifications.add(new WorkoutSetDto.IdsSpecification(ids.stream().map(UUID::fromString).collect(Collectors.toList())));
+    }
+    if (workoutExerciseDto != null && workoutExerciseDto.getSessionId() != null) {
+      workoutSetDtoSpecifications.add(new WorkoutSetDto.WorkoutExerciseIdsSpecification(Arrays.asList(workoutExerciseDto.getId())));
     }
 
     AbstractSpecification aggregatedSpecification = workoutSetDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification<>());

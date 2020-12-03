@@ -51,7 +51,7 @@ public class SessionService {
       } else {
         Exercise exercise = exerciseRepository.getExercises(new Exercise.ExerciseIdSpecification(exerciseId)).stream().findFirst().get();
 
-        workoutExercise = WorkoutExercise.createWorkoutExercise(exerciseNumber, new ArrayList<>(), exercise);
+        workoutExercise = WorkoutExercise.createWorkoutExercise(sessionId, exerciseNumber, new ArrayList<>(), exercise);
         session.addWorkoutExercise(workoutExercise);
       }
       return sessionRepository.addSessions(Arrays.asList(session)).stream().findFirst().get();

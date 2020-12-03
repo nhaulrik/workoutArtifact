@@ -3,7 +3,6 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,12 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class WorkoutSetEntityMapper {
 
-  private final ExerciseEntityMapper exerciseEntityMapper;
-
   @Transactional
   public WorkoutSet toDomain(WorkoutSetEntity workoutSetEntity) {
     return WorkoutSet.initializeWorkoutSet(
-        UUID.fromString(workoutSetEntity.getId()),
+        workoutSetEntity.getId(),
+        workoutSetEntity.getWorkoutExerciseEntity().getId(),
         workoutSetEntity.getSingle(),
         workoutSetEntity.getWeight(),
         workoutSetEntity.getRepetitions(),

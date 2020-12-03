@@ -2,15 +2,18 @@ package com.workout.workoutArtifact.endpoint.graphqlservice;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
+import com.workout.workoutArtifact.domain.specification.MatchNoneSpecification;
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig.GraphQLService;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutExerciseDto;
+import com.workout.workoutArtifact.endpoint.dto.WorkoutExerciseDto.IdsSpecification;
 import com.workout.workoutArtifact.endpoint.facade.WorkoutExerciseFacade;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -35,8 +38,11 @@ public class WorkoutExerciseGraphQLService implements GraphQLService {
     if (ids != null) {
       workoutExerciseDtoSpecifications.add(new WorkoutExerciseDto.IdsSpecification(ids.stream().map(UUID::fromString).collect(Collectors.toList())));
     }
+    if (sessionDto != null) {
+      workoutExerciseDtoSpecifications.add((new WorkoutExerciseDto.SessionIdsSpecification(Arrays.asList(sessionDto.getId()))));
+    }
 
-    AbstractSpecification aggregatedSpecification = workoutExerciseDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
+    AbstractSpecification aggregatedSpecification = workoutExerciseDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification<>());
 
     return workoutExerciseFacade.getWorkoutExercises(aggregatedSpecification);
   }
@@ -48,7 +54,14 @@ public class WorkoutExerciseGraphQLService implements GraphQLService {
       @GraphQLArgument(name = "sessionId") UUID sessionId,
       @GraphQLArgument(name = "exerciseId") UUID exerciseId
   ) {
-    return workoutExerciseFacade.addWorkoutExercise(id, exerciseNumber, sessionId, exerciseId);
+    return workoutExerciseFacade.postWorkoutExercise(id, exerciseNumber, sessionId, exerciseId);
+  }
+
+  @GraphQLMutation(name = "deleteWorkoutExercise")
+  public Boolean deleteWorkoutExercise(
+      @GraphQLArgument(name = "id") UUID id
+  ) {
+    return workoutExerciseFacade.deleteWorkoutExercise(id);
   }
 
 }

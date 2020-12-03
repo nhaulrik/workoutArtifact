@@ -8,6 +8,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutEx
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutExerciseSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.WorkoutExerciseJpaRepository;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -31,5 +32,13 @@ public class WorkoutExerciseEntityRepository implements WorkoutExerciseRepositor
         .map(workoutExerciseEntityMapper::toDomain)
         .filter(workoutExerciseSpecification::isSatisfiedBy)
         .collect(Collectors.toList());
+  }
+
+  @Transactional
+  @Override
+  public Boolean deleteWorkoutExercise(UUID id) {
+    workoutExerciseJpaRepository.deleteAllById(id.toString());
+    Boolean entityExists = workoutExerciseJpaRepository.existsById(id.toString());
+    return !entityExists; //true when deleted successfully
   }
 }

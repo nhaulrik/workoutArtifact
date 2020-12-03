@@ -12,33 +12,31 @@ import org.springframework.util.Assert;
 public class WorkoutSet {
 
   private UUID id;
+  private UUID workoutExerciseId;
   private Boolean single;
   private Double weight;
   private Integer repetitions;
   private Integer repetitionMaximum;
   private Integer setNumber;
 
-  private WorkoutSet(UUID id, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber) {
+  private WorkoutSet(UUID id, UUID workoutExerciseId, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber) {
     this.id = id;
     this.single = single;
     this.weight = weight;
     this.repetitions = repetitions;
     this.repetitionMaximum = repetitionMaximum;
     this.setNumber = setNumber;
+    this.workoutExerciseId = workoutExerciseId;
   }
 
-  public static WorkoutSet initializeWorkoutSet(UUID workoutSetId, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber) {
+  public static WorkoutSet initializeWorkoutSet(UUID workoutSetId, UUID workoutExerciseId, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber) {
     return new WorkoutSet(
-        workoutSetId, single, weight, repetitions, repetitionMaximum, setNumber);
+        workoutSetId, workoutExerciseId, single, weight, repetitions, repetitionMaximum, setNumber);
   }
 
-  public static WorkoutSet createWorkoutSet(Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber) {
+  public static WorkoutSet createWorkoutSet(UUID workoutExerciseId, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber) {
     return new WorkoutSet(
-        UUID.randomUUID(), single, weight, repetitions, repetitionMaximum, setNumber);
-  }
-
-  public static WorkoutSet fromId(UUID id) {
-    return new WorkoutSet(id, null, null, null, null, null);
+        UUID.randomUUID(), workoutExerciseId, single, weight, repetitions, repetitionMaximum, setNumber);
   }
 
   public void changeSetNumber(Integer setNumber) {
@@ -74,6 +72,17 @@ public class WorkoutSet {
     @Override
     public boolean isSatisfiedBy(WorkoutSet workoutSet) {
       return ids.contains(workoutSet.getId());
+    }
+  }
+
+  @Value
+  public static class WorkoutExerciseIdsSpecification extends AbstractSpecification<WorkoutSet> {
+
+    private final List<UUID> ids;
+
+    @Override
+    public boolean isSatisfiedBy(WorkoutSet workoutSet) {
+      return ids.contains(workoutSet.getWorkoutExerciseId());
     }
   }
 

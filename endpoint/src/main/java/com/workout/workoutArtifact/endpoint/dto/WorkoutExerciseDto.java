@@ -1,6 +1,8 @@
 package com.workout.workoutArtifact.endpoint.dto;
 
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
+import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -16,6 +18,8 @@ public class WorkoutExerciseDto {
 
   @NonNull
   private UUID id;
+  private UUID sessionId;
+  private UUID exerciseId;
   private Integer exerciseNumber;
 
   @Value
@@ -26,6 +30,17 @@ public class WorkoutExerciseDto {
     @Override
     public boolean isSatisfiedBy(WorkoutExerciseDto workoutExerciseDto) {
       return ids.contains(workoutExerciseDto.getId());
+    }
+  }
+
+  @Value
+  public static class SessionIdsSpecification extends AbstractSpecification<WorkoutExerciseDto> {
+
+    private final List<UUID> sessionIds;
+
+    @Override
+    public boolean isSatisfiedBy(WorkoutExerciseDto workoutExerciseDto) {
+      return sessionIds.contains(workoutExerciseDto.getSessionId());
     }
   }
 

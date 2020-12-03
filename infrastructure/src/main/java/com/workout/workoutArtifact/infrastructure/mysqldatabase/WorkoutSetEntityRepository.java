@@ -43,7 +43,7 @@ public class WorkoutSetEntityRepository implements WorkoutSetRepository {
             .map(workoutSetEntityMapper::toEntity)
             .collect(Collectors.toList())
     ).stream()
-        .map(entity -> UUID.fromString(entity.getId())).collect(Collectors.toList()));
+        .map(entity -> entity.getId()).collect(Collectors.toList()));
     return workoutSetIds;
   }
 

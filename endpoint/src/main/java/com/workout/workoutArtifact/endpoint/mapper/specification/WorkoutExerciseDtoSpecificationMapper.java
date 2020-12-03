@@ -22,6 +22,8 @@ public class WorkoutExerciseDtoSpecificationMapper {
       return new NotSpecification<>(toWorkoutExerciseSpecification(((NotSpecification<WorkoutExerciseDto>) WorkoutExerciseDtoSpecification).getSpecification()));
     } else if (WorkoutExerciseDtoSpecification instanceof WorkoutExerciseDto.IdsSpecification) {
       return new WorkoutExercise.IdsSpecification(((WorkoutExerciseDto.IdsSpecification) WorkoutExerciseDtoSpecification).getIds());
+    } else if (WorkoutExerciseDtoSpecification instanceof WorkoutExerciseDto.SessionIdsSpecification) {
+      return new WorkoutExercise.SessionIdsSpecification(((WorkoutExerciseDto.SessionIdsSpecification) WorkoutExerciseDtoSpecification).getSessionIds());
     }
     return new MatchAllSpecification();
   }

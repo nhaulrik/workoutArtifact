@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -39,5 +40,9 @@ public class WorkoutSetEntity {
   @ManyToOne
   @JoinColumn(name = "workout_exercise_id", foreignKey = @ForeignKey(name = "FK_workoutset_workout_exercise_id"))
   private WorkoutExerciseEntity workoutExerciseEntity;
+
+  public UUID getId() {
+    return UUID.fromString(this.id);
+  }
 
 }

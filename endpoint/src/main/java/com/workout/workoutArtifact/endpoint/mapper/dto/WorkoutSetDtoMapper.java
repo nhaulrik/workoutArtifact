@@ -14,13 +14,15 @@ public class WorkoutSetDtoMapper {
         workoutSet.getWeight(),
         workoutSet.getSingle(),
         workoutSet.getRepetitionMaximum(),
-        workoutSet.getSetNumber()
+        workoutSet.getSetNumber(),
+        workoutSet.getWorkoutExerciseId()
     );
   }
 
   public WorkoutSet toDomain(WorkoutSetDto workoutSetDto) {
     return WorkoutSet.initializeWorkoutSet(
         workoutSetDto.getId(),
+        workoutSetDto.getWorkoutExerciseId(),
         workoutSetDto.getSingle(),
         workoutSetDto.getWeight(),
         workoutSetDto.getRepetitions(),

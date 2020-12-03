@@ -34,15 +34,15 @@ public class WorkoutSetFacade {
     return workoutSetId;
   }
 
-  public UUID postWorkoutSet(UUID id, Integer setNumber, Double weight, Integer repetitions, Integer repetitionMaximum, Boolean single, UUID exerciseId, UUID sessionId) {
-   return workoutSetService.postWorkoutSet(
+  public UUID postWorkoutSet(UUID id, Integer setNumber, Double weight, Integer repetitions, Integer repetitionMaximum, Boolean single, UUID workoutExerciseId, UUID sessionId) {
+    return workoutSetService.postWorkoutSet(
         id,
         setNumber,
         weight,
         repetitions,
         repetitionMaximum,
         single,
-        exerciseId,
+        workoutExerciseId,
         sessionId
     );
   }
