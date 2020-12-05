@@ -13,6 +13,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
@@ -47,12 +48,16 @@ public class SessionEntityRepository implements SessionRepository {
   }
 
   @Override
+  @Transactional
   public Boolean deleteSessions(Specification<Session> sessionSpecification) {
 
     org.springframework.data.jpa.domain.Specification<SessionEntity> jpaSpecification = sessionSpecificationMapper.toJpaSpecification(sessionSpecification);
 
-    List<SessionEntity> entitiesToDelete = sessionJpaRepository.findAll(jpaSpecification);
-    sessionJpaRepository.deleteAll(entitiesToDelete);
-    return true;
+    List<String> idsToDelete = sessionJpaRepository.findAll(jpaSpecification).stream()
+        .map(sessionEntity -> sessionEntity.getId().toString())
+        .collect(Collectors.toList());
+
+    sessionJpaRepository.deleteAllByIdIn(idsToDelete);
+    return sessionJpaRepository.findAll(jpaSpecification).isEmpty();
   }
 }

@@ -4,6 +4,7 @@ import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.endpoint.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
+import com.workout.workoutArtifact.endpoint.dto.SessionDto.IdsSpecification;
 import com.workout.workoutArtifact.endpoint.dto.UserDto;
 import com.workout.workoutArtifact.endpoint.facade.SessionFacade;
 import io.leangen.graphql.annotations.GraphQLArgument;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 @Slf4j
 @Component
@@ -164,5 +166,13 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
     UUID sessionId = sessionFacade.addSessions(Arrays.asList(sessionDto)).get(0);
 
     return sessionId;
+  }
+
+  @GraphQLMutation(name = "deleteSession")
+  public Boolean deleteSession(
+      @GraphQLArgument(name = "id") UUID id
+  ) {
+    Assert.notNull(id, "id is required");
+    return this.sessionFacade.deleteSessions(new IdsSpecification(Arrays.asList(id)));
   }
 }

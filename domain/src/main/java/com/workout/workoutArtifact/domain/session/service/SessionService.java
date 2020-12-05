@@ -41,20 +41,24 @@ public class SessionService {
     if (sessionOptional.isPresent()) {
       Session session = sessionOptional.get();
 
+      UUID workoutExerciseId = null;
       WorkoutExercise workoutExercise;
       if (id != null) {
         Optional<WorkoutExercise> workoutExerciseOptional = session.getWorkoutExercise(id);
         if (workoutExerciseOptional.isPresent()) {
           workoutExercise = workoutExerciseOptional.get();
           workoutExercise.updateExerciseNumber(exerciseNumber);
+          workoutExerciseId = workoutExercise.getId();
         }
       } else {
         Exercise exercise = exerciseRepository.getExercises(new Exercise.ExerciseIdSpecification(exerciseId)).stream().findFirst().get();
 
         workoutExercise = WorkoutExercise.createWorkoutExercise(sessionId, exerciseNumber, new ArrayList<>(), exercise);
+        workoutExerciseId = workoutExercise.getId();
         session.addWorkoutExercise(workoutExercise);
       }
-      return sessionRepository.addSessions(Arrays.asList(session)).stream().findFirst().get();
+      sessionRepository.addSessions(Arrays.asList(session)).stream().findFirst().get();
+      return workoutExerciseId;
     }
     throw new RuntimeException(String.format("session with id: %s was not found", sessionId));
   }

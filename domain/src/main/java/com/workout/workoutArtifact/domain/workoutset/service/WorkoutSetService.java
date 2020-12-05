@@ -70,6 +70,8 @@ public class WorkoutSetService {
             sessionRepository.addSessions(Arrays.asList(session)).stream().findFirst().get();
             return newWorkoutSet.getId();
           }
+        } else {
+          boolean bla = false;
         }
       }
     }
