@@ -2,18 +2,21 @@ package com.workout.workoutArtifact.domain.exercise.model;
 
 import com.workout.workoutArtifact.domain.muscle.model.Muscle;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.Value;
 
-@Builder
 @Data
+@AllArgsConstructor
 public class Exercise {
 
   private UUID id;
+
+  private LocalDateTime createDate;
 
   @NonNull
   private String name;
@@ -26,8 +29,23 @@ public class Exercise {
 
   private List<Muscle> muscles;
 
-  public static Exercise fromId(UUID id) {
-    return Exercise.builder().id(id).build();
+  public static Exercise instantiate(
+      UUID id,
+      String name,
+      Boolean isCompound,
+      String bodyPart,
+      LocalDateTime createDate,
+      List<Muscle> muscles
+  ) {
+    Exercise exercise = new Exercise(
+        id,
+        createDate,
+        name,
+        isCompound,
+        bodyPart,
+        muscles
+    );
+    return exercise;
   }
 
   @Value

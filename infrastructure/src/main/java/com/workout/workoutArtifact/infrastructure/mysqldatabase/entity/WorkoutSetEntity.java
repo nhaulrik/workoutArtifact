@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,9 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @RequiredArgsConstructor
 @Entity
@@ -21,6 +26,13 @@ public class WorkoutSetEntity {
 
   @Id
   private String id;
+
+  @Column(name = "create_date")
+  private LocalDateTime createDate;
+
+  @UpdateTimestamp
+  @Column(name = "modify_date")
+  private LocalDateTime modifyDate;
 
   @Column
   private Integer repetitions;

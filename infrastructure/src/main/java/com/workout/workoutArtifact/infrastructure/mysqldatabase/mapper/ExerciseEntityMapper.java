@@ -1,18 +1,19 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper;
 
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
 import java.util.UUID;
-import javax.persistence.EntityManager;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import com.workout.workoutArtifact.domain.exercise.model.Exercise;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
+@Transactional
 @RequiredArgsConstructor
 public class ExerciseEntityMapper {
 
-  private final EntityManager entityManager;
-
+  private final MuscleEntityMapper muscleEntityMapper;
 
   public ExerciseEntity toEntity(Exercise exercise) {
     ExerciseEntity exerciseEntity = new ExerciseEntity();
@@ -24,12 +25,14 @@ public class ExerciseEntityMapper {
   }
 
   public Exercise toDomainObject(ExerciseEntity exerciseEntity) {
-    return Exercise.builder()
-        .id(UUID.fromString(exerciseEntity.getId()))
-        .name(exerciseEntity.getName())
-        .isCompound(exerciseEntity.getIsCompound())
-        .bodyPart(exerciseEntity.getBodyPart())
-        .build();
+    Exercise exercise = Exercise.instantiate(
+        UUID.fromString(exerciseEntity.getId()),
+        exerciseEntity.getName(),
+        exerciseEntity.getIsCompound(),
+        exerciseEntity.getBodyPart(),
+        exerciseEntity.getCreateDate(),
+        exerciseEntity.getMuscleEntities().stream().map(muscleEntityMapper::toDomainObject).collect(Collectors.toList()));
+    return exercise;
   }
 
 }

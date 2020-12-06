@@ -36,6 +36,7 @@ public class ExerciseFacade {
   }
 
   public void addExercise(ExerciseDto exerciseDto) {
-    exerciseService.addExercises(Arrays.asList(exerciseDtoMapper.toDomainObject(exerciseDto)));
+    //exerciseService.addExercises(Arrays.asList(exerciseDtoMapper.toDomainObject(exerciseDto)));
+    throw new RuntimeException("not implemented");
   }
 }

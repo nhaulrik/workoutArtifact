@@ -18,14 +18,4 @@ public class ExerciseDtoMapper {
         .build();
   }
 
-  public Exercise toDomainObject(ExerciseDto exerciseDto) {
-    return Exercise.builder()
-        .id(exerciseDto.getId())
-        .name(exerciseDto.getName())
-        .isCompound(exerciseDto.getIsCompound())
-        .bodyPart(exerciseDto.getBodyPart())
-        .build();
-  }
-
-
 }

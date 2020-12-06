@@ -13,9 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @RequiredArgsConstructor
 @Entity
@@ -26,6 +30,15 @@ public class WorkoutExerciseEntity {
 
   @Id
   private String id;
+
+  @CreationTimestamp
+  @Column(name = "create_date")
+  private LocalDateTime createDate;
+
+  @UpdateTimestamp
+  @Column(name = "modify_date")
+  private LocalDateTime modifyDate;
+
 
   @Column
   private Integer exerciseNumber;
