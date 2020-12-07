@@ -3,7 +3,6 @@ package com.workout.workoutArtifact.graphql.dto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -15,5 +14,6 @@ public class SessionDto {
   private String programme;
   private String splitName;
   private LocalDateTime localDateTime;
+  private UUID userId;
 
 }

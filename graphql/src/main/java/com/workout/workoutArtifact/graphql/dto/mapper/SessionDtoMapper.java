@@ -7,17 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
+@Transactional
 @RequiredArgsConstructor
 public class SessionDtoMapper {
-
-//  public Session toDomainObject(SessionDto sessionDto) {
-//    Session session = new Session(sessionDto.getId());
-//    session.setCreationDateTime(sessionDto.getLocalDateTime());
-//    session.setProgramme(sessionDto.getProgramme());
-//    session.setSplitName(sessionDto.getSplitName());
-//    session.setLocation(sessionDto.getLocation());
-//    return session;
-//  }
 
   public SessionDto toDto(SessionEntity sessionEntity) {
     return new SessionDto(
@@ -25,7 +17,8 @@ public class SessionDtoMapper {
         sessionEntity.getLocation(),
         sessionEntity.getProgramme(),
         sessionEntity.getSplitName(),
-        sessionEntity.getCreationDateTime()
+        sessionEntity.getCreationDateTime(),
+        sessionEntity.getUserEntity().getId()
     );
   }
 }

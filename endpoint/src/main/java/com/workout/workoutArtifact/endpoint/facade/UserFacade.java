@@ -5,7 +5,7 @@
 //import com.workout.workoutArtifact.domain.user.model.User;
 //import com.workout.workoutArtifact.domain.user.service.UserService;
 //import com.workout.workoutArtifact.endpoint.dto.UserDto;
-//import com.workout.workoutArtifact.endpoint.mapper.dto.UserDtoMapper;
+//import com.workout.workoutArtifact.graphql.dto.mapper.UserDtoMapper;
 //import com.workout.workoutArtifact.endpoint.mapper.specification.UserDtoSpecificationMapper;
 //import java.time.LocalDateTime;
 //import java.util.List;
