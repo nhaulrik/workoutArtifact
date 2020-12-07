@@ -1,11 +1,6 @@
 package com.workout.workoutArtifact.graphql.configuration;
 
-import com.workout.workoutArtifact.graphql.graphqlservice.ExerciseGraphQLService;
-import com.workout.workoutArtifact.graphql.graphqlservice.MuscleGraphQLService;
 import com.workout.workoutArtifact.graphql.graphqlservice.SessionGraphQLService;
-import com.workout.workoutArtifact.graphql.graphqlservice.UserGraphQLService;
-import com.workout.workoutArtifact.graphql.graphqlservice.WorkoutExerciseGraphQLService;
-import com.workout.workoutArtifact.graphql.graphqlservice.WorkoutSetGraphQLService;
 import graphql.GraphQL;
 import graphql.analysis.MaxQueryComplexityInstrumentation;
 import graphql.analysis.MaxQueryDepthInstrumentation;
@@ -29,24 +24,24 @@ public class GraphQLSPQRConfig {
 
   @Bean
   public GraphQL graphQL(
-      ExerciseGraphQLService exerciseGraphQLService,
-      MuscleGraphQLService muscleGraphQLService,
-      WorkoutSetGraphQLService workoutSetGraphQLService,
-      SessionGraphQLService sessionGraphQLService,
-      UserGraphQLService userGraphQLService,
-      WorkoutExerciseGraphQLService workoutExerciseGraphQLService
+//      ExerciseGraphQLService exerciseGraphQLService,
+//      MuscleGraphQLService muscleGraphQLService,
+//      WorkoutSetGraphQLService workoutSetGraphQLService,
+      SessionGraphQLService sessionGraphQLService
+//      UserGraphQLService userGraphQLService,
+//      WorkoutExerciseGraphQLService workoutExerciseGraphQLService
   ) {
     GraphQLSchema schema = new GraphQLSchemaGenerator()
         .withResolverBuilders(
             new AnnotatedResolverBuilder(),
             new PublicResolverBuilder("com.workout.workoutartifact"))
         .withOperationsFromSingletons(
-            exerciseGraphQLService,
-            muscleGraphQLService,
-            workoutSetGraphQLService,
-            sessionGraphQLService,
-            userGraphQLService,
-            workoutExerciseGraphQLService
+//            exerciseGraphQLService,
+//            muscleGraphQLService,
+//            workoutSetGraphQLService,
+            sessionGraphQLService
+//            userGraphQLService,
+//            workoutExerciseGraphQLService
         )
         .withValueMapperFactory(new JacksonValueMapperFactory())
         .generate();
