@@ -1,12 +1,12 @@
-package controller;
+package com.workout.workoutArtifact.graphql.controller;
 
+import com.workout.workoutArtifact.graphql.dto.GraphQLRequest;
 import graphql.ExecutionInput;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import dto.GraphQLRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;

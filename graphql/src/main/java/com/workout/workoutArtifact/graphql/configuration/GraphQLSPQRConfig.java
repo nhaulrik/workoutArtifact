@@ -1,11 +1,11 @@
-package configuration;
+package com.workout.workoutArtifact.graphql.configuration;
 
-import graphqlservice.ExerciseGraphQLService;
-import graphqlservice.MuscleGraphQLService;
-import graphqlservice.SessionGraphQLService;
-import graphqlservice.UserGraphQLService;
-import graphqlservice.WorkoutExerciseGraphQLService;
-import graphqlservice.WorkoutSetGraphQLService;
+import com.workout.workoutArtifact.graphql.graphqlservice.ExerciseGraphQLService;
+import com.workout.workoutArtifact.graphql.graphqlservice.MuscleGraphQLService;
+import com.workout.workoutArtifact.graphql.graphqlservice.SessionGraphQLService;
+import com.workout.workoutArtifact.graphql.graphqlservice.UserGraphQLService;
+import com.workout.workoutArtifact.graphql.graphqlservice.WorkoutExerciseGraphQLService;
+import com.workout.workoutArtifact.graphql.graphqlservice.WorkoutSetGraphQLService;
 import graphql.GraphQL;
 import graphql.analysis.MaxQueryComplexityInstrumentation;
 import graphql.analysis.MaxQueryDepthInstrumentation;

@@ -1,8 +1,6 @@
-package dto;
+package com.workout.workoutArtifact.graphql.dto;
 
-import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
-import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package dto;
+package com.workout.workoutArtifact.graphql.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

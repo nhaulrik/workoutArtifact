@@ -1,8 +1,9 @@
-package graphqlservice;
+package com.workout.workoutArtifact.graphql.graphqlservice;
 
-import configuration.GraphQLSPQRConfig;
-import dto.SessionDto;
-import dto.UserDto;
+import com.workout.workoutArtifact.graphql.dto.SessionDto;
+import com.workout.workoutArtifact.graphql.dto.SessionDto.IdsSpecification;
+import com.workout.workoutArtifact.graphql.dto.UserDto;
+import com.workout.workoutArtifact.graphql.configuration.GraphQLSPQRConfig;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;
@@ -34,7 +35,7 @@ public class SessionGraphQLService implements GraphQLSPQRConfig.GraphQLService {
   public Boolean deleteSessions(
       @GraphQLArgument(name = "ids") List<UUID> ids
   ) {
-    AbstractSpecification sessionIdSpecification = new SessionDto.IdsSpecification(ids);
+    AbstractSpecification sessionIdSpecification = new IdsSpecification(ids);
     return sessionFacade.deleteSessions(sessionIdSpecification);
   }
 

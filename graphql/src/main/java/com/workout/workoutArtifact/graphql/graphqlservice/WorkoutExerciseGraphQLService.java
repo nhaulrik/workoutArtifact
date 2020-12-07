@@ -1,8 +1,8 @@
-package graphqlservice;
+package com.workout.workoutArtifact.graphql.graphqlservice;
 
-import configuration.GraphQLSPQRConfig.GraphQLService;
-import dto.SessionDto;
-import dto.WorkoutExerciseDto;
+import com.workout.workoutArtifact.graphql.dto.SessionDto;
+import com.workout.workoutArtifact.graphql.dto.WorkoutExerciseDto;
+import com.workout.workoutArtifact.graphql.configuration.GraphQLSPQRConfig.GraphQLService;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;

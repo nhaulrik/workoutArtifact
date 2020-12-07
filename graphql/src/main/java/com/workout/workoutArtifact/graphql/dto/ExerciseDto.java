@@ -1,4 +1,4 @@
-package dto;
+package com.workout.workoutArtifact.graphql.dto;
 
 import io.leangen.graphql.annotations.types.GraphQLType;
 import java.util.List;

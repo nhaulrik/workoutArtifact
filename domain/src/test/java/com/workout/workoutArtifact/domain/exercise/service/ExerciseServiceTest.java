@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.exercise.model.ExerciseRepository;
-import specification.Specification;
+import com.workout.workoutArtifact.domain.specification.Specification;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Rule;

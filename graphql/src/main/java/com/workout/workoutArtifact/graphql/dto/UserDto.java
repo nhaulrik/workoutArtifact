@@ -1,4 +1,4 @@
-package dto;
+package com.workout.workoutArtifact.graphql.dto;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,10 +1,10 @@
-package graphqlservice;
+package com.workout.workoutArtifact.graphql.graphqlservice;
 
 
-import dto.UserDto;
-import dto.UserDto.FirstNameSpecification;
-import dto.UserDto.IdsSpecification;
-import dto.UserDto.LastNameSpecification;
+import com.workout.workoutArtifact.graphql.dto.UserDto;
+import com.workout.workoutArtifact.graphql.dto.UserDto.FirstNameSpecification;
+import com.workout.workoutArtifact.graphql.dto.UserDto.IdsSpecification;
+import com.workout.workoutArtifact.graphql.dto.UserDto.LastNameSpecification;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;

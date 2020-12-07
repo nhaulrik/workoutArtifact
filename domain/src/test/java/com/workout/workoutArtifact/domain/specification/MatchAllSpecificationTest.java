@@ -6,7 +6,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import specification.MatchAllSpecification;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MatchAllSpecificationTest {

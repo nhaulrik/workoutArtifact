@@ -7,8 +7,6 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import specification.AbstractSpecification;
-import specification.NotSpecification;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NotSpecificationTest {

@@ -8,7 +8,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import specification.AbstractSpecification;
+import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
 import com.workout.workoutArtifact.endpoint.facade.SessionFacade;
