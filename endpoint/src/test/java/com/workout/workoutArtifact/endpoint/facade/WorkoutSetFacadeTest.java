@@ -7,8 +7,8 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
-import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
+import specification.AbstractSpecification;
+import specification.MatchAllSpecification;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.workoutset.service.WorkoutSetService;
 import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;

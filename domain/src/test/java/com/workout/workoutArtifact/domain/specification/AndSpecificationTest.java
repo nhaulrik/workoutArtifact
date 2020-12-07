@@ -8,6 +8,8 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+import specification.AbstractSpecification;
+import specification.AndSpecification;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AndSpecificationTest {

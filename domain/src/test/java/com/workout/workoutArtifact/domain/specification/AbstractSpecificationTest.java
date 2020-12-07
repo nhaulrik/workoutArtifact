@@ -10,6 +10,10 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+import specification.AbstractSpecification;
+import specification.AndSpecification;
+import specification.NotSpecification;
+import specification.OrSpecification;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AbstractSpecificationTest {

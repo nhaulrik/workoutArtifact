@@ -6,7 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-import com.workout.workoutArtifact.domain.specification.Specification;
+import specification.Specification;
 import com.workout.workoutArtifact.domain.user.model.User;
 import com.workout.workoutArtifact.domain.user.model.UserRepository;
 import java.util.Arrays;

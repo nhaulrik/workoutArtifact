@@ -2,7 +2,6 @@ package com.workout.workoutArtifact.domain.session.model;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExercise;
-import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

@@ -5,8 +5,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.workout.workoutArtifact.domain.muscle.model.Muscle;
-import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
-import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
+import specification.AbstractSpecification;
+import specification.MatchAllSpecification;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto.IdsSpecification;
 import com.workout.workoutArtifact.endpoint.dto.MuscleDto.NameSpecification;

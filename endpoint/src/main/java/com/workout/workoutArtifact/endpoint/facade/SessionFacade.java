@@ -8,7 +8,6 @@ import com.workout.workoutArtifact.domain.specification.Specification;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.endpoint.mapper.dto.SessionDtoMapper;
 import com.workout.workoutArtifact.endpoint.mapper.specification.SessionDtoSpecificationMapper;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;

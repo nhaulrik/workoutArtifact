@@ -8,7 +8,7 @@ import static org.mockito.Mockito.mock;
 
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.domain.session.service.SessionService;
-import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
+import specification.AbstractSpecification;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.endpoint.mapper.dto.SessionDtoMapper;
 import com.workout.workoutArtifact.endpoint.mapper.specification.SessionDtoSpecificationMapper;

@@ -6,10 +6,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.workout.workoutArtifact.domain.session.model.Session;
-import com.workout.workoutArtifact.domain.specification.AndSpecification;
-import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
-import com.workout.workoutArtifact.domain.specification.NotSpecification;
-import com.workout.workoutArtifact.domain.specification.OrSpecification;
+import specification.AndSpecification;
+import specification.MatchAllSpecification;
+import specification.NotSpecification;
+import specification.OrSpecification;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto.IdsSpecification;
 import com.workout.workoutArtifact.endpoint.dto.SessionDto.LocationsSpecification;

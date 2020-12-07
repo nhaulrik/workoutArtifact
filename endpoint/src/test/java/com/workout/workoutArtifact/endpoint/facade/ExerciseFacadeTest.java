@@ -10,7 +10,7 @@
 //import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 //import com.workout.workoutArtifact.domain.exercise.model.Exercise.NameSpecification;
 //import com.workout.workoutArtifact.domain.exercise.service.ExerciseService;
-//import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
+//import dto.ExerciseDto;
 //import com.workout.workoutArtifact.endpoint.mapper.dto.ExerciseDtoMapper;
 //import com.workout.workoutArtifact.endpoint.mapper.specification.ExerciseDtoSpecificationMapper;
 //import java.util.ArrayList;

@@ -3,7 +3,6 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper;
 import com.workout.workoutArtifact.domain.specification.AndSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.domain.specification.Specification;
-import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExercise;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import java.util.UUID;

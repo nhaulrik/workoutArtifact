@@ -1,7 +1,5 @@
 package com.workout.workoutArtifact.domain.workoutset.service;
 
-import com.workout.workoutArtifact.domain.exercise.model.Exercise;
-import com.workout.workoutArtifact.domain.exercise.model.Exercise.ExerciseIdSpecification;
 import com.workout.workoutArtifact.domain.exercise.model.ExerciseRepository;
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.domain.session.model.SessionRepository;

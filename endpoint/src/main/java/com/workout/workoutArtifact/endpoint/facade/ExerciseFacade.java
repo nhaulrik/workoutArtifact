@@ -7,7 +7,6 @@ import com.workout.workoutArtifact.domain.specification.Specification;
 import com.workout.workoutArtifact.endpoint.mapper.dto.ExerciseDtoMapper;
 import com.workout.workoutArtifact.endpoint.mapper.specification.ExerciseDtoSpecificationMapper;
 import com.workout.workoutArtifact.endpoint.dto.ExerciseDto;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;

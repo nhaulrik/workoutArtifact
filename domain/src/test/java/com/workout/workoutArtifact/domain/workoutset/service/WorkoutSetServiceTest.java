@@ -8,9 +8,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.workout.workoutArtifact.domain.exercise.model.ExerciseRepository;
-import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.domain.session.model.SessionRepository;
-import com.workout.workoutArtifact.domain.specification.Specification;
+import specification.Specification;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSetRepository;
 import java.util.Arrays;
