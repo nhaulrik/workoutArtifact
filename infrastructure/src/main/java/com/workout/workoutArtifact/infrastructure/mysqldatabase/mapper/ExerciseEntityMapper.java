@@ -2,6 +2,8 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper;
 
 import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +18,16 @@ public class ExerciseEntityMapper {
   private final MuscleEntityMapper muscleEntityMapper;
 
   public ExerciseEntity toEntity(Exercise exercise) {
-    ExerciseEntity exerciseEntity = new ExerciseEntity();
-    exerciseEntity.setName(exercise.getName());
-    exerciseEntity.setBodyPart(exercise.getBodyPart());
-    exerciseEntity.setIsCompound(exercise.getIsCompound());
-    exerciseEntity.setId(exercise.getId().toString());
+    ExerciseEntity exerciseEntity = new ExerciseEntity(
+        exercise.getId().toString(),
+        exercise.getCreateDate(),
+        LocalDateTime.now(),
+        exercise.getName(),
+        exercise.getIsCompound(),
+        exercise.getBodyPart(),
+        new ArrayList<>(),
+        exercise.getMuscles().stream().map(muscleEntityMapper::toEntity).collect(Collectors.toList())
+    );
     return exerciseEntity;
   }
 
