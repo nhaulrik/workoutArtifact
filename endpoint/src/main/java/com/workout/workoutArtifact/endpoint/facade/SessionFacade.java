@@ -6,7 +6,7 @@
 //import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 //import com.workout.workoutArtifact.domain.specification.Specification;
 //import com.workout.workoutArtifact.endpoint.dto.SessionDto;
-//import com.workout.workoutArtifact.endpoint.mapper.dto.SessionDtoMapper;
+//import com.workout.workoutArtifact.graphql.dto.mapper.SessionDtoMapper;
 //import com.workout.workoutArtifact.endpoint.mapper.specification.SessionDtoSpecificationMapper;
 //import java.time.LocalDateTime;
 //import java.time.format.DateTimeFormatter;

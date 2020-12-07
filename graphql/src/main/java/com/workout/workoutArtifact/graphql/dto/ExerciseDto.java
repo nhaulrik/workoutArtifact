@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.graphql.dto;
 
+import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import io.leangen.graphql.annotations.types.GraphQLType;
 import java.util.List;
 import java.util.UUID;
@@ -7,7 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.Value;
-import specification.AbstractSpecification;
 
 @Data
 @GraphQLType(name = "Exercise")

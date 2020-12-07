@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.graphql.dto;
 
+import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -7,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;
-import specification.AbstractSpecification;
 
 @Data
 @AllArgsConstructor
