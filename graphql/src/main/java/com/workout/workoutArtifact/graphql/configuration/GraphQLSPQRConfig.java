@@ -2,6 +2,8 @@ package com.workout.workoutArtifact.graphql.configuration;
 
 import com.workout.workoutArtifact.graphql.graphqlservice.SessionGraphQLService;
 import com.workout.workoutArtifact.graphql.graphqlservice.UserGraphQLService;
+import com.workout.workoutArtifact.graphql.graphqlservice.WorkoutExerciseGraphQLService;
+import com.workout.workoutArtifact.graphql.graphqlservice.WorkoutSetGraphQLService;
 import graphql.GraphQL;
 import graphql.analysis.MaxQueryComplexityInstrumentation;
 import graphql.analysis.MaxQueryDepthInstrumentation;
@@ -27,10 +29,10 @@ public class GraphQLSPQRConfig {
   public GraphQL graphQL(
 //      ExerciseGraphQLService exerciseGraphQLService,
 //      MuscleGraphQLService muscleGraphQLService,
-//      WorkoutSetGraphQLService workoutSetGraphQLService,
+      WorkoutSetGraphQLService workoutSetGraphQLService,
       SessionGraphQLService sessionGraphQLService,
-      UserGraphQLService userGraphQLService
-//      WorkoutExerciseGraphQLService workoutExerciseGraphQLService
+      UserGraphQLService userGraphQLService,
+      WorkoutExerciseGraphQLService workoutExerciseGraphQLService
   ) {
     GraphQLSchema schema = new GraphQLSchemaGenerator()
         .withResolverBuilders(
@@ -39,10 +41,10 @@ public class GraphQLSPQRConfig {
         .withOperationsFromSingletons(
 //            exerciseGraphQLService,
 //            muscleGraphQLService,
-//            workoutSetGraphQLService,
+            workoutSetGraphQLService,
             sessionGraphQLService,
-            userGraphQLService
-//            workoutExerciseGraphQLService
+            userGraphQLService,
+            workoutExerciseGraphQLService
         )
         .withValueMapperFactory(new JacksonValueMapperFactory())
         .generate();

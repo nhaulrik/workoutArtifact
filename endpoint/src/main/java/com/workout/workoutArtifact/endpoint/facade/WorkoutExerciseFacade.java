@@ -6,7 +6,7 @@
 //import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExercise;
 //import com.workout.workoutArtifact.domain.workoutExercise.service.WorkoutExerciseService;
 //import com.workout.workoutArtifact.endpoint.dto.WorkoutExerciseDto;
-//import com.workout.workoutArtifact.endpoint.mapper.dto.WorkoutExerciseDtoMapper;
+//import com.workout.workoutArtifact.graphql.dto.mapper.WorkoutExerciseDtoMapper;
 //import com.workout.workoutArtifact.endpoint.mapper.specification.WorkoutExerciseDtoSpecificationMapper;
 //import java.util.List;
 //import java.util.UUID;

@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -59,5 +60,9 @@ public class ExerciseEntity {
       joinColumns = {@JoinColumn(name = "fk_exercise", foreignKey = @ForeignKey(name = "FK_muscle_exercise_fk_exercise"))},
       inverseJoinColumns = {@JoinColumn(name = "fk_muscle", foreignKey = @ForeignKey(name = "FK_muscle_exercise_fk_muscle"))})
   private List<MuscleEntity> muscleEntities = new ArrayList<>();
+
+  public UUID getId() {
+    return UUID.fromString(this.id);
+  }
 
 }

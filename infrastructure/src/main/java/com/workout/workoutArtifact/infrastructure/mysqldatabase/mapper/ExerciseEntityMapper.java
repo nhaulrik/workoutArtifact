@@ -33,7 +33,7 @@ public class ExerciseEntityMapper {
 
   public Exercise toDomainObject(ExerciseEntity exerciseEntity) {
     Exercise exercise = Exercise.instantiate(
-        UUID.fromString(exerciseEntity.getId()),
+        exerciseEntity.getId(),
         exerciseEntity.getName(),
         exerciseEntity.getIsCompound(),
         exerciseEntity.getBodyPart(),

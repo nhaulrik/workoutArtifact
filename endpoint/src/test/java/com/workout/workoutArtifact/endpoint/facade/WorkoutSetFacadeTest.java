@@ -12,7 +12,7 @@
 //import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 //import com.workout.workoutArtifact.domain.workoutset.service.WorkoutSetService;
 //import com.workout.workoutArtifact.endpoint.dto.WorkoutSetDto;
-//import com.workout.workoutArtifact.endpoint.mapper.dto.WorkoutSetDtoMapper;
+//import com.workout.workoutArtifact.graphql.dto.mapper.WorkoutSetDtoMapper;
 //import com.workout.workoutArtifact.endpoint.mapper.specification.WorkoutSetDtoSpecificationMapper;
 //import java.util.Arrays;
 //import java.util.List;

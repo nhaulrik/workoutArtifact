@@ -70,4 +70,16 @@ public class WorkoutExercise {
       return ids.contains(workoutExercise.getSessionId());
     }
   }
+
+  @Value
+  public static class ExerciseNumbersSpecification extends AbstractSpecification<WorkoutExercise> {
+
+    private final List<Integer> exerciseNumbers;
+
+    @Override
+    public boolean isSatisfiedBy(WorkoutExercise workoutExercise) {
+      return exerciseNumbers.contains(workoutExercise.getExerciseNumber());
+    }
+  }
+
 }

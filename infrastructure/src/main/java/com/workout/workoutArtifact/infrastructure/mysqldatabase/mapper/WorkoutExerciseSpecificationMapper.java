@@ -23,6 +23,8 @@ public class WorkoutExerciseSpecificationMapper {
       return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.conjunction();
     } else if (workoutExerciseSpecification instanceof WorkoutExercise.IdsSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((WorkoutExercise.IdsSpecification) workoutExerciseSpecification).getIds().stream().map(UUID::toString).collect(Collectors.toList()));
+    } else if (workoutExerciseSpecification instanceof WorkoutExercise.ExerciseNumbersSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("exerciseNumber").in(((WorkoutExercise.ExerciseNumbersSpecification) workoutExerciseSpecification).getExerciseNumbers());
     } else if (workoutExerciseSpecification instanceof WorkoutExercise.SessionIdsSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("sessionEntity").get("id").in(((WorkoutExercise.SessionIdsSpecification) workoutExerciseSpecification).getIds().stream().map(UUID::toString).collect(Collectors.toList()));
     }

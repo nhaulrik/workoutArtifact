@@ -1,44 +1,43 @@
-//package com.workout.workoutArtifact.graphql.graphqlservice;
-//
-//import com.workout.workoutArtifact.graphql.dto.SessionDto;
-//import com.workout.workoutArtifact.graphql.dto.WorkoutExerciseDto;
-//import com.workout.workoutArtifact.graphql.dto.WorkoutSetDto;
-//import com.workout.workoutArtifact.graphql.configuration.GraphQLSPQRConfig.GraphQLService;
-//import io.leangen.graphql.annotations.GraphQLArgument;
-//import io.leangen.graphql.annotations.GraphQLContext;
-//import io.leangen.graphql.annotations.GraphQLMutation;
-//import io.leangen.graphql.annotations.GraphQLQuery;
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.List;
-//import java.util.UUID;
-//import java.util.stream.Collectors;
-//import lombok.RequiredArgsConstructor;
-//import lombok.extern.slf4j.Slf4j;
-//import org.springframework.stereotype.Component;
-//import specification.AbstractSpecification;
-//import specification.MatchAllSpecification;
-//import specification.MatchNoneSpecification;
-//
-//@Slf4j
-//@Component
-//@RequiredArgsConstructor
-//public class WorkoutSetGraphQLService implements GraphQLService {
-//
-//  private final WorkoutSetFacade workoutSetFacade;
-//
+package com.workout.workoutArtifact.graphql.graphqlservice;
+
+import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
+import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
+import com.workout.workoutArtifact.domain.specification.MatchNoneSpecification;
+import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
+import com.workout.workoutArtifact.graphql.configuration.GraphQLSPQRConfig.GraphQLService;
+import com.workout.workoutArtifact.graphql.dto.WorkoutExerciseDto;
+import com.workout.workoutArtifact.graphql.dto.WorkoutSetDto;
+import com.workout.workoutArtifact.graphql.model.WorkoutSetFetcher;
+import io.leangen.graphql.annotations.GraphQLArgument;
+import io.leangen.graphql.annotations.GraphQLContext;
+import io.leangen.graphql.annotations.GraphQLQuery;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+@Slf4j
+@Component
+@RequiredArgsConstructor
+public class WorkoutSetGraphQLService implements GraphQLService {
+
+  private final WorkoutSetFetcher workoutSetFetcher;
+
 //  @GraphQLMutation(name = "addWorkoutSetList")
 //  public List<UUID> addWorkoutSetList(
 //      @GraphQLArgument(name = "workoutSet") List<WorkoutSetDto> workoutSetDtos
 //  ) {
 //    List<UUID> workoutSetIds = new ArrayList<>();
 //    workoutSetDtos.forEach(workoutSetDto -> {
-//      UUID workoutSetId = workoutSetFacade.addWorkoutSet(workoutSetDto);
+//      UUID workoutSetId = workoutExerciseFetcher.addWorkoutSet(workoutSetDto);
 //      workoutSetIds.add(workoutSetId);
 //    });
 //    return workoutSetIds;
 //  }
-//
+
 //  @GraphQLMutation(name = "addWorkoutSet")
 //  public UUID postWorkoutSet(
 //      @GraphQLArgument(name = "id") UUID id,
@@ -50,7 +49,7 @@
 //      @GraphQLArgument(name = "workoutExerciseId") UUID workoutExerciseId,
 //      @GraphQLArgument(name = "sessionId") UUID sessionId
 //  ) {
-//    return workoutSetFacade.postWorkoutSet(
+//    return workoutExerciseFetcher.postWorkoutSet(
 //        id,
 //        setNumber,
 //        weight,
@@ -61,68 +60,42 @@
 //        sessionId
 //    );
 //  }
-//
+
 //  @GraphQLMutation(name = "deleteWorkoutSet")
 //  public Boolean deleteWorkoutSet(
 //      @GraphQLArgument(name = "id") UUID id
 //  ) {
-//    workoutSetFacade.deleteWorkoutSet(id);
+//    workoutExerciseFetcher.deleteWorkoutSet(id);
 //    return true;
 //  }
-//
-//  @GraphQLQuery(name = "workoutSet")
-//  public List<WorkoutSetDto> getWorkoutSet(
-//      @GraphQLArgument(name = "ids") List<String> ids
-//  ) {
-//
-//    List<AbstractSpecification<WorkoutSetDto>> workoutSetDtoSpecifications = new ArrayList<>();
-//    if (ids != null) {
-//      workoutSetDtoSpecifications.add(new WorkoutSetDto.IdsSpecification(ids.stream().map(UUID::fromString).collect(Collectors.toList())));
-//    }
-//
-//    AbstractSpecification aggregatedSpecification = workoutSetDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
-//
-//    return workoutSetFacade.getWorkoutSets(aggregatedSpecification);
-//  }
-//
-//
-//  @GraphQLQuery(name = "workoutSet")
-//  public List<WorkoutSetDto> getWorkoutSet(
-//      @GraphQLArgument(name = "ids") List<String> ids,
-//      @GraphQLContext SessionDto sessionDto
-//  ) {
-//    List<AbstractSpecification<WorkoutSetDto>> workoutSetDtoSpecifications = new ArrayList<>();
-//    if (sessionDto != null) {
-//      //workoutSetDtoSpecifications.add(new SessionIdsSpecification(Arrays.asList(sessionDto.getId())));
-//    }
-//    if (ids != null) {
-//      workoutSetDtoSpecifications.add(new WorkoutSetDto.IdsSpecification(ids.stream().map(UUID::fromString).collect(Collectors.toList())));
-//    }
-//
-//    AbstractSpecification aggregatedSpecification = workoutSetDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification<>());
-//
-//    return workoutSetFacade.getWorkoutSets(aggregatedSpecification);
-//  }
-//
-//  @GraphQLQuery(name = "workoutSet")
-//  public List<WorkoutSetDto> getWorkoutSet(
-//      @GraphQLArgument(name = "ids") List<String> ids,
-//      @GraphQLContext WorkoutExerciseDto workoutExerciseDto
-//  ) {
-//    List<AbstractSpecification<WorkoutSetDto>> workoutSetDtoSpecifications = new ArrayList<>();
-//    if (workoutExerciseDto != null) {
-//      //workoutSetDtoSpecifications.add(new SessionIdsSpecification(Arrays.asList(sessionDto.getId())));
-//    }
-//    if (ids != null) {
-//      workoutSetDtoSpecifications.add(new WorkoutSetDto.IdsSpecification(ids.stream().map(UUID::fromString).collect(Collectors.toList())));
-//    }
-//    if (workoutExerciseDto != null && workoutExerciseDto.getSessionId() != null) {
-//      workoutSetDtoSpecifications.add(new WorkoutSetDto.WorkoutExerciseIdsSpecification(Arrays.asList(workoutExerciseDto.getId())));
-//    }
-//
-//    AbstractSpecification aggregatedSpecification = workoutSetDtoSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification<>());
-//
-//    return workoutSetFacade.getWorkoutSets(aggregatedSpecification);
-//  }
-//
-//}
+
+  @GraphQLQuery(name = "workoutSet")
+  public List<WorkoutSetDto> getWorkoutSet(
+      @GraphQLArgument(name = "ids") List<UUID> ids,
+      @GraphQLArgument(name = "workoutExerciseIds") List<UUID> exerciseIds
+  ) {
+
+    List<AbstractSpecification<WorkoutSet>> workoutSetSpecifications = new ArrayList<>();
+    if (ids != null) {workoutSetSpecifications.add(new WorkoutSet.IdsSpecification(ids)); }
+    if (exerciseIds != null) {workoutSetSpecifications.add(new WorkoutSet.WorkoutExerciseIdsSpecification(ids)); }
+
+    AbstractSpecification aggregatedSpecification = workoutSetSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
+
+    return workoutSetFetcher.getWorkoutSet(aggregatedSpecification);
+  }
+
+  @GraphQLQuery(name = "workoutSet")
+  public List<WorkoutSetDto> getWorkoutSet(
+      @GraphQLArgument(name = "ids") List<UUID> ids,
+      @GraphQLContext WorkoutExerciseDto workoutExerciseDto
+  ) {
+    List<AbstractSpecification<WorkoutSet>> workoutSetSpecifications = new ArrayList<>();
+    if (workoutExerciseDto != null) { workoutSetSpecifications.add(new WorkoutSet.WorkoutExerciseIdsSpecification(Arrays.asList(workoutExerciseDto.getId()))); }
+    if (ids != null) { workoutSetSpecifications.add(new WorkoutSet.IdsSpecification(ids)); }
+
+    AbstractSpecification aggregatedSpecification = workoutSetSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification<>());
+
+    return workoutSetFetcher.getWorkoutSet(aggregatedSpecification);
+  }
+
+}
