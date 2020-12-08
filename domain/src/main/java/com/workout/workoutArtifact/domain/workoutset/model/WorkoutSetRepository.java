@@ -9,4 +9,6 @@ public interface WorkoutSetRepository {
   List<WorkoutSet> getWorkoutSet(Specification<WorkoutSet> workoutSetSpecification);
   List<UUID> addWorkoutSet(List<WorkoutSet> workoutSets);
   void deleteWorkoutSet(UUID id);
+
+  UUID save(WorkoutSet workoutSet);
 }

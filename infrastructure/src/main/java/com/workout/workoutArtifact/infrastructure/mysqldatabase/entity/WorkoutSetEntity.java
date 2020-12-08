@@ -27,6 +27,7 @@ public class WorkoutSetEntity {
   @Id
   private String id;
 
+  @CreationTimestamp
   @Column(name = "create_date")
   private LocalDateTime createDate;
 

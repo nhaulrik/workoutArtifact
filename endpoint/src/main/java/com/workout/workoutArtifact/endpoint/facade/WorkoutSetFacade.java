@@ -27,8 +27,7 @@ public class WorkoutSetFacade {
           postWorkoutSetRequest.getRepetitions(),
           postWorkoutSetRequest.getRepetitionMaximum(),
           postWorkoutSetRequest.getSingle(),
-          postWorkoutSetRequest.getWorkoutExerciseId(),
-          postWorkoutSetRequest.getSessionId()
+          postWorkoutSetRequest.getWorkoutExerciseId()
       ));
     });
     return new PostWorkoutSetResponse(workoutSetIds);

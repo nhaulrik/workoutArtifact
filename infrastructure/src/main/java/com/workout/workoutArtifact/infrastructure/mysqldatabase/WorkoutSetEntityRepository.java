@@ -52,4 +52,10 @@ public class WorkoutSetEntityRepository implements WorkoutSetRepository {
   public void deleteWorkoutSet(UUID id) {
     workoutSetJpaRepository.deleteAllById(id.toString());
   }
+
+  @Override
+  public UUID save(WorkoutSet workoutSet) {
+    WorkoutSetEntity workoutSetEntity = workoutSetEntityMapper.toEntity(workoutSet);
+    return workoutSetJpaRepository.save(workoutSetEntity).getId();
+  }
 }

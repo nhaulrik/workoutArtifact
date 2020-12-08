@@ -10,8 +10,6 @@ public class PostWorkoutSetRequest {
   @NonNull
   private final UUID id;
   @NonNull
-  private final UUID sessionId;
-  @NonNull
   private final UUID workoutExerciseId;
   @NonNull
   private final Integer repetitions;

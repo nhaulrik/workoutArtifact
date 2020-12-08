@@ -1,9 +1,11 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper;
 
 import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutExerciseEntity;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @RequiredArgsConstructor
 public class WorkoutSetEntityMapper {
+
+  private final EntityManager entityManager;
 
   @Transactional
   public WorkoutSet toDomain(WorkoutSetEntity workoutSetEntity) {
@@ -32,6 +36,7 @@ public class WorkoutSetEntityMapper {
     workoutSetEntity.setRepetitionMaximum(workoutSet.getRepetitionMaximum());
     workoutSetEntity.setSetNumber(workoutSet.getSetNumber());
     workoutSetEntity.setId(workoutSet.getId().toString());
+    workoutSetEntity.setWorkoutExerciseEntity(entityManager.getReference(WorkoutExerciseEntity.class, workoutSet.getWorkoutExerciseId().toString()));
 
     return workoutSetEntity;
   }

@@ -21,6 +21,8 @@ public class WorkoutSetSpecificationMapper {
           .orElse((root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.disjunction());
     } else if (workoutSetSpecification instanceof MatchAllSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.conjunction();
+    } else if (workoutSetSpecification instanceof WorkoutSet.IdsSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((WorkoutSet.IdsSpecification) workoutSetSpecification).getIds().stream().map(UUID::toString).collect(Collectors.toList()));
     } else if (workoutSetSpecification instanceof WorkoutSet.WorkoutExerciseIdsSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("workoutExerciseEntity").get("id").in(((WorkoutSet.WorkoutExerciseIdsSpecification) workoutSetSpecification).getIds().stream().map(UUID::toString).collect(Collectors.toList()));
     }
