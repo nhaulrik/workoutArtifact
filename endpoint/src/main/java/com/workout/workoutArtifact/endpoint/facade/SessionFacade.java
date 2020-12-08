@@ -1,11 +1,5 @@
 package com.workout.workoutArtifact.endpoint.facade;
 
-import com.workout.workoutArtifact.domain.application.service.ApplicationService;
-import com.workout.workoutArtifact.domain.session.service.SessionService;
-import com.workout.workoutArtifact.endpoint.request.CreateSessionRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

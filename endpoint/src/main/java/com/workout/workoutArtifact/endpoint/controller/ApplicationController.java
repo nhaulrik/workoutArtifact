@@ -22,8 +22,7 @@ public class ApplicationController {
   @PostMapping(consumes = "application/json", produces = "application/json")
   public CreateSessionResponse createSessions(@RequestBody List<CreateSessionRequest> createSessionRequests) {
 
-    List<UUID> newSessionIds = applicationFacade.createSessions(createSessionRequests);
-    return new CreateSessionResponse(newSessionIds);
+    return applicationFacade.createSessions(createSessionRequests);
   }
 
   @GetMapping("/{userId}/{date}")
