@@ -3,10 +3,10 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase;
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.domain.session.model.SessionRepository;
 import com.workout.workoutArtifact.domain.specification.Specification;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.SessionEntityMapper;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.SessionJpaRepository;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.SessionSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.SessionEntityMapper;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.SessionSpecificationMapper;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.SessionJpaRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -59,5 +59,13 @@ public class SessionEntityRepository implements SessionRepository {
 
     sessionJpaRepository.deleteAllByIdIn(idsToDelete);
     return sessionJpaRepository.findAll(jpaSpecification).isEmpty();
+  }
+
+  @Override
+  public UUID createSession(Session session) {
+
+    SessionEntity sessionEntity = sessionEntityMapper.toEntity(session);
+    UUID id = sessionJpaRepository.save(sessionEntity).getId();
+    return id;
   }
 }

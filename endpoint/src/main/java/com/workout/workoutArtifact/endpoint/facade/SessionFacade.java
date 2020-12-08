@@ -1,34 +1,20 @@
-//package com.workout.workoutArtifact.endpoint.facade;
-//
-//import com.workout.workoutArtifact.domain.session.model.Session;
-//import com.workout.workoutArtifact.domain.session.model.Session.IdsSpecification;
-//import com.workout.workoutArtifact.domain.session.service.SessionService;
-//import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
-//import com.workout.workoutArtifact.domain.specification.Specification;
-//import com.workout.workoutArtifact.endpoint.dto.SessionDto;
-//import com.workout.workoutArtifact.graphql.dto.mapper.SessionDtoMapper;
-//import com.workout.workoutArtifact.endpoint.mapper.specification.SessionDtoSpecificationMapper;
-//import java.time.LocalDateTime;
-//import java.time.format.DateTimeFormatter;
-//import java.util.Arrays;
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.UUID;
-//import java.util.stream.Collectors;
-//import lombok.RequiredArgsConstructor;
-//import lombok.extern.slf4j.Slf4j;
-//import org.apache.logging.log4j.util.Strings;
-//import org.springframework.stereotype.Component;
-//
-//@Component
-//@RequiredArgsConstructor
-//@Slf4j
-//public class SessionFacade {
-//
-//  private final SessionService sessionService;
-//  private final SessionDtoMapper sessionDtoMapper;
-//  private final SessionDtoSpecificationMapper sessionDtoSpecificationMapper;
-//
+package com.workout.workoutArtifact.endpoint.facade;
+
+import com.workout.workoutArtifact.domain.application.service.ApplicationService;
+import com.workout.workoutArtifact.domain.session.service.SessionService;
+import com.workout.workoutArtifact.endpoint.request.CreateSessionRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+@Component
+@RequiredArgsConstructor
+@Slf4j
+public class SessionFacade {
+
 //  public List<UUID> addSessions(List<SessionDto> sessionDtos) {
 //    List<UUID> sessionIds = sessionService.addSessions(sessionDtos.stream()
 //        .map(sessionDtoMapper::toDomainObject)
@@ -36,7 +22,7 @@
 //
 //    return sessionIds;
 //  }
-//
+
 //  public List<SessionDto> getSessions(AbstractSpecification<SessionDto> sessionDtoSpecification) {
 //
 //    Specification<Session> sessionSpecification = sessionDtoSpecificationMapper.toSessionSpecification(sessionDtoSpecification);
@@ -90,4 +76,4 @@
 //    }
 //    return true;
 //  }
-//}
+}

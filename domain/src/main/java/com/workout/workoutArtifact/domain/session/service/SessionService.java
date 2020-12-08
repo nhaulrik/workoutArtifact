@@ -7,6 +7,7 @@ import com.workout.workoutArtifact.domain.session.model.Session.IdsSpecification
 import com.workout.workoutArtifact.domain.session.model.SessionRepository;
 import com.workout.workoutArtifact.domain.specification.Specification;
 import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExercise;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,4 +63,5 @@ public class SessionService {
     }
     throw new RuntimeException(String.format("session with id: %s was not found", sessionId));
   }
+
 }

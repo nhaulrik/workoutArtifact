@@ -1,40 +1,38 @@
-//package com.workout.workoutArtifact.endpoint.controller;
-//
-//import com.fasterxml.jackson.databind.JsonNode;
-//import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
-//import com.workout.workoutArtifact.domain.specification.MatchNoneSpecification;
-//import com.workout.workoutArtifact.endpoint.facade.SessionFacade;
-//import java.time.LocalDate;
-//import java.time.LocalDateTime;
-//import java.time.format.DateTimeFormatter;
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.UUID;
-//import lombok.RequiredArgsConstructor;
-//import org.apache.logging.log4j.util.Strings;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//@RestController
-//@RequestMapping("/api/v1/session")
-//@RequiredArgsConstructor
-//public class DataController {
-//
-//  private final SessionFacade sessionFacade;
-//
-//
-//  @PostMapping (consumes = "application/json", produces = "application/json")
-//  public List<SessionDto> createSessions(@RequestBody JsonNode jsonNode) {
-//
-//
-//    boolean bla = false;
-//    return new ArrayList<>();
-//  }
-//
+package com.workout.workoutArtifact.endpoint.controller;
+
+import com.workout.workoutArtifact.endpoint.facade.ApplicationFacade;
+import com.workout.workoutArtifact.endpoint.request.CreateSessionRequest;
+import com.workout.workoutArtifact.endpoint.request.CreateSessionResponse;
+import java.util.List;
+import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/v1/application/session")
+@RequiredArgsConstructor
+public class ApplicationController {
+
+  private final ApplicationFacade applicationFacade;
+
+  @PostMapping(consumes = "application/json", produces = "application/json")
+  public CreateSessionResponse createSessions(@RequestBody List<CreateSessionRequest> createSessionRequests) {
+
+    List<UUID> newSessionIds = applicationFacade.createSessions(createSessionRequests);
+    return new CreateSessionResponse(newSessionIds);
+  }
+
+  @GetMapping("/{userId}/{date}")
+  public void getBla() {
+
+    boolean bla = false;
+
+  }
+
 //  @GetMapping("/{userId}/{date}")
 //  public SessionDto getSession(@PathVariable UUID userId, @PathVariable String date) {
 //
@@ -73,5 +71,5 @@
 //      return sessionDtos.get(0);
 //    }
 //  }
-//
-//}
+
+}

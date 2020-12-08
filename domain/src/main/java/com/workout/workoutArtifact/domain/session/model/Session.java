@@ -1,6 +1,7 @@
 package com.workout.workoutArtifact.domain.session.model;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
+import com.workout.workoutArtifact.domain.user.model.User;
 import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExercise;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,35 +9,51 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.util.Assert;
 
 @Data
-@RequiredArgsConstructor
 public class Session {
 
-  private final UUID id;
+  private UUID id;
   private LocalDateTime creationDateTime;
 
   private String location;
   private String programme;
   private String splitName;
-  private UUID userId;
+  private User user;
 
   private final List<WorkoutExercise> workoutExercises = new ArrayList<>();
+
+  private Session(UUID id, LocalDateTime creationDateTime, String location, String programme, String splitName, List<WorkoutExercise> workoutExercises) {
+    this.id = id;
+    this.creationDateTime = creationDateTime;
+    this.location = location;
+    this.programme = programme;
+    this.splitName = splitName;
+    this.workoutExercises.addAll(workoutExercises);
+  }
+
+  public static Session createNewSession(LocalDateTime localDateTime) {
+    Session session = new Session(
+        UUID.randomUUID(),
+        localDateTime,
+        null,
+        null,
+        null,
+        new ArrayList<>()
+    );
+    return session;
+  }
+
+  public static Session instantiate(UUID id, LocalDateTime creationDateTime, String programme, String splitName, String location, List<WorkoutExercise> workoutExercises) {
+    return new Session(id, creationDateTime, location, programme, splitName, workoutExercises);
+  }
 
   public void changeLocation(String location) {
     Assert.notNull(location, "location is required");
     this.location = location;
-  }
-
-  public static Session createNewSession(UUID userId, LocalDateTime localDateTime) {
-    Session session = new Session(UUID.randomUUID());
-    session.creationDateTime = localDateTime;
-    session.userId = userId;
-    return session;
   }
 
   public void changeProgramme(String programme) {
@@ -54,8 +71,9 @@ public class Session {
     this.creationDateTime = localDateTime;
   }
 
-  public void changeUser(UUID userId) {
-    this.userId = userId;
+  public void changeUser(User user) {
+    Assert.notNull(user, "user is required");
+    this.user = user;
   }
 
   public Optional<WorkoutExercise> getWorkoutExercise(UUID id) {

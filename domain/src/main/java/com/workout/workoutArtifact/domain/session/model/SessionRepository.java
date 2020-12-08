@@ -9,4 +9,6 @@ public interface SessionRepository {
   List<Session> getSessions(Specification<Session> sessionSpecification);
   List<UUID> addSessions(List<Session> sessions);
   Boolean deleteSessions(Specification<Session> sessionSpecification);
+
+  UUID createSession(Session session);
 }

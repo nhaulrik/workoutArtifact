@@ -95,6 +95,11 @@ public class User {
     return this.sessions.stream().filter(session -> session.getCreationDateTime().toLocalDate().equals(localDateTime.toLocalDate())).findAny();
   }
 
+  public void assSession(Session session) {
+    Assert.notNull(session, "session is required");
+    this.sessions.add(session);
+  }
+
   public enum Gender {
     MALE,
     FEMALE
