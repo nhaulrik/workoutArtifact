@@ -68,4 +68,10 @@ public class SessionEntityRepository implements SessionRepository {
     UUID id = sessionJpaRepository.save(sessionEntity).getId();
     return id;
   }
+
+  @Override
+  public UUID save(Session session) {
+    SessionEntity sessionEntity = sessionEntityMapper.toEntity(session);
+    return sessionJpaRepository.save(sessionEntity).getId();
+  }
 }

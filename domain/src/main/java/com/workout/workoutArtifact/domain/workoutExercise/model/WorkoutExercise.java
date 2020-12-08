@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.Data;
-import lombok.NonNull;
 import lombok.Value;
 import org.springframework.util.Assert;
 
@@ -15,26 +14,23 @@ import org.springframework.util.Assert;
 public class WorkoutExercise {
 
   private UUID id;
-  @NonNull
-  private UUID sessionId;
   private Integer exerciseNumber;
   private List<WorkoutSet> workoutSets;
   private Exercise exercise;
 
-  private WorkoutExercise(UUID id, UUID sessionId, Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise) {
+  private WorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise) {
     this.id = id;
-    this.sessionId = sessionId;
     this.exerciseNumber = exerciseNumber;
     this.workoutSets = workoutSets;
     this.exercise = exercise;
   }
 
-  public static WorkoutExercise createWorkoutExercise(UUID sessionId, Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise) {
-    return new WorkoutExercise(UUID.randomUUID(), sessionId, exerciseNumber, workoutSets, exercise);
+  public static WorkoutExercise createWorkoutExercise(Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise) {
+    return new WorkoutExercise(UUID.randomUUID(), exerciseNumber, workoutSets, exercise);
   }
 
-  public static WorkoutExercise initializeWorkoutExercise(UUID id, UUID sessionId, Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise) {
-    return new WorkoutExercise(id, sessionId, exerciseNumber, workoutSets, exercise);
+  public static WorkoutExercise initializeWorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise) {
+    return new WorkoutExercise(id, exerciseNumber, workoutSets, exercise);
   }
 
   public void updateExerciseNumber(Integer exerciseNumber) {
@@ -65,9 +61,10 @@ public class WorkoutExercise {
 
     private final List<UUID> ids;
 
+    // TODO: 08-12-2020 returning true is a hack
     @Override
     public boolean isSatisfiedBy(WorkoutExercise workoutExercise) {
-      return ids.contains(workoutExercise.getSessionId());
+      return true;
     }
   }
 

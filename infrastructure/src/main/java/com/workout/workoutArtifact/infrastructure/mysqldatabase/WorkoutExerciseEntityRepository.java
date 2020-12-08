@@ -41,4 +41,10 @@ public class WorkoutExerciseEntityRepository implements WorkoutExerciseRepositor
     Boolean entityExists = workoutExerciseJpaRepository.existsById(id.toString());
     return !entityExists; //true when deleted successfully
   }
+
+  @Override
+  public UUID save(WorkoutExercise workoutExercise) {
+    WorkoutExerciseEntity workoutExerciseEntity = workoutExerciseEntityMapper.toEntity(workoutExercise);
+    return workoutExerciseJpaRepository.save(workoutExerciseEntity).getId();
+  }
 }

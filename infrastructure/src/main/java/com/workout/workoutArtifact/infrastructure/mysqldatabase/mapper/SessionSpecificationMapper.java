@@ -36,6 +36,8 @@ public class SessionSpecificationMapper {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("location").in(((Session.LocationsSpecification) sessionSpecification).getLocations());
     } else if (sessionSpecification instanceof Session.ProgrammeSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("programme").in(((Session.ProgrammeSpecification) sessionSpecification).getProgramme());
+    } else if (sessionSpecification instanceof Session.UserIdsSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("userEntity").get("id").in(((Session.UserIdsSpecification) sessionSpecification).getIds().stream().map(UUID::toString).collect(Collectors.toList()));
     } else if (sessionSpecification instanceof Session.DateTimeSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> {
         LocalDateTime parsedLocalDateTime = ((Session.DateTimeSpecification) sessionSpecification).getLocalDateTime();

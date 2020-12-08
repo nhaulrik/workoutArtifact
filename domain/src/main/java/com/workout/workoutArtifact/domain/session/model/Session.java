@@ -116,6 +116,18 @@ public class Session {
   }
 
   @Value
+  public static class UserIdsSpecification extends AbstractSpecification<Session> {
+
+    private final List<UUID> ids;
+
+    // TODO: 08-12-2020 this is a hack
+    @Override
+    public boolean isSatisfiedBy(Session session) {
+      return true;
+    }
+  }
+
+  @Value
   public static class IdsSpecification extends AbstractSpecification<Session> {
 
     private final List<UUID> ids;

@@ -11,4 +11,5 @@ public interface SessionRepository {
   Boolean deleteSessions(Specification<Session> sessionSpecification);
 
   UUID createSession(Session session);
+  UUID save(Session session);
 }
