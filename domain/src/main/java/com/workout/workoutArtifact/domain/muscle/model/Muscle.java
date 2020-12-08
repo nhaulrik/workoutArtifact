@@ -19,7 +19,7 @@ public class Muscle {
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<Muscle> {
-    private final List<Long> ids;
+    private final List<UUID> ids;
 
     @Override
     public boolean isSatisfiedBy(Muscle muscle) {

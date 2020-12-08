@@ -1,6 +1,7 @@
 package com.workout.workoutArtifact.graphql.configuration;
 
 import com.workout.workoutArtifact.graphql.graphqlservice.ExerciseGraphQLService;
+import com.workout.workoutArtifact.graphql.graphqlservice.MuscleGraphQLService;
 import com.workout.workoutArtifact.graphql.graphqlservice.SessionGraphQLService;
 import com.workout.workoutArtifact.graphql.graphqlservice.UserGraphQLService;
 import com.workout.workoutArtifact.graphql.graphqlservice.WorkoutExerciseGraphQLService;
@@ -29,7 +30,7 @@ public class GraphQLSPQRConfig {
   @Bean
   public GraphQL graphQL(
       ExerciseGraphQLService exerciseGraphQLService,
-//      MuscleGraphQLService muscleGraphQLService,
+      MuscleGraphQLService muscleGraphQLService,
       WorkoutSetGraphQLService workoutSetGraphQLService,
       SessionGraphQLService sessionGraphQLService,
       UserGraphQLService userGraphQLService,
@@ -41,7 +42,7 @@ public class GraphQLSPQRConfig {
             new PublicResolverBuilder("com.workout.workoutartifact"))
         .withOperationsFromSingletons(
             exerciseGraphQLService,
-//            muscleGraphQLService,
+            muscleGraphQLService,
             workoutSetGraphQLService,
             sessionGraphQLService,
             userGraphQLService,
