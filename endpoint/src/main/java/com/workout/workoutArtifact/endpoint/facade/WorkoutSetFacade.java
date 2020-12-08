@@ -1,8 +1,8 @@
 package com.workout.workoutArtifact.endpoint.facade;
 
 import com.workout.workoutArtifact.domain.workoutset.service.WorkoutSetService;
-import com.workout.workoutArtifact.endpoint.request.PostWorkoutSetRequest;
-import com.workout.workoutArtifact.endpoint.request.PostWorkoutSetResponse;
+import com.workout.workoutArtifact.endpoint.request.workoutset.PostWorkoutSetRequest;
+import com.workout.workoutArtifact.endpoint.request.workoutset.PostWorkoutSetResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

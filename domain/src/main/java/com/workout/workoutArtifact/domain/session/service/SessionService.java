@@ -4,6 +4,7 @@ import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.domain.session.model.SessionRepository;
 import com.workout.workoutArtifact.domain.user.model.User;
 import com.workout.workoutArtifact.domain.user.model.User.IdsSpecification;
+import com.workout.workoutArtifact.domain.user.model.UserRepository;
 import com.workout.workoutArtifact.domain.user.service.UserService;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -17,22 +18,34 @@ import org.springframework.stereotype.Component;
 public class SessionService {
 
   private final SessionRepository sessionRepository;
-  private final UserService userService;
+  private final UserRepository userRepository;
 
-  public UUID createSession(UUID userId, LocalDate time) {
+  public UUID postSession(UUID id, UUID userId, LocalDate time, String location, String programme, String splitName) {
 
-    Optional<User> userOptional = userService.getUser(new IdsSpecification(Arrays.asList(userId)));
+    Optional<User> userOptional = userRepository.getUsers(new IdsSpecification(Arrays.asList(userId))).stream().findFirst();
 
     if (userOptional.isPresent()) {
       User user = userOptional.get();
 
-      Session newSession = Session.createNewSession(time.atStartOfDay());
-      user.addSession(newSession);
+      Optional<Session> sessionOptional = user.getSession(id);
 
-      userService.save(user);
-      return newSession.getId();
+      Session session;
+      if (sessionOptional.isPresent()) {
+        session = sessionOptional.get();
+
+      } else {
+        session = Session.createNewSession(
+            time.atStartOfDay(),
+            location,
+            programme,
+            splitName
+        );
+        user.addSession(session);
+      }
+      userRepository.save(user);
+      return session.getId();
     }
-    throw new RuntimeException(String.format("could not create session with userId: %s and time: %s", userId, time.toString()));
+    throw new RuntimeException(String.format("could not post session with userId: %s", userId));
   }
 
   public UUID save(Session session) {

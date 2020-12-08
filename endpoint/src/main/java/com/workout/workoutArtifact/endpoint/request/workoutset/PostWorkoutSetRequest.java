@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.endpoint.request;
+package com.workout.workoutArtifact.endpoint.request.workoutset;
 
 import java.util.UUID;
 import lombok.NonNull;

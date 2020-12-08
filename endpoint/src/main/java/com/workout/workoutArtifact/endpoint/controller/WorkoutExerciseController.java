@@ -1,8 +1,8 @@
 package com.workout.workoutArtifact.endpoint.controller;
 
 import com.workout.workoutArtifact.endpoint.facade.WorkoutExerciseFacade;
-import com.workout.workoutArtifact.endpoint.request.workoutexercise.CreateWorkoutExerciseRequest;
-import com.workout.workoutArtifact.endpoint.request.workoutexercise.CreateWorkoutExerciseResponse;
+import com.workout.workoutArtifact.endpoint.request.workoutexercise.PostWorkoutExerciseRequest;
+import com.workout.workoutArtifact.endpoint.request.workoutexercise.PostWorkoutExerciseResponse;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ public class WorkoutExerciseController {
   private final WorkoutExerciseFacade workoutExerciseFacade;
 
   @PostMapping(consumes = "application/json", produces = "application/json")
-  public CreateWorkoutExerciseResponse createWorkoutExercises(@RequestBody List<CreateWorkoutExerciseRequest> postWorkoutExerciseRequests) {
-    return workoutExerciseFacade.createWorkoutExercises(postWorkoutExerciseRequests);
+  public PostWorkoutExerciseResponse postWorkoutExercises(@RequestBody List<PostWorkoutExerciseRequest> postWorkoutExerciseRequests) {
+    return workoutExerciseFacade.postWorkoutExercises(postWorkoutExerciseRequests);
   }
 
   @DeleteMapping("/{id}")

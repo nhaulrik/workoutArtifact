@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.endpoint.request;
+package com.workout.workoutArtifact.endpoint.request.workoutset;
 
 import java.util.List;
 import java.util.UUID;

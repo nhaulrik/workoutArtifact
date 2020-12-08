@@ -100,6 +100,13 @@ public class User {
     this.sessions.add(session);
   }
 
+  public Optional<Session> getSession(UUID id) {
+    if (id == null) {
+      return Optional.empty();
+    }
+    return this.sessions.stream().filter(ws -> id.equals(ws.getId())).findFirst();
+  }
+
   public enum Gender {
     MALE,
     FEMALE

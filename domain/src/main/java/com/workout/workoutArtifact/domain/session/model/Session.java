@@ -35,13 +35,13 @@ public class Session {
     this.workoutExercises.addAll(workoutExercises);
   }
 
-  public static Session createNewSession(LocalDateTime localDateTime) {
+  public static Session createNewSession(LocalDateTime localDateTime, String location, String programme, String splitName) {
     Session session = new Session(
         UUID.randomUUID(),
         localDateTime,
-        null,
-        null,
-        null,
+        location,
+        programme,
+        splitName,
         new ArrayList<>()
     );
     return session;

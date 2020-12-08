@@ -45,6 +45,11 @@ public class WorkoutExercise {
     return this.workoutSets.stream().filter(ws -> id.equals(ws.getId())).findFirst();
   }
 
+  public void changeExerciseNumber(Integer exerciseNumber) {
+    Assert.notNull(exerciseNumber, "exerciseNumber is required");
+    this.exerciseNumber = exerciseNumber;
+  }
+
   @Value
   public static class IdsSpecification extends AbstractSpecification<WorkoutExercise> {
 

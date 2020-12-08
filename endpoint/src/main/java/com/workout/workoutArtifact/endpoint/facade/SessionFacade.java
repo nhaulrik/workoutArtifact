@@ -1,8 +1,8 @@
 package com.workout.workoutArtifact.endpoint.facade;
 
 import com.workout.workoutArtifact.domain.session.service.SessionService;
-import com.workout.workoutArtifact.endpoint.request.CreateSessionRequest;
-import com.workout.workoutArtifact.endpoint.request.CreateSessionResponse;
+import com.workout.workoutArtifact.endpoint.request.session.PostSessionRequest;
+import com.workout.workoutArtifact.endpoint.request.session.PostSessionResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -17,13 +17,20 @@ public class SessionFacade {
 
   private final SessionService sessionService;
 
-  public CreateSessionResponse createSessions(List<CreateSessionRequest> createSessionRequests) {
+  public PostSessionResponse postSessions(List<PostSessionRequest> postSessionRequests) {
 
     List<UUID> sessionIds = new ArrayList<>();
-    createSessionRequests.forEach(createSessionRequest -> {
-      sessionIds.add(sessionService.createSession(createSessionRequest.getUserId(), createSessionRequest.getTime()));
+    postSessionRequests.forEach(postSessionRequest -> {
+      sessionIds.add(sessionService.postSession(
+          postSessionRequest.getId(),
+          postSessionRequest.getUserId(),
+          postSessionRequest.getTime(),
+          postSessionRequest.getLocation(),
+          postSessionRequest.getProgramme(),
+          postSessionRequest.getSplitName()
+          ));
     });
-    return new CreateSessionResponse(sessionIds);
+    return new PostSessionResponse(sessionIds);
   }
 
   public Boolean deleteSession(UUID id) { return sessionService.deleteSession(id); }

@@ -25,24 +25,29 @@ public class WorkoutExerciseService {
     return workoutExerciseRepository.deleteWorkoutExercise(id);
   }
 
-  public UUID createWorkoutExercise(UUID id, UUID exerciseId, Integer exerciseNumber, UUID sessionId) {
+  public UUID postWorkoutExercise(UUID id, UUID exerciseId, Integer exerciseNumber, UUID sessionId) {
 
     Optional<Session> sessionOptional = sessionRepository.getSessions(new Session.IdsSpecification(Arrays.asList(sessionId))).stream().findFirst();
 
     if (sessionOptional.isPresent()) {
       Session session = sessionOptional.get();
 
-      WorkoutExercise workoutExercise = WorkoutExercise.createWorkoutExercise(
-          exerciseNumber,
-          new ArrayList<>(),
-          exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst().get()
-      );
-
-      session.getWorkoutExercises().add(workoutExercise);
-
+      Optional<WorkoutExercise> workoutExerciseOptional = session.getWorkoutExercise(id);
+      WorkoutExercise workoutExercise;
+      if (workoutExerciseOptional.isPresent()) {
+        workoutExercise = workoutExerciseOptional.get();
+        if (exerciseNumber != null && exerciseNumber != workoutExercise.getExerciseNumber()) { workoutExercise.changeExerciseNumber(exerciseNumber); }
+      } else {
+        workoutExercise = WorkoutExercise.createWorkoutExercise(
+            exerciseNumber,
+            new ArrayList<>(),
+            exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst().get()
+        );
+        session.addWorkoutExercise(workoutExercise);
+      }
       sessionRepository.save(session);
       return workoutExercise.getId();
     }
-    return null;
+    throw new RuntimeException(String.format("session with id %s was not found", sessionId));
   }
 }

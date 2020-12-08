@@ -5,8 +5,8 @@ import java.util.UUID;
 import lombok.Value;
 
 @Value
-public class CreateWorkoutExerciseResponse {
+public class PostWorkoutExerciseResponse {
 
-  private final List<UUID> ids;
+  private final List<UUID> postedWorkoutExerciseIds;
 
 }

@@ -1,8 +1,8 @@
 package com.workout.workoutArtifact.endpoint.controller;
 
 import com.workout.workoutArtifact.endpoint.facade.SessionFacade;
-import com.workout.workoutArtifact.endpoint.request.CreateSessionRequest;
-import com.workout.workoutArtifact.endpoint.request.CreateSessionResponse;
+import com.workout.workoutArtifact.endpoint.request.session.PostSessionRequest;
+import com.workout.workoutArtifact.endpoint.request.session.PostSessionResponse;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ public class SessionController {
   private final SessionFacade sessionFacade;
 
   @PostMapping(consumes = "application/json", produces = "application/json")
-  public CreateSessionResponse createSessions(@RequestBody List<CreateSessionRequest> createSessionRequests) {
-    return sessionFacade.createSessions(createSessionRequests);
+  public PostSessionResponse postSessions(@RequestBody List<PostSessionRequest> createSessionRequests) {
+    return sessionFacade.postSessions(createSessionRequests);
   }
 
   @DeleteMapping("/{id}")
