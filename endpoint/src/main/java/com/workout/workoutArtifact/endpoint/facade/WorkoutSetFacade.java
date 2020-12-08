@@ -33,7 +33,7 @@ public class WorkoutSetFacade {
     return new PostWorkoutSetResponse(workoutSetIds);
   }
 
-  public void deleteWorkoutSet(UUID id) {
-    workoutSetService.deleteWorkoutSet(id);
+  public Boolean deleteWorkoutSet(UUID id) {
+    return workoutSetService.deleteWorkoutSet(id);
   }
 }

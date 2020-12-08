@@ -49,8 +49,9 @@ public class WorkoutSetEntityRepository implements WorkoutSetRepository {
 
   @Transactional
   @Override
-  public void deleteWorkoutSet(UUID id) {
+  public Boolean deleteWorkoutSet(UUID id) {
     workoutSetJpaRepository.deleteAllById(id.toString());
+    return ! workoutSetJpaRepository.existsById(id.toString());
   }
 
   @Override

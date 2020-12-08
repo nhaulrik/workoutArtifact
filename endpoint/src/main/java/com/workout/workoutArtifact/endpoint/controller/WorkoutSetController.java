@@ -4,7 +4,9 @@ import com.workout.workoutArtifact.endpoint.facade.WorkoutSetFacade;
 import com.workout.workoutArtifact.endpoint.request.PostWorkoutSetRequest;
 import com.workout.workoutArtifact.endpoint.request.PostWorkoutSetResponse;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,5 +24,9 @@ public class WorkoutSetController {
     return workoutSetFacade.postWorkoutSet(postWorkoutSetRequests);
   }
 
+  @DeleteMapping("/{id}")
+  public Boolean deleteWorkoutSet(UUID id) {
+    return workoutSetFacade.deleteWorkoutSet(id);
+  }
 
 }
