@@ -26,4 +26,6 @@ public class SessionFacade {
     return new CreateSessionResponse(sessionIds);
   }
 
+  public Boolean deleteSession(UUID id) { return sessionService.deleteSession(id); }
+
 }

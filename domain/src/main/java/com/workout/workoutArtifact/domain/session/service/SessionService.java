@@ -38,4 +38,8 @@ public class SessionService {
   public UUID save(Session session) {
     return sessionRepository.save(session);
   }
+
+  public Boolean deleteSession(UUID id) {
+    return sessionRepository.deleteSessions(new Session.IdsSpecification(Arrays.asList(id)));
+  }
 }

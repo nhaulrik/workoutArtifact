@@ -19,14 +19,14 @@ public class WorkoutExerciseController {
 
   private final WorkoutExerciseFacade workoutExerciseFacade;
 
-  @DeleteMapping("/{id}")
-  public Boolean deleteWorkoutExercise(UUID id) {
-    return workoutExerciseFacade.deleteWorkoutExercise(id);
-  }
-
   @PostMapping(consumes = "application/json", produces = "application/json")
   public CreateWorkoutExerciseResponse createWorkoutExercises(@RequestBody List<CreateWorkoutExerciseRequest> postWorkoutExerciseRequests) {
     return workoutExerciseFacade.createWorkoutExercises(postWorkoutExerciseRequests);
+  }
+
+  @DeleteMapping("/{id}")
+  public Boolean deleteWorkoutExercise(UUID id) {
+    return workoutExerciseFacade.deleteWorkoutExercise(id);
   }
 
 }

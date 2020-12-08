@@ -15,7 +15,6 @@ public class WorkoutSetFacade {
 
   private final WorkoutSetService workoutSetService;
 
-
   public PostWorkoutSetResponse postWorkoutSet(List<PostWorkoutSetRequest> postWorkoutSetRequests) {
 
     List<UUID> workoutSetIds = new ArrayList<>();

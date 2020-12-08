@@ -15,10 +15,6 @@ public class WorkoutExerciseFacade {
 
   private final WorkoutExerciseService workoutExerciseService;
 
-  public Boolean deleteWorkoutExercise(UUID id) {
-    return workoutExerciseService.deleteWorkoutExercise(id);
-  }
-
   public CreateWorkoutExerciseResponse createWorkoutExercises(List<CreateWorkoutExerciseRequest> createWorkoutExerciseRequests) {
 
     List<UUID> workoutExerciseIds = new ArrayList<>();
@@ -33,4 +29,7 @@ public class WorkoutExerciseFacade {
     return new CreateWorkoutExerciseResponse(workoutExerciseIds);
   }
 
+  public Boolean deleteWorkoutExercise(UUID id) {
+    return workoutExerciseService.deleteWorkoutExercise(id);
+  }
 }
