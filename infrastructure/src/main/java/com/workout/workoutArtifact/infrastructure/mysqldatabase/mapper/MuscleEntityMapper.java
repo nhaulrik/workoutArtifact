@@ -10,7 +10,7 @@ public class MuscleEntityMapper {
 
   public Muscle toDomainObject(MuscleEntity muscleEntity) {
     return Muscle.builder()
-        .id(UUID.fromString(muscleEntity.getId()))
+        .id(muscleEntity.getId())
         .name(muscleEntity.getName())
         .bodyPart(muscleEntity.getBodyPart())
         .build();

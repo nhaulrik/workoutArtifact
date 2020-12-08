@@ -3,15 +3,12 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,4 +48,7 @@ public class MuscleEntity {
   @ManyToMany(mappedBy = "muscleEntities")
   private List<ExerciseEntity> exerciseEntities = new ArrayList<>();
 
+  public UUID getId() {
+    return UUID.fromString(this.id);
+  }
 }
