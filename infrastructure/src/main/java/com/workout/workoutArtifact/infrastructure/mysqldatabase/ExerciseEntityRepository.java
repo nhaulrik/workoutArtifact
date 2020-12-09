@@ -17,9 +17,9 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class ExerciseEntityRepository implements ExerciseRepository {
 
-  private final ExerciseEntityMapper exerciseEntityMapper;
   private final ExerciseJpaRepository exerciseJpaRepository;
   private final ExerciseSpecificationMapper exerciseSpecificationMapper;
+  private final ExerciseEntityMapper exerciseEntityMapper;
 
   @Override
   public List<Exercise> getExercises(Specification<Exercise> exerciseSpecification) {

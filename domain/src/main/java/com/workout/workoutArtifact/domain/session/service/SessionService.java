@@ -7,6 +7,7 @@ import com.workout.workoutArtifact.domain.user.model.User.IdsSpecification;
 import com.workout.workoutArtifact.domain.user.model.UserRepository;
 import com.workout.workoutArtifact.domain.user.service.UserService;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,7 +21,7 @@ public class SessionService {
   private final SessionRepository sessionRepository;
   private final UserRepository userRepository;
 
-  public UUID postSession(UUID id, UUID userId, LocalDate time, String location, String programme, String splitName) {
+  public UUID postSession(UUID id, UUID userId, LocalDateTime time, String location, String programme, String splitName) {
 
     Optional<User> userOptional = userRepository.getUsers(new IdsSpecification(Arrays.asList(userId))).stream().findFirst();
 
@@ -33,9 +34,13 @@ public class SessionService {
       if (sessionOptional.isPresent()) {
         session = sessionOptional.get();
 
+        if (location != null && location != session.getLocation()) { session.changeLocation(location); }
+        if (programme != null && programme != session.getProgramme()) { session.changeProgramme(programme); }
+        if (splitName != null && splitName != session.getSplitName()) { session.changeSplitName(splitName); }
+
       } else {
         session = Session.createNewSession(
-            time.atStartOfDay(),
+            time,
             location,
             programme,
             splitName

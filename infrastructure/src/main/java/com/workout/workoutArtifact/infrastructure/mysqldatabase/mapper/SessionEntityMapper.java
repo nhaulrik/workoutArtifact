@@ -4,7 +4,6 @@ import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

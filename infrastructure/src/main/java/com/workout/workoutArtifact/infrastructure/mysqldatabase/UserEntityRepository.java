@@ -18,8 +18,8 @@ public class UserEntityRepository implements UserRepository {
 
 
   private final UserJpaRepository userJpaRepository;
-  private final UserEntityMapper userEntityMapper;
   private final UserSpecificationMapper userSpecificationMapper;
+  private final UserEntityMapper userEntityMapper;
 
   @Override
   public List<User> getUsers(Specification<User> userSpecification) {

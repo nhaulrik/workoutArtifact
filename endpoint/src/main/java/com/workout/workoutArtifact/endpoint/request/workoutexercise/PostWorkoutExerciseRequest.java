@@ -7,7 +7,6 @@ import lombok.Value;
 @Value
 public class PostWorkoutExerciseRequest {
 
-  @NonNull
   private final UUID id;
   @NonNull
   private final Integer exerciseNumber;

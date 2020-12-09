@@ -21,7 +21,7 @@ public class GraphQLController {
 
   private final GraphQL graphQL;
 
-  @CrossOrigin(origins = {"http://localhost:4200", "http://46.101.126.222:4200"})
+  @CrossOrigin(origins = {"http://localhost:4200"})
   @RequestMapping(value = "/graphql", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ResponseBody
   public Map<String, Object> graphql(

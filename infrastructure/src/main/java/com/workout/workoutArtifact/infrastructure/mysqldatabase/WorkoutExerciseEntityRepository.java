@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class WorkoutExerciseEntityRepository implements WorkoutExerciseRepository {
 
   private final WorkoutExerciseJpaRepository workoutExerciseJpaRepository;
-  private final WorkoutExerciseEntityMapper workoutExerciseEntityMapper;
   private final WorkoutExerciseSpecificationMapper workoutExerciseSpecificationMapper;
+  private final WorkoutExerciseEntityMapper workoutExerciseEntityMapper;
 
   @Transactional
   @Override

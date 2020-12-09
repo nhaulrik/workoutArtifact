@@ -10,7 +10,6 @@ import java.util.Optional;
 import java.util.UUID;
 import lombok.Data;
 import lombok.Value;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.util.Assert;
 
 @Data
@@ -33,6 +32,7 @@ public class Session {
     this.programme = programme;
     this.splitName = splitName;
     this.workoutExercises.addAll(workoutExercises);
+    this.user = user;
   }
 
   public static Session createNewSession(LocalDateTime localDateTime, String location, String programme, String splitName) {
@@ -52,17 +52,14 @@ public class Session {
   }
 
   public void changeLocation(String location) {
-    Assert.notNull(location, "location is required");
     this.location = location;
   }
 
   public void changeProgramme(String programme) {
-    Assert.isTrue(!Strings.isBlank(programme), "programme is required");
     this.programme = programme;
   }
 
   public void changeSplitName(String splitName) {
-    Assert.isTrue(!Strings.isBlank(splitName), "splitName is required");
     this.splitName = splitName;
   }
 
