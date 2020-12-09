@@ -1,7 +1,6 @@
 package com.workout.workoutArtifact.domain.session.model;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
-import com.workout.workoutArtifact.domain.user.model.User;
 import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExercise;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ public class Session {
   private String location;
   private String programme;
   private String splitName;
-  private User user;
 
   private final List<WorkoutExercise> workoutExercises = new ArrayList<>();
 
@@ -32,7 +30,6 @@ public class Session {
     this.programme = programme;
     this.splitName = splitName;
     this.workoutExercises.addAll(workoutExercises);
-    this.user = user;
   }
 
   public static Session createNewSession(LocalDateTime localDateTime, String location, String programme, String splitName) {
@@ -66,11 +63,6 @@ public class Session {
   public void changeTime(LocalDateTime localDateTime) {
     Assert.notNull(localDateTime, "localDateTime is required");
     this.creationDateTime = localDateTime;
-  }
-
-  public void changeUser(User user) {
-    Assert.notNull(user, "user is required");
-    this.user = user;
   }
 
   public Optional<WorkoutExercise> getWorkoutExercise(UUID id) {

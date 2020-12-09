@@ -8,6 +8,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class WorkoutSetController {
   }
 
   @DeleteMapping("/{id}")
-  public Boolean deleteWorkoutSet(UUID id) {
+  public Boolean deleteWorkoutSet(@PathVariable UUID id) {
     return workoutSetFacade.deleteWorkoutSet(id);
   }
 

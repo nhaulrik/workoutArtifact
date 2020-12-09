@@ -3,7 +3,9 @@ package com.workout.workoutArtifact.domain.workoutExercise.service;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise.ExerciseIdSpecification;
 import com.workout.workoutArtifact.domain.exercise.model.ExerciseRepository;
 import com.workout.workoutArtifact.domain.session.model.Session;
-import com.workout.workoutArtifact.domain.session.model.SessionRepository;
+import com.workout.workoutArtifact.domain.user.model.User;
+import com.workout.workoutArtifact.domain.user.model.User.IdsSpecification;
+import com.workout.workoutArtifact.domain.user.model.UserRepository;
 import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExercise;
 import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExerciseRepository;
 import java.util.ArrayList;
@@ -18,36 +20,34 @@ import org.springframework.stereotype.Component;
 public class WorkoutExerciseService {
 
   private final WorkoutExerciseRepository workoutExerciseRepository;
-  private final SessionRepository sessionRepository;
+  private final UserRepository userRepository;
   private final ExerciseRepository exerciseRepository;
 
   public Boolean deleteWorkoutExercise(UUID id) {
     return workoutExerciseRepository.deleteWorkoutExercise(id);
   }
 
-  public UUID postWorkoutExercise(UUID id, UUID exerciseId, Integer exerciseNumber, UUID sessionId) {
+  public UUID postWorkoutExercise(UUID id, UUID userId, UUID exerciseId, Integer exerciseNumber, UUID sessionId) {
 
-    Optional<Session> sessionOptional = sessionRepository.getSessions(new Session.IdsSpecification(Arrays.asList(sessionId))).stream().findFirst();
+    User user = userRepository.getUsers(new IdsSpecification(Arrays.asList(userId))).stream().findFirst().get();
+    Session session = user.getSession(sessionId).get();
 
-    if (sessionOptional.isPresent()) {
-      Session session = sessionOptional.get();
-
-      Optional<WorkoutExercise> workoutExerciseOptional = session.getWorkoutExercise(id);
-      WorkoutExercise workoutExercise;
-      if (workoutExerciseOptional.isPresent()) {
-        workoutExercise = workoutExerciseOptional.get();
-        if (exerciseNumber != null && exerciseNumber != workoutExercise.getExerciseNumber()) { workoutExercise.changeExerciseNumber(exerciseNumber); }
-      } else {
-        workoutExercise = WorkoutExercise.createWorkoutExercise(
-            exerciseNumber,
-            new ArrayList<>(),
-            exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst().get()
-        );
-        session.addWorkoutExercise(workoutExercise);
+    Optional<WorkoutExercise> workoutExerciseOptional = session.getWorkoutExercise(id);
+    WorkoutExercise workoutExercise;
+    if (workoutExerciseOptional.isPresent()) {
+      workoutExercise = workoutExerciseOptional.get();
+      if (exerciseNumber != null && exerciseNumber != workoutExercise.getExerciseNumber()) {
+        workoutExercise.changeExerciseNumber(exerciseNumber);
       }
-      sessionRepository.save(session);
-      return workoutExercise.getId();
+    } else {
+      workoutExercise = WorkoutExercise.createWorkoutExercise(
+          exerciseNumber,
+          new ArrayList<>(),
+          exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst().get()
+      );
+      session.addWorkoutExercise(workoutExercise);
     }
-    throw new RuntimeException(String.format("session with id %s was not found", sessionId));
+    userRepository.save(user);
+    return workoutExercise.getId();
   }
 }

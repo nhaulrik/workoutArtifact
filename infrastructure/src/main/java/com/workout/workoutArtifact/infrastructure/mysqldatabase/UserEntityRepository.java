@@ -8,6 +8,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.UserEntit
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.UserSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.UserJpaRepository;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -40,8 +41,8 @@ public class UserEntityRepository implements UserRepository {
   }
 
   @Override
-  public void save(User user) {
+  public UUID save(User user) {
     UserEntity userEntity = userEntityMapper.toEntity(user);
-    userJpaRepository.save(userEntity);
+    return userJpaRepository.save(userEntity).getId();
   }
 }

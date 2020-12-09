@@ -50,6 +50,15 @@ public class WorkoutExercise {
     this.exerciseNumber = exerciseNumber;
   }
 
+  public void addWorkoutSet(WorkoutSet workoutSet) {
+    Assert.notNull(workoutSet, "workoutSet is required");
+
+    if (this.workoutSets.stream().filter(we -> we.getId().equals(we)).findAny().isPresent()) {
+      throw new RuntimeException(String.format("workoutSet with id: %s is already present on workoutExercise with id: %s", workoutSet.getId().toString(), this.id.toString()));
+    }
+    this.workoutSets.add(workoutSet);
+  }
+
   @Value
   public static class IdsSpecification extends AbstractSpecification<WorkoutExercise> {
 
