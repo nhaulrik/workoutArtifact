@@ -19,19 +19,22 @@ public class WorkoutExercise {
   private List<WorkoutSet> workoutSets;
   private Exercise exercise;
 
-  private WorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise) {
+  private UUID sessionId;
+
+  private WorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise, UUID sessionId) {
     this.id = id;
     this.exerciseNumber = exerciseNumber;
     this.workoutSets = workoutSets;
     this.exercise = exercise;
+    this.sessionId = sessionId;
   }
 
-  public static WorkoutExercise createWorkoutExercise(Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise) {
-    return new WorkoutExercise(UUID.randomUUID(), exerciseNumber, workoutSets, exercise);
+  public static WorkoutExercise createWorkoutExercise(Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise, UUID sessionId) {
+    return new WorkoutExercise(UUID.randomUUID(), exerciseNumber, workoutSets, exercise, sessionId);
   }
 
-  public static WorkoutExercise initializeWorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise) {
-    return new WorkoutExercise(id, exerciseNumber, workoutSets, exercise);
+  public static WorkoutExercise initializeWorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise, UUID sessionId) {
+    return new WorkoutExercise(id, exerciseNumber, workoutSets, exercise, sessionId);
   }
 
   public void updateExerciseNumber(Integer exerciseNumber) {

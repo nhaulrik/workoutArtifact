@@ -48,7 +48,8 @@ public class WorkoutExerciseService {
       workoutExercise = WorkoutExercise.createWorkoutExercise(
           exerciseNumber,
           new ArrayList<>(),
-          exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst().get()
+          exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst().get(),
+          sessionId
       );
       session.addWorkoutExercise(workoutExercise);
     }

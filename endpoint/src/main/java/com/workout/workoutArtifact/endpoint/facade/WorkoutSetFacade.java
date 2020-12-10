@@ -21,8 +21,6 @@ public class WorkoutSetFacade {
     postWorkoutSetRequests.forEach(postWorkoutSetRequest -> {
       workoutSetIds.add(workoutSetService.postWorkoutSet(
           postWorkoutSetRequest.getId(),
-          postWorkoutSetRequest.getUserId(),
-          postWorkoutSetRequest.getSessionId(),
           postWorkoutSetRequest.getSetNumber(),
           postWorkoutSetRequest.getWeight(),
           postWorkoutSetRequest.getRepetitions(),
