@@ -43,7 +43,8 @@ public class SessionService {
             time,
             location,
             programme,
-            splitName
+            splitName,
+            userId
         );
         user.addSession(session);
       }

@@ -20,32 +20,35 @@ public class Session {
   private String location;
   private String programme;
   private String splitName;
+  private UUID userId;
 
   private final List<WorkoutExercise> workoutExercises = new ArrayList<>();
 
-  private Session(UUID id, LocalDateTime creationDateTime, String location, String programme, String splitName, List<WorkoutExercise> workoutExercises) {
+  private Session(UUID id, LocalDateTime creationDateTime, String location, String programme, String splitName, List<WorkoutExercise> workoutExercises, UUID userId) {
     this.id = id;
     this.creationDateTime = creationDateTime;
     this.location = location;
     this.programme = programme;
     this.splitName = splitName;
     this.workoutExercises.addAll(workoutExercises);
+    this.userId = userId;
   }
 
-  public static Session createNewSession(LocalDateTime localDateTime, String location, String programme, String splitName) {
+  public static Session createNewSession(LocalDateTime localDateTime, String location, String programme, String splitName, UUID userId) {
     Session session = new Session(
         UUID.randomUUID(),
         localDateTime,
         location,
         programme,
         splitName,
-        new ArrayList<>()
+        new ArrayList<>(),
+        userId
     );
     return session;
   }
 
-  public static Session instantiate(UUID id, LocalDateTime creationDateTime, String programme, String splitName, String location, List<WorkoutExercise> workoutExercises) {
-    return new Session(id, creationDateTime, location, programme, splitName, workoutExercises);
+  public static Session instantiate(UUID id, LocalDateTime creationDateTime, String programme, String splitName, String location, List<WorkoutExercise> workoutExercises, UUID userId) {
+    return new Session(id, creationDateTime, location, programme, splitName, workoutExercises, userId);
   }
 
   public void changeLocation(String location) {

@@ -4,8 +4,9 @@ import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise.ExerciseIdSpecification;
 import com.workout.workoutArtifact.domain.exercise.model.ExerciseRepository;
 import com.workout.workoutArtifact.domain.session.model.Session;
+import com.workout.workoutArtifact.domain.session.model.Session.IdsSpecification;
+import com.workout.workoutArtifact.domain.session.model.SessionRepository;
 import com.workout.workoutArtifact.domain.user.model.User;
-import com.workout.workoutArtifact.domain.user.model.User.IdsSpecification;
 import com.workout.workoutArtifact.domain.user.model.UserRepository;
 import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExercise;
 import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExerciseRepository;
@@ -21,17 +22,16 @@ import org.springframework.stereotype.Component;
 public class WorkoutExerciseService {
 
   private final WorkoutExerciseRepository workoutExerciseRepository;
-  private final UserRepository userRepository;
   private final ExerciseRepository exerciseRepository;
+  private final SessionRepository sessionRepository;
 
   public Boolean deleteWorkoutExercise(UUID id) {
     return workoutExerciseRepository.deleteWorkoutExercise(id);
   }
 
-  public UUID postWorkoutExercise(UUID id, UUID userId, UUID exerciseId, Integer exerciseNumber, UUID sessionId) {
+  public UUID postWorkoutExercise(UUID id, UUID exerciseId, Integer exerciseNumber, UUID sessionId) {
 
-    User user = userRepository.getUsers(new IdsSpecification(Arrays.asList(userId))).stream().findFirst().get();
-    Session session = user.getSession(sessionId).get();
+    Session session = sessionRepository.getSessions(new IdsSpecification(Arrays.asList(sessionId))).stream().findFirst().get();
 
     Optional<WorkoutExercise> workoutExerciseOptional = session.getWorkoutExercise(id);
     WorkoutExercise workoutExercise;
@@ -53,7 +53,7 @@ public class WorkoutExerciseService {
       );
       session.addWorkoutExercise(workoutExercise);
     }
-    userRepository.save(user);
+    sessionRepository.save(session);
     return workoutExercise.getId();
   }
 }

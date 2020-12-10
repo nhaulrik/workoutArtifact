@@ -2,8 +2,10 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper;
 
 import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.UserEntity;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class SessionEntityMapper {
 
   private final WorkoutExerciseEntityMapper workoutExerciseEntityMapper;
+  private final EntityManager entityManager;
 
   public SessionEntity toEntity(Session session) {
     SessionEntity sessionEntity = new SessionEntity();
@@ -23,6 +26,9 @@ public class SessionEntityMapper {
     sessionEntity.setLocation(session.getLocation());
     sessionEntity.setWorkoutExercises(session.getWorkoutExercises().stream().map(workoutExerciseEntityMapper::toEntity).collect(Collectors.toList()));
     sessionEntity.getWorkoutExercises().forEach(workoutExerciseEntity -> workoutExerciseEntity.setSessionEntity(sessionEntity));
+
+    sessionEntity.setUserEntity(entityManager.getReference(UserEntity.class, session.getUserId().toString()));
+
     return sessionEntity;
   }
 
@@ -39,7 +45,9 @@ public class SessionEntityMapper {
         sessionEntity.getProgramme(),
         sessionEntity.getSplitName(),
         sessionEntity.getLocation(),
-        sessionEntity.getWorkoutExercises().stream().map(workoutExerciseEntityMapper::toDomain).collect(Collectors.toList()));
+        sessionEntity.getWorkoutExercises().stream().map(workoutExerciseEntityMapper::toDomain).collect(Collectors.toList()),
+        sessionEntity.getUserEntity().getId()
+    );
 
     return session;
   }
