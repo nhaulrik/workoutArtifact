@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.Data;
+import lombok.Getter;
 import lombok.Value;
 import org.springframework.util.Assert;
 
-@Data
+@Getter
 public class WorkoutExercise {
 
   private UUID id;
@@ -57,6 +58,11 @@ public class WorkoutExercise {
       throw new RuntimeException(String.format("workoutSet with id: %s is already present on workoutExercise with id: %s", workoutSet.getId().toString(), this.id.toString()));
     }
     this.workoutSets.add(workoutSet);
+  }
+
+  public void changeExercise(Exercise newExercise) {
+    Assert.notNull(newExercise, "exercise is required");
+    this.exercise = newExercise;
   }
 
   @Value

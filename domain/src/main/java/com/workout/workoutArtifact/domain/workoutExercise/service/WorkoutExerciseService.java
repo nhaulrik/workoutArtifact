@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.domain.workoutExercise.service;
 
+import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.exercise.model.Exercise.ExerciseIdSpecification;
 import com.workout.workoutArtifact.domain.exercise.model.ExerciseRepository;
 import com.workout.workoutArtifact.domain.session.model.Session;
@@ -38,6 +39,10 @@ public class WorkoutExerciseService {
       workoutExercise = workoutExerciseOptional.get();
       if (exerciseNumber != null && exerciseNumber != workoutExercise.getExerciseNumber()) {
         workoutExercise.changeExerciseNumber(exerciseNumber);
+      }
+      if (!exerciseId.equals(workoutExercise.getExercise().getId())) {
+        Exercise newExercise = exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst().get();
+        workoutExercise.changeExercise(newExercise);
       }
     } else {
       workoutExercise = WorkoutExercise.createWorkoutExercise(
