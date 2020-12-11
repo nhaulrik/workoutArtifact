@@ -17,15 +17,6 @@
       <groupId>com.workout</groupId>
       <artifactId>domain</artifactId>
       <version>0.0.1</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
     </dependency>
   </dependencies>
 
@@ -41,10 +32,10 @@
         <configuration>
           <propertyFile>src/main/resources/liquibase.properties</propertyFile>
           <outputChangeLogFile>
-            src/main/resources/db/changelog/${timestamp}_${changelogName}.mysql.sql
+            src/main/resources/db/changelog/${timestamp}_${changelogName}.postgresql.sql
           </outputChangeLogFile>
           <diffChangeLogFile>
-            src/main/resources/db/changelog/${timestamp}_${changelogName}.mysql.sql
+            src/main/resources/db/changelog/${timestamp}_${changelogName}.postgresql.sql
           </diffChangeLogFile>
           <logging>info</logging>
           <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>

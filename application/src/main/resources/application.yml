@@ -32,10 +32,10 @@ spring:
     url: jdbc:mysql://localhost:3306/workoutdb-dev
     username: root
     password: 1234
-#  liquibase:
-#    enabled: true
-#    change-log: classpath:db/db.db.changelog.xml
-#    contexts: dev
+  liquibase:
+    enabled: true
+    change-log: classpath:db/db.changelog.xml
+    contexts: dev
 ---
 spring:
   profiles: prod
@@ -48,5 +48,5 @@ spring:
     password: 1234
   liquibase:
     enabled: true
-    change-log: classpath:db/db.db.changelog.xml
+    change-log: classpath:db/db.changelog.xml
     contexts: prod
