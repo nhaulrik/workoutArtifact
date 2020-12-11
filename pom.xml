@@ -85,7 +85,6 @@
     <module>application</module>
     <module>infrastructure</module>
     <module>domain</module>
-    <module>common</module>
     <module>endpoint</module>
     <module>graphql</module>
   </modules>

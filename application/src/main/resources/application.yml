@@ -6,6 +6,18 @@ spring:
     show-sql: true
   jackson:
     default-property-inclusion: use_defaults
+  # Liquibase properties
+  liquibase:
+    enabled: true
+    change-log: classpath:db/db.changelog.xml
+    contexts: dev
+logging:
+  level:
+    "liquibase" : info
+  org:
+    hibernate:
+      stat: DEBUG
+      type: DEBUG
 server:
   port: 9090
 
