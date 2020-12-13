@@ -8,6 +8,7 @@ import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.ExerciseE
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.ExerciseSpecificationMapper;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.ExerciseJpaRepository;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -41,5 +42,11 @@ public class ExerciseEntityRepository implements ExerciseRepository {
         .map(entity -> entity.getName())
         .collect(Collectors.toList())
         .toString();
+  }
+
+  @Override
+  public UUID save(Exercise exercise) {
+    ExerciseEntity exerciseEntity = exerciseEntityMapper.toEntity(exercise);
+    return exerciseJpaRepository.save(exerciseEntity).getId();
   }
 }

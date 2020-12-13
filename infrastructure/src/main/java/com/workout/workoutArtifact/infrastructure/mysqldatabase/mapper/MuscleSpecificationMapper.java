@@ -3,8 +3,11 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper;
 import com.workout.workoutArtifact.domain.muscle.model.Muscle;
 import com.workout.workoutArtifact.domain.specification.AndSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
+import com.workout.workoutArtifact.domain.specification.MatchNoneSpecification;
 import com.workout.workoutArtifact.domain.specification.Specification;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.MuscleEntity;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import org.springframework.data.mapping.MappingException;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +28,9 @@ public class MuscleSpecificationMapper {
     } else if (muscleSpecification instanceof Muscle.BodyPartSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("bodyPart").in(((Muscle.BodyPartSpecification) muscleSpecification).getBodyparts());
     } else if (muscleSpecification instanceof Muscle.IdsSpecification) {
-      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Muscle.IdsSpecification) muscleSpecification).getIds());
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Muscle.IdsSpecification) muscleSpecification).getIds().stream().map(UUID::toString).collect(Collectors.toList()));
+    } else if (muscleSpecification instanceof MatchNoneSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.disjunction();
     }
     throw new MappingException("Unknown specification");
   }

@@ -71,6 +71,7 @@ public class MuscleGraphQLService implements GraphQLService {
     if (ids != null) { muscleSpecifications.add(new Muscle.IdsSpecification(ids));}
     if (names != null) { muscleSpecifications.add(new Muscle.NameSpecification(names));}
     if (bodyParts != null) { muscleSpecifications.add(new Muscle.BodyPartSpecification(names));}
+    if (exerciseDto != null) { muscleSpecifications.add(new Muscle.IdsSpecification(exerciseDto.getMuscleIds()));}
 
     AbstractSpecification aggregatedSpecification = muscleSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification());
 
