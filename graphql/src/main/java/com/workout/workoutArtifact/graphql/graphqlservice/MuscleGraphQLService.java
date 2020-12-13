@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.graphql.graphqlservice;
 import com.workout.workoutArtifact.domain.muscle.model.Muscle;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
+import com.workout.workoutArtifact.domain.specification.MatchNoneSpecification;
 import com.workout.workoutArtifact.graphql.configuration.GraphQLSPQRConfig.GraphQLService;
 import com.workout.workoutArtifact.graphql.dto.ExerciseDto;
 import com.workout.workoutArtifact.graphql.dto.MuscleDto;
@@ -46,7 +47,6 @@ public class MuscleGraphQLService implements GraphQLService {
       @GraphQLArgument(name = "ids") List<UUID> ids,
       @GraphQLArgument(name = "names") List<String> names,
       @GraphQLArgument(name = "bodyParts") List<String> bodyParts
-
   ) {
 
     List<AbstractSpecification<Muscle>> muscleSpecification = new ArrayList<>();
@@ -72,7 +72,7 @@ public class MuscleGraphQLService implements GraphQLService {
     if (names != null) { muscleSpecifications.add(new Muscle.NameSpecification(names));}
     if (bodyParts != null) { muscleSpecifications.add(new Muscle.BodyPartSpecification(names));}
 
-    AbstractSpecification aggregatedSpecification = muscleSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchAllSpecification());
+    AbstractSpecification aggregatedSpecification = muscleSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification());
 
     List<MuscleDto> muscleDtos = muscleFetcher.getMuscles(aggregatedSpecification);
     return muscleDtos;
