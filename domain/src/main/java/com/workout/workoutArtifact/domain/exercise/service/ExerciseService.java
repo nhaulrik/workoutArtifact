@@ -46,4 +46,18 @@ public class ExerciseService {
     }
     throw new RuntimeException(String.format("could not post exercise with id: %s", id));
   }
+
+  public Boolean deleteMuscleFromExercise(UUID exerciseId, UUID muscleId) {
+
+    Optional<Exercise> exerciseOptional = exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst();
+
+    if (exerciseOptional.isPresent()) {
+      Exercise exercise = exerciseOptional.get();
+
+      exercise.removeMuscle(muscleId);
+      return exerciseRepository.save(exercise) != null;
+    } else {
+      throw new RuntimeException(String.format("could not delete muscle with id: %s from exercise with id %s", muscleId, exerciseId));
+    }
+  }
 }

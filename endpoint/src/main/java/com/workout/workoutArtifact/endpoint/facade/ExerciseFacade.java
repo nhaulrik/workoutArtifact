@@ -27,4 +27,8 @@ public class ExerciseFacade {
     });
     return new PostExerciseResponse(exerciseIds);
   }
+
+  public Boolean deleteMuscleFromExercise(UUID exerciseId, UUID muscleId) {
+    return exerciseService.deleteMuscleFromExercise(exerciseId, muscleId);
+  }
 }

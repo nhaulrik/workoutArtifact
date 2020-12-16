@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
@@ -72,6 +73,11 @@ public class Exercise {
     Assert.isTrue(!this.getMuscle(muscle.getId()).isPresent(), String.format("muscle already exist on exercise with id: %s", this.id));
 
     this.muscles.add(muscle);
+  }
+
+  public void removeMuscle(UUID muscleId) {
+    Assert.notNull(muscleId, "muscleId is required");
+    this.muscles.removeIf(muscle -> muscle.getId().equals(muscleId));
   }
 
   @Value
