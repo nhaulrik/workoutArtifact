@@ -32,10 +32,10 @@
         <configuration>
           <propertyFile>src/main/resources/liquibase.properties</propertyFile>
           <outputChangeLogFile>
-            src/main/resources/db/changelog/${timestamp}_${changelogName}.postgresql.sql
+            src/main/resources/db/changelog/${timestamp}_${changelogName}.mysql.sql
           </outputChangeLogFile>
           <diffChangeLogFile>
-            src/main/resources/db/changelog/${timestamp}_${changelogName}.postgresql.sql
+            src/main/resources/db/changelog/${timestamp}_${changelogName}.mysql.sql
           </diffChangeLogFile>
           <logging>info</logging>
           <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>

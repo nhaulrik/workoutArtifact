@@ -8,14 +8,19 @@ import lombok.Data;
 @AllArgsConstructor
 public class PostBodyMeasurementsRequest {
 
+  private UUID id;
   private UUID userId;
-  private double weight;
-  private double forearm;
-  private double biceps;
-  private double calves;
-  private double chest;
-  private double hips;
-  private double stomach;
-  private double thigh;
+  private Double weight;
+  private Double chest;
+  private Double hip;
+  private Double stomach;
+  private Double leftThigh;
+  private Double rightThigh;
+  private Double leftCalve;
+  private Double rightCalve;
+  private Double leftBiceps;
+  private Double rightBiceps;
+  private Double leftForearm;
+  private Double rightForearm;
 
 }

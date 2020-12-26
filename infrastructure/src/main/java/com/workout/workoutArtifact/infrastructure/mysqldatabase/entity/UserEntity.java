@@ -2,7 +2,9 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.CascadeType;
@@ -11,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -50,6 +50,9 @@ public class UserEntity {
 
   @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<SessionEntity> sessionEntities = new HashSet<>();
+
+  @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<BodyMeasurementEntity> bodyMeasurementEntities = new ArrayList();
 
   public UUID getId() {
     return UUID.fromString(this.id);

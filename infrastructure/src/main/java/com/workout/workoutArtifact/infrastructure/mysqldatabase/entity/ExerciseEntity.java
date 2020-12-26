@@ -27,7 +27,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 @NoArgsConstructor
 @Entity
 @Table(name = "exercise")
-@EqualsAndHashCode(exclude = "exerciseMuscleRelationEntities")
 public class ExerciseEntity {
 
   @Id
