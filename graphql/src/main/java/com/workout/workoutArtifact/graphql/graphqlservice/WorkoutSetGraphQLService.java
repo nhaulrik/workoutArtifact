@@ -7,7 +7,7 @@ import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import com.workout.workoutArtifact.graphql.configuration.GraphQLSPQRConfig.GraphQLService;
 import com.workout.workoutArtifact.graphql.dto.WorkoutExerciseDto;
 import com.workout.workoutArtifact.graphql.dto.WorkoutSetDto;
-import com.workout.workoutArtifact.graphql.model.WorkoutSetFetcher;
+import com.workout.workoutArtifact.graphql.fetcher.WorkoutSetFetcher;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;

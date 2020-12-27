@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.graphql.configuration;
 
+import com.workout.workoutArtifact.graphql.graphqlservice.BodyMeasurementGraphQLService;
 import com.workout.workoutArtifact.graphql.graphqlservice.ExerciseGraphQLService;
 import com.workout.workoutArtifact.graphql.graphqlservice.MuscleGraphQLService;
 import com.workout.workoutArtifact.graphql.graphqlservice.SessionGraphQLService;
@@ -36,6 +37,7 @@ public class GraphQLSPQRConfig {
       SessionGraphQLService sessionGraphQLService,
       UserGraphQLService userGraphQLService,
       WorkoutExerciseGraphQLService workoutExerciseGraphQLService,
+      BodyMeasurementGraphQLService bodyMeasurementGraphQLService,
       IntelligenceGraphQLService intelligenceGraphQLService
   ) {
     GraphQLSchema schema = new GraphQLSchemaGenerator()
@@ -49,6 +51,7 @@ public class GraphQLSPQRConfig {
             sessionGraphQLService,
             userGraphQLService,
             workoutExerciseGraphQLService,
+            bodyMeasurementGraphQLService,
             intelligenceGraphQLService
         )
         .withValueMapperFactory(new JacksonValueMapperFactory())

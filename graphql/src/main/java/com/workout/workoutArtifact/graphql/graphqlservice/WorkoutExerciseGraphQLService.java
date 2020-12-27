@@ -1,6 +1,5 @@
 package com.workout.workoutArtifact.graphql.graphqlservice;
 
-import com.workout.workoutArtifact.domain.exercise.model.Exercise;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchNoneSpecification;
@@ -8,7 +7,7 @@ import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExercise;
 import com.workout.workoutArtifact.graphql.configuration.GraphQLSPQRConfig.GraphQLService;
 import com.workout.workoutArtifact.graphql.dto.SessionDto;
 import com.workout.workoutArtifact.graphql.dto.WorkoutExerciseDto;
-import com.workout.workoutArtifact.graphql.model.WorkoutExerciseFetcher;
+import com.workout.workoutArtifact.graphql.fetcher.WorkoutExerciseFetcher;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;

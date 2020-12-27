@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.graphql.model;
+package com.workout.workoutArtifact.graphql.fetcher;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.graphql.dto.MuscleDto;

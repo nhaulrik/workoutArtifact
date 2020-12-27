@@ -5,7 +5,7 @@ import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.graphql.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.graphql.dto.ExerciseDto;
-import com.workout.workoutArtifact.graphql.model.ExerciseFetcher;
+import com.workout.workoutArtifact.graphql.fetcher.ExerciseFetcher;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;

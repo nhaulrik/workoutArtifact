@@ -1,8 +1,12 @@
 package com.workout.workoutArtifact.domain.bodymeasurement.model;
 
+import com.workout.workoutArtifact.domain.session.model.Session;
+import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 import lombok.Getter;
+import lombok.Value;
 
 @Getter
 public class BodyMeasurement {
@@ -85,6 +89,17 @@ public class BodyMeasurement {
         leftForearm,
         rightForearm
     );
+  }
+
+  @Value
+  public static class UserIdsSpecification extends AbstractSpecification<BodyMeasurement> {
+
+    private final List<UUID> ids;
+
+    @Override
+    public boolean isSatisfiedBy(BodyMeasurement bodyMeasurement) {
+      return true;
+    }
   }
 
 }

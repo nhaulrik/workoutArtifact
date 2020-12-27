@@ -6,7 +6,7 @@ import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.domain.user.model.User;
 import com.workout.workoutArtifact.graphql.dto.SessionDto;
 import com.workout.workoutArtifact.graphql.dto.UserDto;
-import com.workout.workoutArtifact.graphql.model.UserFetcher;
+import com.workout.workoutArtifact.graphql.fetcher.UserFetcher;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;
