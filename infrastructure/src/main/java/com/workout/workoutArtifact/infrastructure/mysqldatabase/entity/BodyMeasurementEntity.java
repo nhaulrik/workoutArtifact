@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.Column;
@@ -33,6 +34,9 @@ public class BodyMeasurementEntity {
   @UpdateTimestamp
   @Column(name = "modify_date")
   private LocalDateTime modifyDate;
+
+  @Column
+  private LocalDate date;
 
   @Column
   private Double weight;

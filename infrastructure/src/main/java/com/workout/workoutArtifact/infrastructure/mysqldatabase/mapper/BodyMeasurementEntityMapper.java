@@ -18,8 +18,7 @@ public class BodyMeasurementEntityMapper {
     BodyMeasurement bodyMeasurement = BodyMeasurement.instantiate(
         bodyMeasurementEntity.getId(),
         bodyMeasurementEntity.getUserEntity().getId(),
-        bodyMeasurementEntity.getCreateDate(),
-        bodyMeasurementEntity.getModifyDate(),
+        bodyMeasurementEntity.getDate(),
         bodyMeasurementEntity.getWeight(),
         bodyMeasurementEntity.getChest(),
         bodyMeasurementEntity.getHip(),
@@ -40,8 +39,9 @@ public class BodyMeasurementEntityMapper {
 
     BodyMeasurementEntity bodyMeasurementEntity = new BodyMeasurementEntity(
         bodyMeasurement.getId().toString(),
-        bodyMeasurement.getCreateDate(),
-        bodyMeasurement.getModifyDate(),
+        null,
+        null,
+        bodyMeasurement.getDate(),
         bodyMeasurement.getWeight(),
         bodyMeasurement.getChest(),
         bodyMeasurement.getHip(),

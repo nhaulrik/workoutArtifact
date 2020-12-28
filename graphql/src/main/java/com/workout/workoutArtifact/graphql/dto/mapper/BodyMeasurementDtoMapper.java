@@ -16,7 +16,7 @@ public class BodyMeasurementDtoMapper {
     return new BodyMeasurementDto(
         bodyMeasurementEntity.getId(),
         bodyMeasurementEntity.getUserEntity().getId(),
-        bodyMeasurementEntity.getCreateDate(),
+        bodyMeasurementEntity.getDate(),
         bodyMeasurementEntity.getWeight(),
         bodyMeasurementEntity.getChest(),
         bodyMeasurementEntity.getHip(),

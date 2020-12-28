@@ -1,6 +1,6 @@
 package com.workout.workoutArtifact.graphql.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class BodyMeasurementDto {
   @NonNull
   private UUID userId;
   @NonNull
-  private LocalDateTime createDate;
+  private LocalDate date;
   private Double weight;
   private Double chest;
   private Double hip;

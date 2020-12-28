@@ -2,6 +2,7 @@ package com.workout.workoutArtifact.domain.bodymeasurement.service;
 
 import com.workout.workoutArtifact.domain.bodymeasurement.model.BodyMeasurement;
 import com.workout.workoutArtifact.domain.bodymeasurement.model.BodyMeasurementRepository;
+import java.time.LocalDate;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ public class BodyMeasurementService {
   public UUID postBodyMeasurements(
       UUID id,
       UUID userId,
+      LocalDate createdDate,
       Double weight,
       Double chest,
       Double hip,
@@ -38,6 +40,7 @@ public class BodyMeasurementService {
     } else {
       bodyMeasurement = BodyMeasurement.createNewBodyMeasurement(
           userId,
+          createdDate,
           weight,
           chest,
           hip,

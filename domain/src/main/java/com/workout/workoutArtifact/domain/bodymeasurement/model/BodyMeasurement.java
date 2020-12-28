@@ -1,7 +1,7 @@
 package com.workout.workoutArtifact.domain.bodymeasurement.model;
 
-import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -14,8 +14,7 @@ public class BodyMeasurement {
   private UUID id;
   private UUID userId;
 
-  private LocalDateTime createDate;
-  private LocalDateTime modifyDate;
+  private LocalDate date;
 
   private Double weight;
   private Double chest;
@@ -30,11 +29,10 @@ public class BodyMeasurement {
   private Double leftForearm;
   private Double rightForearm;
 
-  private BodyMeasurement(UUID id, UUID userId, LocalDateTime createDate, LocalDateTime modifyDate, Double weight, Double chest, Double hip, Double stomach, Double leftThigh, Double rightThigh, Double leftCalve, Double rightCalve, Double leftBiceps, Double rightBiceps, Double leftForearm, Double rightForearm) {
+  private BodyMeasurement(UUID id, UUID userId, LocalDate date, Double weight, Double chest, Double hip, Double stomach, Double leftThigh, Double rightThigh, Double leftCalve, Double rightCalve, Double leftBiceps, Double rightBiceps, Double leftForearm, Double rightForearm) {
     this.id = id;
     this.userId = userId;
-    this.createDate = createDate;
-    this.modifyDate = modifyDate;
+    this.date = date;
     this.weight = weight;
     this.chest = chest;
     this.hip = hip;
@@ -49,12 +47,11 @@ public class BodyMeasurement {
     this.rightForearm = rightForearm;
   }
 
-  public static BodyMeasurement instantiate(UUID id, UUID userId, LocalDateTime createDate, LocalDateTime modifyDate, Double weight, Double chest, Double hip, Double stomach, Double leftThigh, Double rightThigh, Double leftCalve, Double rightCalve, Double leftBiceps, Double rightBiceps, Double leftForearm, Double rightForearm) {
+  public static BodyMeasurement instantiate(UUID id, UUID userId, LocalDate date, Double weight, Double chest, Double hip, Double stomach, Double leftThigh, Double rightThigh, Double leftCalve, Double rightCalve, Double leftBiceps, Double rightBiceps, Double leftForearm, Double rightForearm) {
     return new BodyMeasurement(
         id,
         userId,
-        createDate,
-        modifyDate,
+        date,
         weight,
         chest,
         hip,
@@ -70,12 +67,11 @@ public class BodyMeasurement {
     );
   }
 
-  public static BodyMeasurement createNewBodyMeasurement(UUID userId, Double weight, Double chest, Double hip, Double stomach, Double leftThigh, Double rightThigh, Double leftCalve, Double rightCalve, Double leftBiceps, Double rightBiceps, Double leftForearm, Double rightForearm) {
+  public static BodyMeasurement createNewBodyMeasurement(UUID userId, LocalDate date, Double weight, Double chest, Double hip, Double stomach, Double leftThigh, Double rightThigh, Double leftCalve, Double rightCalve, Double leftBiceps, Double rightBiceps, Double leftForearm, Double rightForearm) {
     return new BodyMeasurement(
         UUID.randomUUID(),
         userId,
-        LocalDateTime.now(),
-        LocalDateTime.now(),
+        date,
         weight,
         chest,
         hip,

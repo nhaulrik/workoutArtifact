@@ -21,6 +21,7 @@ public class BodyMeasurementFacade {
       bodyMeasureMentsIds.add(bodyMeasurementService.postBodyMeasurements(
           postBodyMeasurementsRequest.getId(),
           postBodyMeasurementsRequest.getUserId(),
+          postBodyMeasurementsRequest.getDate(),
           postBodyMeasurementsRequest.getWeight(),
           postBodyMeasurementsRequest.getChest(),
           postBodyMeasurementsRequest.getHip(),
