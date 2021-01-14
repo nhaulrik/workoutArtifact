@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.Data;
+import lombok.Getter;
 import lombok.Value;
 import org.springframework.util.Assert;
 
@@ -141,6 +142,7 @@ public class Session {
     }
   }
 
+
   @Value
   public static class DateTimeSpecification extends AbstractSpecification<Session> {
 
@@ -151,6 +153,24 @@ public class Session {
       return localDateTime.getMonth().equals(session.getCreationDateTime().getMonth())
           && localDateTime.getDayOfMonth() == session.getCreationDateTime().getDayOfMonth()
           && localDateTime.getYear() == session.getCreationDateTime().getYear();
+    }
+  }
+
+  @Getter
+  public static class BetweenDateTimeSpecification extends AbstractSpecification<Session> {
+
+    private final LocalDateTime fromDateTime;
+    private final LocalDateTime toDateTime;
+
+    public BetweenDateTimeSpecification(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+      this.fromDateTime = fromDateTime.withHour(0).withMinute(0);
+      this.toDateTime = toDateTime.withHour(23).withMinute(59).withSecond(59);
+    }
+
+
+    @Override
+    public boolean isSatisfiedBy(Session session) {
+      return true;
     }
   }
 

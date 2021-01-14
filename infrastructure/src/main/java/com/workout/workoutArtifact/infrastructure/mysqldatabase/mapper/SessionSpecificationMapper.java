@@ -43,6 +43,12 @@ public class SessionSpecificationMapper {
         LocalDateTime parsedLocalDateTime = ((Session.DateTimeSpecification) sessionSpecification).getLocalDateTime();
         return criteriaBuilder.between(root.get("creationDateTime"), parsedLocalDateTime, parsedLocalDateTime.plusDays(1));
       };
+    } else if (sessionSpecification instanceof Session.BetweenDateTimeSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> {
+        LocalDateTime fromDateTime = ((Session.BetweenDateTimeSpecification) sessionSpecification).getFromDateTime();
+        LocalDateTime toDateTime = ((Session.BetweenDateTimeSpecification) sessionSpecification).getToDateTime();
+        return criteriaBuilder.between(root.get("creationDateTime"), fromDateTime, toDateTime);
+      };
     }
     throw new MappingException("Unknown specification");
   }

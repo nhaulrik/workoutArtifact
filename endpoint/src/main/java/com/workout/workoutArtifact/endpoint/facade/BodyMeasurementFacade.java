@@ -18,23 +18,49 @@ public class BodyMeasurementFacade {
   public PostBodyMeasurementsResponse postBodyMeasurements(List<PostBodyMeasurementsRequest> postBodyMeasurementsRequests) {
     List<UUID> bodyMeasureMentsIds = new ArrayList<>();
     postBodyMeasurementsRequests.forEach(postBodyMeasurementsRequest -> {
-      bodyMeasureMentsIds.add(bodyMeasurementService.postBodyMeasurements(
-          postBodyMeasurementsRequest.getId(),
-          postBodyMeasurementsRequest.getUserId(),
-          postBodyMeasurementsRequest.getDate(),
-          postBodyMeasurementsRequest.getWeight(),
-          postBodyMeasurementsRequest.getChest(),
-          postBodyMeasurementsRequest.getHip(),
-          postBodyMeasurementsRequest.getStomach(),
-          postBodyMeasurementsRequest.getLeftThigh(),
-          postBodyMeasurementsRequest.getRightThigh(),
-          postBodyMeasurementsRequest.getLeftCalve(),
-          postBodyMeasurementsRequest.getRightCalve(),
-          postBodyMeasurementsRequest.getLeftBiceps(),
-          postBodyMeasurementsRequest.getRightBiceps(),
-          postBodyMeasurementsRequest.getLeftForearm(),
-          postBodyMeasurementsRequest.getRightForearm()
-      ));
+
+      if (
+          postBodyMeasurementsRequest.getSingleBiceps() != null ||
+              postBodyMeasurementsRequest.getSingleCalve() != null ||
+              postBodyMeasurementsRequest.getSingleForearm() != null ||
+              postBodyMeasurementsRequest.getSingleThigh() != null
+      ) {
+        bodyMeasureMentsIds.add(bodyMeasurementService.postBodyMeasurements(
+            postBodyMeasurementsRequest.getId(),
+            postBodyMeasurementsRequest.getUserId(),
+            postBodyMeasurementsRequest.getDate(),
+            postBodyMeasurementsRequest.getWeight(),
+            postBodyMeasurementsRequest.getChest(),
+            postBodyMeasurementsRequest.getHip(),
+            postBodyMeasurementsRequest.getStomach(),
+            postBodyMeasurementsRequest.getSingleThigh(),
+            postBodyMeasurementsRequest.getSingleThigh(),
+            postBodyMeasurementsRequest.getSingleCalve(),
+            postBodyMeasurementsRequest.getSingleCalve(),
+            postBodyMeasurementsRequest.getSingleBiceps(),
+            postBodyMeasurementsRequest.getSingleBiceps(),
+            postBodyMeasurementsRequest.getSingleBiceps(),
+            postBodyMeasurementsRequest.getSingleBiceps()
+        ));
+      } else {
+        bodyMeasureMentsIds.add(bodyMeasurementService.postBodyMeasurements(
+            postBodyMeasurementsRequest.getId(),
+            postBodyMeasurementsRequest.getUserId(),
+            postBodyMeasurementsRequest.getDate(),
+            postBodyMeasurementsRequest.getWeight(),
+            postBodyMeasurementsRequest.getChest(),
+            postBodyMeasurementsRequest.getHip(),
+            postBodyMeasurementsRequest.getStomach(),
+            postBodyMeasurementsRequest.getLeftThigh(),
+            postBodyMeasurementsRequest.getRightThigh(),
+            postBodyMeasurementsRequest.getLeftCalve(),
+            postBodyMeasurementsRequest.getRightCalve(),
+            postBodyMeasurementsRequest.getLeftBiceps(),
+            postBodyMeasurementsRequest.getRightBiceps(),
+            postBodyMeasurementsRequest.getLeftForearm(),
+            postBodyMeasurementsRequest.getRightForearm()
+        ));
+      }
     });
     return new PostBodyMeasurementsResponse(bodyMeasureMentsIds);
   }
