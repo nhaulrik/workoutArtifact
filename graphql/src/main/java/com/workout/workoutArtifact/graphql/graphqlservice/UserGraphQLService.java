@@ -50,7 +50,7 @@ public class UserGraphQLService {
     return userFetcher.getUsers(aggregatedSpecification);
   }
 
-  @GraphQLQuery(name = "users")
+  @GraphQLQuery(name = "user")
   public List<UserDto> getSessions(
       @GraphQLContext SessionDto sessionDto
   ) {

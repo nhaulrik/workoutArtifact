@@ -38,24 +38,22 @@ public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLServ
   private final SessionEntityRepository sessionEntityRepository;
 
   @GraphQLQuery(name = "exerciseIntelligence")
-  public List<ExerciseIntelligenceDto> getExerciseIntelligence(
-      @GraphQLArgument(name = "userIds") List<UUID> userIds,
+  public ExerciseIntelligenceDto getExerciseIntelligence(
+      @GraphQLArgument(name = "userId") UUID userId,
       @GraphQLArgument(name = "exerciseIds") List<UUID> exerciseIds,
       @GraphQLArgument(name = "fromDateString") String fromDateString,
       @GraphQLArgument(name = "toDateString") String toDateString
   ) {
-    List<ExerciseIntelligenceDto> exerciseIntelligenceDtos = new ArrayList<>();
-
-    LocalDateTime fromDate = DateHelper.parseDateFromString(fromDateString);
-    LocalDateTime toDate = DateHelper.parseDateFromString(toDateString);
-
-    for (UUID userId : userIds) {
-
       List<AbstractSpecification<Session>> sessionSpecifications = new ArrayList<>();
       AbstractSpecification aggregatedSpecification;
 
       sessionSpecifications.add(new UserIdsSpecification(Arrays.asList(userId)));
-      sessionSpecifications.add(new BetweenDateTimeSpecification(fromDate, toDate));
+
+      if (fromDateString != null && toDateString != null) {
+        LocalDateTime fromDate = DateHelper.parseDateFromString(fromDateString);
+        LocalDateTime toDate = DateHelper.parseDateFromString(toDateString);
+        sessionSpecifications.add(new BetweenDateTimeSpecification(fromDate, toDate));
+      }
 
       aggregatedSpecification = sessionSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification<>());
 
@@ -74,7 +72,6 @@ public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLServ
       }
 
       allWorkoutExercises.forEach(workoutExercise -> workoutSetMap.put(workoutExercise.getExercise().getName(), new ArrayList<>()));
-
       allWorkoutExercises.forEach(workoutExercise -> workoutSetMap.get(workoutExercise.getExercise().getName()).addAll(workoutExercise.getWorkoutSets()));
 
       workoutSetMap.forEach((exerciseName, workoutSetList) -> exerciseAverages.add(new ExerciseAverage(
@@ -84,14 +81,10 @@ public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLServ
           ))
       );
 
-      ExerciseIntelligenceDto exerciseIntelligenceDto = ExerciseIntelligenceDto.builder()
+      return ExerciseIntelligenceDto.builder()
           .userId(userId)
           .exerciseAverages(exerciseAverages)
           .build();
-
-      exerciseIntelligenceDtos.add(exerciseIntelligenceDto);
-    }
-    return exerciseIntelligenceDtos;
   }
 
   @GraphQLQuery(name = "sessionIntelligence")
