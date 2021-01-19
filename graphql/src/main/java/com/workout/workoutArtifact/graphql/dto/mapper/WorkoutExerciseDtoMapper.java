@@ -14,7 +14,8 @@ public class WorkoutExerciseDtoMapper {
         workoutExerciseEntity.getId(),
         workoutExerciseEntity.getSessionEntity().getId(),
         workoutExerciseEntity.getExerciseEntity().getId(),
-        workoutExerciseEntity.getExerciseNumber());
+        workoutExerciseEntity.getExerciseNumber(),
+        workoutExerciseEntity.getIsWarmup());
   }
 
 }

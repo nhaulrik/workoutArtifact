@@ -2,11 +2,15 @@ package com.workout.workoutArtifact.domain.session.model;
 
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import com.workout.workoutArtifact.domain.workoutExercise.model.WorkoutExercise;
+import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Value;
@@ -50,6 +54,19 @@ public class Session {
 
   public static Session instantiate(UUID id, LocalDateTime creationDateTime, String programme, String splitName, String location, List<WorkoutExercise> workoutExercises, UUID userId) {
     return new Session(id, creationDateTime, location, programme, splitName, workoutExercises, userId);
+  }
+
+  public List<WorkoutSet> getWorkoutSet() {
+    return this.workoutExercises.stream()
+        .map(we -> we.getWorkoutSets())
+        .flatMap(Collection::stream)
+        .collect(Collectors.toList());
+  }
+
+  public List<WorkoutExercise> getWorkoutExercises(List<UUID> exerciseIds) {
+    return this.workoutExercises.stream()
+        .filter(we -> exerciseIds.contains(we.getId()))
+        .collect(Collectors.toList());
   }
 
   public void changeLocation(String location) {

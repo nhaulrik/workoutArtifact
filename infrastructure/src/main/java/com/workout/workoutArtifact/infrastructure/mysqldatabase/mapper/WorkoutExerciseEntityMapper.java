@@ -23,6 +23,7 @@ public class WorkoutExerciseEntityMapper {
         workoutExerciseEntity.getExerciseNumber(),
         workoutExerciseEntity.getWorkoutSets().stream().map(workoutSetEntityMapper::toDomain).collect(Collectors.toList()),
         exerciseEntityMapper.toDomainObject(workoutExerciseEntity.getExerciseEntity()),
+        workoutExerciseEntity.getIsWarmup(),
         workoutExerciseEntity.getSessionEntity().getId()
     );
   }
@@ -33,6 +34,7 @@ public class WorkoutExerciseEntityMapper {
     workoutExerciseEntity.setExerciseNumber(workoutExercise.getExerciseNumber());
     workoutExerciseEntity.setWorkoutSets(workoutExercise.getWorkoutSets().stream().map(workoutSetEntityMapper::toEntity).collect(Collectors.toList()));
     workoutExerciseEntity.setExerciseEntity(exerciseEntityMapper.toEntity(workoutExercise.getExercise()));
+    workoutExerciseEntity.setIsWarmup(workoutExercise.getIsWarmup());
 
     workoutExerciseEntity.getWorkoutSets().forEach(ws -> ws.setWorkoutExerciseEntity(workoutExerciseEntity));
     workoutExerciseEntity.setSessionEntity(entityManager.getReference(SessionEntity.class, workoutExercise.getSessionId().toString()));

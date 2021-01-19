@@ -23,7 +23,8 @@ public class WorkoutExerciseFacade {
           postWorkoutExerciseRequest.getId(),
           postWorkoutExerciseRequest.getExerciseId(),
           postWorkoutExerciseRequest.getExerciseNumber(),
-          postWorkoutExerciseRequest.getSessionId()
+          postWorkoutExerciseRequest.getSessionId(),
+          postWorkoutExerciseRequest.getIsWarmup()
       ));
     });
     return new PostWorkoutExerciseResponse(workoutExerciseIds);

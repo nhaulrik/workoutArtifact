@@ -14,5 +14,7 @@ public class PostWorkoutExerciseRequest {
   private final UUID sessionId;
   @NonNull
   private final UUID exerciseId;
+  @NonNull
+  private final Boolean isWarmup;
 
 }

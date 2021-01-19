@@ -16,5 +16,6 @@ public class WorkoutExerciseDto {
   private UUID sessionId;
   private UUID exerciseId;
   private Integer exerciseNumber;
+  private Boolean isWarmup;
 
 }

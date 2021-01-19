@@ -29,7 +29,7 @@ public class WorkoutExerciseService {
     return workoutExerciseRepository.deleteWorkoutExercise(id);
   }
 
-  public UUID postWorkoutExercise(UUID id, UUID exerciseId, Integer exerciseNumber, UUID sessionId) {
+  public UUID postWorkoutExercise(UUID id, UUID exerciseId, Integer exerciseNumber, UUID sessionId, Boolean isWarmup) {
 
     Session session = sessionRepository.getSessions(new IdsSpecification(Arrays.asList(sessionId))).stream().findFirst().get();
 
@@ -39,6 +39,7 @@ public class WorkoutExerciseService {
       workoutExercise = workoutExerciseOptional.get();
       if (exerciseNumber != null && exerciseNumber != workoutExercise.getExerciseNumber()) {
         workoutExercise.changeExerciseNumber(exerciseNumber);
+        workoutExercise.changeIsWarmup(isWarmup);
       }
       if (!exerciseId.equals(workoutExercise.getExercise().getId())) {
         Exercise newExercise = exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst().get();
@@ -49,6 +50,7 @@ public class WorkoutExerciseService {
           exerciseNumber,
           new ArrayList<>(),
           exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst().get(),
+          isWarmup,
           sessionId
       );
       session.addWorkoutExercise(workoutExercise);

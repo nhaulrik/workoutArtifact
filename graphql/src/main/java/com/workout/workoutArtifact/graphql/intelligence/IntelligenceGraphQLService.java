@@ -65,10 +65,11 @@ public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLServ
       List<WorkoutExercise> allWorkoutExercises = sessions.stream()
           .map(Session::getWorkoutExercises)
           .flatMap(Collection::stream)
+          .filter(we -> !we.getIsWarmup())
           .collect(Collectors.toList());
 
       if (exerciseIds != null) {
-        allWorkoutExercises = allWorkoutExercises.stream().filter(workoutExercise -> exerciseIds.contains(workoutExercise.getExercise().getId())).collect(Collectors.toList());
+        allWorkoutExercises.removeIf(workoutExercise -> !exerciseIds.contains(workoutExercise.getExercise().getId()));
       }
 
       allWorkoutExercises.forEach(workoutExercise -> workoutSetMap.put(workoutExercise.getExercise().getName(), new ArrayList<>()));
