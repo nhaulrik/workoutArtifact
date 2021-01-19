@@ -49,4 +49,11 @@ public class ExerciseEntityRepository implements ExerciseRepository {
     ExerciseEntity exerciseEntity = exerciseEntityMapper.toEntity(exercise);
     return exerciseJpaRepository.save(exerciseEntity).getId();
   }
+
+  @Transactional
+  @Override
+  public Boolean delete(UUID id) {
+    exerciseJpaRepository.deleteAllById(id.toString());
+    return exerciseJpaRepository.findById(id.toString()) == null;
+  }
 }

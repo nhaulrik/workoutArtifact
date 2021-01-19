@@ -3,18 +3,16 @@ package com.workout.workoutArtifact.domain.exercise.model;
 import com.workout.workoutArtifact.domain.muscle.model.Muscle;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.Value;
 import org.springframework.util.Assert;
 
 @Data
-@AllArgsConstructor
 public class Exercise {
 
   private UUID id;
@@ -31,6 +29,19 @@ public class Exercise {
   private String bodyPart;
 
   private List<Muscle> muscles;
+
+  private Exercise(UUID id, LocalDateTime createDate, @NonNull String name, @NonNull Boolean isCompound, @NonNull String bodyPart, List<Muscle> muscles) {
+    this.id = id;
+    this.createDate = createDate;
+    this.name = name;
+    this.isCompound = isCompound;
+    this.bodyPart = bodyPart;
+    this.muscles = muscles;
+  }
+
+  public static Exercise createExercise(@NonNull String name, @NonNull Boolean isCompound, @NonNull String bodyPart) {
+    return new Exercise(UUID.randomUUID(), LocalDateTime.now(), name, isCompound, bodyPart, new ArrayList<>());
+  }
 
   public static Exercise instantiate(
       UUID id,
@@ -61,6 +72,12 @@ public class Exercise {
     this.bodyPart = bodyPart;
   }
 
+
+  public void changeIsCompound(Boolean isCompound) {
+    Assert.notNull(isCompound, "isCompound is required");
+    this.isCompound = isCompound;
+  }
+
   public Optional<Muscle> getMuscle(UUID muscleId) {
     if (muscleId == null) {
       return Optional.empty();
@@ -79,6 +96,7 @@ public class Exercise {
     Assert.notNull(muscleId, "muscleId is required");
     this.muscles.removeIf(muscle -> muscle.getId().equals(muscleId));
   }
+
 
   @Value
   public static class NameSpecification extends AbstractSpecification<Exercise> {

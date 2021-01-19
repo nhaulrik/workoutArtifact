@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ExerciseJpaRepository extends JpaRepository<ExerciseEntity, Long>,
+public interface ExerciseJpaRepository extends JpaRepository<ExerciseEntity, String>,
     JpaSpecificationExecutor<ExerciseEntity> {
+  void deleteAllById(String id);
 
 }

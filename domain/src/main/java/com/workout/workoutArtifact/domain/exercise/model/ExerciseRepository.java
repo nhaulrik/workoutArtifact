@@ -11,4 +11,5 @@ public interface ExerciseRepository {
 
   UUID save(Exercise exercise);
 
+  Boolean delete(UUID exerciseId);
 }

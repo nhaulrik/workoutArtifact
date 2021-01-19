@@ -22,6 +22,7 @@ public class ExerciseFacade {
           postExerciseRequest.getId(),
           postExerciseRequest.getName(),
           postExerciseRequest.getBodyPart(),
+          postExerciseRequest.getIsCompound(),
           postExerciseRequest.getMuscleIds()
       ));
     });
@@ -31,4 +32,6 @@ public class ExerciseFacade {
   public Boolean deleteMuscleFromExercise(UUID exerciseId, UUID muscleId) {
     return exerciseService.deleteMuscleFromExercise(exerciseId, muscleId);
   }
+
+  public Boolean deleteExercise(UUID exerciseId) { return exerciseService.deleteExercise(exerciseId); }
 }

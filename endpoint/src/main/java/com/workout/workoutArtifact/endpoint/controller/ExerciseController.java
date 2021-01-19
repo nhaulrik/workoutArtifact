@@ -28,8 +28,13 @@ public class ExerciseController {
   }
 
   @DeleteMapping("/{exerciseId}/{muscleId}")
-  public Boolean deleteSession(@PathVariable UUID exerciseId, @PathVariable UUID muscleId) {
+  public Boolean deleteMuscleFromExercise(@PathVariable UUID exerciseId, @PathVariable UUID muscleId) {
     return exerciseFacade.deleteMuscleFromExercise(exerciseId, muscleId);
+  }
+
+  @DeleteMapping("/{exerciseId}")
+  public Boolean deleteExercise(@PathVariable UUID exerciseId) {
+    return exerciseFacade.deleteExercise(exerciseId);
   }
 
 }

@@ -20,9 +20,14 @@ public class ExerciseService {
   private final ExerciseRepository exerciseRepository;
   private final MuscleRepository muscleRepository;
 
-  public UUID postExercise(UUID id, String name, String bodyPart, List<UUID> muscleIds) {
+  public UUID postExercise(UUID id, String name, String bodyPart, Boolean isCompound, List<UUID> muscleIds) {
 
-    Optional<Exercise> exerciseOptional = exerciseRepository.getExercises(new ExerciseIdSpecification(id)).stream().findFirst();
+    Optional<Exercise> exerciseOptional;
+    if (id != null) {
+      exerciseOptional = exerciseRepository.getExercises(new ExerciseIdSpecification(id)).stream().findFirst();
+    } else {
+      exerciseOptional = Optional.empty();
+    }
 
     if (exerciseOptional.isPresent()) {
       Exercise exercise = exerciseOptional.get();
@@ -32,6 +37,9 @@ public class ExerciseService {
       }
       if (bodyPart != null && !bodyPart.equals(exercise.getBodyPart())) {
         exercise.changeBodyPart(bodyPart);
+      }
+      if (isCompound != null && !isCompound.equals(exercise.getIsCompound())) {
+        exercise.changeIsCompound(isCompound);
       }
 
       muscleIds.forEach(muscleId -> {
@@ -43,8 +51,10 @@ public class ExerciseService {
         }
       });
       return exerciseRepository.save(exercise);
+    } else {
+      Exercise newExercise = Exercise.createExercise(name, isCompound, bodyPart);
+      return exerciseRepository.save(newExercise);
     }
-    throw new RuntimeException(String.format("could not post exercise with id: %s", id));
   }
 
   public Boolean deleteMuscleFromExercise(UUID exerciseId, UUID muscleId) {
@@ -59,5 +69,9 @@ public class ExerciseService {
     } else {
       throw new RuntimeException(String.format("could not delete muscle with id: %s from exercise with id %s", muscleId, exerciseId));
     }
+  }
+
+  public Boolean deleteExercise(UUID exerciseId) {
+    return exerciseRepository.delete(exerciseId);
   }
 }
