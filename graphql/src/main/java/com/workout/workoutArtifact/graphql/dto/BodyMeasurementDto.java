@@ -19,6 +19,7 @@ public class BodyMeasurementDto {
   private Double weight;
   private Double chest;
   private Double hip;
+  private Double waist;
   private Double stomach;
   private Double leftThigh;
   private Double rightThigh;

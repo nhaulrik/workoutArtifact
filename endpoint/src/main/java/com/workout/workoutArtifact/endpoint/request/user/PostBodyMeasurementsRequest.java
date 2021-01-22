@@ -16,6 +16,7 @@ public class PostBodyMeasurementsRequest {
   private Double weight;
   private Double chest;
   private Double hip;
+  private Double waist;
   private Double stomach;
   private Double singleThigh;
   private Double leftThigh;

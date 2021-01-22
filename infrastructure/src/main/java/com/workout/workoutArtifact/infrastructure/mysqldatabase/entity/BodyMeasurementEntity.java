@@ -45,6 +45,8 @@ public class BodyMeasurementEntity {
   @Column
   private Double hip;
   @Column
+  private Double waist;
+  @Column
   private Double stomach;
   @Column
   private Double leftThigh;

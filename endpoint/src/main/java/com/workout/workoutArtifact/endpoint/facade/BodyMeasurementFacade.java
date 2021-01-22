@@ -32,6 +32,7 @@ public class BodyMeasurementFacade {
             postBodyMeasurementsRequest.getWeight(),
             postBodyMeasurementsRequest.getChest(),
             postBodyMeasurementsRequest.getHip(),
+            postBodyMeasurementsRequest.getWaist(),
             postBodyMeasurementsRequest.getStomach(),
             postBodyMeasurementsRequest.getSingleThigh(),
             postBodyMeasurementsRequest.getSingleThigh(),
@@ -39,8 +40,8 @@ public class BodyMeasurementFacade {
             postBodyMeasurementsRequest.getSingleCalve(),
             postBodyMeasurementsRequest.getSingleBiceps(),
             postBodyMeasurementsRequest.getSingleBiceps(),
-            postBodyMeasurementsRequest.getSingleBiceps(),
-            postBodyMeasurementsRequest.getSingleBiceps()
+            postBodyMeasurementsRequest.getSingleForearm(),
+            postBodyMeasurementsRequest.getSingleForearm()
         ));
       } else {
         bodyMeasureMentsIds.add(bodyMeasurementService.postBodyMeasurements(
@@ -50,6 +51,7 @@ public class BodyMeasurementFacade {
             postBodyMeasurementsRequest.getWeight(),
             postBodyMeasurementsRequest.getChest(),
             postBodyMeasurementsRequest.getHip(),
+            postBodyMeasurementsRequest.getWaist(),
             postBodyMeasurementsRequest.getStomach(),
             postBodyMeasurementsRequest.getLeftThigh(),
             postBodyMeasurementsRequest.getRightThigh(),
