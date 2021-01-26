@@ -15,7 +15,9 @@ public class ProgrammeEntityMapper {
   public Programme toDomain(ProgrammeEntity programmeEntity) {
     return Programme.instantiate(
         programmeEntity.getId(),
-        programmeEntity.getCreationDateTime(),
+        programmeEntity.getName(),
+        programmeEntity.getDescription(),
+        programmeEntity.getCreationDate(),
         programmeEntity.getPhaseEntities().stream().map(phaseEntityMapper::toDomain).collect(Collectors.toList())
     );
   }
@@ -23,7 +25,9 @@ public class ProgrammeEntityMapper {
   public ProgrammeEntity toEntity(Programme programme) {
     return new ProgrammeEntity(
         programme.getId().toString(),
-        programme.getCreationDateTime(),
+        programme.getName(),
+        programme.getDescription(),
+        programme.getCreationDate(),
         programme.getPhases().stream().map(phaseEntityMapper::toEntity).collect(Collectors.toList())
     );
   }

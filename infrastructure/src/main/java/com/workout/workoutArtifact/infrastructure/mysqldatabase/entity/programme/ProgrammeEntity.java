@@ -1,6 +1,6 @@
 package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.programme;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.Column;
@@ -23,7 +23,11 @@ public class ProgrammeEntity {
   @Id
   private String id;
   @Column
-  private LocalDateTime creationDateTime;
+  private String name;
+  @Column
+  private String description;
+  @Column
+  private LocalDate creationDate;
 
   @OneToMany(mappedBy = "programmeEntity")
   private List<PhaseEntity> phaseEntities;
