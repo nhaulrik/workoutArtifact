@@ -4,10 +4,12 @@ import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.Assert;
 
 @Slf4j
 @Getter
@@ -58,6 +60,26 @@ public class Programme {
       this.name = name;
       log.info(String.format("Programme with id: %s was updated with a new name", name));
     }
+  }
+
+  public Optional<Phase> getPhase(UUID id) {
+    if (id == null) {
+      return Optional.empty();
+    } else {
+      return this.phases.stream()
+          .filter(phase -> id.equals(phase.getId()))
+          .findFirst();
+    }
+  }
+
+  public void addPhase(Phase phase) {
+    Assert.notNull(phase, "phase is required");
+    this.phases.add(phase);
+  }
+
+  public void removePhase(UUID phaseId) {
+    this.phases.removeIf(phase -> phaseId.equals(phase.getId()));
+
   }
 
   @Value

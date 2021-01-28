@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.endpoint.facade;
+package com.workout.workoutArtifact.endpoint.facade.programme;
 
 import com.workout.workoutArtifact.domain.programme.service.ProgrammeService;
 import com.workout.workoutArtifact.endpoint.request.programme.PostProgrammeRequest;

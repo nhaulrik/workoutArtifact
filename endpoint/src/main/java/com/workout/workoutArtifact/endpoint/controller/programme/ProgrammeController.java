@@ -1,6 +1,6 @@
-package com.workout.workoutArtifact.endpoint.controller;
+package com.workout.workoutArtifact.endpoint.controller.programme;
 
-import com.workout.workoutArtifact.endpoint.facade.ProgrammeFacade;
+import com.workout.workoutArtifact.endpoint.facade.programme.ProgrammeFacade;
 import com.workout.workoutArtifact.endpoint.request.programme.PostProgrammeRequest;
 import com.workout.workoutArtifact.endpoint.request.programme.PostProgrammeResponse;
 import java.util.List;

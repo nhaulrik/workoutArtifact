@@ -27,6 +27,8 @@ public class PhaseEntity {
   @Column
   private Integer number;
   @Column
+  private String name;
+  @Column
   private String description;
 
   @OneToMany(mappedBy = "phaseEntity", cascade = CascadeType.ALL)

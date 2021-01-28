@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.programm
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class ProgrammeEntity {
   @Column
   private LocalDate creationDate;
 
-  @OneToMany(mappedBy = "programmeEntity")
+  @OneToMany(mappedBy = "programmeEntity", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<PhaseEntity> phaseEntities;
 
   public UUID getId() {
