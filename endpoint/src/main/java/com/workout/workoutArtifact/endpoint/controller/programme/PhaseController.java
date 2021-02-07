@@ -27,9 +27,9 @@ public class PhaseController {
     return phaseFacade.postPhases(postPhaseRequests);
   }
 
-  @DeleteMapping("/{programmeId}/{id}")
-  public Boolean deletePhase(@PathVariable UUID programmeId, @PathVariable UUID id) {
-    return phaseFacade.deletePhase(programmeId, id);
+  @DeleteMapping("/{id}")
+  public Boolean deletePhase(@PathVariable UUID id) {
+    return phaseFacade.deletePhase(id);
   }
 
 }

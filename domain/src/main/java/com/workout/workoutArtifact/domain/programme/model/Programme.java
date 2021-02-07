@@ -93,5 +93,15 @@ public class Programme {
     }
   }
 
+  @Value
+  public static class PhaseIdsSpecification extends AbstractSpecification<Programme> {
+
+    private final List<UUID> ids;
+
+    @Override
+    public boolean isSatisfiedBy(Programme programme) {
+      return true;
+    }
+  }
 }
 

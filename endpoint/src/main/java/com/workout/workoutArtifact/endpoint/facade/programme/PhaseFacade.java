@@ -31,7 +31,7 @@ public class PhaseFacade {
     return new PostPhaseResponse(phaseIds);
   }
 
-  public Boolean deletePhase(UUID programmeId, UUID id) {
-    return phaseService.deletePhase(programmeId, id);
+  public Boolean deletePhase(UUID id) {
+    return phaseService.deletePhase(id);
   }
 }

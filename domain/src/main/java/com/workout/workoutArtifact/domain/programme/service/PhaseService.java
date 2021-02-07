@@ -52,8 +52,8 @@ public class PhaseService {
     }
   }
 
-  public Boolean deletePhase(UUID programmeId, UUID id) {
-    Optional<Programme> programmeOptional = programmeRepository.getProgrammes(new IdsSpecification(Arrays.asList(programmeId))).stream().findFirst();
+  public Boolean deletePhase(UUID id) {
+    Optional<Programme> programmeOptional = programmeRepository.getProgrammes(new Programme.PhaseIdsSpecification(Arrays.asList(id))).stream().findFirst();
 
     if (programmeOptional.isPresent()) {
       Programme programme = programmeOptional.get();
@@ -61,7 +61,7 @@ public class PhaseService {
 
       programmeRepository.save(programme);
     } else {
-      throw new RuntimeException(String.format("could not find programme with id: %s", programmeId));
+      throw new RuntimeException(String.format("could not find phase with id: %s", id));
     }
     return true;
   }
