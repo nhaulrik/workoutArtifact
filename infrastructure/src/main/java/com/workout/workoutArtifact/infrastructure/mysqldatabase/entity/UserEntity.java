@@ -51,7 +51,7 @@ public class UserEntity {
   @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<SessionEntity> sessionEntities = new HashSet<>();
 
-  @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
   private List<BodyMeasurementEntity> bodyMeasurementEntities = new ArrayList();
 
   public UUID getId() {
