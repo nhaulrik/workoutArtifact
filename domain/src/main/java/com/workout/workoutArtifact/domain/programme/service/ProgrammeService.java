@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.domain.programme.service;
 import com.workout.workoutArtifact.domain.programme.model.Programme;
 import com.workout.workoutArtifact.domain.programme.model.Programme.IdsSpecification;
 import com.workout.workoutArtifact.domain.programme.model.ProgrammeRepository;
+import com.workout.workoutArtifact.domain.specification.Specification;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +21,10 @@ public class ProgrammeService {
 
   public UUID postProgramme(UUID id, String name, String description, LocalDate creationDate, List<UUID> phaseIds) {
 
-    Optional<Programme> programmeOptional = programmeRepository.getProgrammes(new IdsSpecification(Arrays.asList(id))).stream().findFirst();
+    Optional<Programme> programmeOptional = Optional.empty();
+    if (id != null) {
+      programmeOptional = programmeRepository.getProgrammes(new IdsSpecification(Arrays.asList(id))).stream().findFirst();
+    }
 
     Programme programme;
     if (programmeOptional.isPresent()) {
@@ -43,4 +47,9 @@ public class ProgrammeService {
   public Boolean deleteProgramme(UUID id) {
     return programmeRepository.delete(new Programme.IdsSpecification(Arrays.asList(id)));
   }
+
+  public List<Programme> getProgrammes(Specification<Programme> specification) {
+    return programmeRepository.getProgrammes(specification);
+  }
+
 }

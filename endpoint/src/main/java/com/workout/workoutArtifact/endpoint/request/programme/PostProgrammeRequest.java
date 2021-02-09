@@ -18,9 +18,14 @@ public class PostProgrammeRequest {
   private final List<UUID> phaseIds;
 
   public LocalDate getDate() {
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    LocalDate parsedDate = LocalDate.parse(date, dateTimeFormatter);
-    return parsedDate;
+
+    if (this.date == null) {
+      return LocalDate.now();
+    } else {
+      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+      LocalDate parsedDate = LocalDate.parse(date, dateTimeFormatter);
+      return parsedDate;
+    }
   }
 
 }

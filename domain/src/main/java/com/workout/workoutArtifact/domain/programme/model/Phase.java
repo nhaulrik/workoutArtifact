@@ -1,9 +1,11 @@
 package com.workout.workoutArtifact.domain.programme.model;
 
+import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import lombok.Getter;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -61,6 +63,29 @@ public class Phase {
     if (description != null && !description.equals(this.description)) {
       this.description = description;
       log.info(String.format("Phase with id: %s was updated with a new description", description));
+    }
+  }
+
+
+  @Value
+  public static class IdsSpecification extends AbstractSpecification<Phase> {
+
+    private final List<UUID> ids;
+
+    @Override
+    public boolean isSatisfiedBy(Phase phase) {
+      return ids.contains(phase.getId());
+    }
+  }
+
+  @Value
+  public static class NamesSpecification extends AbstractSpecification<Phase> {
+
+    private final List<String> names;
+
+    @Override
+    public boolean isSatisfiedBy(Phase phase) {
+      return names.contains(phase.getName());
     }
   }
 }

@@ -94,6 +94,17 @@ public class Programme {
   }
 
   @Value
+  public static class NamesSpecification extends AbstractSpecification<Programme> {
+
+    private final List<String> names;
+
+    @Override
+    public boolean isSatisfiedBy(Programme programme) {
+      return names.contains(programme.getName());
+    }
+  }
+
+  @Value
   public static class PhaseIdsSpecification extends AbstractSpecification<Programme> {
 
     private final List<UUID> ids;

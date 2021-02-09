@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.graphql.configuration;
 import com.workout.workoutArtifact.graphql.graphqlservice.BodyMeasurementGraphQLService;
 import com.workout.workoutArtifact.graphql.graphqlservice.ExerciseGraphQLService;
 import com.workout.workoutArtifact.graphql.graphqlservice.MuscleGraphQLService;
+import com.workout.workoutArtifact.graphql.graphqlservice.ProgrammeGraphQLService;
 import com.workout.workoutArtifact.graphql.graphqlservice.SessionGraphQLService;
 import com.workout.workoutArtifact.graphql.graphqlservice.UserGraphQLService;
 import com.workout.workoutArtifact.graphql.graphqlservice.WorkoutExerciseGraphQLService;
@@ -38,7 +39,8 @@ public class GraphQLSPQRConfig {
       UserGraphQLService userGraphQLService,
       WorkoutExerciseGraphQLService workoutExerciseGraphQLService,
       BodyMeasurementGraphQLService bodyMeasurementGraphQLService,
-      IntelligenceGraphQLService intelligenceGraphQLService
+      IntelligenceGraphQLService intelligenceGraphQLService,
+      ProgrammeGraphQLService programmeGraphQLService
   ) {
     GraphQLSchema schema = new GraphQLSchemaGenerator()
         .withResolverBuilders(
@@ -52,7 +54,8 @@ public class GraphQLSPQRConfig {
             userGraphQLService,
             workoutExerciseGraphQLService,
             bodyMeasurementGraphQLService,
-            intelligenceGraphQLService
+            intelligenceGraphQLService,
+            programmeGraphQLService
         )
         .withValueMapperFactory(new JacksonValueMapperFactory())
         .generate();
