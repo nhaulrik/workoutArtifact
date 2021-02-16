@@ -4,13 +4,14 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,12 +31,18 @@ public class SplitEntity {
   @Column
   private Integer week;
   @Column
+  private String name;
+  @Column
   private DayOfWeek dayOfWeek;
   @Column
   private LocalDateTime creationDateTime;
 
-  @OneToMany(mappedBy = "splitEntity")
-  private List<ProgrammeExerciseEntity> programmeExerciseEntities;
+  @ElementCollection
+  @CollectionTable(
+      name = "split_exercise_set",
+      joinColumns = @JoinColumn(name = "split_id", foreignKey = @ForeignKey(name = "FK_split_exercise_set_split_id"))
+  )
+  private List<SplitExerciseSetEntity> splitExerciseSets;
 
   @ManyToOne
   @JoinColumn(name = "phase_id", foreignKey = @ForeignKey(name = "FK_split_phase_id"))

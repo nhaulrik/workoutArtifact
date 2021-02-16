@@ -12,30 +12,33 @@ public class Split {
   private final UUID id;
   private final UUID phaseId;
   private final Integer number;
+  private final String name;
   private final Integer week;
   private final DayOfWeek dayOfWeek;
   private final LocalDateTime creationDateTime;
-  private final List<ProgrammeExercise> programmeExercises;
+  private final List<SplitExerciseSet> splitExerciseSets;
 
 
-  private Split(UUID id, UUID phaseId, Integer number, Integer week, DayOfWeek dayOfWeek, LocalDateTime creationDateTime, List<ProgrammeExercise> programmeExercises) {
+  private Split(UUID id, UUID phaseId, Integer number, Integer week, String name, DayOfWeek dayOfWeek, LocalDateTime creationDateTime, List<SplitExerciseSet> splitExerciseSets) {
     this.id = id;
     this.phaseId = phaseId;
     this.number = number;
     this.week = week;
+    this.name = name;
     this.dayOfWeek = dayOfWeek;
     this.creationDateTime = creationDateTime;
-    this.programmeExercises = programmeExercises;
+    this.splitExerciseSets = splitExerciseSets;
   }
 
-  public static Split instantiate(UUID id, UUID phaseId, Integer number, Integer week, DayOfWeek dayOfWeek, LocalDateTime creationDateTime, List<ProgrammeExercise> programmeExercises) {
+  public static Split instantiate(UUID id, UUID phaseId, Integer number, Integer week, String name, DayOfWeek dayOfWeek, LocalDateTime creationDateTime, List<SplitExerciseSet> splitExerciseSets) {
     return new Split(
         id,
         phaseId, number,
         week,
+        name,
         dayOfWeek,
         creationDateTime,
-        programmeExercises
+        splitExerciseSets
     );
   }
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SplitEntityMapper {
 
-  private final ProgrammeExerciseEntityMapper programmeExerciseEntityMapper;
+  private final SplitExerciseSetEntityMapper splitExerciseSetEntityMapper;
   private final EntityManager entityManager;
 
   public Split toDomain(SplitEntity splitEntity) {
@@ -21,9 +21,10 @@ public class SplitEntityMapper {
         splitEntity.getPhaseEntity().getId(),
         splitEntity.getNumber(),
         splitEntity.getWeek(),
+        splitEntity.getName(),
         splitEntity.getDayOfWeek(),
         splitEntity.getCreationDateTime(),
-        splitEntity.getProgrammeExerciseEntities().stream().map(programmeExerciseEntityMapper::toDomain).collect(Collectors.toList())
+        splitEntity.getSplitExerciseSets().stream().map(splitExerciseSetEntityMapper::toDomain).collect(Collectors.toList())
     );
   }
 
@@ -32,9 +33,10 @@ public class SplitEntityMapper {
         split.getId().toString(),
         split.getNumber(),
         split.getWeek(),
+        split.getName(),
         split.getDayOfWeek(),
         split.getCreationDateTime(),
-        split.getProgrammeExercises().stream().map(programmeExerciseEntityMapper::toEntity).collect(Collectors.toList()),
+        split.getSplitExerciseSets().stream().map(splitExerciseSetEntityMapper::toEntity).collect(Collectors.toList()),
         entityManager.getReference(PhaseEntity.class, split.getPhaseId())
     );
   }
