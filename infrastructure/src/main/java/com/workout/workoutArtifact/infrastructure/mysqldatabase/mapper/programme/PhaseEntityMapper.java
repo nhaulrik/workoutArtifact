@@ -30,8 +30,8 @@ public class PhaseEntityMapper {
     return new PhaseEntity(
         phase.getId().toString(),
         phase.getNumber(),
-        phase.getDescription(),
         phase.getName(),
+        phase.getDescription(),
         phase.getSplitList().stream().map(splitEntityMapper::toEntity).collect(Collectors.toList()),
         entityManager.getReference(ProgrammeEntity.class, phase.getProgrammeId().toString())
     );
