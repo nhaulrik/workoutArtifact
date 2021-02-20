@@ -4,6 +4,7 @@ import com.workout.workoutArtifact.session.SessionService;
 import com.workout.workoutArtifact.user.User;
 import com.workout.workoutArtifact.user.User.IdsSpecification;
 import com.workout.workoutArtifact.user.UserService;
+import com.workout.workoutArtifact.workoutset.WorkoutSetService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ public class WorkoutApplicationService {
 
   private final SessionService sessionService;
   private final UserService userService;
+  private final WorkoutSetService workoutSetService;
 
   public UUID handleSessionRequest(UUID id, UUID userId, LocalDateTime time, String location, String programme, String splitName) {
 
@@ -41,5 +43,31 @@ public class WorkoutApplicationService {
     } else {
       return userService.createUser(firstName, lastName, birthday, gender);
     }
+  }
+
+  public UUID handleWorkoutSet(UUID id, Integer setNumber, Double weight, Integer repetitions, Integer repetitionMaximum, Boolean single, UUID workoutExerciseId) {
+
+    if (id != null) {
+      return workoutSetService.postWorkoutSet(
+          id,
+          setNumber,
+          weight,
+          repetitions,
+          repetitionMaximum,
+          single,
+          workoutExerciseId
+      );
+    } else {
+      return workoutSetService.createWorkoutSet(
+          id,
+          setNumber,
+          weight,
+          repetitions,
+          repetitionMaximum,
+          single,
+          workoutExerciseId
+      );
+    }
+
   }
 }
