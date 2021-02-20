@@ -34,13 +34,6 @@ public class UserEntityRepository implements UserRepository {
   }
 
   @Override
-  public String addUser(User user) {
-
-    UserEntity userEntity = userEntityMapper.toEntity(user);
-    return userJpaRepository.save(userEntity).getFirstName();
-  }
-
-  @Override
   public UUID save(User user) {
     UserEntity userEntity = userEntityMapper.toEntity(user);
     return userJpaRepository.save(userEntity).getId();

@@ -35,7 +35,7 @@ public class UserService {
       user.updateFirstName(firstName);
       user.updateLastName(lastName);
       user.updateBirthday(birthday);
-      user.updateGender(Gender.valueOf(gender));
+      user.updateGender(Gender.valueOf(gender.toUpperCase()));
 
       return userRepository.save(user);
     }
@@ -48,7 +48,7 @@ public class UserService {
         firstName,
         lastName,
         birthday,
-        Gender.valueOf(gender)
+        Gender.valueOf(gender.toUpperCase())
     );
     return userRepository.save(user);
   }
