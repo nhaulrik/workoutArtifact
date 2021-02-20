@@ -10,6 +10,5 @@ public interface SessionRepository {
   List<UUID> addSessions(List<Session> sessions);
   Boolean deleteSessions(Specification<Session> sessionSpecification);
 
-  UUID createSession(Session session);
   UUID save(Session session);
 }

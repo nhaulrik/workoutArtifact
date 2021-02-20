@@ -20,7 +20,6 @@ public class User {
   private LocalDate birthday;
   private Gender gender;
   private UUID id;
-  private final List<Session> sessions;
 
   private User(
       UUID id,
@@ -34,7 +33,6 @@ public class User {
     this.lastName = lastName;
     this.birthday = birthDay;
     this.gender = gender;
-    this.sessions = new ArrayList<>();
   }
 
   public static User createNewUser(String firstName,
@@ -55,18 +53,14 @@ public class User {
       String firstName,
       String lastName,
       LocalDate birthDay,
-      Gender gender,
-      List<Session> sessions) {
-    User user = new User(
+      Gender gender) {
+    return new User(
         id,
         firstName,
         lastName,
         birthDay,
         gender
     );
-
-    sessions.forEach(user::addSession);
-    return user;
   }
 
   public static User fromDto(
@@ -84,27 +78,6 @@ public class User {
         gender
     );
 
-  }
-
-  public void addSession(Session session) {
-    Assert.notNull(session, "session is required");
-    this.sessions.add(session);
-  }
-
-  public Optional<Session> getSessionForDate(LocalDateTime localDateTime) {
-    return this.sessions.stream().filter(session -> session.getCreationDateTime().toLocalDate().equals(localDateTime.toLocalDate())).findAny();
-  }
-
-  public void assSession(Session session) {
-    Assert.notNull(session, "session is required");
-    this.sessions.add(session);
-  }
-
-  public Optional<Session> getSession(UUID id) {
-    if (id == null) {
-      return Optional.empty();
-    }
-    return this.sessions.stream().filter(ws -> id.equals(ws.getId())).findFirst();
   }
 
   public enum Gender {

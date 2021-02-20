@@ -1,12 +1,8 @@
 package com.workout.workoutArtifact.domain.session.service;
 
 import com.workout.workoutArtifact.domain.session.model.Session;
+import com.workout.workoutArtifact.domain.session.model.Session.IdsSpecification;
 import com.workout.workoutArtifact.domain.session.model.SessionRepository;
-import com.workout.workoutArtifact.domain.user.model.User;
-import com.workout.workoutArtifact.domain.user.model.User.IdsSpecification;
-import com.workout.workoutArtifact.domain.user.model.UserRepository;
-import com.workout.workoutArtifact.domain.user.service.UserService;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
@@ -19,39 +15,42 @@ import org.springframework.stereotype.Component;
 public class SessionService {
 
   private final SessionRepository sessionRepository;
-  private final UserRepository userRepository;
 
-  public UUID postSession(UUID id, UUID userId, LocalDateTime time, String location, String programme, String splitName) {
 
-    Optional<User> userOptional = userRepository.getUsers(new IdsSpecification(Arrays.asList(userId))).stream().findFirst();
+  public UUID createSession(UUID userId, LocalDateTime time, String location, String programme, String splitName) {
 
-    if (userOptional.isPresent()) {
-      User user = userOptional.get();
+    Session session = Session.createNewSession(
+        time,
+        location,
+        programme,
+        splitName,
+        userId
+    );
+    return sessionRepository.save(session);
+  }
 
-      Optional<Session> sessionOptional = user.getSession(id);
 
-      Session session;
-      if (sessionOptional.isPresent()) {
-        session = sessionOptional.get();
+  public UUID postSession(UUID id, String location, String programme, String splitName) {
 
-        if (location != null && location != session.getLocation()) { session.changeLocation(location); }
-        if (programme != null && programme != session.getProgramme()) { session.changeProgramme(programme); }
-        if (splitName != null && splitName != session.getSplitName()) { session.changeSplitName(splitName); }
+    Optional<Session> sessionOptional = sessionRepository.getSessions(new IdsSpecification(Arrays.asList(id))).stream().findFirst();
 
-      } else {
-        session = Session.createNewSession(
-            time,
-            location,
-            programme,
-            splitName,
-            userId
-        );
-        user.addSession(session);
+    Session session;
+    if (sessionOptional.isPresent()) {
+      session = sessionOptional.get();
+
+      if (location != null && location != session.getLocation()) {
+        session.changeLocation(location);
       }
-      userRepository.save(user);
-      return session.getId();
+      if (programme != null && programme != session.getProgramme()) {
+        session.changeProgramme(programme);
+      }
+      if (splitName != null && splitName != session.getSplitName()) {
+        session.changeSplitName(splitName);
+      }
+
+      return sessionRepository.save(session);
     }
-    throw new RuntimeException(String.format("could not post session with userId: %s", userId));
+    throw new RuntimeException(String.format("session with id %s was not found", id));
   }
 
   public UUID save(Session session) {

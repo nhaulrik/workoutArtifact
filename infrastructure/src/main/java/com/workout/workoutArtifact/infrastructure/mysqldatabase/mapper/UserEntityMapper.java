@@ -2,7 +2,9 @@ package com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper;
 
 import com.workout.workoutArtifact.domain.user.model.User;
 import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.UserEntity;
+import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.SessionJpaRepository;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserEntityMapper {
 
-  private final SessionEntityMapper sessionEntityMapper;
+  private final SessionJpaRepository sessionJpaRepository;
 
   public User toDomainObject(UserEntity userEntity) {
     return User.fromEntity(
@@ -18,8 +20,7 @@ public class UserEntityMapper {
         userEntity.getFirstName(),
         userEntity.getLastName(),
         userEntity.getBirthDay(),
-        User.Gender.valueOf(userEntity.getGender()),
-        userEntity.getSessionEntities().stream().map(sessionEntityMapper::toDomainObject).collect(Collectors.toList())
+        User.Gender.valueOf(userEntity.getGender())
     );
   }
 
@@ -30,9 +31,9 @@ public class UserEntityMapper {
     userEntity.setLastName(user.getLastName());
     userEntity.setGender(user.getGender().name());
     userEntity.setId(user.getId());
-    userEntity.setSessionEntities(user.getSessions().stream().map(sessionEntityMapper::toEntity).collect(Collectors.toSet()));
+    userEntity.setSessionEntities(sessionJpaRepository.findAllByUserEntityId(user.getId().toString()));
 
-    userEntity.getSessionEntities().forEach(sessionEntity -> sessionEntity.setUserEntity(userEntity));
+//    userEntity.getSessionEntities().forEach(sessionEntity -> sessionEntity.setUserEntity(userEntity));
     return userEntity;
   }
 
