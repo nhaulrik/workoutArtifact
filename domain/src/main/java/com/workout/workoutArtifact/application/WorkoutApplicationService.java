@@ -4,6 +4,7 @@ import com.workout.workoutArtifact.domain.session.service.SessionService;
 import com.workout.workoutArtifact.domain.user.model.User;
 import com.workout.workoutArtifact.domain.user.model.User.IdsSpecification;
 import com.workout.workoutArtifact.domain.user.service.UserService;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
@@ -33,4 +34,12 @@ public class WorkoutApplicationService {
   }
 
 
+  public UUID handleUserRequest(UUID id, String firstName, String lastName, LocalDate birthday, String gender) {
+
+    if (id != null) {
+      return userService.postUser(id, firstName, lastName, birthday, gender);
+    } else {
+      return userService.createUser(firstName, lastName, birthday, gender);
+    }
+  }
 }

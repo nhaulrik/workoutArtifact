@@ -32,8 +32,6 @@ public class UserEntityMapper {
     userEntity.setGender(user.getGender().name());
     userEntity.setId(user.getId());
     userEntity.setSessionEntities(sessionJpaRepository.findAllByUserEntityId(user.getId().toString()));
-
-//    userEntity.getSessionEntities().forEach(sessionEntity -> sessionEntity.setUserEntity(userEntity));
     return userEntity;
   }
 

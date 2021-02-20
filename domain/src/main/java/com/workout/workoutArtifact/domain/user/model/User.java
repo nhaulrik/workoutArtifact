@@ -1,15 +1,12 @@
 package com.workout.workoutArtifact.domain.user.model;
 
-import com.workout.workoutArtifact.domain.session.model.Session;
 import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Value;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.util.Assert;
 
 @Getter
@@ -79,6 +76,27 @@ public class User {
     );
 
   }
+
+  public void updateFirstName(String firstName) {
+    Assert.isTrue(!Strings.isBlank(firstName), "firstName is required");
+    this.firstName = firstName;
+  }
+
+  public void updateLastName(String lastName) {
+    Assert.isTrue(!Strings.isBlank(lastName), "lastName is required");
+    this.lastName = lastName;
+  }
+
+  public void updateBirthday(LocalDate birthday) {
+    Assert.notNull(birthday, "birthday is required");
+    this.birthday = birthday;
+  }
+
+  public void updateGender(Gender gender) {
+    Assert.notNull(gender, "gender is required");
+    this.gender = gender;
+  }
+
 
   public enum Gender {
     MALE,
