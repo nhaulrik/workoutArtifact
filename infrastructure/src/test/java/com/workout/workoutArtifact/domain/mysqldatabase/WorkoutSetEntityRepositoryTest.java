@@ -6,10 +6,10 @@
 //import static org.mockito.Mockito.mock;
 //import static org.mockito.Mockito.verify;
 //
-//import com.workout.workoutArtifact.domain.exercise.model.Exercise;
-//import com.workout.workoutArtifact.domain.specification.Specification;
-//import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet;
-//import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet.ExerciseIdSpecification;
+//import com.workout.workoutArtifact.exercise.Exercise;
+//import com.workout.workoutArtifact.specification.Specification;
+//import com.workout.workoutArtifact.workoutset.WorkoutSet;
+//import com.workout.workoutArtifact.workoutset.WorkoutSet.ExerciseIdSpecification;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.WorkoutSetEntityRepository;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutSetEntityMapper;

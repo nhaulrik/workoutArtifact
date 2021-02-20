@@ -1,9 +1,9 @@
 package com.workout.workoutArtifact.application;
 
-import com.workout.workoutArtifact.domain.session.service.SessionService;
-import com.workout.workoutArtifact.domain.user.model.User;
-import com.workout.workoutArtifact.domain.user.model.User.IdsSpecification;
-import com.workout.workoutArtifact.domain.user.service.UserService;
+import com.workout.workoutArtifact.session.SessionService;
+import com.workout.workoutArtifact.user.User;
+import com.workout.workoutArtifact.user.User.IdsSpecification;
+import com.workout.workoutArtifact.user.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;

@@ -6,8 +6,8 @@
 //import static org.mockito.Mockito.mock;
 //
 //import com.workout.workoutArtifact.common.enums.BodyPartEnum;
-//import com.workout.workoutArtifact.domain.muscle.model.Muscle;
-//import com.workout.workoutArtifact.domain.muscle.model.Muscle.NameSpecification;
+//import com.workout.workoutArtifact.muscle.Muscle;
+//import com.workout.workoutArtifact.muscle.Muscle.NameSpecification;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.MuscleEntityRepository;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.MuscleEntity;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.MuscleEntityMapper;

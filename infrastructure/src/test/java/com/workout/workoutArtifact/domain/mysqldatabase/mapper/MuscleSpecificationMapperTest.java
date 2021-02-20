@@ -4,10 +4,10 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.workout.workoutArtifact.domain.muscle.model.Muscle.BodyPartSpecification;
-import com.workout.workoutArtifact.domain.muscle.model.Muscle.NameSpecification;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.MuscleEntity;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.MuscleSpecificationMapper;
+import com.workout.workoutArtifact.muscle.Muscle.BodyPartSpecification;
+import com.workout.workoutArtifact.muscle.Muscle.NameSpecification;
+import com.workout.workoutArtifact.mysql.entity.MuscleEntity;
+import com.workout.workoutArtifact.mysql.mapper.MuscleSpecificationMapper;
 import java.util.Arrays;
 import org.junit.Test;
 
