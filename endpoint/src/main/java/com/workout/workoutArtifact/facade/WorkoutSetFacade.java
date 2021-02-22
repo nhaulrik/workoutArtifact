@@ -1,6 +1,6 @@
 package com.workout.workoutArtifact.facade;
 
-import com.workout.workoutArtifact.application.WorkoutApplicationService;
+import com.workout.workoutArtifact.application.WorkoutSetApplicationService;
 import com.workout.workoutArtifact.workoutset.WorkoutSetService;
 import com.workout.workoutArtifact.request.workoutset.PostWorkoutSetRequest;
 import com.workout.workoutArtifact.request.workoutset.PostWorkoutSetResponse;
@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component;
 public class WorkoutSetFacade {
 
   private final WorkoutSetService workoutSetService;
-  private final WorkoutApplicationService workoutApplicationService;
+  private final WorkoutSetApplicationService workoutSetApplicationService;
 
   public PostWorkoutSetResponse postWorkoutSet(List<PostWorkoutSetRequest> postWorkoutSetRequests) {
 
     List<UUID> workoutSetIds = new ArrayList<>();
     postWorkoutSetRequests.forEach(postWorkoutSetRequest -> {
-      workoutSetIds.add(workoutApplicationService.handleWorkoutSet(
+      workoutSetIds.add(workoutSetApplicationService.handleWorkoutSet(
           postWorkoutSetRequest.getId(),
           postWorkoutSetRequest.getSetNumber(),
           postWorkoutSetRequest.getWeight(),

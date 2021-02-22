@@ -1,6 +1,6 @@
 package com.workout.workoutArtifact.facade;
 
-import com.workout.workoutArtifact.application.WorkoutApplicationService;
+import com.workout.workoutArtifact.application.SessionApplicationService;
 import com.workout.workoutArtifact.session.SessionService;
 import com.workout.workoutArtifact.request.session.PostSessionRequest;
 import com.workout.workoutArtifact.request.session.PostSessionResponse;
@@ -16,14 +16,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class SessionFacade {
 
-  private final WorkoutApplicationService workoutApplicationService;
+  private final SessionApplicationService sessionApplicationService;
   private final SessionService sessionService;
 
   public PostSessionResponse postSessions(List<PostSessionRequest> postSessionRequests) {
 
     List<UUID> sessionIds = new ArrayList<>();
     postSessionRequests.forEach(postSessionRequest -> {
-      sessionIds.add(workoutApplicationService.handleSessionRequest(
+      sessionIds.add(sessionApplicationService.handleSessionRequest(
           postSessionRequest.getId(),
           postSessionRequest.getUserId(),
           postSessionRequest.getTime(),
