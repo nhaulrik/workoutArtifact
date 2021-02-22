@@ -3,12 +3,10 @@ package com.workout.workoutArtifact.muscle;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.List;
 import java.util.UUID;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.Value;
 
-@Data // TODO: 16-09-2019 change to Value
-@Builder
+@Getter
 public class Muscle {
 
   private UUID id;
@@ -17,8 +15,23 @@ public class Muscle {
 
   private String bodyPart;
 
+  private Muscle(UUID id, String name, String bodyPart) {
+    this.id = id;
+    this.name = name;
+    this.bodyPart = bodyPart;
+  }
+
+  public static Muscle createMuscle(String name, String bodyPart) {
+    return new Muscle(UUID.randomUUID(), name, bodyPart);
+  }
+
+  public static Muscle instantiate(UUID id, String name, String bodyPart) {
+    return new Muscle(id, name, bodyPart);
+  }
+
   @Value
   public static class IdsSpecification extends AbstractSpecification<Muscle> {
+
     private final List<UUID> ids;
 
     @Override
@@ -29,6 +42,7 @@ public class Muscle {
 
   @Value
   public static class NameSpecification extends AbstractSpecification<Muscle> {
+
     private final List<String> names;
 
     @Override
@@ -39,6 +53,7 @@ public class Muscle {
 
   @Value
   public static class BodyPartSpecification extends AbstractSpecification<Muscle> {
+
     private final List<String> bodyparts;
 
     @Override

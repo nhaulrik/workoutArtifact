@@ -8,11 +8,7 @@ import org.springframework.stereotype.Component;
 public class MuscleEntityMapper {
 
   public Muscle toDomainObject(MuscleEntity muscleEntity) {
-    return Muscle.builder()
-        .id(muscleEntity.getId())
-        .name(muscleEntity.getName())
-        .bodyPart(muscleEntity.getBodyPart())
-        .build();
+    return Muscle.instantiate(muscleEntity.getId(), muscleEntity.getName(), muscleEntity.getBodyPart());
   }
 
   public MuscleEntity toEntity(Muscle muscle) {
