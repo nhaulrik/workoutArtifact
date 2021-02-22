@@ -44,47 +44,47 @@ public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLServ
       @GraphQLArgument(name = "fromDateString") String fromDateString,
       @GraphQLArgument(name = "toDateString") String toDateString
   ) {
-      List<AbstractSpecification<Session>> sessionSpecifications = new ArrayList<>();
-      AbstractSpecification aggregatedSpecification;
-
-      sessionSpecifications.add(new UserIdsSpecification(Arrays.asList(userId)));
-
-      if (fromDateString != null && toDateString != null) {
-        LocalDateTime fromDate = DateHelper.parseDateFromString(fromDateString);
-        LocalDateTime toDate = DateHelper.parseDateFromString(toDateString);
-        sessionSpecifications.add(new BetweenDateTimeSpecification(fromDate, toDate));
-      }
-
-      aggregatedSpecification = sessionSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification<>());
-
-      List<Session> sessions = sessionEntityRepository.getSessions(aggregatedSpecification);
-      List<ExerciseAverage> exerciseAverages = new ArrayList<>();
-
-      Map<String, List<WorkoutSet>> workoutSetMap = new HashMap<>();
-
-      List<WorkoutExercise> allWorkoutExercises = sessions.stream()
-          .map(Session::getWorkoutExercises)
-          .flatMap(Collection::stream)
-          .filter(we -> !we.getIsWarmup())
-          .collect(Collectors.toList());
-
-      if (exerciseIds != null) {
-        allWorkoutExercises.removeIf(workoutExercise -> !exerciseIds.contains(workoutExercise.getExerciseId()));
-      }
-
-      allWorkoutExercises.forEach(workoutExercise -> workoutSetMap.put(workoutExercise.getExerciseId().toString(), new ArrayList<>()));
-      allWorkoutExercises.forEach(workoutExercise -> workoutSetMap.get(workoutExercise.getExerciseId().toString()).addAll(workoutExercise.getWorkoutSets()));
-
-      workoutSetMap.forEach((exerciseName, workoutSetList) -> exerciseAverages.add(new ExerciseAverage(
-              exerciseName,
-              workoutSetList.stream().map(WorkoutSet::getWeight).collect(Collectors.averagingDouble(Double::doubleValue)),
-              workoutSetList.size()
-          ))
-      );
+//      List<AbstractSpecification<Session>> sessionSpecifications = new ArrayList<>();
+//      AbstractSpecification aggregatedSpecification;
+//
+//      sessionSpecifications.add(new UserIdsSpecification(Arrays.asList(userId)));
+//
+//      if (fromDateString != null && toDateString != null) {
+//        LocalDateTime fromDate = DateHelper.parseDateFromString(fromDateString);
+//        LocalDateTime toDate = DateHelper.parseDateFromString(toDateString);
+//        sessionSpecifications.add(new BetweenDateTimeSpecification(fromDate, toDate));
+//      }
+//
+//      aggregatedSpecification = sessionSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification<>());
+//
+//      List<Session> sessions = sessionEntityRepository.getSessions(aggregatedSpecification);
+//      List<ExerciseAverage> exerciseAverages = new ArrayList<>();
+//
+//      Map<String, List<UUID>> workoutSetMap = new HashMap<>();
+//
+//      List<WorkoutExercise> allWorkoutExercises = sessions.stream()
+//          .map(Session::getWorkoutExercises)
+//          .flatMap(Collection::stream)
+//          .filter(we -> !we.getIsWarmup())
+//          .collect(Collectors.toList());
+//
+//      if (exerciseIds != null) {
+//        allWorkoutExercises.removeIf(workoutExercise -> !exerciseIds.contains(workoutExercise.getExerciseId()));
+//      }
+//
+//      allWorkoutExercises.forEach(workoutExercise -> workoutSetMap.put(workoutExercise.getExerciseId().toString(), new ArrayList<>()));
+//      allWorkoutExercises.forEach(workoutExercise -> workoutSetMap.get(workoutExercise.getExerciseId().toString()).addAll(workoutExercise.getWorkoutSetIds()));
+//
+//      workoutSetMap.forEach((exerciseName, workoutSetList) -> exerciseAverages.add(new ExerciseAverage(
+//              exerciseName,
+//              workoutSetList.stream().map(WorkoutSet::getWeight).collect(Collectors.averagingDouble(Double::doubleValue)),
+//              workoutSetList.size()
+//          ))
+//      );
 
       return ExerciseIntelligenceDto.builder()
           .userId(userId)
-          .exerciseAverages(exerciseAverages)
+//          .exerciseAverages(exerciseAverages)
           .build();
   }
 
@@ -95,27 +95,27 @@ public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLServ
 
     List<SessionIntelligenceDto> sessionIntelligenceDtos = new ArrayList<>();
 
-    if (userIds != null) {
-      List<Session> sessions = sessionEntityRepository.getSessions(new UserIdsSpecification(userIds));
-      sessions.forEach(session -> {
-        AtomicReference<Integer> totalRepetitions = new AtomicReference<>(0);
-        AtomicReference<Double> totalWeight = new AtomicReference<>(0d);
-
-        session.getWorkoutExercises().stream()
-            .map(WorkoutExercise::getWorkoutSets)
-            .flatMap(Collection::stream)
-            .forEach(workoutSet -> {
-              totalRepetitions.updateAndGet(v -> v + workoutSet.getRepetitions());
-              totalWeight.updateAndGet(v -> v + (workoutSet.getWeight() * workoutSet.getRepetitions()));
-            });
-
-        sessionIntelligenceDtos.add(SessionIntelligenceDto.builder()
-            .totalRepetitions(totalRepetitions.get())
-            .totalWeight(totalWeight.get())
-            .dateTime(session.getCreationDateTime())
-            .build());
-      });
-    }
+//    if (userIds != null) {
+//      List<Session> sessions = sessionEntityRepository.getSessions(new UserIdsSpecification(userIds));
+//      sessions.forEach(session -> {
+//        AtomicReference<Integer> totalRepetitions = new AtomicReference<>(0);
+//        AtomicReference<Double> totalWeight = new AtomicReference<>(0d);
+//
+//        session.getWorkoutExercises().stream()
+//            .map(WorkoutExercise::getWorkoutSetIds)
+//            .flatMap(Collection::stream)
+//            .forEach(workoutSet -> {
+//              totalRepetitions.updateAndGet(v -> v + workoutSet.getRepetitions());
+//              totalWeight.updateAndGet(v -> v + (workoutSet.getWeight() * workoutSet.getRepetitions()));
+//            });
+//
+//        sessionIntelligenceDtos.add(SessionIntelligenceDto.builder()
+//            .totalRepetitions(totalRepetitions.get())
+//            .totalWeight(totalWeight.get())
+//            .dateTime(session.getCreationDateTime())
+//            .build());
+//      });
+//    }
 
     return sessionIntelligenceDtos.stream()
         .sorted(Comparator.comparing(SessionIntelligenceDto::getDateTime, Comparator.nullsLast(Comparator.reverseOrder())))

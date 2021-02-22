@@ -55,13 +55,6 @@ public class Session {
     return new Session(id, creationDateTime, location, programme, splitName, workoutExercises, userId);
   }
 
-  public List<WorkoutSet> getWorkoutSet() {
-    return this.workoutExercises.stream()
-        .map(we -> we.getWorkoutSets())
-        .flatMap(Collection::stream)
-        .collect(Collectors.toList());
-  }
-
   public List<WorkoutExercise> getWorkoutExercises(List<UUID> exerciseIds) {
     return this.workoutExercises.stream()
         .filter(we -> exerciseIds.contains(we.getId()))
