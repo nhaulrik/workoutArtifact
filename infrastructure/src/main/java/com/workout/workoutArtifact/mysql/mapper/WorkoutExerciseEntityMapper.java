@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.mysql.mapper;
 
+import com.workout.workoutArtifact.mysql.entity.ExerciseEntity;
 import com.workout.workoutArtifact.mysql.entity.WorkoutExerciseEntity;
 import com.workout.workoutArtifact.workoutExercise.WorkoutExercise;
 import com.workout.workoutArtifact.mysql.entity.SessionEntity;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Component;
 public class WorkoutExerciseEntityMapper {
 
   private final WorkoutSetEntityMapper workoutSetEntityMapper;
-  private final ExerciseEntityMapper exerciseEntityMapper;
 
   private final EntityManager entityManager;
 
@@ -22,7 +22,7 @@ public class WorkoutExerciseEntityMapper {
         workoutExerciseEntity.getId(),
         workoutExerciseEntity.getExerciseNumber(),
         workoutExerciseEntity.getWorkoutSets().stream().map(workoutSetEntityMapper::toDomain).collect(Collectors.toList()),
-        exerciseEntityMapper.toDomainObject(workoutExerciseEntity.getExerciseEntity()),
+        workoutExerciseEntity.getExerciseEntity().getId(),
         workoutExerciseEntity.getIsWarmup(),
         workoutExerciseEntity.getSessionEntity().getId()
     );
@@ -33,7 +33,7 @@ public class WorkoutExerciseEntityMapper {
     workoutExerciseEntity.setId(workoutExercise.getId().toString());
     workoutExerciseEntity.setExerciseNumber(workoutExercise.getExerciseNumber());
     workoutExerciseEntity.setWorkoutSets(workoutExercise.getWorkoutSets().stream().map(workoutSetEntityMapper::toEntity).collect(Collectors.toList()));
-    workoutExerciseEntity.setExerciseEntity(exerciseEntityMapper.toEntity(workoutExercise.getExercise()));
+    workoutExerciseEntity.setExerciseEntity(entityManager.getReference(ExerciseEntity.class, workoutExercise.getExerciseId().toString()));
     workoutExerciseEntity.setIsWarmup(workoutExercise.getIsWarmup());
 
     workoutExerciseEntity.getWorkoutSets().forEach(ws -> ws.setWorkoutExerciseEntity(workoutExerciseEntity));

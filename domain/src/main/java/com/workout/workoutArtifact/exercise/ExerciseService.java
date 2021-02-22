@@ -3,7 +3,6 @@ package com.workout.workoutArtifact.exercise;
 import com.workout.workoutArtifact.exercise.Exercise.ExerciseIdSpecification;
 import com.workout.workoutArtifact.muscle.Muscle;
 import com.workout.workoutArtifact.muscle.Muscle.IdsSpecification;
-import com.workout.workoutArtifact.muscle.MuscleRepository;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -16,16 +15,10 @@ import org.springframework.stereotype.Component;
 public class ExerciseService {
 
   private final ExerciseRepository exerciseRepository;
-  private final MuscleRepository muscleRepository;
 
   public UUID postExercise(UUID id, String name, String bodyPart, Boolean isCompound, List<UUID> muscleIds) {
 
-    Optional<Exercise> exerciseOptional;
-    if (id != null) {
-      exerciseOptional = exerciseRepository.getExercises(new ExerciseIdSpecification(id)).stream().findFirst();
-    } else {
-      exerciseOptional = Optional.empty();
-    }
+    Optional<Exercise> exerciseOptional = exerciseRepository.getExercises(new Exercise.ExerciseIdSpecification(id)).stream().findFirst();
 
     if (exerciseOptional.isPresent()) {
       Exercise exercise = exerciseOptional.get();
@@ -40,18 +33,9 @@ public class ExerciseService {
         exercise.changeIsCompound(isCompound);
       }
 
-      muscleIds.forEach(muscleId -> {
-        Optional<Muscle> muscleOptional = muscleRepository.getMuscles(new IdsSpecification(Arrays.asList(muscleId))).stream().findFirst();
-        if (muscleOptional.isPresent()) {
-          if (!exercise.getMuscle(muscleId).isPresent()) {
-            exercise.addMuscle(muscleOptional.get());
-          }
-        }
-      });
       return exerciseRepository.save(exercise);
     } else {
-      Exercise newExercise = Exercise.createExercise(name, isCompound, bodyPart);
-      return exerciseRepository.save(newExercise);
+      throw new RuntimeException(String.format("exercise with id %s was not found", id));
     }
   }
 
@@ -71,5 +55,16 @@ public class ExerciseService {
 
   public Boolean deleteExercise(UUID exerciseId) {
     return exerciseRepository.delete(exerciseId);
+  }
+
+  public UUID createExercise(String name, String bodyPart, Boolean isCompound) {
+
+    Exercise exercise = Exercise.createExercise(
+        name,
+        isCompound,
+        bodyPart
+    );
+
+    return exerciseRepository.save(exercise);
   }
 }

@@ -69,11 +69,11 @@ public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLServ
           .collect(Collectors.toList());
 
       if (exerciseIds != null) {
-        allWorkoutExercises.removeIf(workoutExercise -> !exerciseIds.contains(workoutExercise.getExercise().getId()));
+        allWorkoutExercises.removeIf(workoutExercise -> !exerciseIds.contains(workoutExercise.getExerciseId()));
       }
 
-      allWorkoutExercises.forEach(workoutExercise -> workoutSetMap.put(workoutExercise.getExercise().getName(), new ArrayList<>()));
-      allWorkoutExercises.forEach(workoutExercise -> workoutSetMap.get(workoutExercise.getExercise().getName()).addAll(workoutExercise.getWorkoutSets()));
+      allWorkoutExercises.forEach(workoutExercise -> workoutSetMap.put(workoutExercise.getExerciseId().toString(), new ArrayList<>()));
+      allWorkoutExercises.forEach(workoutExercise -> workoutSetMap.get(workoutExercise.getExerciseId().toString()).addAll(workoutExercise.getWorkoutSets()));
 
       workoutSetMap.forEach((exerciseName, workoutSetList) -> exerciseAverages.add(new ExerciseAverage(
               exerciseName,

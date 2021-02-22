@@ -1,11 +1,9 @@
 package com.workout.workoutArtifact.exercise;
 
-import com.workout.workoutArtifact.muscle.Muscle;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import lombok.Data;
 import lombok.NonNull;
@@ -28,15 +26,15 @@ public class Exercise {
   @NonNull
   private String bodyPart;
 
-  private List<Muscle> muscles;
+  private final List<UUID> muscleIds;
 
-  private Exercise(UUID id, LocalDateTime createDate, @NonNull String name, @NonNull Boolean isCompound, @NonNull String bodyPart, List<Muscle> muscles) {
+  private Exercise(UUID id, LocalDateTime createDate, @NonNull String name, @NonNull Boolean isCompound, @NonNull String bodyPart, List<UUID> muscleIds) {
     this.id = id;
     this.createDate = createDate;
     this.name = name;
     this.isCompound = isCompound;
     this.bodyPart = bodyPart;
-    this.muscles = muscles;
+    this.muscleIds = muscleIds;
   }
 
   public static Exercise createExercise(@NonNull String name, @NonNull Boolean isCompound, @NonNull String bodyPart) {
@@ -49,17 +47,16 @@ public class Exercise {
       Boolean isCompound,
       String bodyPart,
       LocalDateTime createDate,
-      List<Muscle> muscles
+      List<UUID> muscleIds
   ) {
-    Exercise exercise = new Exercise(
+    return new Exercise(
         id,
         createDate,
         name,
         isCompound,
         bodyPart,
-        muscles
+        muscleIds
     );
-    return exercise;
   }
 
   public void changeName(String name) {
@@ -78,25 +75,9 @@ public class Exercise {
     this.isCompound = isCompound;
   }
 
-  public Optional<Muscle> getMuscle(UUID muscleId) {
-    if (muscleId == null) {
-      return Optional.empty();
-    }
-    return this.muscles.stream().filter(m -> muscleId.equals(m.getId())).findFirst();
-  }
-
-  public void addMuscle(Muscle muscle) {
-    Assert.notNull(muscle, "Muscle is required");
-    Assert.isTrue(!this.getMuscle(muscle.getId()).isPresent(), String.format("muscle already exist on exercise with id: %s", this.id));
-
-    this.muscles.add(muscle);
-  }
-
   public void removeMuscle(UUID muscleId) {
-    Assert.notNull(muscleId, "muscleId is required");
-    this.muscles.removeIf(muscle -> muscle.getId().equals(muscleId));
+    this.muscleIds.removeIf(id -> id.equals(muscleId));
   }
-
 
   @Value
   public static class NameSpecification extends AbstractSpecification<Exercise> {

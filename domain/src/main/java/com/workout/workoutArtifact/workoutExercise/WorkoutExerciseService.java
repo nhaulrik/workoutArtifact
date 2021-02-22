@@ -1,11 +1,6 @@
 package com.workout.workoutArtifact.workoutExercise;
 
-import com.workout.workoutArtifact.exercise.Exercise;
-import com.workout.workoutArtifact.exercise.Exercise.ExerciseIdSpecification;
-import com.workout.workoutArtifact.exercise.ExerciseRepository;
-import com.workout.workoutArtifact.session.Session;
-import com.workout.workoutArtifact.session.Session.IdsSpecification;
-import com.workout.workoutArtifact.session.SessionRepository;
+import com.workout.workoutArtifact.workoutExercise.WorkoutExercise.IdsSpecification;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
@@ -18,40 +13,34 @@ import org.springframework.stereotype.Component;
 public class WorkoutExerciseService {
 
   private final WorkoutExerciseRepository workoutExerciseRepository;
-  private final ExerciseRepository exerciseRepository;
-  private final SessionRepository sessionRepository;
 
   public Boolean deleteWorkoutExercise(UUID id) {
     return workoutExerciseRepository.deleteWorkoutExercise(id);
   }
 
-  public UUID postWorkoutExercise(UUID id, UUID exerciseId, Integer exerciseNumber, UUID sessionId, Boolean isWarmup) {
+  public UUID postWorkoutExercise(UUID id, UUID exerciseId, Integer exerciseNumber, Boolean isWarmup) {
 
-    Session session = sessionRepository.getSessions(new IdsSpecification(Arrays.asList(sessionId))).stream().findFirst().get();
+    Optional<WorkoutExercise> workoutExerciseOptional = workoutExerciseRepository.getWorkoutExercises(new IdsSpecification(Arrays.asList(id))).stream().findFirst();
 
-    Optional<WorkoutExercise> workoutExerciseOptional = session.getWorkoutExercise(id);
-    WorkoutExercise workoutExercise;
     if (workoutExerciseOptional.isPresent()) {
-      workoutExercise = workoutExerciseOptional.get();
+      WorkoutExercise workoutExercise = workoutExerciseOptional.get();
       if (exerciseNumber != null && exerciseNumber != workoutExercise.getExerciseNumber()) {
         workoutExercise.changeExerciseNumber(exerciseNumber);
         workoutExercise.changeIsWarmup(isWarmup);
       }
-      if (!exerciseId.equals(workoutExercise.getExercise().getId())) {
-        Exercise newExercise = exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst().get();
-        workoutExercise.changeExercise(newExercise);
+      if (workoutExercise.getExerciseId() != exerciseId) {
+        workoutExercise.changeExercise(exerciseId);
       }
-    } else {
-      workoutExercise = WorkoutExercise.createWorkoutExercise(
-          exerciseNumber,
-          new ArrayList<>(),
-          exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst().get(),
-          isWarmup,
-          sessionId
-      );
-      session.addWorkoutExercise(workoutExercise);
+      return workoutExerciseRepository.save(workoutExercise);
     }
-    sessionRepository.save(session);
-    return workoutExercise.getId();
+    throw new RuntimeException(String.format("workoutExercise with Id %s was not found", id));
+  }
+
+  public UUID createWorkoutExercise(UUID exerciseId, Integer exerciseNumber, Boolean isWarmup, UUID sessionId) {
+    WorkoutExercise workoutExercise = WorkoutExercise.createWorkoutExercise(
+        exerciseNumber, new ArrayList<>(), exerciseId, isWarmup, sessionId
+    );
+
+    return workoutExerciseRepository.save(workoutExercise);
   }
 }

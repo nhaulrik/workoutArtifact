@@ -16,26 +16,26 @@ public class WorkoutExercise {
   private UUID id;
   private Integer exerciseNumber;
   private List<WorkoutSet> workoutSets;
-  private Exercise exercise;
+  private UUID exerciseId;
   private Boolean isWarmup;
 
   private UUID sessionId;
 
-  private WorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise, Boolean isWarmup, UUID sessionId) {
+  private WorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, UUID exerciseId, Boolean isWarmup, UUID sessionId) {
     this.id = id;
     this.exerciseNumber = exerciseNumber;
     this.workoutSets = workoutSets;
-    this.exercise = exercise;
+    this.exerciseId = exerciseId;
     this.isWarmup = isWarmup;
     this.sessionId = sessionId;
   }
 
-  public static WorkoutExercise createWorkoutExercise(Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise, Boolean isWarmup, UUID sessionId) {
-    return new WorkoutExercise(UUID.randomUUID(), exerciseNumber, workoutSets, exercise, isWarmup, sessionId);
+  public static WorkoutExercise createWorkoutExercise(Integer exerciseNumber, List<WorkoutSet> workoutSets, UUID exerciseId, Boolean isWarmup, UUID sessionId) {
+    return new WorkoutExercise(UUID.randomUUID(), exerciseNumber, workoutSets, exerciseId, isWarmup, sessionId);
   }
 
-  public static WorkoutExercise initializeWorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, Exercise exercise, Boolean isWarmup, UUID sessionId) {
-    return new WorkoutExercise(id, exerciseNumber, workoutSets, exercise, isWarmup, sessionId);
+  public static WorkoutExercise initializeWorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, UUID exerciseId, Boolean isWarmup, UUID sessionId) {
+    return new WorkoutExercise(id, exerciseNumber, workoutSets, exerciseId, isWarmup, sessionId);
   }
 
   public void updateExerciseNumber(Integer exerciseNumber) {
@@ -64,9 +64,9 @@ public class WorkoutExercise {
     this.workoutSets.add(workoutSet);
   }
 
-  public void changeExercise(Exercise newExercise) {
-    Assert.notNull(newExercise, "exercise is required");
-    this.exercise = newExercise;
+  public void changeExercise(UUID newExerciseId) {
+    Assert.notNull(newExerciseId, "exercise Id is required");
+    this.exerciseId = newExerciseId;
   }
 
   public void changeIsWarmup(Boolean isWarmup) {

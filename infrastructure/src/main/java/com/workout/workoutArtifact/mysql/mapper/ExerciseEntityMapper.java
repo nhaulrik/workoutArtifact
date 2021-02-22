@@ -2,6 +2,8 @@ package com.workout.workoutArtifact.mysql.mapper;
 
 import com.workout.workoutArtifact.mysql.entity.ExerciseEntity;
 import com.workout.workoutArtifact.exercise.Exercise;
+import com.workout.workoutArtifact.mysql.entity.MuscleEntity;
+import com.workout.workoutArtifact.mysql.repository.MuscleJpaRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,16 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ExerciseEntityMapper {
 
-  private final MuscleEntityMapper muscleEntityMapper;
-  private final EntityManager entityManager;
+  private final MuscleJpaRepository muscleJpaRepository;
 
   public ExerciseEntity toEntity(Exercise exercise) {
-
-//    List<MuscleEntity> muscleEntities = new ArrayList<>();
-//
-//    exercise.getMuscles().forEach(muscleEntity -> {
-//      muscleEntities.add(entityManager.getReference(MuscleEntity.class, muscleEntity.getId()));
-//    });
 
     ExerciseEntity exerciseEntity = new ExerciseEntity(
         exercise.getId().toString(),
@@ -35,11 +30,9 @@ public class ExerciseEntityMapper {
         exercise.getIsCompound(),
         exercise.getBodyPart(),
         new ArrayList<>(),
-        exercise.getMuscles().stream().map(muscleEntityMapper::toEntity).collect(Collectors.toList())
+        muscleJpaRepository.findAllByExerciseEntities(exercise.getId().toString())
     );
-
-    exerciseEntity.getMuscleEntities().forEach(muscleEntity -> muscleEntity.setExerciseEntities(Arrays.asList(exerciseEntity)));
-
+   // exerciseEntity.getMuscleEntities().forEach(muscleEntity -> muscleEntity.setExerciseEntities(Arrays.asList(exerciseEntity)));
     return exerciseEntity;
   }
 
@@ -50,7 +43,7 @@ public class ExerciseEntityMapper {
         exerciseEntity.getIsCompound(),
         exerciseEntity.getBodyPart(),
         exerciseEntity.getCreateDate(),
-        exerciseEntity.getMuscleEntities().stream().map(muscleEntityMapper::toDomainObject).collect(Collectors.toList()));
+        exerciseEntity.getMuscleEntities().stream().map(MuscleEntity::getId).collect(Collectors.toList()));
     return exercise;
   }
 
