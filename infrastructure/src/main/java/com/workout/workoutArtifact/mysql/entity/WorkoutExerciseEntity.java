@@ -44,7 +44,7 @@ public class WorkoutExerciseEntity {
   @Column
   private Boolean isWarmup;
 
-  @OneToMany(mappedBy = "workoutExerciseEntity", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "workoutExerciseEntity", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<WorkoutSetEntity> workoutSets = new ArrayList<>();
 
   @ManyToOne

@@ -15,14 +15,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class WorkoutExerciseEntityMapper {
 
-  private final WorkoutSetJpaRepository workoutSetJpaRepository;
   private final EntityManager entityManager;
+  private final WorkoutSetEntityMapper workoutSetEntityMapper;
 
   public WorkoutExercise toDomain(WorkoutExerciseEntity workoutExerciseEntity) {
     return WorkoutExercise.initializeWorkoutExercise(
         workoutExerciseEntity.getId(),
         workoutExerciseEntity.getExerciseNumber(),
-        workoutExerciseEntity.getWorkoutSets().stream().map(WorkoutSetEntity::getId).collect(Collectors.toList()),
+        workoutExerciseEntity.getWorkoutSets().stream().map(workoutSetEntityMapper::toDomain).collect(Collectors.toList()),
         workoutExerciseEntity.getExerciseEntity().getId(),
         workoutExerciseEntity.getIsWarmup(),
         workoutExerciseEntity.getSessionEntity().getId()
@@ -33,7 +33,7 @@ public class WorkoutExerciseEntityMapper {
     WorkoutExerciseEntity workoutExerciseEntity = new WorkoutExerciseEntity();
     workoutExerciseEntity.setId(workoutExercise.getId().toString());
     workoutExerciseEntity.setExerciseNumber(workoutExercise.getExerciseNumber());
-    workoutExerciseEntity.setWorkoutSets(workoutSetJpaRepository.findAllById(workoutExercise.getWorkoutSetIds().stream().map(id -> id.toString()).collect(Collectors.toList())));
+    workoutExerciseEntity.setWorkoutSets(workoutExercise.getWorkoutSets().stream().map(workoutSetEntityMapper::toEntity).collect(Collectors.toList()));
     workoutExerciseEntity.setExerciseEntity(entityManager.getReference(ExerciseEntity.class, workoutExercise.getExerciseId().toString()));
     workoutExerciseEntity.setIsWarmup(workoutExercise.getIsWarmup());
 

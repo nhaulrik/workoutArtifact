@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.workoutExercise;
 
+import com.workout.workoutArtifact.specification.Specification;
 import com.workout.workoutArtifact.workoutExercise.WorkoutExercise.IdsSpecification;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,10 @@ public class WorkoutExerciseService {
 
   public Boolean deleteWorkoutExercise(UUID id) {
     return workoutExerciseRepository.deleteWorkoutExercise(id);
+  }
+
+  public Optional<WorkoutExercise> getWorkoutExercise(Specification<WorkoutExercise> workoutExerciseSpecification) {
+    return workoutExerciseRepository.getWorkoutExercises(workoutExerciseSpecification).stream().findFirst();
   }
 
   public UUID postWorkoutExercise(UUID id, UUID exerciseId, Integer exerciseNumber, Boolean isWarmup) {

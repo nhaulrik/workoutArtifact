@@ -14,27 +14,27 @@ public class WorkoutExercise {
 
   private UUID id;
   private Integer exerciseNumber;
-  private List<UUID> workoutSetIds;
+  private List<WorkoutSet> workoutSets;
   private UUID exerciseId;
   private Boolean isWarmup;
 
   private UUID sessionId;
 
-  private WorkoutExercise(UUID id, Integer exerciseNumber, List<UUID> workoutSetIds, UUID exerciseId, Boolean isWarmup, UUID sessionId) {
+  private WorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, UUID exerciseId, Boolean isWarmup, UUID sessionId) {
     this.id = id;
     this.exerciseNumber = exerciseNumber;
-    this.workoutSetIds = workoutSetIds;
+    this.workoutSets = workoutSets;
     this.exerciseId = exerciseId;
     this.isWarmup = isWarmup;
     this.sessionId = sessionId;
   }
 
-  public static WorkoutExercise createWorkoutExercise(Integer exerciseNumber, List<UUID> workoutSetIds, UUID exerciseId, Boolean isWarmup, UUID sessionId) {
-    return new WorkoutExercise(UUID.randomUUID(), exerciseNumber, workoutSetIds, exerciseId, isWarmup, sessionId);
+  public static WorkoutExercise createWorkoutExercise(Integer exerciseNumber, List<WorkoutSet> workoutSets, UUID exerciseId, Boolean isWarmup, UUID sessionId) {
+    return new WorkoutExercise(UUID.randomUUID(), exerciseNumber, workoutSets, exerciseId, isWarmup, sessionId);
   }
 
-  public static WorkoutExercise initializeWorkoutExercise(UUID id, Integer exerciseNumber, List<UUID> workoutSetsIds, UUID exerciseId, Boolean isWarmup, UUID sessionId) {
-    return new WorkoutExercise(id, exerciseNumber, workoutSetsIds, exerciseId, isWarmup, sessionId);
+  public static WorkoutExercise initializeWorkoutExercise(UUID id, Integer exerciseNumber, List<WorkoutSet> workoutSets, UUID exerciseId, Boolean isWarmup, UUID sessionId) {
+    return new WorkoutExercise(id, exerciseNumber, workoutSets, exerciseId, isWarmup, sessionId);
   }
 
   public void updateExerciseNumber(Integer exerciseNumber) {
@@ -56,6 +56,27 @@ public class WorkoutExercise {
     Assert.notNull(isWarmup, "isWarmup is required");
     this.isWarmup = isWarmup;
   }
+
+  public Optional<WorkoutSet> getWorkoutSet(UUID id) {
+    if (id == null) {
+      return Optional.empty();
+    }
+    return this.workoutSets.stream().filter(ws -> id.equals(ws.getId())).findFirst();
+  }
+
+  public void addWorkoutSet(WorkoutSet workoutSet) {
+    Assert.notNull(workoutSet, "workoutSet is required");
+
+    if (this.workoutSets.stream().filter(we -> we.getId().equals(we)).findAny().isPresent()) {
+      throw new RuntimeException(String.format("workoutSet with id: %s is already present on workoutExercise with id: %s", workoutSet.getId().toString(), this.id.toString()));
+    }
+    this.workoutSets.add(workoutSet);
+  }
+
+  public void removeWorkoutset(UUID id) {
+    this.workoutSets.removeIf(workoutSet -> workoutSet.getId().equals(id));
+  }
+
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<WorkoutExercise> {
@@ -90,5 +111,4 @@ public class WorkoutExercise {
       return exerciseNumbers.contains(workoutExercise.getExerciseNumber());
     }
   }
-
 }

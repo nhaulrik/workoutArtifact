@@ -3,12 +3,11 @@ package com.workout.workoutArtifact.workoutset;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import java.util.List;
 import java.util.UUID;
-import lombok.Data;
+import lombok.Getter;
 import lombok.Value;
-import org.springframework.util.Assert;
 
 
-@Data
+@Getter
 public class WorkoutSet {
 
   private UUID id;
@@ -40,28 +39,33 @@ public class WorkoutSet {
   }
 
   public void changeSetNumber(Integer setNumber) {
-    Assert.notNull(setNumber, "setNumber is required");
-    this.setNumber = setNumber;
+    if (setNumber != null) {
+      this.setNumber = setNumber;
+    }
   }
 
-  public void changeSetNumber(Double weight) {
-    Assert.notNull(weight, "weight is not required");
-    this.weight = weight;
+  public void changeWeight(Double weight) {
+    if (weight != null) {
+      this.weight = weight;
+    }
   }
 
   public void changeRepetitions(Integer repetitions) {
-    Assert.notNull(repetitions, "repetitions is required");
-    this.repetitions = repetitions;
+    if (repetitions != null) {
+      this.repetitions = repetitions;
+    }
   }
 
   public void changeRepetitionMaximum(Integer repetitionMaximum) {
-    Assert.notNull(repetitionMaximum, "repetitionMaximum is required");
-    this.repetitionMaximum = repetitionMaximum;
+    if (repetitionMaximum != null) {
+      this.repetitionMaximum = repetitionMaximum;
+    }
   }
 
   public void changeIsSingle(Boolean single) {
-    Assert.notNull(single, "single is required");
-    this.single = single;
+    if (single != null) {
+      this.single = single;
+    }
   }
 
   @Value
