@@ -1,6 +1,10 @@
 --liquibase formatted sql
 
 --changeset nch:1604609499566-1
+INSERT INTO exercise (id, body_part, is_compound, name) VALUES ('da83cd5e-3a98-4495-8974-5bb7485660cc', 'ARM', FALSE, 'CABLE HAMMER CURL');
+INSERT INTO exercise (id, body_part, is_compound, name) VALUES ('b8dc1deb-ae26-4b9d-b37b-f80c23e54cbc', 'ABDOMEN', FALSE, 'SLEDGEHAMMER SWING');
+INSERT INTO exercise (id, body_part, is_compound, name) VALUES ('3971003f-e69c-4032-a0e3-8200618ac26e', 'CORE', FALSE, 'SEATED AB CIRCLE');
+INSERT INTO exercise (id, body_part, is_compound, name) VALUES ('b4acdeb7-09bc-41cd-b1d9-eda4de8ddc03', 'CORE', FALSE, 'PLANK ELBOW KNEE');
 INSERT INTO exercise (id, body_part, is_compound, name) VALUES ('f8837126-274b-11eb-adc1-0242ac120002', 'UPPER BODY', FALSE, 'DUMBELL PULLOVER');
 INSERT INTO exercise (id, body_part, is_compound, name) VALUES ('bad477b9-9978-46ca-8f86-fcf61e196b4b', 'BACK', TRUE, 'LAT PULL DOWN');
 INSERT INTO exercise (id, body_part, is_compound, name) VALUES ('f8837388-274b-11eb-adc1-0242ac120002', 'BACK', TRUE, 'DUMBELL ONE ARM ROW');
