@@ -9,6 +9,6 @@ public interface MuscleJpaRepository extends JpaRepository<MuscleEntity, Long>,
     JpaSpecificationExecutor<MuscleEntity> {
 
   MuscleEntity findByName(String name);
-  List<MuscleEntity> findAllByExerciseEntities(String id);
+  List<MuscleEntity> findAllByExerciseEntitiesId(String id);
 
 }

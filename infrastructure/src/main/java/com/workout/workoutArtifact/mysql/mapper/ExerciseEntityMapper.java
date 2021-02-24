@@ -30,9 +30,8 @@ public class ExerciseEntityMapper {
         exercise.getIsCompound(),
         exercise.getBodyPart(),
         new ArrayList<>(),
-        muscleJpaRepository.findAllByExerciseEntities(exercise.getId().toString())
+        muscleJpaRepository.findAllByExerciseEntitiesId(exercise.getId().toString())
     );
-   // exerciseEntity.getMuscleEntities().forEach(muscleEntity -> muscleEntity.setExerciseEntities(Arrays.asList(exerciseEntity)));
     return exerciseEntity;
   }
 
