@@ -102,13 +102,13 @@ public class Exercise {
   }
 
   @Value
-  public static class ExerciseIdSpecification extends AbstractSpecification<Exercise> {
+  public static class ExerciseIdsSpecification extends AbstractSpecification<Exercise> {
 
-    private final UUID id;
+    private final List<UUID> ids;
 
     @Override
     public boolean isSatisfiedBy(Exercise exercise) {
-      return id.equals(exercise.getId());
+      return ids.contains(exercise.getId());
     }
   }
 

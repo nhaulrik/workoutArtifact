@@ -28,6 +28,10 @@ public class WorkoutSet {
     this.workoutExerciseId = workoutExerciseId;
   }
 
+  public Double getTotalWeight() {
+    return repetitions * weight;
+  }
+
   public static WorkoutSet initializeWorkoutSet(UUID workoutSetId, UUID workoutExerciseId, Boolean single, Double weight, Integer repetitions, Integer repetitionMaximum, Integer setNumber) {
     return new WorkoutSet(
         workoutSetId, workoutExerciseId, single, weight, repetitions, repetitionMaximum, setNumber);

@@ -1,30 +1,17 @@
 package com.workout.workoutArtifact.intelligence;
 
-import com.workout.workoutArtifact.session.Session;
-import com.workout.workoutArtifact.session.Session.BetweenDateTimeSpecification;
-import com.workout.workoutArtifact.session.Session.UserIdsSpecification;
-import com.workout.workoutArtifact.specification.AbstractSpecification;
-import com.workout.workoutArtifact.specification.MatchNoneSpecification;
-import com.workout.workoutArtifact.workoutExercise.WorkoutExercise;
-import com.workout.workoutArtifact.workoutset.WorkoutSet;
+import com.workout.workoutArtifact.application.intelligence.SessionIntelligence;
 import com.workout.workoutArtifact.configuration.GraphQLSPQRConfig;
-import com.workout.workoutArtifact.helper.DateHelper;
 import com.workout.workoutArtifact.intelligence.dto.ExerciseIntelligenceDto;
 import com.workout.workoutArtifact.intelligence.dto.ExerciseIntelligenceDto.ExerciseAverage;
 import com.workout.workoutArtifact.intelligence.dto.SessionIntelligenceDto;
-import com.workout.workoutArtifact.session.SessionEntityRepository;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLQuery;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +22,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
-  private final SessionEntityRepository sessionEntityRepository;
+  private final SessionIntelligence sessionIntelligence;
 
   @GraphQLQuery(name = "exerciseIntelligence")
   public ExerciseIntelligenceDto getExerciseIntelligence(
@@ -44,6 +31,13 @@ public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLServ
       @GraphQLArgument(name = "fromDateString") String fromDateString,
       @GraphQLArgument(name = "toDateString") String toDateString
   ) {
+
+    Map<String, Double> averages = sessionIntelligence.getAverages(userId, exerciseIds);
+
+    List<ExerciseAverage> exerciseAverages = averages.entrySet().stream().map(e -> new ExerciseAverage(e.getKey(), e.getValue(), 0)).collect(Collectors.toList());
+
+    return new ExerciseIntelligenceDto(userId, exerciseAverages);
+
 //      List<AbstractSpecification<Session>> sessionSpecifications = new ArrayList<>();
 //      AbstractSpecification aggregatedSpecification;
 //
@@ -82,10 +76,6 @@ public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLServ
 //          ))
 //      );
 
-      return ExerciseIntelligenceDto.builder()
-          .userId(userId)
-//          .exerciseAverages(exerciseAverages)
-          .build();
   }
 
   @GraphQLQuery(name = "sessionIntelligence")

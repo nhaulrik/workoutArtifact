@@ -5,6 +5,8 @@ import com.workout.workoutArtifact.specification.AndSpecification;
 import com.workout.workoutArtifact.specification.MatchAllSpecification;
 import com.workout.workoutArtifact.specification.Specification;
 import com.workout.workoutArtifact.mysql.entity.ExerciseEntity;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import org.springframework.data.mapping.MappingException;
 import org.springframework.stereotype.Component;
 
@@ -24,8 +26,8 @@ public class ExerciseSpecificationMapper {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("name").in(((Exercise.NameSpecification) exerciseSpecification).getNames());
     } else if (exerciseSpecification instanceof Exercise.BodyPartsSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> root.get("bodyPart").in(((Exercise.BodyPartsSpecification) exerciseSpecification).getBodyParts());
-    } else if (exerciseSpecification instanceof Exercise.ExerciseIdSpecification) {
-      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Exercise.ExerciseIdSpecification) exerciseSpecification).getId().toString());
+    } else if (exerciseSpecification instanceof Exercise.ExerciseIdsSpecification) {
+      return (root, criteriaQuery, criteriaBuilder) -> root.get("id").in(((Exercise.ExerciseIdsSpecification) exerciseSpecification).getIds().stream().map(UUID::toString).collect(Collectors.toList()));
     }
     throw new MappingException(String.format("Unknown specification: %s", exerciseSpecification.getClass().getSimpleName()));
   }

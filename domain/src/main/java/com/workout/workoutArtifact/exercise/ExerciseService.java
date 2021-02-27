@@ -1,10 +1,10 @@
 package com.workout.workoutArtifact.exercise;
 
-import com.workout.workoutArtifact.exercise.Exercise.ExerciseIdSpecification;
-import com.workout.workoutArtifact.muscle.Muscle;
-import com.workout.workoutArtifact.muscle.Muscle.IdsSpecification;
+import com.workout.workoutArtifact.exercise.Exercise.ExerciseIdsSpecification;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +16,16 @@ public class ExerciseService {
 
   private final ExerciseRepository exerciseRepository;
 
+  public Map<UUID, String> getExerciseMap(List<UUID> exerciseIds) {
+    Map<UUID, String> exerciseMap = new HashMap<>();
+
+    exerciseRepository.getExercises(new ExerciseIdsSpecification(exerciseIds)).forEach(exercise -> exerciseMap.put(exercise.getId(), exercise.getName()));
+    return exerciseMap;
+  }
+
   public UUID postExercise(UUID id, String name, String bodyPart, Boolean isCompound, List<UUID> muscleIds) {
 
-    Optional<Exercise> exerciseOptional = exerciseRepository.getExercises(new Exercise.ExerciseIdSpecification(id)).stream().findFirst();
+    Optional<Exercise> exerciseOptional = exerciseRepository.getExercises(new Exercise.ExerciseIdsSpecification(Arrays.asList(id))).stream().findFirst();
 
     if (exerciseOptional.isPresent()) {
       Exercise exercise = exerciseOptional.get();
@@ -41,7 +48,7 @@ public class ExerciseService {
 
   public Boolean deleteMuscleFromExercise(UUID exerciseId, UUID muscleId) {
 
-    Optional<Exercise> exerciseOptional = exerciseRepository.getExercises(new ExerciseIdSpecification(exerciseId)).stream().findFirst();
+    Optional<Exercise> exerciseOptional = exerciseRepository.getExercises(new ExerciseIdsSpecification(Arrays.asList(exerciseId))).stream().findFirst();
 
     if (exerciseOptional.isPresent()) {
       Exercise exercise = exerciseOptional.get();

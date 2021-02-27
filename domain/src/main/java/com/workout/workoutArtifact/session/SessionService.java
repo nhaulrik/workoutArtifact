@@ -1,7 +1,9 @@
 package com.workout.workoutArtifact.session;
 
+import com.workout.workoutArtifact.specification.Specification;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,9 @@ public class SessionService {
 
   private final SessionRepository sessionRepository;
 
+  public List<Session> getSessions(Specification<Session> sessionSpecification) {
+    return sessionRepository.getSessions(sessionSpecification);
+  }
 
   public UUID createSession(UUID userId, LocalDateTime time, String location, String programme, String splitName) {
 

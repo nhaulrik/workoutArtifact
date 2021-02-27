@@ -37,6 +37,20 @@ public class WorkoutExercise {
     return new WorkoutExercise(id, exerciseNumber, workoutSets, exerciseId, isWarmup, sessionId);
   }
 
+  public Double getAverage() {
+
+    Integer totalRepetitions = workoutSets.stream()
+        .map(WorkoutSet::getRepetitions)
+        .reduce(0, Integer::sum);
+
+    Double totalWeight = workoutSets.stream()
+        .map(WorkoutSet::getTotalWeight)
+        .reduce(0d, Double::sum);
+
+    Double workoutExerciseAverageWeight = totalWeight / totalRepetitions;
+    return workoutExerciseAverageWeight;
+  }
+
   public void updateExerciseNumber(Integer exerciseNumber) {
     Assert.notNull(exerciseNumber, "exerciseNumber is required");
     this.exerciseNumber = exerciseNumber;
