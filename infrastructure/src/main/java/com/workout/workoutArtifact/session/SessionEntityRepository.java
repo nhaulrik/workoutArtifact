@@ -1,17 +1,21 @@
 package com.workout.workoutArtifact.session;
 
-import com.workout.workoutArtifact.mysql.mapper.SessionSpecificationMapper;
-import com.workout.workoutArtifact.mysql.repository.SessionJpaRepository;
-import com.workout.workoutArtifact.session.Session;
-import com.workout.workoutArtifact.session.SessionRepository;
-import com.workout.workoutArtifact.specification.Specification;
 import com.workout.workoutArtifact.mysql.entity.SessionEntity;
 import com.workout.workoutArtifact.mysql.mapper.SessionEntityMapper;
+import com.workout.workoutArtifact.mysql.mapper.SessionSpecificationMapper;
+import com.workout.workoutArtifact.mysql.repository.SessionJpaRepository;
+import com.workout.workoutArtifact.specification.AbstractSpecification;
+import com.workout.workoutArtifact.specification.Specification;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,5 +69,19 @@ public class SessionEntityRepository implements SessionRepository {
   public UUID save(Session session) {
     SessionEntity sessionEntity = sessionEntityMapper.toEntity(session);
     return sessionJpaRepository.save(sessionEntity).getId();
+  }
+
+  @Override
+  public List<Session> getLastSessions(AbstractSpecification sessionSpecification, Integer amount) {
+
+    org.springframework.data.jpa.domain.Specification<SessionEntity> jpaSpecification = sessionSpecificationMapper.toJpaSpecification(sessionSpecification);
+
+    Pageable pageable = PageRequest.of(0, amount, Sort.by("creationDateTime").descending());
+
+    Page<SessionEntity> sessionEntities = sessionJpaRepository.findAll(jpaSpecification, pageable);
+
+    return sessionEntities.stream()
+        .map(sessionEntityMapper::toDomainObject)
+        .collect(Collectors.toList());
   }
 }

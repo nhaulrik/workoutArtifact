@@ -1,27 +1,21 @@
-package com.workout.workoutArtifact.intelligence.dto;
+package com.workout.workoutArtifact.application.intelligence;
 
-import io.leangen.graphql.annotations.types.GraphQLType;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@GraphQLType
-public class ExerciseIntelligenceDto {
+@Value
+public class ExerciseIntelligence {
 
   private UUID userId;
   private List<ExerciseAverage> exerciseAverages;
 
-  @Data
+  @Value
   @AllArgsConstructor
-  @NoArgsConstructor
-  @Builder
   public static class ExerciseAverage {
 
     private String exerciseName;

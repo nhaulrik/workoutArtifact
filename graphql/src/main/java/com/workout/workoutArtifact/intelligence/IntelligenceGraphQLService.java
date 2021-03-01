@@ -1,16 +1,14 @@
 package com.workout.workoutArtifact.intelligence;
 
-import com.workout.workoutArtifact.application.intelligence.SessionIntelligence;
+import com.workout.workoutArtifact.application.intelligence.ExerciseIntelligence;
+import com.workout.workoutArtifact.application.intelligence.WorkoutExerciseIntelligence;
 import com.workout.workoutArtifact.configuration.GraphQLSPQRConfig;
-import com.workout.workoutArtifact.intelligence.dto.ExerciseIntelligenceDto;
-import com.workout.workoutArtifact.intelligence.dto.ExerciseIntelligenceDto.ExerciseAverage;
 import com.workout.workoutArtifact.intelligence.dto.SessionIntelligenceDto;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -22,60 +20,17 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
-  private final SessionIntelligence sessionIntelligence;
+  private final WorkoutExerciseIntelligence workoutExerciseIntelligence;
 
   @GraphQLQuery(name = "exerciseIntelligence")
-  public ExerciseIntelligenceDto getExerciseIntelligence(
+  public ExerciseIntelligence getExerciseIntelligence(
       @GraphQLArgument(name = "userId") UUID userId,
       @GraphQLArgument(name = "exerciseIds") List<UUID> exerciseIds,
       @GraphQLArgument(name = "fromDateString") String fromDateString,
-      @GraphQLArgument(name = "toDateString") String toDateString
+      @GraphQLArgument(name = "toDateString") String toDateString,
+      @GraphQLArgument(name = "sessionsBack") Integer sessionsBack
   ) {
-
-    Map<String, Double> averages = sessionIntelligence.getAverages(userId, exerciseIds);
-
-    List<ExerciseAverage> exerciseAverages = averages.entrySet().stream().map(e -> new ExerciseAverage(e.getKey(), e.getValue(), 0)).collect(Collectors.toList());
-
-    return new ExerciseIntelligenceDto(userId, exerciseAverages);
-
-//      List<AbstractSpecification<Session>> sessionSpecifications = new ArrayList<>();
-//      AbstractSpecification aggregatedSpecification;
-//
-//      sessionSpecifications.add(new UserIdsSpecification(Arrays.asList(userId)));
-//
-//      if (fromDateString != null && toDateString != null) {
-//        LocalDateTime fromDate = DateHelper.parseDateFromString(fromDateString);
-//        LocalDateTime toDate = DateHelper.parseDateFromString(toDateString);
-//        sessionSpecifications.add(new BetweenDateTimeSpecification(fromDate, toDate));
-//      }
-//
-//      aggregatedSpecification = sessionSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification<>());
-//
-//      List<Session> sessions = sessionEntityRepository.getSessions(aggregatedSpecification);
-//      List<ExerciseAverage> exerciseAverages = new ArrayList<>();
-//
-//      Map<String, List<UUID>> workoutSetMap = new HashMap<>();
-//
-//      List<WorkoutExercise> allWorkoutExercises = sessions.stream()
-//          .map(Session::getWorkoutExercises)
-//          .flatMap(Collection::stream)
-//          .filter(we -> !we.getIsWarmup())
-//          .collect(Collectors.toList());
-//
-//      if (exerciseIds != null) {
-//        allWorkoutExercises.removeIf(workoutExercise -> !exerciseIds.contains(workoutExercise.getExerciseId()));
-//      }
-//
-//      allWorkoutExercises.forEach(workoutExercise -> workoutSetMap.put(workoutExercise.getExerciseId().toString(), new ArrayList<>()));
-//      allWorkoutExercises.forEach(workoutExercise -> workoutSetMap.get(workoutExercise.getExerciseId().toString()).addAll(workoutExercise.getWorkoutSetIds()));
-//
-//      workoutSetMap.forEach((exerciseName, workoutSetList) -> exerciseAverages.add(new ExerciseAverage(
-//              exerciseName,
-//              workoutSetList.stream().map(WorkoutSet::getWeight).collect(Collectors.averagingDouble(Double::doubleValue)),
-//              workoutSetList.size()
-//          ))
-//      );
-
+    return workoutExerciseIntelligence.getAverages(userId, sessionsBack, exerciseIds);
   }
 
   @GraphQLQuery(name = "sessionIntelligence")

@@ -1,5 +1,6 @@
 package com.workout.workoutArtifact.session;
 
+import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.specification.Specification;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -61,5 +62,11 @@ public class SessionService {
 
   public Boolean deleteSession(UUID id) {
     return sessionRepository.deleteSessions(new Session.IdsSpecification(Arrays.asList(id)));
+  }
+
+  public List<Session> getLastSessions(AbstractSpecification abstractSpecification, Integer amount) {
+
+    return sessionRepository.getLastSessions(abstractSpecification, amount);
+
   }
 }

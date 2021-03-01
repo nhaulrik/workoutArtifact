@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.application.workoutexercise;
+package com.workout.workoutArtifact.application.workoutset;
 
 import com.workout.workoutArtifact.workoutExercise.WorkoutExercise;
 import com.workout.workoutArtifact.workoutExercise.WorkoutExerciseRepository;

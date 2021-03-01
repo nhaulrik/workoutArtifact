@@ -1,7 +1,7 @@
 package com.workout.workoutArtifact.facade;
 
-import com.workout.workoutArtifact.application.workoutexercise.DeleteWorkoutSet;
-import com.workout.workoutArtifact.application.workoutexercise.PostWorkoutSet;
+import com.workout.workoutArtifact.application.workoutset.DeleteWorkoutSet;
+import com.workout.workoutArtifact.application.workoutset.PostWorkoutSet;
 import com.workout.workoutArtifact.application.WorkoutExerciseApplicationService;
 import com.workout.workoutArtifact.request.workoutset.PostWorkoutSetRequest;
 import com.workout.workoutArtifact.request.workoutset.PostWorkoutSetResponse;
