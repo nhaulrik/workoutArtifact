@@ -4,7 +4,7 @@ import com.workout.workoutArtifact.specification.Specification;
 import java.util.List;
 import java.util.UUID;
 
-interface ExerciseRepository {
+public interface ExerciseRepository {
 
   List<Exercise> getExercises(Specification<Exercise> exerciseSpecification);
   String addExercises(List<Exercise> exercises);

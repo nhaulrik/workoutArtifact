@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.session;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.workoutExercise.WorkoutExercise;
 import com.workout.workoutArtifact.workoutset.WorkoutSet;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -92,6 +93,14 @@ public class Session {
       throw new RuntimeException(String.format("workoutExercise with id: %s is already present on session with id: %s", workoutExercise.getId().toString(), this.id.toString()));
     }
     this.workoutExercises.add(workoutExercise);
+  }
+
+  public Double getVolume() {
+    return this.workoutExercises.stream()
+        .map(WorkoutExercise::getWorkoutSets)
+        .flatMap(Collection::stream)
+        .map(WorkoutSet::getTotalWeight)
+        .reduce(0d, Double::sum);
   }
 
   @Value

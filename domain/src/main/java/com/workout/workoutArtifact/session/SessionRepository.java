@@ -5,7 +5,7 @@ import com.workout.workoutArtifact.specification.Specification;
 import java.util.List;
 import java.util.UUID;
 
-interface SessionRepository {
+public interface SessionRepository {
 
   List<Session> getSessions(Specification<Session> sessionSpecification);
   List<UUID> addSessions(List<Session> sessions);

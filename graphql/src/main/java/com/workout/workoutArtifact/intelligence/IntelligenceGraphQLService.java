@@ -1,16 +1,23 @@
 package com.workout.workoutArtifact.intelligence;
 
 import com.workout.workoutArtifact.application.intelligence.ExerciseIntelligence;
+import com.workout.workoutArtifact.application.intelligence.SessionIntelligence;
 import com.workout.workoutArtifact.application.intelligence.WorkoutExerciseIntelligence;
 import com.workout.workoutArtifact.configuration.GraphQLSPQRConfig;
-import com.workout.workoutArtifact.intelligence.dto.SessionIntelligenceDto;
+import com.workout.workoutArtifact.session.Session;
+import com.workout.workoutArtifact.specification.AbstractSpecification;
+import com.workout.workoutArtifact.specification.MatchNoneSpecification;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLQuery;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,6 +28,7 @@ import org.springframework.stereotype.Component;
 public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
   private final WorkoutExerciseIntelligence workoutExerciseIntelligence;
+  private final SessionIntelligence sessionIntelligence;
 
   @GraphQLQuery(name = "exerciseIntelligence")
   public ExerciseIntelligence getExerciseIntelligence(
@@ -30,41 +38,35 @@ public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLServ
       @GraphQLArgument(name = "toDateString") String toDateString,
       @GraphQLArgument(name = "sessionsBack") Integer sessionsBack
   ) {
-    return workoutExerciseIntelligence.getAverages(userId, sessionsBack, exerciseIds);
+
+    List<AbstractSpecification> specifications = new ArrayList<>();
+
+    if (fromDateString != null && toDateString != null) {
+      LocalDateTime fromDate = getTime(fromDateString);
+      LocalDateTime toDate = getTime(toDateString);
+
+      specifications.add(new Session.BetweenDateTimeSpecification(fromDate, toDate));
+    }
+
+    specifications.add(new Session.UserIdsSpecification(Arrays.asList(userId)));
+
+    AbstractSpecification aggregatedSpecification = specifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification());
+
+    return workoutExerciseIntelligence.getIntelligence(aggregatedSpecification, userId, sessionsBack, exerciseIds);
+  }
+
+  private LocalDateTime getTime(String value) {
+      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+      LocalDate parsedDate = LocalDate.parse(value, dateTimeFormatter);
+      return LocalDateTime.of(parsedDate, LocalTime.MIN);
   }
 
   @GraphQLQuery(name = "sessionIntelligence")
-  public List<SessionIntelligenceDto> getSessionIntelligenceBySessionId(
-      @GraphQLArgument(name = "userIds") List<UUID> userIds
+  public List<SessionIntelligence.SessionIntelligenceDto> getSessionIntelligence(
+      @GraphQLArgument(name = "userId") @NonNull UUID userId,
+      @GraphQLArgument(name = "sessionsBack") @NonNull Integer sessionsBack
   ) {
-
-    List<SessionIntelligenceDto> sessionIntelligenceDtos = new ArrayList<>();
-
-//    if (userIds != null) {
-//      List<Session> sessions = sessionEntityRepository.getSessions(new UserIdsSpecification(userIds));
-//      sessions.forEach(session -> {
-//        AtomicReference<Integer> totalRepetitions = new AtomicReference<>(0);
-//        AtomicReference<Double> totalWeight = new AtomicReference<>(0d);
-//
-//        session.getWorkoutExercises().stream()
-//            .map(WorkoutExercise::getWorkoutSetIds)
-//            .flatMap(Collection::stream)
-//            .forEach(workoutSet -> {
-//              totalRepetitions.updateAndGet(v -> v + workoutSet.getRepetitions());
-//              totalWeight.updateAndGet(v -> v + (workoutSet.getWeight() * workoutSet.getRepetitions()));
-//            });
-//
-//        sessionIntelligenceDtos.add(SessionIntelligenceDto.builder()
-//            .totalRepetitions(totalRepetitions.get())
-//            .totalWeight(totalWeight.get())
-//            .dateTime(session.getCreationDateTime())
-//            .build());
-//      });
-//    }
-
-    return sessionIntelligenceDtos.stream()
-        .sorted(Comparator.comparing(SessionIntelligenceDto::getDateTime, Comparator.nullsLast(Comparator.reverseOrder())))
-        .collect(Collectors.toList());
+    return sessionIntelligence.getSessionIntelligence(userId, sessionsBack);
   }
 
 }
