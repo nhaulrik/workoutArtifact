@@ -16,7 +16,6 @@ HELP.md
 *.iws
 *.iml
 *.ipr
-*.class
 
 ### NetBeans ###
 /nbproject/private/
@@ -25,7 +24,4 @@ HELP.md
 /nbdist/
 /.nb-gradle/
 /build/
-/infrastructure/target/
-/domain/target/
-/endpoint/target/
-/*/target/
+/*/target/*
