@@ -1,6 +1,5 @@
 package com.workout.workoutArtifact.request.programme;
 
-import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +13,5 @@ public class PostPhaseRequest {
   private final Integer number;
   private final String name;
   private final String description;
-  private final List<UUID> splitIds;
 
 }

@@ -24,8 +24,7 @@ public class PhaseFacade {
           postPhaseRequest.getName(),
           postPhaseRequest.getDescription(),
           postPhaseRequest.getNumber(),
-          postPhaseRequest.getProgrammeId(),
-          postPhaseRequest.getSplitIds()
+          postPhaseRequest.getProgrammeId()
       ));
     });
     return new PostPhaseResponse(phaseIds);

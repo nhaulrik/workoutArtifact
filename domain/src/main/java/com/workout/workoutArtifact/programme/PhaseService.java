@@ -1,11 +1,7 @@
 package com.workout.workoutArtifact.programme;
 
-import com.workout.workoutArtifact.programme.Phase;
-import com.workout.workoutArtifact.programme.Programme;
 import com.workout.workoutArtifact.programme.Programme.IdsSpecification;
-import com.workout.workoutArtifact.programme.ProgrammeRepository;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +14,7 @@ public class PhaseService {
   private final ProgrammeRepository programmeRepository;
 
 
-  public UUID postPhase(UUID id, String name, String description, Integer number, UUID programmeId, List<UUID> splitIds) {
-
-    // TODO: 26-01-2021 what about splitIds?
+  public UUID postPhase(UUID id, String name, String description, Integer number, UUID programmeId) {
 
     Optional<Programme> programmeOptional = programmeRepository.getProgrammes(new IdsSpecification(Arrays.asList(programmeId))).stream().findFirst();
 

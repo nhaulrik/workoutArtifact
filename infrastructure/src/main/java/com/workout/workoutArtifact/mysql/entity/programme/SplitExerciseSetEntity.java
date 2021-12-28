@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "split_exercise_set")
@@ -28,6 +27,12 @@ public class SplitExerciseSetEntity {
   @OneToOne
   @JoinColumn(foreignKey = @ForeignKey(name = "fk_exercise"))
   private ExerciseEntity exerciseEntity;
+
+  public SplitExerciseSetEntity(String id, Integer repetitionMaximum, ExerciseEntity exerciseEntity) {
+    this.id = id;
+    this.repetitionMaximum = repetitionMaximum;
+    this.exerciseEntity = exerciseEntity;
+  }
 
   public UUID getId() {
     return UUID.fromString(this.id);

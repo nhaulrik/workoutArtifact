@@ -25,3 +25,7 @@ HELP.md
 /nbdist/
 /.nb-gradle/
 /build/
+/infrastructure/target/
+/domain/target/
+/endpoint/target/
+/*/target/
