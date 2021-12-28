@@ -1,8 +1,8 @@
 package com.workout.workoutArtifact.mysql.mapper.programme;
 
+import com.workout.workoutArtifact.mysql.entity.ExerciseEntity;
 import com.workout.workoutArtifact.mysql.entity.programme.SplitExerciseSetEntity;
 import com.workout.workoutArtifact.programme.SplitExerciseSet;
-import com.workout.workoutArtifact.mysql.entity.ExerciseEntity;
 import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -22,6 +22,7 @@ public class SplitExerciseSetEntityMapper {
 
   public SplitExerciseSetEntity toEntity(SplitExerciseSet splitExerciseSet) {
     return new SplitExerciseSetEntity(
+        splitExerciseSet.getExerciseId().toString(),
         splitExerciseSet.getRepetitionMaximum(),
         entityManager.getReference(ExerciseEntity.class, splitExerciseSet.getExerciseId())
     );
