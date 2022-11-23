@@ -7,14 +7,14 @@
 //import static org.mockito.Mockito.mock;
 //
 //import com.workout.workoutArtifact.common.enums.BodyPartEnum;
-//import com.workout.workoutArtifact.domain.exercise.model.Exercise;
-//import com.workout.workoutArtifact.domain.exercise.model.Exercise.NameSpecification;
+//import com.workout.workoutArtifact.exercise.Exercise;
+//import com.workout.workoutArtifact.exercise.Exercise.NameSpecification;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.ExerciseEntityRepository;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.ExerciseEntityMapper;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.ExerciseSpecificationMapper;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.repository.ExerciseJpaRepository;
-//import com.workout.workoutArtifact.domain.specification.Specification;
+//import com.workout.workoutArtifact.specification.Specification;
 //import java.util.Arrays;
 //import java.util.List;
 //import java.util.UUID;

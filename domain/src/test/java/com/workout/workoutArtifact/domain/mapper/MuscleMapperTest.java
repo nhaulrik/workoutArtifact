@@ -3,7 +3,7 @@
 //import static org.hamcrest.CoreMatchers.is;
 //import static org.hamcrest.MatcherAssert.assertThat;
 //
-//import com.workout.workoutArtifact.muscle.model.Muscle;
+//import com.workout.workoutArtifact.muscle.Muscle;
 //import com.workout.workoutArtifact.endpoint.dto.MuscleDto;
 //import com.workout.workoutArtifact.mysqldatabase.entity.MuscleEntity;
 //import org.junit.Test;

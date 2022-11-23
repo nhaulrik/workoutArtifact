@@ -7,7 +7,7 @@
 //import static org.mockito.Mockito.mock;
 //import static org.mockito.Mockito.verify;
 //
-//import com.workout.workoutArtifact.domain.specification.AbstractSpecification;
+//import com.workout.workoutArtifact.specification.AbstractSpecification;
 //import dto.SessionDto;
 //import dto.WorkoutSetDto;
 //import dto.WorkoutSetDto.IdsSpecification;

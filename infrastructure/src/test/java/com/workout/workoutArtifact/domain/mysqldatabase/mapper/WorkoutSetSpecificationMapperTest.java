@@ -4,10 +4,10 @@
 //import static org.hamcrest.CoreMatchers.is;
 //import static org.hamcrest.MatcherAssert.assertThat;
 //
-//import com.workout.workoutArtifact.domain.specification.AndSpecification;
-//import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
-//import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet.ExerciseIdSpecification;
-//import com.workout.workoutArtifact.domain.workoutset.model.WorkoutSet.IdsSpecification;
+//import com.workout.workoutArtifact.specification.AndSpecification;
+//import com.workout.workoutArtifact.specification.MatchAllSpecification;
+//import com.workout.workoutArtifact.workoutset.WorkoutSet.ExerciseIdSpecification;
+//import com.workout.workoutArtifact.workoutset.WorkoutSet.IdsSpecification;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.WorkoutSetEntity;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.WorkoutSetSpecificationMapper;
 //import java.util.Arrays;

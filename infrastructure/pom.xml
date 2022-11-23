@@ -8,37 +8,15 @@
     <version>0.0.1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-
   <artifactId>infrastructure</artifactId>
+
+  <packaging>jar</packaging>
+
   <dependencies>
     <dependency>
       <groupId>com.workout</groupId>
       <artifactId>domain</artifactId>
       <version>0.0.1</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.workout</groupId>
-      <artifactId>common</artifactId>
-      <version>0.0.1</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-
-    <!-- Use MySQL Connector-J -->
-
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>1.4.197</version>
     </dependency>
   </dependencies>
 

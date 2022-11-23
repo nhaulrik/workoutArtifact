@@ -6,7 +6,7 @@
 //import static org.mockito.Mockito.doReturn;
 //import static org.mockito.Mockito.mock;
 //
-//import com.workout.workoutArtifact.session.model.Session;
+//import com.workout.workoutArtifact.session.Session;
 //import com.workout.workoutArtifact.endpoint.dto.SessionDto;
 //import com.workout.workoutArtifact.mysqldatabase.entity.SessionEntity;
 //import com.workout.workoutArtifact.mysqldatabase.entity.UserEntity;

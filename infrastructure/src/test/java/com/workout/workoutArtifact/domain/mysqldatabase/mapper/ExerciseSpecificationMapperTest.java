@@ -4,9 +4,9 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.workout.workoutArtifact.domain.exercise.model.Exercise.NameSpecification;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.ExerciseEntity;
-import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.ExerciseSpecificationMapper;
+import com.workout.workoutArtifact.exercise.Exercise.NameSpecification;
+import com.workout.workoutArtifact.mysql.entity.ExerciseEntity;
+import com.workout.workoutArtifact.mysql.mapper.ExerciseSpecificationMapper;
 import java.util.Arrays;
 import org.junit.Test;
 

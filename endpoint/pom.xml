@@ -17,13 +17,7 @@
       <version>0.0.1</version>
       <scope>compile</scope>
     </dependency>
-    <dependency>
-      <groupId>com.workout</groupId>
-      <artifactId>common</artifactId>
-      <version>0.0.1</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 
-
+  <packaging>jar</packaging>
 </project>

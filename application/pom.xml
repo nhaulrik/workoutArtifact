@@ -47,14 +47,10 @@
     </dependency>
     <dependency>
       <groupId>com.workout</groupId>
-      <artifactId>common</artifactId>
-      <version>0.0.1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.workout</groupId>
       <artifactId>graphql</artifactId>
       <version>0.0.1</version>
     </dependency>
   </dependencies>
 
+  <packaging>jar</packaging>
 </project>

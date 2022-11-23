@@ -5,9 +5,9 @@
 //import static org.mockito.Mockito.doReturn;
 //import static org.mockito.Mockito.mock;
 //
-//import com.workout.workoutArtifact.domain.session.model.Session;
-//import com.workout.workoutArtifact.domain.specification.MatchAllSpecification;
-//import com.workout.workoutArtifact.domain.specification.Specification;
+//import com.workout.workoutArtifact.session.Session;
+//import com.workout.workoutArtifact.specification.MatchAllSpecification;
+//import com.workout.workoutArtifact.specification.Specification;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.SessionEntityRepository;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.entity.SessionEntity;
 //import com.workout.workoutArtifact.infrastructure.mysqldatabase.mapper.SessionEntityMapper;
