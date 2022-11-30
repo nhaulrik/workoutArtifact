@@ -24,6 +24,12 @@ public class SessionEntityMapper {
     sessionEntity.setSplitName(session.getSplitName());
     sessionEntity.setProgramme(session.getProgramme());
     sessionEntity.setLocation(session.getLocation());
+    sessionEntity.setCalories(session.getCalories());
+    sessionEntity.setDuration(session.getDuration());
+    sessionEntity.setSport(session.getSport());
+    sessionEntity.setHeartRateAverage(session.getHeartRateAverage());
+    sessionEntity.setHeartRateMaximum(session.getHeartRateMaximum());
+
     sessionEntity.setWorkoutExercises(session.getWorkoutExercises().stream().map(workoutExerciseEntityMapper::toEntity).collect(Collectors.toList()));
     sessionEntity.getWorkoutExercises().forEach(workoutExerciseEntity -> workoutExerciseEntity.setSessionEntity(sessionEntity));
 

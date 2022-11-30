@@ -16,5 +16,12 @@ public class PolarSession {
   private String sport;
   private String detailed_sport_info;
   private String calories;
+  private HeartRate heart_rate;
+
+  @Data
+  public static class HeartRate {
+    private Integer average;
+    private Integer maximum;
+  }
 
 }

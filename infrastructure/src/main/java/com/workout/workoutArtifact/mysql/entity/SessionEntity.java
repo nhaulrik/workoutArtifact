@@ -1,5 +1,7 @@
 package com.workout.workoutArtifact.mysql.entity;
 
+import com.workout.workoutArtifact.session.Sport;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +9,8 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -48,6 +52,22 @@ public class SessionEntity {
 
   @Column
   private String splitName;
+
+  @Column
+  private Integer calories;
+
+  @Column
+  private Duration duration;
+
+  @Column
+  @Enumerated(EnumType.STRING)
+  private Sport sport;
+
+  @Column
+  private Integer heartRateAverage;
+
+  @Column
+  private Integer heartRateMaximum;
 
   @ManyToOne
   @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_session_user_id"))

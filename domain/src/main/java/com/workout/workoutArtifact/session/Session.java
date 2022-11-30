@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.session;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.workoutExercise.WorkoutExercise;
 import com.workout.workoutArtifact.workoutset.WorkoutSet;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,7 +28,18 @@ public class Session {
   private String splitName;
   private UUID userId;
 
+  private Duration duration;
+  private Integer calories;
+  private Sport sport;
+  private String polarId;
+  private Integer heartRateAverage;
+  private Integer heartRateMaximum;
+
   private final List<WorkoutExercise> workoutExercises = new ArrayList<>();
+
+  private Session() {
+
+  }
 
   private Session(UUID id, LocalDateTime creationDateTime, String location, String programme, String splitName, List<WorkoutExercise> workoutExercises, UUID userId) {
     this.id = id;
@@ -39,6 +51,8 @@ public class Session {
     this.userId = userId;
   }
 
+
+
   public static Session createNewSession(LocalDateTime localDateTime, String location, String programme, String splitName, UUID userId) {
     Session session = new Session(
         UUID.randomUUID(),
@@ -49,6 +63,28 @@ public class Session {
         new ArrayList<>(),
         userId
     );
+    return session;
+  }
+
+  public static Session fromExternal(
+      String polarId,
+      Duration duration,
+      Sport sport,
+      Integer calories,
+      LocalDateTime startTime,
+      Integer heartRateAverage,
+      Integer heartRateMaximum
+      ) {
+    Session session = new Session();
+
+    session.setPolarId(polarId);
+    session.setDuration(duration);
+    session.setSport(sport);
+    session.setCalories(calories);
+    session.setCreationDateTime(startTime);
+    session.setHeartRateAverage(heartRateAverage);
+    session.setHeartRateMaximum(heartRateMaximum);
+
     return session;
   }
 

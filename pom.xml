@@ -68,7 +68,7 @@
   </dependencies>
 
   <modules>
-    <module>application</module>
+    <module>spring-application</module>
     <module>infrastructure</module>
     <module>domain</module>
     <module>endpoint</module>

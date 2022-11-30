@@ -2,6 +2,8 @@ package com.workout.workoutArtifact.dto.mapper;
 
 import com.workout.workoutArtifact.dto.SessionDto;
 import com.workout.workoutArtifact.mysql.entity.SessionEntity;
+import com.workout.workoutArtifact.session.Sport;
+import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +20,12 @@ public class SessionDtoMapper {
         sessionEntity.getProgramme(),
         sessionEntity.getSplitName(),
         sessionEntity.getCreationDateTime(),
-        sessionEntity.getUserEntity().getId()
+        sessionEntity.getUserEntity().getId(),
+        sessionEntity.getDuration() != null ? sessionEntity.getDuration().toMinutes() : null,
+        sessionEntity.getCalories(),
+        sessionEntity.getSport(),
+        sessionEntity.getHeartRateAverage(),
+        sessionEntity.getHeartRateMaximum()
     );
   }
 }

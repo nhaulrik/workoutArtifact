@@ -28,6 +28,7 @@ public class SessionEntityRepository implements SessionRepository {
   private final SessionSpecificationMapper sessionSpecificationMapper;
 
   @Override
+  @Transactional
   public List<Session> getSessions(Specification<Session> sessionSpecification) {
     org.springframework.data.jpa.domain.Specification<SessionEntity> jpaSpecification = sessionSpecificationMapper.toJpaSpecification(sessionSpecification);
 

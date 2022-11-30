@@ -41,7 +41,10 @@ public class SessionSpecificationMapper {
     } else if (sessionSpecification instanceof Session.DateTimeSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> {
         LocalDateTime parsedLocalDateTime = ((Session.DateTimeSpecification) sessionSpecification).getLocalDateTime();
-        return criteriaBuilder.between(root.get("creationDateTime"), parsedLocalDateTime, parsedLocalDateTime.plusDays(1));
+        return criteriaBuilder.between(root.get("creationDateTime"),
+            LocalDateTime.of(parsedLocalDateTime.getYear(), parsedLocalDateTime.getMonthValue(), parsedLocalDateTime.getDayOfMonth(), 0, 0, 0),
+            LocalDateTime.of(parsedLocalDateTime.getYear(), parsedLocalDateTime.getMonthValue(), parsedLocalDateTime.getDayOfMonth(), 23, 59, 59)
+        );
       };
     } else if (sessionSpecification instanceof Session.BetweenDateTimeSpecification) {
       return (root, criteriaQuery, criteriaBuilder) -> {
