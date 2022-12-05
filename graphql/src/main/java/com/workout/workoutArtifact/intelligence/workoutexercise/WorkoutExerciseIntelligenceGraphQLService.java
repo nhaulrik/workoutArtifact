@@ -2,6 +2,7 @@ package com.workout.workoutArtifact.intelligence.workoutexercise;
 
 import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto;
 import com.workout.workoutArtifact.application.intelligence.WorkoutExerciseIntelligence;
+import com.workout.workoutArtifact.application.intelligence.dto.WorkoutExerciseIntelligenceDto;
 import com.workout.workoutArtifact.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.session.Session;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
@@ -30,7 +31,7 @@ public class WorkoutExerciseIntelligenceGraphQLService implements GraphQLSPQRCon
   private final static Integer DEFAULT_SESSION_AMOUNT = 10;
 
   @GraphQLQuery(name = "exerciseIntelligence")
-  public ExerciseIntelligenceDto getExerciseIntelligence(
+  public List<WorkoutExerciseIntelligenceDto> getExerciseIntelligence(
       @GraphQLArgument(name = "userId") UUID userId,
       @GraphQLArgument(name = "fromDateString") String fromDateString,
       @GraphQLArgument(name = "toDateString") String toDateString,
@@ -46,6 +47,7 @@ public class WorkoutExerciseIntelligenceGraphQLService implements GraphQLSPQRCon
       specifications.add(new Session.BetweenDateTimeSpecification(fromDate, toDate));
     }
     sessionsBack = sessionsBack != null ? sessionsBack : DEFAULT_SESSION_AMOUNT;
+
 
     specifications.add(new Session.UserIdsSpecification(Arrays.asList(userId)));
 

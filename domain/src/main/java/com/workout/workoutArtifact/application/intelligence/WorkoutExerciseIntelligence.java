@@ -4,6 +4,7 @@ import com.workout.workoutArtifact.application.exercise.GetExercise;
 import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto;
 import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto.BodyDistribution;
 import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto.ExerciseAverage;
+import com.workout.workoutArtifact.application.intelligence.dto.WorkoutExerciseIntelligenceDto;
 import com.workout.workoutArtifact.exercise.Exercise;
 import com.workout.workoutArtifact.exercise.Exercise.ExerciseIdsSpecification;
 import com.workout.workoutArtifact.exercise.ExerciseService;
@@ -31,13 +32,13 @@ public class WorkoutExerciseIntelligence {
   private final SessionService sessionService;
   private final GetExercise getExercise;
 
-  public ExerciseIntelligenceDto getIntelligence(AbstractSpecification specification, UUID userId, Integer sessionsBack) {
+  public List<WorkoutExerciseIntelligenceDto> getIntelligence(AbstractSpecification specification, UUID userId, Integer sessionsBack) {
 
     List<Session> sessions = getSessions(specification, sessionsBack);
 
-    ExerciseIntelligenceDto exerciseIntelligenceDto = new ExerciseIntelligenceDto(userId, getAverages(sessions), getBodyIntelligence(sessions));
+    List<WorkoutExerciseIntelligenceDto> workoutExerciseIntelligenceDtos = new ArrayList<>();
 
-    return exerciseIntelligenceDto;
+    return workoutExerciseIntelligenceDtos;
   }
 
   private List<Session> getSessions(AbstractSpecification specification, Integer sessionsBack) {

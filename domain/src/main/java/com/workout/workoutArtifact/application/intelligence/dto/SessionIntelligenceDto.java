@@ -1,22 +1,24 @@
 package com.workout.workoutArtifact.application.intelligence.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@Value
 public class SessionIntelligenceDto {
 
-  private LocalDateTime dateTime;
-  private UUID userId;
-  private UUID sessionId;
-  private Integer count;
-  private Integer totalRepetitions;
-  private Double totalWeight;
+    private final String userId;
+    private final Double totalWeight;
+    private final Integer totalRepetitions;
+    private final LocalDate date;
+    private final Integer calories;
+    private final Long durationMinutes;
+
+    private final List<SessionWorkoutExerciseDto> sessionWorkoutExerciseDtos;
 }
