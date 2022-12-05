@@ -1,8 +1,9 @@
 package com.workout.workoutArtifact.application.intelligence;
 
 import com.workout.workoutArtifact.application.exercise.GetExercise;
-import com.workout.workoutArtifact.application.intelligence.ExerciseIntelligence.BodyDistribution;
-import com.workout.workoutArtifact.application.intelligence.ExerciseIntelligence.ExerciseAverage;
+import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto;
+import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto.BodyDistribution;
+import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto.ExerciseAverage;
 import com.workout.workoutArtifact.exercise.Exercise;
 import com.workout.workoutArtifact.exercise.Exercise.ExerciseIdsSpecification;
 import com.workout.workoutArtifact.exercise.ExerciseService;
@@ -30,31 +31,19 @@ public class WorkoutExerciseIntelligence {
   private final SessionService sessionService;
   private final GetExercise getExercise;
 
-  public ExerciseIntelligence getIntelligence(AbstractSpecification specification, UUID userId, Integer sessionsBack, List<UUID> exerciseIds) {
+  public ExerciseIntelligenceDto getIntelligence(AbstractSpecification specification, UUID userId, Integer sessionsBack) {
 
-    List<Session> sessions = getSessions(specification, sessionsBack, exerciseIds);
+    List<Session> sessions = getSessions(specification, sessionsBack);
 
-    ExerciseIntelligence exerciseIntelligence = new ExerciseIntelligence(userId, getAverages(sessions), getBodyIntelligence(sessions));
+    ExerciseIntelligenceDto exerciseIntelligenceDto = new ExerciseIntelligenceDto(userId, getAverages(sessions), getBodyIntelligence(sessions));
 
-    return exerciseIntelligence;
+    return exerciseIntelligenceDto;
   }
 
-  private List<Session> getSessions(AbstractSpecification specification, Integer sessionsBack, List<UUID> exerciseIds) {
+  private List<Session> getSessions(AbstractSpecification specification, Integer sessionsBack) {
 
     List<Session> sessions = sessionService.getLastSessions(specification, sessionsBack);
 
-    if (exerciseIds != null) {
-      List<UUID> workoutExercisesToKeep = sessions.stream()
-          .map(Session::getWorkoutExercises)
-          .flatMap(Collection::stream)
-          .filter(workoutExercise -> exerciseIds.contains(workoutExercise.getExerciseId()))
-          .map(WorkoutExercise::getId)
-          .collect(Collectors.toList());
-
-      sessions.forEach(session -> {
-        session.getWorkoutExercises().removeIf(we -> !workoutExercisesToKeep.contains(we.getId()));
-      });
-    }
     return sessions;
   }
 

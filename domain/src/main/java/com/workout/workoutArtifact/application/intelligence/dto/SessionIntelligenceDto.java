@@ -1,4 +1,4 @@
-package com.workout.workoutArtifact.intelligence.dto;
+package com.workout.workoutArtifact.application.intelligence.dto;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

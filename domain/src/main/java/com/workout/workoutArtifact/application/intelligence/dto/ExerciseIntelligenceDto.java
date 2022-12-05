@@ -1,23 +1,20 @@
-package com.workout.workoutArtifact.application.intelligence;
+package com.workout.workoutArtifact.application.intelligence.dto;
 
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
 @Value
-public class ExerciseIntelligence {
+public class ExerciseIntelligenceDto {
 
   private final UUID userId;
   private final List<ExerciseAverage> exerciseAverages;
   private final List<BodyDistribution> bodyDistributions;
 
-  public ExerciseIntelligence(UUID userId, List<ExerciseAverage> exerciseAverages, List<BodyDistribution> bodyDistributions) {
+  public ExerciseIntelligenceDto(UUID userId, List<ExerciseAverage> exerciseAverages, List<BodyDistribution> bodyDistributions) {
     this.userId = userId;
     this.exerciseAverages = exerciseAverages;
     this.bodyDistributions = bodyDistributions;

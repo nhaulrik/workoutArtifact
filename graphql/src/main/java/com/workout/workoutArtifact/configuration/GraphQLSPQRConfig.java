@@ -8,7 +8,7 @@ import com.workout.workoutArtifact.graphqlservice.SessionGraphQLService;
 import com.workout.workoutArtifact.graphqlservice.UserGraphQLService;
 import com.workout.workoutArtifact.graphqlservice.WorkoutExerciseGraphQLService;
 import com.workout.workoutArtifact.graphqlservice.WorkoutSetGraphQLService;
-import com.workout.workoutArtifact.intelligence.IntelligenceGraphQLService;
+import com.workout.workoutArtifact.intelligence.workoutexercise.WorkoutExerciseIntelligenceGraphQLService;
 import com.workout.workoutArtifact.intelligence.session.SessionIntelligenceGraphQLService;
 import graphql.GraphQL;
 import graphql.analysis.MaxQueryComplexityInstrumentation;
@@ -40,7 +40,7 @@ public class GraphQLSPQRConfig {
       UserGraphQLService userGraphQLService,
       WorkoutExerciseGraphQLService workoutExerciseGraphQLService,
       BodyMeasurementGraphQLService bodyMeasurementGraphQLService,
-      IntelligenceGraphQLService intelligenceGraphQLService,
+      WorkoutExerciseIntelligenceGraphQLService intelligenceGraphQLService,
       ProgrammeGraphQLService programmeGraphQLService,
       SessionIntelligenceGraphQLService sessionIntelligenceGraphQLService
   ) {

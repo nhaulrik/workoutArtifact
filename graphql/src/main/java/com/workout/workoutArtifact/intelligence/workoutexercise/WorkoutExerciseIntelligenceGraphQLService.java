@@ -1,7 +1,6 @@
-package com.workout.workoutArtifact.intelligence;
+package com.workout.workoutArtifact.intelligence.workoutexercise;
 
-import com.workout.workoutArtifact.application.intelligence.ExerciseIntelligence;
-import com.workout.workoutArtifact.application.intelligence.SessionIntelligence;
+import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto;
 import com.workout.workoutArtifact.application.intelligence.WorkoutExerciseIntelligence;
 import com.workout.workoutArtifact.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.session.Session;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -25,15 +23,15 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLService {
+public class WorkoutExerciseIntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
   private final WorkoutExerciseIntelligence workoutExerciseIntelligence;
-  private final SessionIntelligence sessionIntelligence;
+
+  private final static Integer DEFAULT_SESSION_AMOUNT = 10;
 
   @GraphQLQuery(name = "exerciseIntelligence")
-  public ExerciseIntelligence getExerciseIntelligence(
+  public ExerciseIntelligenceDto getExerciseIntelligence(
       @GraphQLArgument(name = "userId") UUID userId,
-      @GraphQLArgument(name = "exerciseIds") List<UUID> exerciseIds,
       @GraphQLArgument(name = "fromDateString") String fromDateString,
       @GraphQLArgument(name = "toDateString") String toDateString,
       @GraphQLArgument(name = "sessionsBack") Integer sessionsBack
@@ -47,12 +45,13 @@ public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLServ
 
       specifications.add(new Session.BetweenDateTimeSpecification(fromDate, toDate));
     }
+    sessionsBack = sessionsBack != null ? sessionsBack : DEFAULT_SESSION_AMOUNT;
 
     specifications.add(new Session.UserIdsSpecification(Arrays.asList(userId)));
 
     AbstractSpecification aggregatedSpecification = specifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification());
 
-    return workoutExerciseIntelligence.getIntelligence(aggregatedSpecification, userId, sessionsBack, exerciseIds);
+    return workoutExerciseIntelligence.getIntelligence(aggregatedSpecification, userId, sessionsBack);
   }
 
   private LocalDateTime getTime(String value) {
@@ -60,13 +59,5 @@ public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLServ
       LocalDate parsedDate = LocalDate.parse(value, dateTimeFormatter);
       return LocalDateTime.of(parsedDate, LocalTime.MIN);
   }
-//
-//  @GraphQLQuery(name = "sessionIntelligence")
-//  public List<SessionIntelligence.SessionIntelligenceDto> getSessionIntelligence(
-//      @GraphQLArgument(name = "userId") @NonNull UUID userId,
-//      @GraphQLArgument(name = "sessionsBack") @NonNull Integer sessionsBack
-//  ) {
-//    return sessionIntelligence.getSessionIntelligence(userId, sessionsBack);
-//  }
 
 }
