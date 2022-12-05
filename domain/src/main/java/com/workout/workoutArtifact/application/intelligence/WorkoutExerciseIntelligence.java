@@ -1,7 +1,6 @@
 package com.workout.workoutArtifact.application.intelligence;
 
 import com.workout.workoutArtifact.application.exercise.GetExercise;
-import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto;
 import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto.BodyDistribution;
 import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto.ExerciseAverage;
 import com.workout.workoutArtifact.application.intelligence.dto.WorkoutExerciseIntelligenceDto;
@@ -35,10 +34,33 @@ public class WorkoutExerciseIntelligence {
   public List<WorkoutExerciseIntelligenceDto> getIntelligence(AbstractSpecification specification, UUID userId, Integer sessionsBack) {
 
     List<Session> sessions = getSessions(specification, sessionsBack);
-
     List<WorkoutExerciseIntelligenceDto> workoutExerciseIntelligenceDtos = new ArrayList<>();
 
-    return workoutExerciseIntelligenceDtos;
+    List<UUID> exerciseIds = sessions.stream().map(Session::getWorkoutExercises).flatMap(Collection::stream).map(WorkoutExercise::getExerciseId).distinct().collect(Collectors.toList());
+    Map<UUID, Exercise> exerciseMap = new HashMap<>();
+    getExercise.execute(new ExerciseIdsSpecification(exerciseIds)).forEach(exercise -> exerciseMap.put(exercise.getId(), exercise));
+
+
+    sessions.forEach(session -> {
+      session.getWorkoutExercises().stream()
+          .filter(we -> !we.getIsWarmup())
+          .forEach(workoutExercise -> {
+            workoutExerciseIntelligenceDtos.add(
+                new WorkoutExerciseIntelligenceDto(
+                    session.getCreationDateTime().toLocalDate(),
+                    exerciseMap.get(workoutExercise.getExerciseId()).getName(),
+                    workoutExercise.getTotalWorkoutExerciseWeight(),
+                    workoutExercise.getTotalRepetitions(),
+                    workoutExercise.getExerciseNumber()
+                )
+        );
+      });
+    });
+
+    return workoutExerciseIntelligenceDtos.stream()
+        .sorted(Comparator.comparing(WorkoutExerciseIntelligenceDto::getDate).reversed()
+            .thenComparing((WorkoutExerciseIntelligenceDto::getExerciseNumber)))
+        .collect(Collectors.toList());
   }
 
   private List<Session> getSessions(AbstractSpecification specification, Integer sessionsBack) {
