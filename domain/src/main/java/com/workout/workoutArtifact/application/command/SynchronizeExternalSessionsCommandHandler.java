@@ -50,10 +50,7 @@ public class SynchronizeExternalSessionsCommandHandler {
       existingSession.setHeartRateMaximum(externalSession.getHeartRateMaximum());
 
       sessionRepository.save(existingSession);
-      Boolean bla = false;
     });
-
-    Boolean bla = false;
   }
 
 }

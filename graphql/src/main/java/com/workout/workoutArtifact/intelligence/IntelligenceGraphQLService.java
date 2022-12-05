@@ -60,13 +60,13 @@ public class IntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLServ
       LocalDate parsedDate = LocalDate.parse(value, dateTimeFormatter);
       return LocalDateTime.of(parsedDate, LocalTime.MIN);
   }
-
-  @GraphQLQuery(name = "sessionIntelligence")
-  public List<SessionIntelligence.SessionIntelligenceDto> getSessionIntelligence(
-      @GraphQLArgument(name = "userId") @NonNull UUID userId,
-      @GraphQLArgument(name = "sessionsBack") @NonNull Integer sessionsBack
-  ) {
-    return sessionIntelligence.getSessionIntelligence(userId, sessionsBack);
-  }
+//
+//  @GraphQLQuery(name = "sessionIntelligence")
+//  public List<SessionIntelligence.SessionIntelligenceDto> getSessionIntelligence(
+//      @GraphQLArgument(name = "userId") @NonNull UUID userId,
+//      @GraphQLArgument(name = "sessionsBack") @NonNull Integer sessionsBack
+//  ) {
+//    return sessionIntelligence.getSessionIntelligence(userId, sessionsBack);
+//  }
 
 }

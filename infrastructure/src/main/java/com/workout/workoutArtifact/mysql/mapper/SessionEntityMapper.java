@@ -51,6 +51,8 @@ public class SessionEntityMapper {
         sessionEntity.getProgramme(),
         sessionEntity.getSplitName(),
         sessionEntity.getLocation(),
+        sessionEntity.getCalories(),
+        sessionEntity.getDuration(),
         sessionEntity.getWorkoutExercises().stream().map(workoutExerciseEntityMapper::toDomain).collect(Collectors.toList()),
         sessionEntity.getUserEntity().getId()
     );
