@@ -31,4 +31,12 @@ public class SessionIntelligence {
     return sessionIntelligenceDtos;
   }
 
+  @Value
+  public class SessionIntelligenceDto {
+    private final UUID userId;
+    private final LocalDate date;
+    private final Double totalWeight;
+  }
+
+
 }
