@@ -3,6 +3,7 @@ package com.workout.workoutArtifact.session;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
 import com.workout.workoutArtifact.workoutExercise.WorkoutExercise;
 import com.workout.workoutArtifact.workoutset.WorkoutSet;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,9 +28,20 @@ public class Session {
   private String splitName;
   private UUID userId;
 
+  private Duration duration;
+  private Integer calories;
+  private Sport sport;
+  private String polarId;
+  private Integer heartRateAverage;
+  private Integer heartRateMaximum;
+
   private final List<WorkoutExercise> workoutExercises = new ArrayList<>();
 
-  private Session(UUID id, LocalDateTime creationDateTime, String location, String programme, String splitName, List<WorkoutExercise> workoutExercises, UUID userId) {
+  private Session() {
+
+  }
+
+  private Session(UUID id, LocalDateTime creationDateTime, String location, String programme, String splitName, Integer calories, Duration duration, List<WorkoutExercise> workoutExercises, UUID userId) {
     this.id = id;
     this.creationDateTime = creationDateTime;
     this.location = location;
@@ -37,7 +49,11 @@ public class Session {
     this.splitName = splitName;
     this.workoutExercises.addAll(workoutExercises);
     this.userId = userId;
+    this.calories = calories;
+    this.duration = duration;
   }
+
+
 
   public static Session createNewSession(LocalDateTime localDateTime, String location, String programme, String splitName, UUID userId) {
     Session session = new Session(
@@ -46,14 +62,38 @@ public class Session {
         location,
         programme,
         splitName,
+        null,
+        null,
         new ArrayList<>(),
         userId
     );
     return session;
   }
 
-  public static Session instantiate(UUID id, LocalDateTime creationDateTime, String programme, String splitName, String location, List<WorkoutExercise> workoutExercises, UUID userId) {
-    return new Session(id, creationDateTime, location, programme, splitName, workoutExercises, userId);
+  public static Session fromExternal(
+      String polarId,
+      Duration duration,
+      Sport sport,
+      Integer calories,
+      LocalDateTime startTime,
+      Integer heartRateAverage,
+      Integer heartRateMaximum
+      ) {
+    Session session = new Session();
+
+    session.setPolarId(polarId);
+    session.setDuration(duration);
+    session.setSport(sport);
+    session.setCalories(calories);
+    session.setCreationDateTime(startTime);
+    session.setHeartRateAverage(heartRateAverage);
+    session.setHeartRateMaximum(heartRateMaximum);
+
+    return session;
+  }
+
+  public static Session instantiate(UUID id, LocalDateTime creationDateTime, String programme, String splitName, String location, Integer calories, Duration duration, List<WorkoutExercise> workoutExercises, UUID userId) {
+    return new Session(id, creationDateTime, location, programme, splitName, calories, duration, workoutExercises, userId);
   }
 
   public List<WorkoutExercise> getWorkoutExercises(List<UUID> exerciseIds) {
@@ -101,6 +141,17 @@ public class Session {
         .flatMap(Collection::stream)
         .map(WorkoutSet::getTotalWeight)
         .reduce(0d, Double::sum);
+  }
+
+  public Double getTotalWeight() {
+    Double totalSessionWeight = this.workoutExercises.stream().map(we -> we.getTotalWorkoutExerciseWeight())
+        .reduce(0d, Double::sum);
+
+    return totalSessionWeight;
+  }
+
+  public Integer getTotalRepetitions() {
+    return this.workoutExercises.stream().map(workoutExercise -> workoutExercise.getTotalRepetitions()).reduce(0, Integer::sum);
   }
 
   @Value

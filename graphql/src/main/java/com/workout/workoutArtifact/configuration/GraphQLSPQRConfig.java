@@ -8,7 +8,9 @@ import com.workout.workoutArtifact.graphqlservice.SessionGraphQLService;
 import com.workout.workoutArtifact.graphqlservice.UserGraphQLService;
 import com.workout.workoutArtifact.graphqlservice.WorkoutExerciseGraphQLService;
 import com.workout.workoutArtifact.graphqlservice.WorkoutSetGraphQLService;
-import com.workout.workoutArtifact.intelligence.IntelligenceGraphQLService;
+import com.workout.workoutArtifact.intelligence.session.SessionIntelligenceGraphQLService;
+import com.workout.workoutArtifact.intelligence.workoutexercise.ExerciseBasedWorkoutExerciseIntelligenceGraphQLService;
+import com.workout.workoutArtifact.intelligence.workoutexercise.SessionBasedWorkoutExerciseIntelligenceGraphQLService;
 import graphql.GraphQL;
 import graphql.analysis.MaxQueryComplexityInstrumentation;
 import graphql.analysis.MaxQueryDepthInstrumentation;
@@ -39,8 +41,10 @@ public class GraphQLSPQRConfig {
       UserGraphQLService userGraphQLService,
       WorkoutExerciseGraphQLService workoutExerciseGraphQLService,
       BodyMeasurementGraphQLService bodyMeasurementGraphQLService,
-      IntelligenceGraphQLService intelligenceGraphQLService,
-      ProgrammeGraphQLService programmeGraphQLService
+      SessionBasedWorkoutExerciseIntelligenceGraphQLService sessionBasedWorkoutExerciseIntelligenceGraphQLService,
+      ExerciseBasedWorkoutExerciseIntelligenceGraphQLService exerciseBasedWorkoutExerciseIntelligenceGraphQLService,
+      ProgrammeGraphQLService programmeGraphQLService,
+      SessionIntelligenceGraphQLService sessionIntelligenceGraphQLService
   ) {
     GraphQLSchema schema = new GraphQLSchemaGenerator()
         .withResolverBuilders(
@@ -54,8 +58,10 @@ public class GraphQLSPQRConfig {
             userGraphQLService,
             workoutExerciseGraphQLService,
             bodyMeasurementGraphQLService,
-            intelligenceGraphQLService,
-            programmeGraphQLService
+            sessionBasedWorkoutExerciseIntelligenceGraphQLService,
+            exerciseBasedWorkoutExerciseIntelligenceGraphQLService,
+            programmeGraphQLService,
+            sessionIntelligenceGraphQLService
         )
         .withValueMapperFactory(new JacksonValueMapperFactory())
         .generate();

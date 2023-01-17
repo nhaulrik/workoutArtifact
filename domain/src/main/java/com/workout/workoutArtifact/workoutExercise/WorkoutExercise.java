@@ -91,6 +91,15 @@ public class WorkoutExercise {
     this.workoutSets.removeIf(workoutSet -> workoutSet.getId().equals(id));
   }
 
+  public Double getTotalWorkoutExerciseWeight() {
+    Double totalWorkoutExerciseWeight = this.workoutSets.stream().map(workoutSet -> workoutSet.getTotalWeight()).reduce(0d, Double::sum);
+    return totalWorkoutExerciseWeight;
+  }
+
+  public Integer getTotalRepetitions() {
+    return this.workoutSets.stream().map(workoutSet -> workoutSet.getRepetitions()).reduce(0, Integer::sum);
+  }
+
 
   @Value
   public static class IdsSpecification extends AbstractSpecification<WorkoutExercise> {

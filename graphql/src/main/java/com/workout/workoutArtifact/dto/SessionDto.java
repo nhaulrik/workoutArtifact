@@ -1,5 +1,7 @@
 package com.workout.workoutArtifact.dto;
 
+import com.workout.workoutArtifact.session.Sport;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -15,5 +17,10 @@ public class SessionDto {
   private String splitName;
   private LocalDateTime localDateTime;
   private UUID userId;
+  private Long durationMinutes;
+  private Integer calories;
+  private Sport sport;
+  private Integer heartRateAverage;
+  private Integer heartRateMaximum;
 
 }
