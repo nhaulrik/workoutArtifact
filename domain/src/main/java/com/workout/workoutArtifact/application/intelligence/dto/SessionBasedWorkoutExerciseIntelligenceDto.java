@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import lombok.Value;
 
 @Value
-public class WorkoutExerciseIntelligenceDto {
+public class SessionBasedWorkoutExerciseIntelligenceDto {
 
   private final LocalDate date;
   private final String exerciseName;
@@ -13,7 +13,7 @@ public class WorkoutExerciseIntelligenceDto {
   private final Integer exerciseNumber;
   private Double averageRepetitionWeight;
 
-  public WorkoutExerciseIntelligenceDto(LocalDate date, String exerciseName, Double totalVolume, Integer totalRepetitions, Integer exerciseNumber) {
+  public SessionBasedWorkoutExerciseIntelligenceDto(LocalDate date, String exerciseName, Double totalVolume, Integer totalRepetitions, Integer exerciseNumber) {
     this.date = date;
     this.exerciseName = exerciseName;
     this.totalVolume = totalVolume;

@@ -3,7 +3,7 @@ package com.workout.workoutArtifact.application.intelligence;
 import com.workout.workoutArtifact.application.exercise.GetExercise;
 import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto.BodyDistribution;
 import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto.ExerciseAverage;
-import com.workout.workoutArtifact.application.intelligence.dto.WorkoutExerciseIntelligenceDto;
+import com.workout.workoutArtifact.application.intelligence.dto.SessionBasedWorkoutExerciseIntelligenceDto;
 import com.workout.workoutArtifact.exercise.Exercise;
 import com.workout.workoutArtifact.exercise.Exercise.ExerciseIdsSpecification;
 import com.workout.workoutArtifact.exercise.ExerciseService;
@@ -25,16 +25,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class WorkoutExerciseIntelligence {
+public class SessionBasedWorkoutExerciseIntelligence {
 
   private final ExerciseService exerciseService;
   private final SessionService sessionService;
   private final GetExercise getExercise;
 
-  public List<WorkoutExerciseIntelligenceDto> getIntelligence(AbstractSpecification specification, UUID userId, Integer sessionsBack) {
+  public List<SessionBasedWorkoutExerciseIntelligenceDto> getSessionBasedIntelligence(AbstractSpecification specification, UUID userId, Integer sessionsBack) {
 
-    List<Session> sessions = getSessions(specification, sessionsBack);
-    List<WorkoutExerciseIntelligenceDto> workoutExerciseIntelligenceDtos = new ArrayList<>();
+    List<Session> sessions = sessionService.getLastSessions(specification, sessionsBack);
+    List<SessionBasedWorkoutExerciseIntelligenceDto> sessionBasedWorkoutExerciseIntelligenceDtos = new ArrayList<>();
 
     List<UUID> exerciseIds = sessions.stream().map(Session::getWorkoutExercises).flatMap(Collection::stream).map(WorkoutExercise::getExerciseId).distinct().collect(Collectors.toList());
     Map<UUID, Exercise> exerciseMap = new HashMap<>();
@@ -45,8 +45,8 @@ public class WorkoutExerciseIntelligence {
       session.getWorkoutExercises().stream()
           .filter(we -> !we.getIsWarmup())
           .forEach(workoutExercise -> {
-            workoutExerciseIntelligenceDtos.add(
-                new WorkoutExerciseIntelligenceDto(
+            sessionBasedWorkoutExerciseIntelligenceDtos.add(
+                new SessionBasedWorkoutExerciseIntelligenceDto(
                     session.getCreationDateTime().toLocalDate(),
                     exerciseMap.get(workoutExercise.getExerciseId()).getName(),
                     workoutExercise.getTotalWorkoutExerciseWeight(),
@@ -57,17 +57,10 @@ public class WorkoutExerciseIntelligence {
       });
     });
 
-    return workoutExerciseIntelligenceDtos.stream()
-        .sorted(Comparator.comparing(WorkoutExerciseIntelligenceDto::getDate).reversed()
-            .thenComparing((WorkoutExerciseIntelligenceDto::getExerciseNumber)))
+    return sessionBasedWorkoutExerciseIntelligenceDtos.stream()
+        .sorted(Comparator.comparing(SessionBasedWorkoutExerciseIntelligenceDto::getDate).reversed()
+            .thenComparing((SessionBasedWorkoutExerciseIntelligenceDto::getExerciseNumber)))
         .collect(Collectors.toList());
-  }
-
-  private List<Session> getSessions(AbstractSpecification specification, Integer sessionsBack) {
-
-    List<Session> sessions = sessionService.getLastSessions(specification, sessionsBack);
-
-    return sessions;
   }
 
   public List<BodyDistribution> getBodyIntelligence(List<Session> sessions) {

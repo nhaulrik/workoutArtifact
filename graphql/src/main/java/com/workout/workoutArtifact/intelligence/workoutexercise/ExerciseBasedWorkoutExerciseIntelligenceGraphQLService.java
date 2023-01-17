@@ -1,8 +1,8 @@
 package com.workout.workoutArtifact.intelligence.workoutexercise;
 
-import com.workout.workoutArtifact.application.intelligence.dto.ExerciseIntelligenceDto;
-import com.workout.workoutArtifact.application.intelligence.WorkoutExerciseIntelligence;
-import com.workout.workoutArtifact.application.intelligence.dto.WorkoutExerciseIntelligenceDto;
+import com.workout.workoutArtifact.application.intelligence.ExerciseBasedWorkoutExerciseIntelligence;
+import com.workout.workoutArtifact.application.intelligence.dto.ExerciseBasedWorkoutExerciseIntelligenceDto;
+import com.workout.workoutArtifact.application.intelligence.dto.SessionBasedWorkoutExerciseIntelligenceDto;
 import com.workout.workoutArtifact.configuration.GraphQLSPQRConfig;
 import com.workout.workoutArtifact.session.Session;
 import com.workout.workoutArtifact.specification.AbstractSpecification;
@@ -21,17 +21,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class WorkoutExerciseIntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLService {
+public class ExerciseBasedWorkoutExerciseIntelligenceGraphQLService implements GraphQLSPQRConfig.GraphQLService {
 
-  private final WorkoutExerciseIntelligence workoutExerciseIntelligence;
+  private final ExerciseBasedWorkoutExerciseIntelligence exerciseBasedWorkoutExerciseIntelligence;
 
   private final static Integer DEFAULT_SESSION_AMOUNT = 10;
 
-  @GraphQLQuery(name = "exerciseIntelligence")
-  public List<WorkoutExerciseIntelligenceDto> getExerciseIntelligence(
+  @GraphQLQuery(name = "exerciseBasedExerciseIntelligence")
+  public List<ExerciseBasedWorkoutExerciseIntelligenceDto> getExerciseIntelligence(
       @GraphQLArgument(name = "userId") UUID userId,
       @GraphQLArgument(name = "fromDateString") String fromDateString,
       @GraphQLArgument(name = "toDateString") String toDateString,
@@ -53,13 +54,13 @@ public class WorkoutExerciseIntelligenceGraphQLService implements GraphQLSPQRCon
 
     AbstractSpecification aggregatedSpecification = specifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification());
 
-    return workoutExerciseIntelligence.getIntelligence(aggregatedSpecification, userId, sessionsBack);
+    return exerciseBasedWorkoutExerciseIntelligence.getExerciseBasedWorkoutExerciseIntelligence(aggregatedSpecification, userId, sessionsBack);
   }
 
   private LocalDateTime getTime(String value) {
-      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-      LocalDate parsedDate = LocalDate.parse(value, dateTimeFormatter);
-      return LocalDateTime.of(parsedDate, LocalTime.MIN);
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    LocalDate parsedDate = LocalDate.parse(value, dateTimeFormatter);
+    return LocalDateTime.of(parsedDate, LocalTime.MIN);
   }
 
 }

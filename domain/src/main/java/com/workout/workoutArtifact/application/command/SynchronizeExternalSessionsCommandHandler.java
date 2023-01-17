@@ -4,6 +4,11 @@ import com.workout.workoutArtifact.session.ExternalSessionRepository;
 import com.workout.workoutArtifact.session.Session;
 import com.workout.workoutArtifact.session.Session.DateTimeSpecification;
 import com.workout.workoutArtifact.session.SessionRepository;
+import com.workout.workoutArtifact.specification.AbstractSpecification;
+import com.workout.workoutArtifact.specification.MatchNoneSpecification;
+import com.workout.workoutArtifact.user.StaticUsers;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +35,15 @@ public class SynchronizeExternalSessionsCommandHandler {
     List<Session> externalSessions = externalSessionRepository.getExternalSessions(UUID.randomUUID());
 
     externalSessions.forEach(externalSession -> {
-      List<Session> existingSessions = sessionRepository.getSessions(
-          new DateTimeSpecification(externalSession.getCreationDateTime()));
+
+      List<AbstractSpecification<Session>> sessionSpecifications = new ArrayList<>();
+      sessionSpecifications.add(new DateTimeSpecification(externalSession.getCreationDateTime()));
+      sessionSpecifications.add(new Session.UserIdsSpecification(Arrays.asList(StaticUsers.NIKOLAJ.id)));
+
+      AbstractSpecification aggregatedSpecification = sessionSpecifications.stream().reduce(AbstractSpecification::and).orElse(new MatchNoneSpecification());
+
+      List<Session> existingSessions = sessionRepository.getSessions(aggregatedSpecification);
+
       if (existingSessions.size() > 1) {
         log.warn("too many sessions found. unable to match external session");
         return;

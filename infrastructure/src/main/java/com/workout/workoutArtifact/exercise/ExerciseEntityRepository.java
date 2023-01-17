@@ -23,6 +23,7 @@ public class ExerciseEntityRepository implements ExerciseRepository {
   private final ExerciseEntityMapper exerciseEntityMapper;
 
   @Override
+  @Transactional
   public List<Exercise> getExercises(Specification<Exercise> exerciseSpecification) {
 
     org.springframework.data.jpa.domain.Specification<ExerciseEntity> jpaSpecification = exerciseSpecificationMapper.toJpaSpecification(exerciseSpecification);
