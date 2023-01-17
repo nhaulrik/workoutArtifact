@@ -19,11 +19,11 @@
 
   <properties>
     <java.version>1.8</java.version>
-    <liquibase-core.version>3.10.1</liquibase-core.version>
+    <liquibase-core.version>4.8.0</liquibase-core.version>
     <liquibase-maven-plugin.version>3.10.1</liquibase-maven-plugin.version>
     <liquibase-hibernate5.version>3.10.1</liquibase-hibernate5.version>
     <hibernate.version>5.4.17.Final</hibernate.version>
-    <liquibase.version>3.10.1</liquibase.version>
+    <liquibase.version>4.8.0</liquibase.version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
     <changelogName>to-be-changed</changelogName>
